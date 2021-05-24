@@ -16,20 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NfcReadEventTearOff {
   const _$NfcReadEventTearOff();
 
-  TagButtonClicked tagButtonClicked() {
-    return const TagButtonClicked();
-  }
-
-  TagCompleted tagCompleted() {
-    return const TagCompleted();
-  }
-
-  TagCancelledByUser tagCancelledByUser() {
-    return const TagCancelledByUser();
-  }
-
-  TagClear tagClear() {
-    return const TagClear();
+  _Started started() {
+    return const _Started();
   }
 }
 
@@ -40,35 +28,23 @@ const $NfcReadEvent = _$NfcReadEventTearOff();
 mixin _$NfcReadEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() tagButtonClicked,
-    required TResult Function() tagCompleted,
-    required TResult Function() tagCancelledByUser,
-    required TResult Function() tagClear,
+    required TResult Function() started,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? tagButtonClicked,
-    TResult Function()? tagCompleted,
-    TResult Function()? tagCancelledByUser,
-    TResult Function()? tagClear,
+    TResult Function()? started,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(TagButtonClicked value) tagButtonClicked,
-    required TResult Function(TagCompleted value) tagCompleted,
-    required TResult Function(TagCancelledByUser value) tagCancelledByUser,
-    required TResult Function(TagClear value) tagClear,
+    required TResult Function(_Started value) started,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(TagButtonClicked value)? tagButtonClicked,
-    TResult Function(TagCompleted value)? tagCompleted,
-    TResult Function(TagCancelledByUser value)? tagCancelledByUser,
-    TResult Function(TagClear value)? tagClear,
+    TResult Function(_Started value)? started,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -91,37 +67,34 @@ class _$NfcReadEventCopyWithImpl<$Res> implements $NfcReadEventCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $TagButtonClickedCopyWith<$Res> {
-  factory $TagButtonClickedCopyWith(
-          TagButtonClicked value, $Res Function(TagButtonClicked) then) =
-      _$TagButtonClickedCopyWithImpl<$Res>;
+abstract class _$StartedCopyWith<$Res> {
+  factory _$StartedCopyWith(_Started value, $Res Function(_Started) then) =
+      __$StartedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$TagButtonClickedCopyWithImpl<$Res>
-    extends _$NfcReadEventCopyWithImpl<$Res>
-    implements $TagButtonClickedCopyWith<$Res> {
-  _$TagButtonClickedCopyWithImpl(
-      TagButtonClicked _value, $Res Function(TagButtonClicked) _then)
-      : super(_value, (v) => _then(v as TagButtonClicked));
+class __$StartedCopyWithImpl<$Res> extends _$NfcReadEventCopyWithImpl<$Res>
+    implements _$StartedCopyWith<$Res> {
+  __$StartedCopyWithImpl(_Started _value, $Res Function(_Started) _then)
+      : super(_value, (v) => _then(v as _Started));
 
   @override
-  TagButtonClicked get _value => super._value as TagButtonClicked;
+  _Started get _value => super._value as _Started;
 }
 
 /// @nodoc
 
-class _$TagButtonClicked implements TagButtonClicked {
-  const _$TagButtonClicked();
+class _$_Started implements _Started {
+  const _$_Started();
 
   @override
   String toString() {
-    return 'NfcReadEvent.tagButtonClicked()';
+    return 'NfcReadEvent.started()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is TagButtonClicked);
+    return identical(this, other) || (other is _Started);
   }
 
   @override
@@ -130,25 +103,19 @@ class _$TagButtonClicked implements TagButtonClicked {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() tagButtonClicked,
-    required TResult Function() tagCompleted,
-    required TResult Function() tagCancelledByUser,
-    required TResult Function() tagClear,
+    required TResult Function() started,
   }) {
-    return tagButtonClicked();
+    return started();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? tagButtonClicked,
-    TResult Function()? tagCompleted,
-    TResult Function()? tagCancelledByUser,
-    TResult Function()? tagClear,
+    TResult Function()? started,
     required TResult orElse(),
   }) {
-    if (tagButtonClicked != null) {
-      return tagButtonClicked();
+    if (started != null) {
+      return started();
     }
     return orElse();
   }
@@ -156,310 +123,26 @@ class _$TagButtonClicked implements TagButtonClicked {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(TagButtonClicked value) tagButtonClicked,
-    required TResult Function(TagCompleted value) tagCompleted,
-    required TResult Function(TagCancelledByUser value) tagCancelledByUser,
-    required TResult Function(TagClear value) tagClear,
+    required TResult Function(_Started value) started,
   }) {
-    return tagButtonClicked(this);
+    return started(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(TagButtonClicked value)? tagButtonClicked,
-    TResult Function(TagCompleted value)? tagCompleted,
-    TResult Function(TagCancelledByUser value)? tagCancelledByUser,
-    TResult Function(TagClear value)? tagClear,
+    TResult Function(_Started value)? started,
     required TResult orElse(),
   }) {
-    if (tagButtonClicked != null) {
-      return tagButtonClicked(this);
+    if (started != null) {
+      return started(this);
     }
     return orElse();
   }
 }
 
-abstract class TagButtonClicked implements NfcReadEvent {
-  const factory TagButtonClicked() = _$TagButtonClicked;
-}
-
-/// @nodoc
-abstract class $TagCompletedCopyWith<$Res> {
-  factory $TagCompletedCopyWith(
-          TagCompleted value, $Res Function(TagCompleted) then) =
-      _$TagCompletedCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$TagCompletedCopyWithImpl<$Res> extends _$NfcReadEventCopyWithImpl<$Res>
-    implements $TagCompletedCopyWith<$Res> {
-  _$TagCompletedCopyWithImpl(
-      TagCompleted _value, $Res Function(TagCompleted) _then)
-      : super(_value, (v) => _then(v as TagCompleted));
-
-  @override
-  TagCompleted get _value => super._value as TagCompleted;
-}
-
-/// @nodoc
-
-class _$TagCompleted implements TagCompleted {
-  const _$TagCompleted();
-
-  @override
-  String toString() {
-    return 'NfcReadEvent.tagCompleted()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is TagCompleted);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() tagButtonClicked,
-    required TResult Function() tagCompleted,
-    required TResult Function() tagCancelledByUser,
-    required TResult Function() tagClear,
-  }) {
-    return tagCompleted();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? tagButtonClicked,
-    TResult Function()? tagCompleted,
-    TResult Function()? tagCancelledByUser,
-    TResult Function()? tagClear,
-    required TResult orElse(),
-  }) {
-    if (tagCompleted != null) {
-      return tagCompleted();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(TagButtonClicked value) tagButtonClicked,
-    required TResult Function(TagCompleted value) tagCompleted,
-    required TResult Function(TagCancelledByUser value) tagCancelledByUser,
-    required TResult Function(TagClear value) tagClear,
-  }) {
-    return tagCompleted(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(TagButtonClicked value)? tagButtonClicked,
-    TResult Function(TagCompleted value)? tagCompleted,
-    TResult Function(TagCancelledByUser value)? tagCancelledByUser,
-    TResult Function(TagClear value)? tagClear,
-    required TResult orElse(),
-  }) {
-    if (tagCompleted != null) {
-      return tagCompleted(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class TagCompleted implements NfcReadEvent {
-  const factory TagCompleted() = _$TagCompleted;
-}
-
-/// @nodoc
-abstract class $TagCancelledByUserCopyWith<$Res> {
-  factory $TagCancelledByUserCopyWith(
-          TagCancelledByUser value, $Res Function(TagCancelledByUser) then) =
-      _$TagCancelledByUserCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$TagCancelledByUserCopyWithImpl<$Res>
-    extends _$NfcReadEventCopyWithImpl<$Res>
-    implements $TagCancelledByUserCopyWith<$Res> {
-  _$TagCancelledByUserCopyWithImpl(
-      TagCancelledByUser _value, $Res Function(TagCancelledByUser) _then)
-      : super(_value, (v) => _then(v as TagCancelledByUser));
-
-  @override
-  TagCancelledByUser get _value => super._value as TagCancelledByUser;
-}
-
-/// @nodoc
-
-class _$TagCancelledByUser implements TagCancelledByUser {
-  const _$TagCancelledByUser();
-
-  @override
-  String toString() {
-    return 'NfcReadEvent.tagCancelledByUser()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is TagCancelledByUser);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() tagButtonClicked,
-    required TResult Function() tagCompleted,
-    required TResult Function() tagCancelledByUser,
-    required TResult Function() tagClear,
-  }) {
-    return tagCancelledByUser();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? tagButtonClicked,
-    TResult Function()? tagCompleted,
-    TResult Function()? tagCancelledByUser,
-    TResult Function()? tagClear,
-    required TResult orElse(),
-  }) {
-    if (tagCancelledByUser != null) {
-      return tagCancelledByUser();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(TagButtonClicked value) tagButtonClicked,
-    required TResult Function(TagCompleted value) tagCompleted,
-    required TResult Function(TagCancelledByUser value) tagCancelledByUser,
-    required TResult Function(TagClear value) tagClear,
-  }) {
-    return tagCancelledByUser(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(TagButtonClicked value)? tagButtonClicked,
-    TResult Function(TagCompleted value)? tagCompleted,
-    TResult Function(TagCancelledByUser value)? tagCancelledByUser,
-    TResult Function(TagClear value)? tagClear,
-    required TResult orElse(),
-  }) {
-    if (tagCancelledByUser != null) {
-      return tagCancelledByUser(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class TagCancelledByUser implements NfcReadEvent {
-  const factory TagCancelledByUser() = _$TagCancelledByUser;
-}
-
-/// @nodoc
-abstract class $TagClearCopyWith<$Res> {
-  factory $TagClearCopyWith(TagClear value, $Res Function(TagClear) then) =
-      _$TagClearCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$TagClearCopyWithImpl<$Res> extends _$NfcReadEventCopyWithImpl<$Res>
-    implements $TagClearCopyWith<$Res> {
-  _$TagClearCopyWithImpl(TagClear _value, $Res Function(TagClear) _then)
-      : super(_value, (v) => _then(v as TagClear));
-
-  @override
-  TagClear get _value => super._value as TagClear;
-}
-
-/// @nodoc
-
-class _$TagClear implements TagClear {
-  const _$TagClear();
-
-  @override
-  String toString() {
-    return 'NfcReadEvent.tagClear()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is TagClear);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() tagButtonClicked,
-    required TResult Function() tagCompleted,
-    required TResult Function() tagCancelledByUser,
-    required TResult Function() tagClear,
-  }) {
-    return tagClear();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? tagButtonClicked,
-    TResult Function()? tagCompleted,
-    TResult Function()? tagCancelledByUser,
-    TResult Function()? tagClear,
-    required TResult orElse(),
-  }) {
-    if (tagClear != null) {
-      return tagClear();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(TagButtonClicked value) tagButtonClicked,
-    required TResult Function(TagCompleted value) tagCompleted,
-    required TResult Function(TagCancelledByUser value) tagCancelledByUser,
-    required TResult Function(TagClear value) tagClear,
-  }) {
-    return tagClear(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(TagButtonClicked value)? tagButtonClicked,
-    TResult Function(TagCompleted value)? tagCompleted,
-    TResult Function(TagCancelledByUser value)? tagCancelledByUser,
-    TResult Function(TagClear value)? tagClear,
-    required TResult orElse(),
-  }) {
-    if (tagClear != null) {
-      return tagClear(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class TagClear implements NfcReadEvent {
-  const factory TagClear() = _$TagClear;
+abstract class _Started implements NfcReadEvent {
+  const factory _Started() = _$_Started;
 }
 
 /// @nodoc

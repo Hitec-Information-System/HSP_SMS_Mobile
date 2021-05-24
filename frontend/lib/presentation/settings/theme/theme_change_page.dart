@@ -1,38 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/application/settings/theme/theme_bloc.dart';
 import 'package:frontend/presentation/settings/theme/widgets/animated_toggle.dart';
+import 'package:rive/rive.dart';
 
 class ThemeChangePage extends StatefulWidget {
   @override
   _ThemeChangePageState createState() => _ThemeChangePageState();
 }
 
-class _ThemeChangePageState extends State<ThemeChangePage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
+class _ThemeChangePageState extends State<ThemeChangePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final riveFileName = 'assets/animation/theme_mode.riv';
+
+  Artboard? _riveArtboard;
+  SMIInput<bool>? _pressInput;
+  SMIInput<bool>? _isDarkInput;
 
   @override
   void initState() {
-    _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 250));
-    changeThemeMode(!context.read<ThemeBloc>().state.theme.isDark);
     super.initState();
+    rootBundle.load(riveFileName).then(
+      (data) {
+        // Load the RiveFile from the binary data.
+        final file = RiveFile.import(data);
+
+        // The artboard is the root of the animation and gets drawn in the Rive widget.
+        final artboard = file.mainArtboard;
+        final controller =
+            StateMachineController.fromArtboard(artboard, 'theme_state');
+        if (controller != null) {
+          artboard.addController(controller);
+          _pressInput = controller.findInput('onPressed');
+          _isDarkInput = controller.findInput('isDarkMode');
+
+          // 현재 theme 값 할당하기
+          _isDarkInput?.value = context.read<ThemeBloc>().state.theme.isDark;
+        }
+
+        setState(() => _riveArtboard = artboard);
+      },
+    );
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _isDarkInput?.controller.dispose();
+    _pressInput?.controller.dispose();
     super.dispose();
-  }
-
-  void changeThemeMode(bool isDarkMode) {
-    if (isDarkMode) {
-      _animationController.reverse(from: 1.0);
-    } else {
-      _animationController.forward(from: 0.0);
-    }
   }
 
   @override
@@ -49,46 +66,15 @@ class _ThemeChangePageState extends State<ThemeChangePage>
           margin: EdgeInsets.only(top: height * 0.1),
           child: Column(
             children: [
-              Stack(
-                children: [
-                  Container(
-                    width: width * 0.35,
-                    height: height * 0.35,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                            colors:
-                                context.read<ThemeBloc>().state.theme.gradient,
-                            begin: Alignment.bottomLeft,
-                            end: Alignment.topRight)),
-                  ),
-                  Transform.translate(
-                    offset: Offset(width * 0.09, height * 0.07),
-                    child: ScaleTransition(
-                      scale: _animationController.drive(
-                        Tween<double>(begin: 0.0, end: 1.1).chain(
-                          CurveTween(curve: Curves.decelerate),
-                        ),
-                      ),
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        width: width * .26,
-                        height: width * .26,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          // color: Colors.red,
-
-                          color: context
-                              .read<ThemeBloc>()
-                              .state
-                              .theme
-                              .themeData
-                              .backgroundColor,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+              SizedBox(
+                width: width * 0.5,
+                height: height * 0.35,
+                child: _riveArtboard != null
+                    ? Rive(
+                        artboard: _riveArtboard!,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(),
               ),
               SizedBox(
                 height: height * 0.01,
@@ -101,7 +87,7 @@ class _ThemeChangePageState extends State<ThemeChangePage>
               SizedBox(
                 height: height * 0.03,
               ),
-              Container(
+              SizedBox(
                 width: width * .6,
                 child: Text(
                   'Pop or subtle. Day and night. Customize your interface.',
@@ -117,7 +103,7 @@ class _ThemeChangePageState extends State<ThemeChangePage>
                   context
                       .read<ThemeBloc>()
                       .add(const ThemeEvent.themeChanged());
-                  changeThemeMode(context.read<ThemeBloc>().state.theme.isDark);
+                  _pressInput?.value = true;
                 },
               ),
             ],

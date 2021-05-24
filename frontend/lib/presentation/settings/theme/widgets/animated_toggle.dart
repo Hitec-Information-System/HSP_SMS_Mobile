@@ -15,49 +15,55 @@ class AnimatedToggle extends StatefulWidget {
 
 class _AnimatedToggleState extends State<AnimatedToggle>
     with SingleTickerProviderStateMixin {
+  bool _ignoring = false;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Container(
+    return SizedBox(
       width: width * .7,
       height: width * .13,
       child: Stack(
         children: [
-          GestureDetector(
-              onTap: () {
-                widget.onToggleCallback(1);
-              },
-              child: Container(
-                width: width * .7,
-                height: width * .13,
-                decoration: ShapeDecoration(
-                    color: context
-                        .read<ThemeBloc>()
-                        .state
-                        .theme
-                        .toggleBackgroundColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(width * .1))),
-                child: Row(
-                  children: List.generate(
-                      widget.values.length,
-                      (index) => Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: width * .1),
-                            child: Text(
-                              widget.values[index],
-                              style: TextStyle(
-                                  fontSize: width * .05,
-                                  fontWeight: FontWeight.bold,
-                                  color: context
-                                      .read<ThemeBloc>()
-                                      .state
-                                      .theme
-                                      .backgroundTextColor),
-                            ),
-                          )),
-                ),
-              )),
+          IgnorePointer(
+            ignoring: _ignoring,
+            child: GestureDetector(
+                onTap: () async {
+                  widget.onToggleCallback(1);
+                  // 애니메이션 로딩 되는 동안 터치 무시
+                  _ignoreTouchForLoad();
+                },
+                child: Container(
+                  width: width * .7,
+                  height: width * .13,
+                  decoration: ShapeDecoration(
+                      color: context
+                          .read<ThemeBloc>()
+                          .state
+                          .theme
+                          .toggleBackgroundColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(width * .1))),
+                  child: Row(
+                    children: List.generate(
+                        widget.values.length,
+                        (index) => Padding(
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: width * .1),
+                              child: Text(
+                                widget.values[index],
+                                style: TextStyle(
+                                    fontSize: width * .05,
+                                    fontWeight: FontWeight.bold,
+                                    color: context
+                                        .read<ThemeBloc>()
+                                        .state
+                                        .theme
+                                        .backgroundTextColor),
+                              ),
+                            )),
+                  ),
+                )),
+          ),
           AnimatedAlign(
             alignment: context.read<ThemeBloc>().state.theme.isDark
                 ? Alignment.centerRight
@@ -86,5 +92,15 @@ class _AnimatedToggleState extends State<AnimatedToggle>
         ],
       ),
     );
+  }
+
+  // 애니메이션 로딩 되는 동안 터치 무시
+  Future<void> _ignoreTouchForLoad() async {
+    _ignoring = true;
+    await Future.delayed(const Duration(milliseconds: 800), () {
+      setState(() {
+        _ignoring = false;
+      });
+    });
   }
 }
