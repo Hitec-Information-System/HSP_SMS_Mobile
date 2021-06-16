@@ -149,6 +149,13 @@ abstract class _Started implements NfcReadEvent {
 class _$NfcReadStateTearOff {
   const _$NfcReadStateTearOff();
 
+  _NfcReadState call({required NfcTagId tagId, required bool isSubmitting}) {
+    return _NfcReadState(
+      tagId: tagId,
+      isSubmitting: isSubmitting,
+    );
+  }
+
   _Initial initial() {
     return const _Initial();
   }
@@ -160,23 +167,27 @@ const $NfcReadState = _$NfcReadStateTearOff();
 /// @nodoc
 mixin _$NfcReadState {
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
+  TResult when<TResult extends Object?>(
+    TResult Function(NfcTagId tagId, bool isSubmitting) $default, {
     required TResult Function() initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(NfcTagId tagId, bool isSubmitting)? $default, {
     TResult Function()? initial,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
+  TResult map<TResult extends Object?>(
+    TResult Function(_NfcReadState value) $default, {
     required TResult Function(_Initial value) initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_NfcReadState value)? $default, {
     TResult Function(_Initial value)? initial,
     required TResult orElse(),
   }) =>
@@ -197,6 +208,135 @@ class _$NfcReadStateCopyWithImpl<$Res> implements $NfcReadStateCopyWith<$Res> {
   final NfcReadState _value;
   // ignore: unused_field
   final $Res Function(NfcReadState) _then;
+}
+
+/// @nodoc
+abstract class _$NfcReadStateCopyWith<$Res> {
+  factory _$NfcReadStateCopyWith(
+          _NfcReadState value, $Res Function(_NfcReadState) then) =
+      __$NfcReadStateCopyWithImpl<$Res>;
+  $Res call({NfcTagId tagId, bool isSubmitting});
+}
+
+/// @nodoc
+class __$NfcReadStateCopyWithImpl<$Res> extends _$NfcReadStateCopyWithImpl<$Res>
+    implements _$NfcReadStateCopyWith<$Res> {
+  __$NfcReadStateCopyWithImpl(
+      _NfcReadState _value, $Res Function(_NfcReadState) _then)
+      : super(_value, (v) => _then(v as _NfcReadState));
+
+  @override
+  _NfcReadState get _value => super._value as _NfcReadState;
+
+  @override
+  $Res call({
+    Object? tagId = freezed,
+    Object? isSubmitting = freezed,
+  }) {
+    return _then(_NfcReadState(
+      tagId: tagId == freezed
+          ? _value.tagId
+          : tagId // ignore: cast_nullable_to_non_nullable
+              as NfcTagId,
+      isSubmitting: isSubmitting == freezed
+          ? _value.isSubmitting
+          : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_NfcReadState implements _NfcReadState {
+  const _$_NfcReadState({required this.tagId, required this.isSubmitting});
+
+  @override
+  final NfcTagId tagId;
+  @override
+  final bool isSubmitting;
+
+  @override
+  String toString() {
+    return 'NfcReadState(tagId: $tagId, isSubmitting: $isSubmitting)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _NfcReadState &&
+            (identical(other.tagId, tagId) ||
+                const DeepCollectionEquality().equals(other.tagId, tagId)) &&
+            (identical(other.isSubmitting, isSubmitting) ||
+                const DeepCollectionEquality()
+                    .equals(other.isSubmitting, isSubmitting)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(tagId) ^
+      const DeepCollectionEquality().hash(isSubmitting);
+
+  @JsonKey(ignore: true)
+  @override
+  _$NfcReadStateCopyWith<_NfcReadState> get copyWith =>
+      __$NfcReadStateCopyWithImpl<_NfcReadState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(NfcTagId tagId, bool isSubmitting) $default, {
+    required TResult Function() initial,
+  }) {
+    return $default(tagId, isSubmitting);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(NfcTagId tagId, bool isSubmitting)? $default, {
+    TResult Function()? initial,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(tagId, isSubmitting);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_NfcReadState value) $default, {
+    required TResult Function(_Initial value) initial,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_NfcReadState value)? $default, {
+    TResult Function(_Initial value)? initial,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _NfcReadState implements NfcReadState {
+  const factory _NfcReadState(
+      {required NfcTagId tagId, required bool isSubmitting}) = _$_NfcReadState;
+
+  NfcTagId get tagId => throw _privateConstructorUsedError;
+  bool get isSubmitting => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$NfcReadStateCopyWith<_NfcReadState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -235,7 +375,8 @@ class _$_Initial implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
+  TResult when<TResult extends Object?>(
+    TResult Function(NfcTagId tagId, bool isSubmitting) $default, {
     required TResult Function() initial,
   }) {
     return initial();
@@ -243,7 +384,8 @@ class _$_Initial implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(NfcTagId tagId, bool isSubmitting)? $default, {
     TResult Function()? initial,
     required TResult orElse(),
   }) {
@@ -255,7 +397,8 @@ class _$_Initial implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
+  TResult map<TResult extends Object?>(
+    TResult Function(_NfcReadState value) $default, {
     required TResult Function(_Initial value) initial,
   }) {
     return initial(this);
@@ -263,7 +406,8 @@ class _$_Initial implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_NfcReadState value)? $default, {
     TResult Function(_Initial value)? initial,
     required TResult orElse(),
   }) {

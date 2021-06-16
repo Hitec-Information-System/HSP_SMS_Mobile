@@ -21,7 +21,7 @@ class ThemeAnimationHook extends Hook<Artboard> {
 
 class ThemeAnimationHookState extends HookState<Artboard, ThemeAnimationHook> {
   late Artboard _artboard;
-  // late StateMachineController _controller;
+  late StateMachineController _controller;
   late SMIInput<bool> _pressInput;
   late SMIInput<bool> _isDarkInput;
 
