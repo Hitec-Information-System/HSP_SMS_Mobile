@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:frontend/application/settings/theme/theme_bloc.dart';
 import 'package:rive/rive.dart';
 
 Artboard useThemeControllerForRive({required String fileName}) {
@@ -41,7 +40,7 @@ class ThemeAnimationHookState extends HookState<Artboard, ThemeAnimationHook> {
         _isDarkInput = controller.findInput('isDarkMode')!;
 
         // 현재 theme 값 할당하기
-        _isDarkInput.value = context.read<ThemeBloc>().state.theme.isDark;
+        // _isDarkInput.value = context.read<ThemeBloc>().state.theme.isDark;
       }
       _artboard = artboard;
     });

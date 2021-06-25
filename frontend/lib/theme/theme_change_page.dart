@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/application/settings/theme/theme_bloc.dart';
-import 'package:frontend/presentation/settings/theme/widgets/animated_toggle.dart';
+import 'package:frontend/theme/widgets/animated_toggle.dart';
 import 'package:rive/rive.dart';
 
 class ThemeChangePage extends StatefulWidget {
@@ -37,7 +35,7 @@ class _ThemeChangePageState extends State<ThemeChangePage> {
           _isDarkInput = controller.findInput('isDarkMode');
 
           // 현재 theme 값 할당하기
-          _isDarkInput?.value = context.read<ThemeBloc>().state.theme.isDark;
+          // _isDarkInput?.value = context.read<ThemeBloc>().state.theme.isDark;
         }
 
         setState(() => _riveArtboard = artboard);
@@ -100,9 +98,9 @@ class _ThemeChangePageState extends State<ThemeChangePage> {
               AnimatedToggle(
                 values: ['Light', 'Dark'],
                 onToggleCallback: (v) {
-                  context
-                      .read<ThemeBloc>()
-                      .add(const ThemeEvent.themeChanged());
+                  // context
+                  //     .read<ThemeBloc>()
+                  //     .add(const ThemeEvent.themeChanged());
                   _pressInput?.value = true;
                 },
               ),

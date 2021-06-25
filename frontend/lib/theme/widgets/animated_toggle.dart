@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/application/settings/theme/theme_bloc.dart';
 
 class AnimatedToggle extends StatefulWidget {
   final List<String> values;
@@ -36,11 +35,11 @@ class _AnimatedToggleState extends State<AnimatedToggle>
                   width: width * .7,
                   height: width * .13,
                   decoration: ShapeDecoration(
-                      color: context
-                          .read<ThemeBloc>()
-                          .state
-                          .theme
-                          .toggleBackgroundColor,
+                      // color: context
+                      //     .read<ThemeBloc>()
+                      //     .state
+                      //     .theme
+                      //     .toggleBackgroundColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(width * .1))),
                   child: Row(
@@ -52,22 +51,24 @@ class _AnimatedToggleState extends State<AnimatedToggle>
                               child: Text(
                                 widget.values[index],
                                 style: TextStyle(
-                                    fontSize: width * .05,
-                                    fontWeight: FontWeight.bold,
-                                    color: context
-                                        .read<ThemeBloc>()
-                                        .state
-                                        .theme
-                                        .backgroundTextColor),
+                                  fontSize: width * .05,
+                                  fontWeight: FontWeight.bold,
+                                  // color: context
+                                  //     .read<ThemeBloc>()
+                                  //     .state
+                                  //     .theme
+                                  //     .backgroundTextColor,
+                                ),
                               ),
                             )),
                   ),
                 )),
           ),
           AnimatedAlign(
-            alignment: context.read<ThemeBloc>().state.theme.isDark
-                ? Alignment.centerRight
-                : Alignment.centerLeft,
+            // alignment: context.read<ThemeBloc>().state.theme.isDark
+            //     ? Alignment.centerRight
+            //     : Alignment.centerLeft,
+            alignment: Alignment.centerRight,
             duration: const Duration(milliseconds: 250),
             curve: Curves.ease,
             child: Container(
@@ -75,15 +76,16 @@ class _AnimatedToggleState extends State<AnimatedToggle>
               width: width * .35,
               height: width * .13,
               decoration: ShapeDecoration(
-                  color:
-                      context.read<ThemeBloc>().state.theme.toggleButtonColor,
-                  shadows: context.read<ThemeBloc>().state.theme.shadow,
+                  // color:
+                  //     context.read<ThemeBloc>().state.theme.toggleButtonColor,
+                  // shadows: context.read<ThemeBloc>().state.theme.shadow,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(width * .1))),
               child: Text(
-                context.read<ThemeBloc>().state.theme.isDark
-                    ? widget.values[1]
-                    : widget.values[0],
+                // context.read<ThemeBloc>().state.theme.isDark
+                //     ? widget.values[1]
+                //     : widget.values[0],
+                "",
                 style: TextStyle(
                     fontSize: width * .045, fontWeight: FontWeight.bold),
               ),
