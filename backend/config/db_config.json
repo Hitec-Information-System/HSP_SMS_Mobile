@@ -1,0 +1,8 @@
+{
+  "host": "db.hitecis.co.kr",
+  "port": "1527",
+  "user": "hs_matos",
+  "pwd": "hwashin",
+  "table": "orcl"
+}
+
