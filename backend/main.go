@@ -5,16 +5,21 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/go-redis/redis/v8"
 	"hitecis.co.kr/hwashin_nfc/core"
 	"hitecis.co.kr/hwashin_nfc/handler"
 )
 
 const PORT = 3000
 
+var client *redis.Client
+
 func main() {
 
 	// will be deprecated
 	config := core.LoadDbConfig()
+
+	core.RedisInit()
 
 	dbConn := fmt.Sprintf(`%s/%s@%s:%s/%s`, config.User, config.Password, config.Host, config.Port, config.Table)
 

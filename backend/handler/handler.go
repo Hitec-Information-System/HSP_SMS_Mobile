@@ -31,6 +31,7 @@ func MakeHandler(dbConn string) *AppHandler {
 
 	r.HandleFunc("/", indexHandler)
 	r.HandleFunc("/data", a.getData).Methods("GET")
+	r.HandleFunc("/signin", signInHandler).Methods("POST")
 
 	return a
 
