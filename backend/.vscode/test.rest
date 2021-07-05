@@ -10,3 +10,27 @@ content-type: application/json
 	"password": "password"
 }
 ###
+POST http://localhost:3000/todo HTTP/2.0
+content-type: application/json 
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjdmOWU4YjM4LTRlOGMtNGIxOC04ZThmLTEzNGVkM2I0MjE5ZSIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTYyNTQ3NTA5NiwidXNlcl9pZCI6MX0.PrZaOgKteufaiv1h7RhLGdLXs2Z1L7y7OufSPeQ_508
+
+{
+	"title": "test todo"
+}
+###
+POST http://localhost:3000/signout HTTP/2.0
+content-type: application/json 
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjdmOWU4YjM4LTRlOGMtNGIxOC04ZThmLTEzNGVkM2I0MjE5ZSIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTYyNTQ3NTA5NiwidXNlcl9pZCI6MX0.PrZaOgKteufaiv1h7RhLGdLXs2Z1L7y7OufSPeQ_508
+
+{
+
+}
+###
+POST http://localhost:3000/token/refresh HTTP/2.0
+content-type: application/json 
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjdmOWU4YjM4LTRlOGMtNGIxOC04ZThmLTEzNGVkM2I0MjE5ZSIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTYyNTQ3NTA5NiwidXNlcl9pZCI6MX0.PrZaOgKteufaiv1h7RhLGdLXs2Z1L7y7OufSPeQ_508
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjYwNzg5OTYsInJlZnJlc2hfdXVpZCI6ImQ0ZTg0MTU3LTk4YjctNGE4Yy04MmM2LWZmNjJkODk5OTViNCIsInVzZXJfaWQiOjF9.lcbgqVoZdOUx6Z130nb0OB-dN7xgZFAsF88DExJ_JIA"
+}
+###

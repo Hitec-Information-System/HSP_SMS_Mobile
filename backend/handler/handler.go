@@ -17,7 +17,7 @@ type AppHandler struct {
 	db repository.DBRepository
 }
 
-func MakeHandler(dbConn string) *AppHandler {
+func MakeHandler() *AppHandler {
 	r := mux.NewRouter()
 
 	n := negroni.New()
@@ -26,12 +26,15 @@ func MakeHandler(dbConn string) *AppHandler {
 
 	a := &AppHandler{
 		Handler: n,
-		db:      repository.NewDBRepository(dbConn),
+		db:      repository.NewDBRepository(),
 	}
 
 	r.HandleFunc("/", indexHandler)
 	r.HandleFunc("/data", a.getData).Methods("GET")
 	r.HandleFunc("/signin", signInHandler).Methods("POST")
+	r.HandleFunc("/signout", signOutHandler).Methods("POST")
+	r.HandleFunc("/token/refresh", refreshHandler).Methods("POST")
+	r.HandleFunc("/todo", CreateTodo).Methods("POST")
 
 	return a
 

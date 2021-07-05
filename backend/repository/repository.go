@@ -5,6 +5,6 @@ type DBRepository interface {
 	Close()
 }
 
-func NewDBRepository(dbConn string) DBRepository {
-	return NewOracleRepository(dbConn)
+func NewDBRepository() DBRepository {
+	return NewOracleRepository()
 }

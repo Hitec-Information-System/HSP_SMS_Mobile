@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	_ "github.com/godror/godror"
+	"github.com/spf13/viper"
 )
 
 type OracleRepository struct {
@@ -67,9 +68,9 @@ func (o *OracleRepository) GetData() ([]interface{}, error) {
 
 }
 
-func NewOracleRepository(dbConn string) DBRepository {
+func NewOracleRepository() DBRepository {
 
-	database, err := sql.Open("godror", dbConn)
+	database, err := sql.Open("godror", getDbConnString())
 	if err != nil {
 		panic(err)
 	}
@@ -77,4 +78,15 @@ func NewOracleRepository(dbConn string) DBRepository {
 	fmt.Println("DB is Connected!")
 
 	return &OracleRepository{db: database}
+}
+
+func getDbConnString() (dbConnString string) {
+	dbHost := viper.GetString(`database.host`)
+	dbUser := viper.GetString(`database.user`)
+	dbPort := viper.GetString(`database.port`)
+	dbPass := viper.GetString(`database.pass`)
+	dbName := viper.GetString(`database.name`)
+
+	dbConnString = fmt.Sprintf(`%s/%s@%s:%s/%s`, dbUser, dbPass, dbHost, dbPort, dbName)
+	return
 }

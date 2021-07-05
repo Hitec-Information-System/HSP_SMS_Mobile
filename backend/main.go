@@ -17,13 +17,11 @@ var client *redis.Client
 func main() {
 
 	// will be deprecated
-	config := core.LoadDbConfig()
 
+	core.ViperInit()
 	core.RedisInit()
 
-	dbConn := fmt.Sprintf(`%s/%s@%s:%s/%s`, config.User, config.Password, config.Host, config.Port, config.Table)
-
-	m := handler.MakeHandler(dbConn)
+	m := handler.MakeHandler()
 	defer m.Close()
 
 	log.Println("Started App")
