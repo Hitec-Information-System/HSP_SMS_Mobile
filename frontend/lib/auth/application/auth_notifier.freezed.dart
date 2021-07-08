@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'nfc_notifier.dart';
+part of 'auth_notifier.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$NfcStateTearOff {
-  const _$NfcStateTearOff();
+class _$AuthStateTearOff {
+  const _$AuthStateTearOff();
 
   _Initial initial() {
     return const _Initial();
   }
 
-  _Reading reading() {
-    return const _Reading();
+  _Unauthenticated unauthenticated() {
+    return const _Unauthenticated();
   }
 
-  _Read read() {
-    return const _Read();
+  _Authenticated authenticated() {
+    return const _Authenticated();
   }
 
-  _Failure failure(NfcFailure failure) {
+  _Failure failure(AuthFailure failure) {
     return _Failure(
       failure,
     );
@@ -36,40 +36,40 @@ class _$NfcStateTearOff {
 }
 
 /// @nodoc
-const $NfcState = _$NfcStateTearOff();
+const $AuthState = _$AuthStateTearOff();
 
 /// @nodoc
-mixin _$NfcState {
+mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() reading,
-    required TResult Function() read,
-    required TResult Function(NfcFailure failure) failure,
+    required TResult Function() unauthenticated,
+    required TResult Function() authenticated,
+    required TResult Function(AuthFailure failure) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? reading,
-    TResult Function()? read,
-    TResult Function(NfcFailure failure)? failure,
+    TResult Function()? unauthenticated,
+    TResult Function()? authenticated,
+    TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Reading value) reading,
-    required TResult Function(_Read value) read,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Failure value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Reading value)? reading,
-    TResult Function(_Read value)? read,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) =>
@@ -77,18 +77,18 @@ mixin _$NfcState {
 }
 
 /// @nodoc
-abstract class $NfcStateCopyWith<$Res> {
-  factory $NfcStateCopyWith(NfcState value, $Res Function(NfcState) then) =
-      _$NfcStateCopyWithImpl<$Res>;
+abstract class $AuthStateCopyWith<$Res> {
+  factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
+      _$AuthStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$NfcStateCopyWithImpl<$Res> implements $NfcStateCopyWith<$Res> {
-  _$NfcStateCopyWithImpl(this._value, this._then);
+class _$AuthStateCopyWithImpl<$Res> implements $AuthStateCopyWith<$Res> {
+  _$AuthStateCopyWithImpl(this._value, this._then);
 
-  final NfcState _value;
+  final AuthState _value;
   // ignore: unused_field
-  final $Res Function(NfcState) _then;
+  final $Res Function(AuthState) _then;
 }
 
 /// @nodoc
@@ -98,7 +98,7 @@ abstract class _$InitialCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$InitialCopyWithImpl<$Res> extends _$NfcStateCopyWithImpl<$Res>
+class __$InitialCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
     implements _$InitialCopyWith<$Res> {
   __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
       : super(_value, (v) => _then(v as _Initial));
@@ -114,7 +114,7 @@ class _$_Initial extends _Initial {
 
   @override
   String toString() {
-    return 'NfcState.initial()';
+    return 'AuthState.initial()';
   }
 
   @override
@@ -129,9 +129,9 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() reading,
-    required TResult Function() read,
-    required TResult Function(NfcFailure failure) failure,
+    required TResult Function() unauthenticated,
+    required TResult Function() authenticated,
+    required TResult Function(AuthFailure failure) failure,
   }) {
     return initial();
   }
@@ -140,9 +140,9 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? reading,
-    TResult Function()? read,
-    TResult Function(NfcFailure failure)? failure,
+    TResult Function()? unauthenticated,
+    TResult Function()? authenticated,
+    TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -155,8 +155,8 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Reading value) reading,
-    required TResult Function(_Read value) read,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Failure value) failure,
   }) {
     return initial(this);
@@ -166,8 +166,8 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Reading value)? reading,
-    TResult Function(_Read value)? read,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -178,40 +178,42 @@ class _$_Initial extends _Initial {
   }
 }
 
-abstract class _Initial extends NfcState {
+abstract class _Initial extends AuthState {
   const factory _Initial() = _$_Initial;
   const _Initial._() : super._();
 }
 
 /// @nodoc
-abstract class _$ReadingCopyWith<$Res> {
-  factory _$ReadingCopyWith(_Reading value, $Res Function(_Reading) then) =
-      __$ReadingCopyWithImpl<$Res>;
+abstract class _$UnauthenticatedCopyWith<$Res> {
+  factory _$UnauthenticatedCopyWith(
+          _Unauthenticated value, $Res Function(_Unauthenticated) then) =
+      __$UnauthenticatedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$ReadingCopyWithImpl<$Res> extends _$NfcStateCopyWithImpl<$Res>
-    implements _$ReadingCopyWith<$Res> {
-  __$ReadingCopyWithImpl(_Reading _value, $Res Function(_Reading) _then)
-      : super(_value, (v) => _then(v as _Reading));
+class __$UnauthenticatedCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
+    implements _$UnauthenticatedCopyWith<$Res> {
+  __$UnauthenticatedCopyWithImpl(
+      _Unauthenticated _value, $Res Function(_Unauthenticated) _then)
+      : super(_value, (v) => _then(v as _Unauthenticated));
 
   @override
-  _Reading get _value => super._value as _Reading;
+  _Unauthenticated get _value => super._value as _Unauthenticated;
 }
 
 /// @nodoc
 
-class _$_Reading extends _Reading {
-  const _$_Reading() : super._();
+class _$_Unauthenticated extends _Unauthenticated {
+  const _$_Unauthenticated() : super._();
 
   @override
   String toString() {
-    return 'NfcState.reading()';
+    return 'AuthState.unauthenticated()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Reading);
+    return identical(this, other) || (other is _Unauthenticated);
   }
 
   @override
@@ -221,24 +223,24 @@ class _$_Reading extends _Reading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() reading,
-    required TResult Function() read,
-    required TResult Function(NfcFailure failure) failure,
+    required TResult Function() unauthenticated,
+    required TResult Function() authenticated,
+    required TResult Function(AuthFailure failure) failure,
   }) {
-    return reading();
+    return unauthenticated();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? reading,
-    TResult Function()? read,
-    TResult Function(NfcFailure failure)? failure,
+    TResult Function()? unauthenticated,
+    TResult Function()? authenticated,
+    TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
-    if (reading != null) {
-      return reading();
+    if (unauthenticated != null) {
+      return unauthenticated();
     }
     return orElse();
   }
@@ -247,63 +249,65 @@ class _$_Reading extends _Reading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Reading value) reading,
-    required TResult Function(_Read value) read,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Failure value) failure,
   }) {
-    return reading(this);
+    return unauthenticated(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Reading value)? reading,
-    TResult Function(_Read value)? read,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
-    if (reading != null) {
-      return reading(this);
+    if (unauthenticated != null) {
+      return unauthenticated(this);
     }
     return orElse();
   }
 }
 
-abstract class _Reading extends NfcState {
-  const factory _Reading() = _$_Reading;
-  const _Reading._() : super._();
+abstract class _Unauthenticated extends AuthState {
+  const factory _Unauthenticated() = _$_Unauthenticated;
+  const _Unauthenticated._() : super._();
 }
 
 /// @nodoc
-abstract class _$ReadCopyWith<$Res> {
-  factory _$ReadCopyWith(_Read value, $Res Function(_Read) then) =
-      __$ReadCopyWithImpl<$Res>;
+abstract class _$AuthenticatedCopyWith<$Res> {
+  factory _$AuthenticatedCopyWith(
+          _Authenticated value, $Res Function(_Authenticated) then) =
+      __$AuthenticatedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$ReadCopyWithImpl<$Res> extends _$NfcStateCopyWithImpl<$Res>
-    implements _$ReadCopyWith<$Res> {
-  __$ReadCopyWithImpl(_Read _value, $Res Function(_Read) _then)
-      : super(_value, (v) => _then(v as _Read));
+class __$AuthenticatedCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
+    implements _$AuthenticatedCopyWith<$Res> {
+  __$AuthenticatedCopyWithImpl(
+      _Authenticated _value, $Res Function(_Authenticated) _then)
+      : super(_value, (v) => _then(v as _Authenticated));
 
   @override
-  _Read get _value => super._value as _Read;
+  _Authenticated get _value => super._value as _Authenticated;
 }
 
 /// @nodoc
 
-class _$_Read extends _Read {
-  const _$_Read() : super._();
+class _$_Authenticated extends _Authenticated {
+  const _$_Authenticated() : super._();
 
   @override
   String toString() {
-    return 'NfcState.read()';
+    return 'AuthState.authenticated()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Read);
+    return identical(this, other) || (other is _Authenticated);
   }
 
   @override
@@ -313,24 +317,24 @@ class _$_Read extends _Read {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() reading,
-    required TResult Function() read,
-    required TResult Function(NfcFailure failure) failure,
+    required TResult Function() unauthenticated,
+    required TResult Function() authenticated,
+    required TResult Function(AuthFailure failure) failure,
   }) {
-    return read();
+    return authenticated();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? reading,
-    TResult Function()? read,
-    TResult Function(NfcFailure failure)? failure,
+    TResult Function()? unauthenticated,
+    TResult Function()? authenticated,
+    TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
-    if (read != null) {
-      return read();
+    if (authenticated != null) {
+      return authenticated();
     }
     return orElse();
   }
@@ -339,45 +343,45 @@ class _$_Read extends _Read {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Reading value) reading,
-    required TResult Function(_Read value) read,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Failure value) failure,
   }) {
-    return read(this);
+    return authenticated(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Reading value)? reading,
-    TResult Function(_Read value)? read,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
-    if (read != null) {
-      return read(this);
+    if (authenticated != null) {
+      return authenticated(this);
     }
     return orElse();
   }
 }
 
-abstract class _Read extends NfcState {
-  const factory _Read() = _$_Read;
-  const _Read._() : super._();
+abstract class _Authenticated extends AuthState {
+  const factory _Authenticated() = _$_Authenticated;
+  const _Authenticated._() : super._();
 }
 
 /// @nodoc
 abstract class _$FailureCopyWith<$Res> {
   factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) then) =
       __$FailureCopyWithImpl<$Res>;
-  $Res call({NfcFailure failure});
+  $Res call({AuthFailure failure});
 
-  $NfcFailureCopyWith<$Res> get failure;
+  $AuthFailureCopyWith<$Res> get failure;
 }
 
 /// @nodoc
-class __$FailureCopyWithImpl<$Res> extends _$NfcStateCopyWithImpl<$Res>
+class __$FailureCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
     implements _$FailureCopyWith<$Res> {
   __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
       : super(_value, (v) => _then(v as _Failure));
@@ -393,13 +397,13 @@ class __$FailureCopyWithImpl<$Res> extends _$NfcStateCopyWithImpl<$Res>
       failure == freezed
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as NfcFailure,
+              as AuthFailure,
     ));
   }
 
   @override
-  $NfcFailureCopyWith<$Res> get failure {
-    return $NfcFailureCopyWith<$Res>(_value.failure, (value) {
+  $AuthFailureCopyWith<$Res> get failure {
+    return $AuthFailureCopyWith<$Res>(_value.failure, (value) {
       return _then(_value.copyWith(failure: value));
     });
   }
@@ -411,11 +415,11 @@ class _$_Failure extends _Failure {
   const _$_Failure(this.failure) : super._();
 
   @override
-  final NfcFailure failure;
+  final AuthFailure failure;
 
   @override
   String toString() {
-    return 'NfcState.failure(failure: $failure)';
+    return 'AuthState.failure(failure: $failure)';
   }
 
   @override
@@ -439,9 +443,9 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() reading,
-    required TResult Function() read,
-    required TResult Function(NfcFailure failure) failure,
+    required TResult Function() unauthenticated,
+    required TResult Function() authenticated,
+    required TResult Function(AuthFailure failure) failure,
   }) {
     return failure(this.failure);
   }
@@ -450,9 +454,9 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? reading,
-    TResult Function()? read,
-    TResult Function(NfcFailure failure)? failure,
+    TResult Function()? unauthenticated,
+    TResult Function()? authenticated,
+    TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -465,8 +469,8 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Reading value) reading,
-    required TResult Function(_Read value) read,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Failure value) failure,
   }) {
     return failure(this);
@@ -476,8 +480,8 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Reading value)? reading,
-    TResult Function(_Read value)? read,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -488,11 +492,11 @@ class _$_Failure extends _Failure {
   }
 }
 
-abstract class _Failure extends NfcState {
-  const factory _Failure(NfcFailure failure) = _$_Failure;
+abstract class _Failure extends AuthState {
+  const factory _Failure(AuthFailure failure) = _$_Failure;
   const _Failure._() : super._();
 
-  NfcFailure get failure => throw _privateConstructorUsedError;
+  AuthFailure get failure => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$FailureCopyWith<_Failure> get copyWith =>
       throw _privateConstructorUsedError;

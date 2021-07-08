@@ -7,7 +7,21 @@ class NfcReadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      child: Scaffold(),
+      child: Scaffold(
+        appBar: AppBar(),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(""),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text("Scan"),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

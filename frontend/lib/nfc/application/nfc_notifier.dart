@@ -9,6 +9,7 @@ part 'nfc_notifier.freezed.dart';
 class NfcState with _$NfcState {
   const NfcState._();
   const factory NfcState.initial() = _Initial;
+  const factory NfcState.reading() = _Reading;
   const factory NfcState.read() = _Read;
   const factory NfcState.failure(NfcFailure failure) = _Failure;
 }

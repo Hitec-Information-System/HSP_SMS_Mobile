@@ -1,3 +1,9 @@
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImY4MTlmNTY1LTc2NmItNDljMy04ODU3LTNkYTRkOTc3MDgxMCIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTYyNTcwNjg0MCwidXNlcl9pZCI6MX0.mCzAIASF_HVtDfPCCp4MZVskXLr9xnIpAdPResciuXo
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjYzMTA3NDAsInJlZnJlc2hfdXVpZCI6ImQ3M2ZhNTgzLTU2YzQtNDA2NS04ODg5LWE4OTc3OTdhY2E2OSIsInVzZXJfaWQiOjF9.QlneTRiAJ3y8J1E3UDD01rsq1mpN1z4AItWvyHh42hg
+
+# OAuth 응답은 다음과 같이 넘어옴
+# {"accessToken":"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","refreshToken":null,"idToken":null,"tokenEndpoint":"https://github.com/login/oauth/access_token","scopes":["read:user,repo"],"expiration":null}
+
 ###
 GET http://localhost:3000/data HTTP/2.0
 
@@ -12,7 +18,7 @@ content-type: application/json
 ###
 POST http://localhost:3000/todo HTTP/2.0
 content-type: application/json 
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjdmOWU4YjM4LTRlOGMtNGIxOC04ZThmLTEzNGVkM2I0MjE5ZSIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTYyNTQ3NTA5NiwidXNlcl9pZCI6MX0.PrZaOgKteufaiv1h7RhLGdLXs2Z1L7y7OufSPeQ_508
+Authorization: bearer {{accessToken}}
 
 {
 	"title": "test todo"
@@ -20,17 +26,17 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6I
 ###
 POST http://localhost:3000/signout HTTP/2.0
 content-type: application/json 
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjdmOWU4YjM4LTRlOGMtNGIxOC04ZThmLTEzNGVkM2I0MjE5ZSIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTYyNTQ3NTA5NiwidXNlcl9pZCI6MX0.PrZaOgKteufaiv1h7RhLGdLXs2Z1L7y7OufSPeQ_508
+Authorization: bearer {{accessToken}}
 
 {
 
 }
 ###
-POST http://localhost:3000/token/refresh HTTP/2.0
+POST http://localhost:3000/token HTTP/2.0
 content-type: application/json 
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjdmOWU4YjM4LTRlOGMtNGIxOC04ZThmLTEzNGVkM2I0MjE5ZSIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTYyNTQ3NTA5NiwidXNlcl9pZCI6MX0.PrZaOgKteufaiv1h7RhLGdLXs2Z1L7y7OufSPeQ_508
+Authorization: bearer {{accessToken}}
 
 {
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjYwNzg5OTYsInJlZnJlc2hfdXVpZCI6ImQ0ZTg0MTU3LTk4YjctNGE4Yy04MmM2LWZmNjJkODk5OTViNCIsInVzZXJfaWQiOjF9.lcbgqVoZdOUx6Z130nb0OB-dN7xgZFAsF88DExJ_JIA"
+  "refresh_token": "{{refreshToken}}"
 }
 ###
