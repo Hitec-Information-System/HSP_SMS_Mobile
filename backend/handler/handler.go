@@ -33,8 +33,8 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/", indexHandler)
 	r.HandleFunc("/data", a.getData).Methods("GET")
-	r.HandleFunc("/signin", a.getUser).Methods("POST")
-	r.HandleFunc("/signout", signOutHandler).Methods("POST")
+	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
+	r.HandleFunc("/sign-out", signOutHandler).Methods("DELETE")
 	r.HandleFunc("/token", refreshHandler).Methods("POST")
 	r.HandleFunc("/todo", CreateTodo).Methods("POST")
 
@@ -100,9 +100,11 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	tokens := map[string]string{
-		"access_token":  ts.AccessToken,
-		"refresh_token": ts.RefreshToken,
+	tokens := map[string]interface{}{
+		"accessToken":  ts.AccessToken,
+		"refreshToken": ts.RefreshToken,
+		"expiration":   ts.RtExpires,
+		"scopes":       []string{},
 	}
 
 	rd.JSON(w, http.StatusOK, tokens)

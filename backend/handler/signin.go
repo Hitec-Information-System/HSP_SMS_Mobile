@@ -34,7 +34,7 @@ func CreateToken(userid string) (*model.TokenDetails, error) {
 	atClaims["authorized"] = true
 	atClaims["access_uuid"] = td.AccessUuid
 	atClaims["user_id"] = userid
-	atClaims["exp"] = td.AtExpires
+	atClaims["expiration"] = td.AtExpires
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 	td.AccessToken, err = at.SignedString([]byte(ACCESS_SECRET))
 	if err != nil {
@@ -44,7 +44,7 @@ func CreateToken(userid string) (*model.TokenDetails, error) {
 	rtClaims := jwt.MapClaims{}
 	rtClaims["refresh_uuid"] = td.RefreshUuid
 	rtClaims["user_id"] = userid
-	rtClaims["exp"] = td.RtExpires
+	rtClaims["expiration"] = td.RtExpires
 	rt := jwt.NewWithClaims(jwt.SigningMethodHS256, rtClaims)
 	td.RefreshToken, err = rt.SignedString([]byte(REFRESH_SECRET))
 	if err != nil {
@@ -116,20 +116,21 @@ func TokenValid(r *http.Request) error {
 // redis에서 조회해야 하는 메타데이터 추출
 func ExtractTokenMetadata(r *http.Request) (*model.AccessDetails, error) {
 	token, err := VerifyToken(r)
+
 	if err != nil {
 		return nil, err
 	}
 	claims, ok := token.Claims.(jwt.MapClaims)
+
 	if ok && token.Valid {
+
 		accessUuid, ok := claims["access_uuid"].(string)
 		if !ok {
 			return nil, err
 		}
 
-		userId, err := strconv.ParseUint(fmt.Sprintf("%.f", claims["user_id"]), 10, 64)
-		if err != nil {
-			return nil, err
-		}
+		userId := fmt.Sprintf("%v", claims["user_id"])
+
 		return &model.AccessDetails{
 			AccessUuid: accessUuid,
 			UserId:     userId,
@@ -161,16 +162,23 @@ func DeleteAuth(givenUuid string) (int64, error) {
 }
 
 func signOutHandler(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("signout started!!!")
+
 	au, err := ExtractTokenMetadata(r)
+
 	if err != nil {
 		rd.JSON(w, http.StatusUnauthorized, "unauthorized")
 		return
 	}
+
 	deleted, delErr := DeleteAuth(au.AccessUuid)
+
 	if delErr != nil || deleted == 0 {
 		rd.JSON(w, http.StatusUnauthorized, "unauthorized")
 		return
 	}
+
 	rd.JSON(w, http.StatusOK, "Successfully logged out")
 }
 

@@ -34,5 +34,6 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	td.UserID = userid
 
 	rd.JSON(w, http.StatusCreated, td)
+	return
 
 }
