@@ -16,14 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AuthFailureTearOff {
   const _$AuthFailureTearOff();
 
+  _Storage storage() {
+    return const _Storage();
+  }
+
   _Server server([String? message]) {
     return _Server(
       message,
     );
   }
 
-  _Storage storage() {
-    return const _Storage();
+  _InvalidIdPwd invalidIdPwd([String? message]) {
+    return _InvalidIdPwd(
+      message,
+    );
   }
 }
 
@@ -34,27 +40,31 @@ const $AuthFailure = _$AuthFailureTearOff();
 mixin _$AuthFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? message) server,
     required TResult Function() storage,
+    required TResult Function(String? message) server,
+    required TResult Function(String? message) invalidIdPwd,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? message)? server,
     TResult Function()? storage,
+    TResult Function(String? message)? server,
+    TResult Function(String? message)? invalidIdPwd,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Server value) server,
     required TResult Function(_Storage value) storage,
+    required TResult Function(_Server value) server,
+    required TResult Function(_InvalidIdPwd value) invalidIdPwd,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Server value)? server,
     TResult Function(_Storage value)? storage,
+    TResult Function(_Server value)? server,
+    TResult Function(_InvalidIdPwd value)? invalidIdPwd,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -74,6 +84,94 @@ class _$AuthFailureCopyWithImpl<$Res> implements $AuthFailureCopyWith<$Res> {
   final AuthFailure _value;
   // ignore: unused_field
   final $Res Function(AuthFailure) _then;
+}
+
+/// @nodoc
+abstract class _$StorageCopyWith<$Res> {
+  factory _$StorageCopyWith(_Storage value, $Res Function(_Storage) then) =
+      __$StorageCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$StorageCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+    implements _$StorageCopyWith<$Res> {
+  __$StorageCopyWithImpl(_Storage _value, $Res Function(_Storage) _then)
+      : super(_value, (v) => _then(v as _Storage));
+
+  @override
+  _Storage get _value => super._value as _Storage;
+}
+
+/// @nodoc
+
+class _$_Storage extends _Storage {
+  const _$_Storage() : super._();
+
+  @override
+  String toString() {
+    return 'AuthFailure.storage()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Storage);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() storage,
+    required TResult Function(String? message) server,
+    required TResult Function(String? message) invalidIdPwd,
+  }) {
+    return storage();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? storage,
+    TResult Function(String? message)? server,
+    TResult Function(String? message)? invalidIdPwd,
+    required TResult orElse(),
+  }) {
+    if (storage != null) {
+      return storage();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Storage value) storage,
+    required TResult Function(_Server value) server,
+    required TResult Function(_InvalidIdPwd value) invalidIdPwd,
+  }) {
+    return storage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Storage value)? storage,
+    TResult Function(_Server value)? server,
+    TResult Function(_InvalidIdPwd value)? invalidIdPwd,
+    required TResult orElse(),
+  }) {
+    if (storage != null) {
+      return storage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Storage extends AuthFailure {
+  const factory _Storage() = _$_Storage;
+  const _Storage._() : super._();
 }
 
 /// @nodoc
@@ -138,8 +236,9 @@ class _$_Server extends _Server {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? message) server,
     required TResult Function() storage,
+    required TResult Function(String? message) server,
+    required TResult Function(String? message) invalidIdPwd,
   }) {
     return server(message);
   }
@@ -147,8 +246,9 @@ class _$_Server extends _Server {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? message)? server,
     TResult Function()? storage,
+    TResult Function(String? message)? server,
+    TResult Function(String? message)? invalidIdPwd,
     required TResult orElse(),
   }) {
     if (server != null) {
@@ -160,8 +260,9 @@ class _$_Server extends _Server {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Server value) server,
     required TResult Function(_Storage value) storage,
+    required TResult Function(_Server value) server,
+    required TResult Function(_InvalidIdPwd value) invalidIdPwd,
   }) {
     return server(this);
   }
@@ -169,8 +270,9 @@ class _$_Server extends _Server {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Server value)? server,
     TResult Function(_Storage value)? storage,
+    TResult Function(_Server value)? server,
+    TResult Function(_InvalidIdPwd value)? invalidIdPwd,
     required TResult orElse(),
   }) {
     if (server != null) {
@@ -190,57 +292,86 @@ abstract class _Server extends AuthFailure {
 }
 
 /// @nodoc
-abstract class _$StorageCopyWith<$Res> {
-  factory _$StorageCopyWith(_Storage value, $Res Function(_Storage) then) =
-      __$StorageCopyWithImpl<$Res>;
+abstract class _$InvalidIdPwdCopyWith<$Res> {
+  factory _$InvalidIdPwdCopyWith(
+          _InvalidIdPwd value, $Res Function(_InvalidIdPwd) then) =
+      __$InvalidIdPwdCopyWithImpl<$Res>;
+  $Res call({String? message});
 }
 
 /// @nodoc
-class __$StorageCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
-    implements _$StorageCopyWith<$Res> {
-  __$StorageCopyWithImpl(_Storage _value, $Res Function(_Storage) _then)
-      : super(_value, (v) => _then(v as _Storage));
+class __$InvalidIdPwdCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+    implements _$InvalidIdPwdCopyWith<$Res> {
+  __$InvalidIdPwdCopyWithImpl(
+      _InvalidIdPwd _value, $Res Function(_InvalidIdPwd) _then)
+      : super(_value, (v) => _then(v as _InvalidIdPwd));
 
   @override
-  _Storage get _value => super._value as _Storage;
+  _InvalidIdPwd get _value => super._value as _InvalidIdPwd;
+
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(_InvalidIdPwd(
+      message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_Storage extends _Storage {
-  const _$_Storage() : super._();
+class _$_InvalidIdPwd extends _InvalidIdPwd {
+  const _$_InvalidIdPwd([this.message]) : super._();
+
+  @override
+  final String? message;
 
   @override
   String toString() {
-    return 'AuthFailure.storage()';
+    return 'AuthFailure.invalidIdPwd(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Storage);
+    return identical(this, other) ||
+        (other is _InvalidIdPwd &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+
+  @JsonKey(ignore: true)
+  @override
+  _$InvalidIdPwdCopyWith<_InvalidIdPwd> get copyWith =>
+      __$InvalidIdPwdCopyWithImpl<_InvalidIdPwd>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? message) server,
     required TResult Function() storage,
+    required TResult Function(String? message) server,
+    required TResult Function(String? message) invalidIdPwd,
   }) {
-    return storage();
+    return invalidIdPwd(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? message)? server,
     TResult Function()? storage,
+    TResult Function(String? message)? server,
+    TResult Function(String? message)? invalidIdPwd,
     required TResult orElse(),
   }) {
-    if (storage != null) {
-      return storage();
+    if (invalidIdPwd != null) {
+      return invalidIdPwd(message);
     }
     return orElse();
   }
@@ -248,27 +379,34 @@ class _$_Storage extends _Storage {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Server value) server,
     required TResult Function(_Storage value) storage,
+    required TResult Function(_Server value) server,
+    required TResult Function(_InvalidIdPwd value) invalidIdPwd,
   }) {
-    return storage(this);
+    return invalidIdPwd(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Server value)? server,
     TResult Function(_Storage value)? storage,
+    TResult Function(_Server value)? server,
+    TResult Function(_InvalidIdPwd value)? invalidIdPwd,
     required TResult orElse(),
   }) {
-    if (storage != null) {
-      return storage(this);
+    if (invalidIdPwd != null) {
+      return invalidIdPwd(this);
     }
     return orElse();
   }
 }
 
-abstract class _Storage extends AuthFailure {
-  const factory _Storage() = _$_Storage;
-  const _Storage._() : super._();
+abstract class _InvalidIdPwd extends AuthFailure {
+  const factory _InvalidIdPwd([String? message]) = _$_InvalidIdPwd;
+  const _InvalidIdPwd._() : super._();
+
+  String? get message => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$InvalidIdPwdCopyWith<_InvalidIdPwd> get copyWith =>
+      throw _privateConstructorUsedError;
 }

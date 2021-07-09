@@ -30,11 +30,9 @@ class Authenticator {
   static const clientId = 'clientId';
   static const clientSecret = 'clientSecret';
 
-  static final revocationEndpoint =
-      Uri.parse("http://localhost:8080/token/refresh");
+  static const scopes = ["write", "read"];
 
-  static final authorizationEndpoint = Uri.parse("http://localhost:8080/login");
-  static final tokenEndpoint = Uri.parse("http://localhost:8080/token");
+  static final revocationEndpoint = Uri.parse("http://localhost:3000/sign-out");
 
   Future<Credentials?> getSignedInCredentials() async {
     try {
@@ -52,32 +50,27 @@ class Authenticator {
     }
   }
 
-  AuthorizationCodeGrant createGrant() {
-    return AuthorizationCodeGrant(
-      clientId,
-      authorizationEndpoint,
-      tokenEndpoint,
-      secret: clientSecret,
-      httpClient: OAuthHttpClient(),
-    );
-  }
-
   Future<bool> isSignedIn() =>
       getSignedInCredentials().then((credentials) => credentials != null);
 
   Future<Either<AuthFailure, Unit>> handleAuthorizationResponse(
-    AuthorizationCodeGrant grant,
-    Map<String, String> queryParams,
+    Map<String, dynamic> params,
   ) async {
     try {
-      // Unit : void를 return 하고 싶을 때 사용
-      // redirect 받은 정보를 포함하고 있게 됨
-      final httpClient = await grant.handleAuthorizationResponse(
-          queryParams); // return client => access token 을 원하는데 왜 나오는가?
-      // authorization header를 가지게 됨
-      // dio package를 사용하기 위해서 바꿔줘야함
-      await _credentialsStorage.save(httpClient.credentials);
-      return right(unit);
+      final response = await _dio.post("/sign-in", data: params);
+
+      if (response.statusCode != 200) {
+        return left(const AuthFailure.server());
+      } else {
+        if (response.data != "" && response.data != null) {
+          final credentials = Credentials.fromJson(response.data as String);
+          await _credentialsStorage.save(credentials);
+          return right(unit);
+        }
+
+        return left(const AuthFailure.invalidIdPwd(
+            "invalid combinations of id and password"));
+      }
     } on FormatException {
       return left(const AuthFailure.server());
     } on AuthorizationException catch (e) {
@@ -108,12 +101,16 @@ class Authenticator {
   Future<Either<AuthFailure, Unit>> signOut() async {
     try {
       try {
-        _dio.deleteUri(
-          revocationEndpoint,
+        final accessToken = await _credentialsStorage
+            .read()
+            .then((value) => value?.accessToken ?? "");
+
+        await _dio.delete(
+          "/sign-out",
           options: Options(
             headers: {
-              "Authorization":
-                  "bearer ${_credentialsStorage.read().then((value) => value?.accessToken ?? "")}"
+              "Authorization": "bearer $accessToken",
+              "content-type": "application/json"
             },
           ),
         );

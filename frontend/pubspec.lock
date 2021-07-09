@@ -236,19 +236,21 @@ packages:
       name: flutter_hooks
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.17.0"
+    version: "0.16.0"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
   flutter_riverpod:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: flutter_riverpod
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.14.0+3"
+      path: "packages/flutter_riverpod"
+      ref: "147be70df096015af0633456a951d8f2f9c66dc9"
+      resolved-ref: "147be70df096015af0633456a951d8f2f9c66dc9"
+      url: "https://github.com/rrousselGit/river_pod.git"
+    source: git
+    version: "0.14.0+2"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -320,10 +322,12 @@ packages:
   hooks_riverpod:
     dependency: "direct main"
     description:
-      name: hooks_riverpod
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.14.0+4"
+      path: "packages/hooks_riverpod"
+      ref: "147be70df096015af0633456a951d8f2f9c66dc9"
+      resolved-ref: "147be70df096015af0633456a951d8f2f9c66dc9"
+      url: "https://github.com/rrousselGit/river_pod.git"
+    source: git
+    version: "0.14.0+2"
   http:
     dependency: transitive
     description:
@@ -535,12 +539,14 @@ packages:
     source: hosted
     version: "0.7.22"
   riverpod:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: riverpod
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.14.0+3"
+      path: "packages/riverpod"
+      ref: "147be70df096015af0633456a951d8f2f9c66dc9"
+      resolved-ref: "147be70df096015af0633456a951d8f2f9c66dc9"
+      url: "https://github.com/rrousselGit/river_pod.git"
+    source: git
+    version: "0.14.0+1"
   shelf:
     dependency: transitive
     description:

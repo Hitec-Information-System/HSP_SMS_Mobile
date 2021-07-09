@@ -6,6 +6,7 @@ part 'auth_failure.freezed.dart';
 class AuthFailure with _$AuthFailure {
   const AuthFailure._();
 
-  const factory AuthFailure.server([String? message]) = _Server;
   const factory AuthFailure.storage() = _Storage;
+  const factory AuthFailure.server([String? message]) = _Server;
+  const factory AuthFailure.invalidIdPwd([String? message]) = _InvalidIdPwd;
 }
