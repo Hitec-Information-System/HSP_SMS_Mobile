@@ -12,8 +12,8 @@ POST http://localhost:3000/signin HTTP/2.0
 content-type: application/json 
 
 {
-	"username": "username",
-	"password": "password"
+	"USER_ID": "1110771",
+	"USER_PWD": "1"
 }
 ###
 POST http://localhost:3000/todo HTTP/2.0

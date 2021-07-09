@@ -7,6 +7,7 @@ import (
 
 	_ "github.com/godror/godror"
 	"github.com/spf13/viper"
+	"hitecis.co.kr/hwashin_nfc/model"
 )
 
 type OracleRepository struct {
@@ -17,11 +18,40 @@ func (o *OracleRepository) Close() {
 	o.db.Close()
 }
 
+func (o *OracleRepository) GetUser(id string, pwd string) (model.User, error) {
+	var user model.User
+	var err error
+
+	query := fmt.Sprintf(`
+ 		SELECT USER_ID, USER_PWD
+			FROM RMS_USER	
+ 		WHERE USER_ID = '%s'
+ 		AND USER_PWD = '%s'
+ `, id, pwd)
+
+	rows, err := o.db.Query(query)
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		if err := rows.Scan(&user.ID, &user.Password); err != nil {
+			return user, err
+		}
+	}
+
+	return user, err
+}
+
 func (o *OracleRepository) GetData() ([]interface{}, error) {
 
 	var results []interface{}
 	var err error
 
+	// query 예시
 	rows, err := o.db.Query(`
 	SELECT PROC_PART_NO, CRT_DT, CRT_BY, UDT_DT 
 	FROM T_COIL_PROC_PART

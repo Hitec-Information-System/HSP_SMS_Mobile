@@ -10,50 +10,17 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/spf13/viper"
 	"github.com/twinj/uuid"
 	"hitecis.co.kr/hwashin_nfc/core"
 	"hitecis.co.kr/hwashin_nfc/model"
 )
 
-var user = model.User{
-	ID:       1,
-	Username: "username",
-	Password: "password",
-	Phone:    "01012345678",
-}
-
-func signInHandler(w http.ResponseWriter, r *http.Request) {
-	var u model.User
-
-	if err := json.NewDecoder(r.Body).Decode(&u); err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
-	}
-
-	// compare the user from the request, with the one we defined
-	if user.Username != u.Username || user.Password != u.Password {
-		rd.JSON(w, http.StatusUnauthorized, "Please, provide valid login details")
-	}
-
-	ts, err := CreateToken(user.ID)
-	if err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, err.Error())
-	}
-
-	saveErr := CreateAuth(user.ID, ts)
-	if saveErr != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, saveErr.Error())
-	}
-
-	tokens := map[string]string{
-		"access_token":  ts.AccessToken,
-		"refresh_token": ts.RefreshToken,
-	}
-
-	rd.JSON(w, http.StatusOK, tokens)
-}
+var ACCESS_SECRET = viper.GetString(`token.ACCESS_SECRET`)
+var REFRESH_SECRET = viper.GetString(`token.REFRESH_SECRET`)
 
 // CreateToken
-func CreateToken(userid uint64) (*model.TokenDetails, error) {
+func CreateToken(userid string) (*model.TokenDetails, error) {
 
 	td := &model.TokenDetails{}
 	td.AtExpires = time.Now().Add(time.Minute * 15).Unix()
@@ -63,26 +30,23 @@ func CreateToken(userid uint64) (*model.TokenDetails, error) {
 	td.RefreshUuid = uuid.NewV4().String()
 
 	var err error
-	// creating access token
-	os.Setenv("ACCESS_SECRET", "testAccessToken") // TODO: change secret
 	atClaims := jwt.MapClaims{}
 	atClaims["authorized"] = true
 	atClaims["access_uuid"] = td.AccessUuid
 	atClaims["user_id"] = userid
 	atClaims["exp"] = td.AtExpires
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	td.AccessToken, err = at.SignedString([]byte(os.Getenv("ACCESS_SECRET")))
+	td.AccessToken, err = at.SignedString([]byte(ACCESS_SECRET))
 	if err != nil {
 		return nil, err
 	}
 
-	os.Setenv("REFRESH_SECRET", "testRefreshToken") // TODO: change secret
 	rtClaims := jwt.MapClaims{}
 	rtClaims["refresh_uuid"] = td.RefreshUuid
 	rtClaims["user_id"] = userid
 	rtClaims["exp"] = td.RtExpires
 	rt := jwt.NewWithClaims(jwt.SigningMethodHS256, rtClaims)
-	td.RefreshToken, err = rt.SignedString([]byte(os.Getenv("REFRESH_SECRET")))
+	td.RefreshToken, err = rt.SignedString([]byte(REFRESH_SECRET))
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +55,7 @@ func CreateToken(userid uint64) (*model.TokenDetails, error) {
 }
 
 // save jwt meta data
-func CreateAuth(userid uint64, td *model.TokenDetails) (err error) {
+func CreateAuth(userid string, td *model.TokenDetails) (err error) {
 
 	client := core.GetClient()
 
@@ -99,11 +63,11 @@ func CreateAuth(userid uint64, td *model.TokenDetails) (err error) {
 	rt := time.Unix(td.RtExpires, 0)
 	now := time.Now()
 
-	if err = client.Set(td.AccessUuid, strconv.Itoa(int(userid)), at.Sub(now)).Err(); err != nil {
+	if err = client.Set(td.AccessUuid, userid, at.Sub(now)).Err(); err != nil {
 		return
 	}
 
-	if err = client.Set(td.RefreshUuid, strconv.Itoa(int(userid)), rt.Sub(now)).Err(); err != nil {
+	if err = client.Set(td.RefreshUuid, userid, rt.Sub(now)).Err(); err != nil {
 		return
 	}
 
@@ -248,7 +212,7 @@ func refreshHandler(w http.ResponseWriter, r *http.Request) {
 			rd.JSON(w, http.StatusUnprocessableEntity, err)
 			return
 		}
-		userId, err := strconv.ParseUint(fmt.Sprintf("%.f", claims["user_id"]), 10, 64)
+		userId := fmt.Sprintf("%v", claims["user_id"])
 		if err != nil {
 			rd.JSON(w, http.StatusUnprocessableEntity, "Error occurred")
 			return
