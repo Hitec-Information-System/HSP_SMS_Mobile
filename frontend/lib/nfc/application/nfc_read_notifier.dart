@@ -1,8 +1,10 @@
+import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/nfc/domain/nfc_failure.dart';
 import 'package:frontend/nfc/domain/tag.dart';
 import 'package:frontend/nfc/infrastructure/nfc_reader.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 
 part 'nfc_read_notifier.freezed.dart';
 
@@ -16,18 +18,28 @@ class NFCReadState with _$NFCReadState {
 }
 
 class NFCReadNotifier extends StateNotifier<NFCReadState> {
-  NFCReadNotifier(this._nfcReader) : super(const NFCReadState.initial());
+  NFCReadNotifier(this._nfcReader, this._nfcManager)
+      : super(const NFCReadState.initial());
 
   final NFCReader _nfcReader;
+  final NfcManager _nfcManager;
 
   Future<void> readNFCTag() async {
     state = const NFCReadState.reading();
 
-    final failureOrSuccess = await _nfcReader.handleNfcTagRequest();
+    _nfcManager.startSession(onDiscovered: (tag) async {
+      try {
+        await _nfcManager.stopSession();
 
-    state = failureOrSuccess.fold(
-      (l) => NFCReadState.failure(l),
-      (r) => NFCReadState.read(r),
-    );
+        final failureOrSuccess = await _nfcReader.handleNfcTagRequest(tag);
+
+        state = failureOrSuccess.fold(
+          (l) => NFCReadState.failure(l),
+          (r) => NFCReadState.read(r),
+        );
+      } on MissingPluginException {
+        await _nfcManager.stopSession();
+      }
+    });
   }
 }

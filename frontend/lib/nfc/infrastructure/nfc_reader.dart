@@ -3,33 +3,23 @@ import 'dart:typed_data';
 import 'package:dartz/dartz.dart';
 import 'package:frontend/nfc/domain/nfc_failure.dart';
 import 'package:frontend/nfc/domain/tag.dart';
-import 'package:frontend/nfc/infrastructure/tag_reader.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/platform_tags.dart';
 
 class NFCReader {
-  NFCReader(
-    this.tagReader,
-  );
+  Future<Either<NfcFailure, Tag>> handleNfcTagRequest(NfcTag scannedTag) async {
+    final uintTag = NfcA.from(scannedTag)?.identifier ??
+        NfcB.from(scannedTag)?.identifier ??
+        NfcF.from(scannedTag)?.identifier ??
+        NfcV.from(scannedTag)?.identifier;
 
-  final TagReader tagReader;
-
-  Future<Either<NfcFailure, Tag>> handleNfcTagRequest() async {
-    final scannedTag = await tagReader.read();
-    if (scannedTag != null) {
-      final uintTag = NfcA.from(scannedTag)?.identifier ??
-          NfcB.from(scannedTag)?.identifier ??
-          NfcF.from(scannedTag)?.identifier ??
-          NfcV.from(scannedTag)?.identifier;
-
-      if (uintTag == null) {
-        return left(const NfcFailure.notSupported());
-      }
-
-      final tagId = hexFromBytes(uintTag);
-
-      return right(Tag(id: tagId));
+    if (uintTag == null) {
+      return left(const NfcFailure.notSupported());
     }
-    return left(const NfcFailure.readError());
+
+    final tagId = hexFromBytes(uintTag);
+
+    return right(Tag(id: tagId));
   }
 }
 
