@@ -51,7 +51,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *AppHandler) getData(w http.ResponseWriter, r *http.Request) {
-	results, err := a.db.GetData()
+	results, err := a.db.GetJsonData()
 
 	if err != nil {
 		panic(err)
@@ -101,10 +101,11 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tokens := map[string]interface{}{
-		"accessToken":  ts.AccessToken,
-		"refreshToken": ts.RefreshToken,
-		"expiration":   ts.RtExpires,
-		"scopes":       []string{},
+		"accessToken":   ts.AccessToken,
+		"refreshToken":  ts.RefreshToken,
+		"expiration":    ts.RtExpires,
+		"scopes":        []string{},
+		"tokenEndpoint": "http://192.168.0.117:8080/token",
 	}
 
 	rd.JSON(w, http.StatusOK, tokens)

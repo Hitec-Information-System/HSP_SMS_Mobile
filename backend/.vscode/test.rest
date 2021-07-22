@@ -5,10 +5,10 @@
 # {"accessToken":"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","refreshToken":null,"idToken":null,"tokenEndpoint":"https://github.com/login/oauth/access_token","scopes":["read:user,repo"],"expiration":null}
 
 ###
-GET http://localhost:3000/data HTTP/2.0
+GET http://localhost:8080/data HTTP/2.0
 
 ###
-POST http://localhost:3000/sign-in HTTP/2.0
+POST http://localhost:8080/sign-in HTTP/2.0
 content-type: application/json 
 
 {
@@ -16,7 +16,7 @@ content-type: application/json
 	"USER_PWD": "1"
 }
 ###
-POST http://localhost:3000/todo HTTP/2.0
+POST http://localhost:8080/todo HTTP/2.0
 content-type: application/json 
 Authorization: bearer {{accessToken}}
 
@@ -24,7 +24,7 @@ Authorization: bearer {{accessToken}}
 	"title": "test todo"
 }
 ###
-DELETE http://localhost:3000/sign-out HTTP/2.0
+DELETE http://localhost:8080/sign-out HTTP/2.0
 content-type: application/json 
 Authorization: bearer {{accessToken}}
 

@@ -46,7 +46,7 @@ func (o *OracleRepository) GetUser(id string, pwd string) (model.User, error) {
 	return user, err
 }
 
-func (o *OracleRepository) GetData() ([]interface{}, error) {
+func (o *OracleRepository) GetJsonData() ([]interface{}, error) {
 
 	var results []interface{}
 	var err error
@@ -104,8 +104,6 @@ func NewOracleRepository() DBRepository {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("DB is Connected!")
 
 	return &OracleRepository{db: database}
 }

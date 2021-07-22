@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
+
 	"strconv"
 	"strings"
 	"time"
@@ -93,7 +93,7 @@ func VerifyToken(r *http.Request) (*jwt.Token, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte(os.Getenv("ACCESS_SECRET")), nil
+		return []byte(ACCESS_SECRET), nil
 	})
 	if err != nil {
 		return nil, err
@@ -183,6 +183,9 @@ func signOutHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func refreshHandler(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("refresh started!")
+
 	mapToken := map[string]string{}
 	if err := json.NewDecoder(r.Body).Decode(&mapToken); err != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, err.Error())
@@ -192,12 +195,11 @@ func refreshHandler(w http.ResponseWriter, r *http.Request) {
 	refreshToken := mapToken["refresh_token"]
 
 	// verify token
-	os.Setenv("REFRESH_SECRET", "testRefreshToken") // this should be in an env file
 	token, err := jwt.Parse(refreshToken, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte(os.Getenv("REFRESH_SECRET")), nil
+		return []byte(REFRESH_SECRET), nil
 	})
 
 	// if there is an error, the token must have expired
