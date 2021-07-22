@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'app_theme.freezed.dart';
 
 @freezed
-abstract class AppTheme implements _$AppTheme {
+class AppTheme with _$AppTheme {
   const factory AppTheme(
       {required bool isDark,
       required ThemeData themeData,

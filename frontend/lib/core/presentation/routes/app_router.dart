@@ -10,10 +10,10 @@ import 'package:frontend/theme/theme_change_page.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: [
-    AutoRoute(page: SplashPage, initial: true),
-    AutoRoute(page: LoadingPage, path: "/load"),
-    AutoRoute(page: HomePage, path: "/home"),
-    AutoRoute(page: SignInPage, path: "/sign-in"),
+    // AutoRoute(page: SplashPage, initial: true),
+    // AutoRoute(page: LoadingPage, path: "/load"),
+    AutoRoute(page: HomePage, initial: true), //path: "/home"),
+    // AutoRoute(page: SignInPage, path: "/sign-in"),
     AutoRoute(page: SettingsPage, path: '/settings'),
     AutoRoute(page: ThemeChangePage, path: '/settings/themes'),
     AutoRoute(page: NfcReadPage, path: '/nfc-read'),

@@ -5,9 +5,9 @@ import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)?.translate('title') ?? ""),
@@ -20,7 +20,8 @@ class HomePage extends StatelessWidget {
           IconButton(
               icon: const Icon(Icons.logout_rounded),
               onPressed: () {
-                context.read(authNotifierProvider.notifier).signOut();
+                // TODO: DB 고쳐지면 활성화
+                // ref.watch(authNotifierProvider.notifier).signOut();
               })
         ],
       ),

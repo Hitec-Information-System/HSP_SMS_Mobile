@@ -5,7 +5,6 @@ part 'nfc_failure.freezed.dart';
 @freezed
 class NfcFailure with _$NfcFailure {
   const NfcFailure._();
-  const factory NfcFailure.notSupportedTag([String? message]) =
-      _NotSupportedTag;
+  const factory NfcFailure.notSupported([String? message]) = _NotSupported;
   const factory NfcFailure.readError() = _ReadError;
 }

@@ -8,5 +8,4 @@ class AuthFailure with _$AuthFailure {
 
   const factory AuthFailure.storage() = _Storage;
   const factory AuthFailure.server([String? message]) = _Server;
-  const factory AuthFailure.invalidIdPwd([String? message]) = _InvalidIdPwd;
 }

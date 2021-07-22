@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -28,11 +30,9 @@ class Authenticator {
 
   // client id, secret 정의
   static const clientId = 'clientId';
-  static const clientSecret = 'clientSecret';
+  static const clientSecret = 'testRefreshToken';
 
   static const scopes = ["write", "read"];
-
-  static final revocationEndpoint = Uri.parse("http://localhost:3000/sign-out");
 
   Future<Credentials?> getSignedInCredentials() async {
     try {
@@ -59,18 +59,21 @@ class Authenticator {
     try {
       final response = await _dio.post("/sign-in", data: params);
 
+      // 응답코드가 200이 아닐 때 오류 처리
       if (response.statusCode != 200) {
         return left(const AuthFailure.server());
-      } else {
-        if (response.data != "" && response.data != null) {
-          final credentials = Credentials.fromJson(response.data as String);
-          await _credentialsStorage.save(credentials);
-          return right(unit);
-        }
-
-        return left(const AuthFailure.invalidIdPwd(
-            "invalid combinations of id and password"));
       }
+
+      if (response.data != "" && response.data != null) {
+        final credentials = Credentials.fromJson(json.encode(response.data));
+        await _credentialsStorage.save(credentials);
+        return right(unit);
+      }
+
+      // 데이터가 없을 때
+      return left(
+        const AuthFailure.server("Invalid combinations of id and password"),
+      );
     } on FormatException {
       return left(const AuthFailure.server());
     } on AuthorizationException catch (e) {
@@ -84,9 +87,29 @@ class Authenticator {
     Credentials credentials,
   ) async {
     try {
-      final refreshedCredentials = await credentials.refresh(
-        httpClient: OAuthHttpClient(),
-      );
+      Credentials? refreshedCredentials;
+
+      final response = await _dio.post("/token",
+          options: Options(
+            headers: {"Authorization": "bearer ${credentials.accessToken}"},
+          ),
+          data: {"refresh_token": credentials.refreshToken});
+
+      if (response.statusCode != 201) {
+        return left(const AuthFailure.server());
+      }
+
+      if (response.data == "" || response.data == null) {
+        return left(const AuthFailure.server());
+      }
+
+      // TODO: json 변환하지 않고 변환 방법 추가
+      refreshedCredentials = Credentials.fromJson(json.encode(response.data));
+
+      if (refreshedCredentials == null) {
+        return left(const AuthFailure.server());
+      }
+
       await _credentialsStorage.save(refreshedCredentials);
       return right(refreshedCredentials);
     } on FormatException {

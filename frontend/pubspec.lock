@@ -15,13 +15,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.0"
+  archive:
+    dependency: transitive
+    description:
+      name: archive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.2"
   args:
     dependency: transitive
     description:
       name: args
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   async:
     dependency: transitive
     description:
@@ -236,21 +243,26 @@ packages:
       name: flutter_hooks
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.0"
+    version: "0.18.0"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_riverpod:
-    dependency: "direct overridden"
+  flutter_native_splash:
+    dependency: "direct dev"
     description:
-      path: "packages/flutter_riverpod"
-      ref: "147be70df096015af0633456a951d8f2f9c66dc9"
-      resolved-ref: "147be70df096015af0633456a951d8f2f9c66dc9"
-      url: "https://github.com/rrousselGit/river_pod.git"
-    source: git
-    version: "0.14.0+2"
+      name: flutter_native_splash
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
+  flutter_riverpod:
+    dependency: transitive
+    description:
+      name: flutter_riverpod
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0-dev.6"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -322,12 +334,10 @@ packages:
   hooks_riverpod:
     dependency: "direct main"
     description:
-      path: "packages/hooks_riverpod"
-      ref: "147be70df096015af0633456a951d8f2f9c66dc9"
-      resolved-ref: "147be70df096015af0633456a951d8f2f9c66dc9"
-      url: "https://github.com/rrousselGit/river_pod.git"
-    source: git
-    version: "0.14.0+2"
+      name: hooks_riverpod
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0-dev.6"
   http:
     dependency: transitive
     description:
@@ -349,6 +359,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  image:
+    dependency: transitive
+    description:
+      name: image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.2"
   intl:
     dependency: transitive
     description:
@@ -489,6 +506,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.0"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.0"
   platform:
     dependency: transitive
     description:
@@ -539,14 +563,12 @@ packages:
     source: hosted
     version: "0.7.22"
   riverpod:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: "packages/riverpod"
-      ref: "147be70df096015af0633456a951d8f2f9c66dc9"
-      resolved-ref: "147be70df096015af0633456a951d8f2f9c66dc9"
-      url: "https://github.com/rrousselGit/river_pod.git"
-    source: git
-    version: "0.14.0+1"
+      name: riverpod
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0-dev.6"
   shelf:
     dependency: transitive
     description:
@@ -650,6 +672,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  universal_io:
+    dependency: transitive
+    description:
+      name: universal_io
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
   vector_math:
     dependency: transitive
     description:
@@ -685,6 +714,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.1.2"
   yaml:
     dependency: transitive
     description:
@@ -693,5 +729,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.12.0 <3.0.0"
+  dart: ">=2.13.0 <3.0.0"
   flutter: ">=1.26.0-17.6.pre"

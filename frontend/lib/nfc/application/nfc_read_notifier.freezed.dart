@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'nfc_notifier.dart';
+part of 'nfc_read_notifier.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,8 +13,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$NfcStateTearOff {
-  const _$NfcStateTearOff();
+class _$NFCReadStateTearOff {
+  const _$NFCReadStateTearOff();
 
   _Initial initial() {
     return const _Initial();
@@ -24,8 +24,10 @@ class _$NfcStateTearOff {
     return const _Reading();
   }
 
-  _Read read() {
-    return const _Read();
+  _Read read(Tag tag) {
+    return _Read(
+      tag,
+    );
   }
 
   _Failure failure(NfcFailure failure) {
@@ -36,15 +38,15 @@ class _$NfcStateTearOff {
 }
 
 /// @nodoc
-const $NfcState = _$NfcStateTearOff();
+const $NFCReadState = _$NFCReadStateTearOff();
 
 /// @nodoc
-mixin _$NfcState {
+mixin _$NFCReadState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() reading,
-    required TResult Function() read,
+    required TResult Function(Tag tag) read,
     required TResult Function(NfcFailure failure) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -52,7 +54,7 @@ mixin _$NfcState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? reading,
-    TResult Function()? read,
+    TResult Function(Tag tag)? read,
     TResult Function(NfcFailure failure)? failure,
     required TResult orElse(),
   }) =>
@@ -77,18 +79,19 @@ mixin _$NfcState {
 }
 
 /// @nodoc
-abstract class $NfcStateCopyWith<$Res> {
-  factory $NfcStateCopyWith(NfcState value, $Res Function(NfcState) then) =
-      _$NfcStateCopyWithImpl<$Res>;
+abstract class $NFCReadStateCopyWith<$Res> {
+  factory $NFCReadStateCopyWith(
+          NFCReadState value, $Res Function(NFCReadState) then) =
+      _$NFCReadStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$NfcStateCopyWithImpl<$Res> implements $NfcStateCopyWith<$Res> {
-  _$NfcStateCopyWithImpl(this._value, this._then);
+class _$NFCReadStateCopyWithImpl<$Res> implements $NFCReadStateCopyWith<$Res> {
+  _$NFCReadStateCopyWithImpl(this._value, this._then);
 
-  final NfcState _value;
+  final NFCReadState _value;
   // ignore: unused_field
-  final $Res Function(NfcState) _then;
+  final $Res Function(NFCReadState) _then;
 }
 
 /// @nodoc
@@ -98,7 +101,7 @@ abstract class _$InitialCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$InitialCopyWithImpl<$Res> extends _$NfcStateCopyWithImpl<$Res>
+class __$InitialCopyWithImpl<$Res> extends _$NFCReadStateCopyWithImpl<$Res>
     implements _$InitialCopyWith<$Res> {
   __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
       : super(_value, (v) => _then(v as _Initial));
@@ -114,7 +117,7 @@ class _$_Initial extends _Initial {
 
   @override
   String toString() {
-    return 'NfcState.initial()';
+    return 'NFCReadState.initial()';
   }
 
   @override
@@ -130,7 +133,7 @@ class _$_Initial extends _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() reading,
-    required TResult Function() read,
+    required TResult Function(Tag tag) read,
     required TResult Function(NfcFailure failure) failure,
   }) {
     return initial();
@@ -141,7 +144,7 @@ class _$_Initial extends _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? reading,
-    TResult Function()? read,
+    TResult Function(Tag tag)? read,
     TResult Function(NfcFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -178,7 +181,7 @@ class _$_Initial extends _Initial {
   }
 }
 
-abstract class _Initial extends NfcState {
+abstract class _Initial extends NFCReadState {
   const factory _Initial() = _$_Initial;
   const _Initial._() : super._();
 }
@@ -190,7 +193,7 @@ abstract class _$ReadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$ReadingCopyWithImpl<$Res> extends _$NfcStateCopyWithImpl<$Res>
+class __$ReadingCopyWithImpl<$Res> extends _$NFCReadStateCopyWithImpl<$Res>
     implements _$ReadingCopyWith<$Res> {
   __$ReadingCopyWithImpl(_Reading _value, $Res Function(_Reading) _then)
       : super(_value, (v) => _then(v as _Reading));
@@ -206,7 +209,7 @@ class _$_Reading extends _Reading {
 
   @override
   String toString() {
-    return 'NfcState.reading()';
+    return 'NFCReadState.reading()';
   }
 
   @override
@@ -222,7 +225,7 @@ class _$_Reading extends _Reading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() reading,
-    required TResult Function() read,
+    required TResult Function(Tag tag) read,
     required TResult Function(NfcFailure failure) failure,
   }) {
     return reading();
@@ -233,7 +236,7 @@ class _$_Reading extends _Reading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? reading,
-    TResult Function()? read,
+    TResult Function(Tag tag)? read,
     TResult Function(NfcFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -270,7 +273,7 @@ class _$_Reading extends _Reading {
   }
 }
 
-abstract class _Reading extends NfcState {
+abstract class _Reading extends NFCReadState {
   const factory _Reading() = _$_Reading;
   const _Reading._() : super._();
 }
@@ -279,45 +282,79 @@ abstract class _Reading extends NfcState {
 abstract class _$ReadCopyWith<$Res> {
   factory _$ReadCopyWith(_Read value, $Res Function(_Read) then) =
       __$ReadCopyWithImpl<$Res>;
+  $Res call({Tag tag});
+
+  $TagCopyWith<$Res> get tag;
 }
 
 /// @nodoc
-class __$ReadCopyWithImpl<$Res> extends _$NfcStateCopyWithImpl<$Res>
+class __$ReadCopyWithImpl<$Res> extends _$NFCReadStateCopyWithImpl<$Res>
     implements _$ReadCopyWith<$Res> {
   __$ReadCopyWithImpl(_Read _value, $Res Function(_Read) _then)
       : super(_value, (v) => _then(v as _Read));
 
   @override
   _Read get _value => super._value as _Read;
+
+  @override
+  $Res call({
+    Object? tag = freezed,
+  }) {
+    return _then(_Read(
+      tag == freezed
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as Tag,
+    ));
+  }
+
+  @override
+  $TagCopyWith<$Res> get tag {
+    return $TagCopyWith<$Res>(_value.tag, (value) {
+      return _then(_value.copyWith(tag: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$_Read extends _Read {
-  const _$_Read() : super._();
+  const _$_Read(this.tag) : super._();
+
+  @override
+  final Tag tag;
 
   @override
   String toString() {
-    return 'NfcState.read()';
+    return 'NFCReadState.read(tag: $tag)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Read);
+    return identical(this, other) ||
+        (other is _Read &&
+            (identical(other.tag, tag) ||
+                const DeepCollectionEquality().equals(other.tag, tag)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tag);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ReadCopyWith<_Read> get copyWith =>
+      __$ReadCopyWithImpl<_Read>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() reading,
-    required TResult Function() read,
+    required TResult Function(Tag tag) read,
     required TResult Function(NfcFailure failure) failure,
   }) {
-    return read();
+    return read(tag);
   }
 
   @override
@@ -325,12 +362,12 @@ class _$_Read extends _Read {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? reading,
-    TResult Function()? read,
+    TResult Function(Tag tag)? read,
     TResult Function(NfcFailure failure)? failure,
     required TResult orElse(),
   }) {
     if (read != null) {
-      return read();
+      return read(tag);
     }
     return orElse();
   }
@@ -362,9 +399,13 @@ class _$_Read extends _Read {
   }
 }
 
-abstract class _Read extends NfcState {
-  const factory _Read() = _$_Read;
+abstract class _Read extends NFCReadState {
+  const factory _Read(Tag tag) = _$_Read;
   const _Read._() : super._();
+
+  Tag get tag => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$ReadCopyWith<_Read> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -377,7 +418,7 @@ abstract class _$FailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$FailureCopyWithImpl<$Res> extends _$NfcStateCopyWithImpl<$Res>
+class __$FailureCopyWithImpl<$Res> extends _$NFCReadStateCopyWithImpl<$Res>
     implements _$FailureCopyWith<$Res> {
   __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
       : super(_value, (v) => _then(v as _Failure));
@@ -415,7 +456,7 @@ class _$_Failure extends _Failure {
 
   @override
   String toString() {
-    return 'NfcState.failure(failure: $failure)';
+    return 'NFCReadState.failure(failure: $failure)';
   }
 
   @override
@@ -440,7 +481,7 @@ class _$_Failure extends _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() reading,
-    required TResult Function() read,
+    required TResult Function(Tag tag) read,
     required TResult Function(NfcFailure failure) failure,
   }) {
     return failure(this.failure);
@@ -451,7 +492,7 @@ class _$_Failure extends _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? reading,
-    TResult Function()? read,
+    TResult Function(Tag tag)? read,
     TResult Function(NfcFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -488,7 +529,7 @@ class _$_Failure extends _Failure {
   }
 }
 
-abstract class _Failure extends NfcState {
+abstract class _Failure extends NFCReadState {
   const factory _Failure(NfcFailure failure) = _$_Failure;
   const _Failure._() : super._();
 

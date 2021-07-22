@@ -16,8 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NfcFailureTearOff {
   const _$NfcFailureTearOff();
 
-  _NotSupportedTag notSupportedTag([String? message]) {
-    return _NotSupportedTag(
+  _NotSupported notSupported([String? message]) {
+    return _NotSupported(
       message,
     );
   }
@@ -34,26 +34,26 @@ const $NfcFailure = _$NfcFailureTearOff();
 mixin _$NfcFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? message) notSupportedTag,
+    required TResult Function(String? message) notSupported,
     required TResult Function() readError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? message)? notSupportedTag,
+    TResult Function(String? message)? notSupported,
     TResult Function()? readError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_NotSupportedTag value) notSupportedTag,
+    required TResult Function(_NotSupported value) notSupported,
     required TResult Function(_ReadError value) readError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_NotSupportedTag value)? notSupportedTag,
+    TResult Function(_NotSupported value)? notSupported,
     TResult Function(_ReadError value)? readError,
     required TResult orElse(),
   }) =>
@@ -77,29 +77,28 @@ class _$NfcFailureCopyWithImpl<$Res> implements $NfcFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$NotSupportedTagCopyWith<$Res> {
-  factory _$NotSupportedTagCopyWith(
-          _NotSupportedTag value, $Res Function(_NotSupportedTag) then) =
-      __$NotSupportedTagCopyWithImpl<$Res>;
+abstract class _$NotSupportedCopyWith<$Res> {
+  factory _$NotSupportedCopyWith(
+          _NotSupported value, $Res Function(_NotSupported) then) =
+      __$NotSupportedCopyWithImpl<$Res>;
   $Res call({String? message});
 }
 
 /// @nodoc
-class __$NotSupportedTagCopyWithImpl<$Res>
-    extends _$NfcFailureCopyWithImpl<$Res>
-    implements _$NotSupportedTagCopyWith<$Res> {
-  __$NotSupportedTagCopyWithImpl(
-      _NotSupportedTag _value, $Res Function(_NotSupportedTag) _then)
-      : super(_value, (v) => _then(v as _NotSupportedTag));
+class __$NotSupportedCopyWithImpl<$Res> extends _$NfcFailureCopyWithImpl<$Res>
+    implements _$NotSupportedCopyWith<$Res> {
+  __$NotSupportedCopyWithImpl(
+      _NotSupported _value, $Res Function(_NotSupported) _then)
+      : super(_value, (v) => _then(v as _NotSupported));
 
   @override
-  _NotSupportedTag get _value => super._value as _NotSupportedTag;
+  _NotSupported get _value => super._value as _NotSupported;
 
   @override
   $Res call({
     Object? message = freezed,
   }) {
-    return _then(_NotSupportedTag(
+    return _then(_NotSupported(
       message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -110,21 +109,21 @@ class __$NotSupportedTagCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NotSupportedTag extends _NotSupportedTag {
-  const _$_NotSupportedTag([this.message]) : super._();
+class _$_NotSupported extends _NotSupported {
+  const _$_NotSupported([this.message]) : super._();
 
   @override
   final String? message;
 
   @override
   String toString() {
-    return 'NfcFailure.notSupportedTag(message: $message)';
+    return 'NfcFailure.notSupported(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _NotSupportedTag &&
+        (other is _NotSupported &&
             (identical(other.message, message) ||
                 const DeepCollectionEquality().equals(other.message, message)));
   }
@@ -135,27 +134,27 @@ class _$_NotSupportedTag extends _NotSupportedTag {
 
   @JsonKey(ignore: true)
   @override
-  _$NotSupportedTagCopyWith<_NotSupportedTag> get copyWith =>
-      __$NotSupportedTagCopyWithImpl<_NotSupportedTag>(this, _$identity);
+  _$NotSupportedCopyWith<_NotSupported> get copyWith =>
+      __$NotSupportedCopyWithImpl<_NotSupported>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? message) notSupportedTag,
+    required TResult Function(String? message) notSupported,
     required TResult Function() readError,
   }) {
-    return notSupportedTag(message);
+    return notSupported(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? message)? notSupportedTag,
+    TResult Function(String? message)? notSupported,
     TResult Function()? readError,
     required TResult orElse(),
   }) {
-    if (notSupportedTag != null) {
-      return notSupportedTag(message);
+    if (notSupported != null) {
+      return notSupported(message);
     }
     return orElse();
   }
@@ -163,33 +162,33 @@ class _$_NotSupportedTag extends _NotSupportedTag {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_NotSupportedTag value) notSupportedTag,
+    required TResult Function(_NotSupported value) notSupported,
     required TResult Function(_ReadError value) readError,
   }) {
-    return notSupportedTag(this);
+    return notSupported(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_NotSupportedTag value)? notSupportedTag,
+    TResult Function(_NotSupported value)? notSupported,
     TResult Function(_ReadError value)? readError,
     required TResult orElse(),
   }) {
-    if (notSupportedTag != null) {
-      return notSupportedTag(this);
+    if (notSupported != null) {
+      return notSupported(this);
     }
     return orElse();
   }
 }
 
-abstract class _NotSupportedTag extends NfcFailure {
-  const factory _NotSupportedTag([String? message]) = _$_NotSupportedTag;
-  const _NotSupportedTag._() : super._();
+abstract class _NotSupported extends NfcFailure {
+  const factory _NotSupported([String? message]) = _$_NotSupported;
+  const _NotSupported._() : super._();
 
   String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$NotSupportedTagCopyWith<_NotSupportedTag> get copyWith =>
+  _$NotSupportedCopyWith<_NotSupported> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -231,7 +230,7 @@ class _$_ReadError extends _ReadError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? message) notSupportedTag,
+    required TResult Function(String? message) notSupported,
     required TResult Function() readError,
   }) {
     return readError();
@@ -240,7 +239,7 @@ class _$_ReadError extends _ReadError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? message)? notSupportedTag,
+    TResult Function(String? message)? notSupported,
     TResult Function()? readError,
     required TResult orElse(),
   }) {
@@ -253,7 +252,7 @@ class _$_ReadError extends _ReadError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_NotSupportedTag value) notSupportedTag,
+    required TResult Function(_NotSupported value) notSupported,
     required TResult Function(_ReadError value) readError,
   }) {
     return readError(this);
@@ -262,7 +261,7 @@ class _$_ReadError extends _ReadError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_NotSupportedTag value)? notSupportedTag,
+    TResult Function(_NotSupported value)? notSupported,
     TResult Function(_ReadError value)? readError,
     required TResult orElse(),
   }) {

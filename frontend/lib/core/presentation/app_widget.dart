@@ -16,69 +16,66 @@ final initializationProvider = FutureProvider<Unit>((ref) async {
 class AppWidget extends ConsumerWidget {
   final _appRouter = AppRouter();
   @override
-  Widget build(BuildContext context, WidgetReference ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // return AnnotatedRegion<SystemUiOverlayStyle>(
     // status bar 값 조정
     // value: state.theme.systemStyle,
     //   child:
-    return ProviderListener(
-      provider: initializationProvider,
-      onChange: (context, value) {},
-      child: ProviderListener<AuthState>(
-        provider: authNotifierProvider,
-        onChange: (context, state) {
-          state.maybeMap(
-              authenticated: (_) {
-                _appRouter.pushAndPopUntil(
-                  const HomeRoute(),
-                  predicate: (route) => false,
-                );
-              },
-              unauthenticated: (_) {
-                _appRouter.pushAndPopUntil(
-                  const SignInRoute(),
-                  predicate: (route) => false,
-                );
-              },
-              loading: (_) {
-                _appRouter.pushAndPopUntil(
-                  const LoadingRoute(),
-                  predicate: (route) => false,
-                );
-              },
-              orElse: () {});
-        },
-        child: MaterialApp.router(
-          title: 'Hwashin NFC App',
-          // 다중 언어 세팅
-          supportedLocales: const [
-            Locale('en', 'US'),
-            Locale('ko', 'KR'),
-          ],
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          localeResolutionCallback: (locale, supportedLocales) {
-            for (final supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale?.languageCode &&
-                  supportedLocale.countryCode == locale?.countryCode) {
-                return supportedLocale;
-              }
-            }
-            return supportedLocales.first;
-          },
-          // router 세팅
-          routerDelegate: _appRouter.delegate(),
-          routeInformationParser: _appRouter.defaultRouteParser(),
-          // debug banner 없애기
-          debugShowCheckedModeBanner: false,
-          // 테마 설정
-          // theme: state.theme.themeData,
-          // ),
-        ),
-      ),
+    // return ProviderListener<AuthState>(
+    //   provider: authNotifierProvider,
+    //   onChange: (context, state) {
+    //     state.maybeMap(
+    //         authenticated: (_) {
+    //           _appRouter.pushAndPopUntil(
+    //             const HomeRoute(),
+    //             predicate: (route) => false,
+    //           );
+    //         },
+    //         unauthenticated: (_) {
+    //           _appRouter.pushAndPopUntil(
+    //             const SignInRoute(),
+    //             predicate: (route) => false,
+    //           );
+    //         },
+    //         loading: (_) {
+    //           _appRouter.pushAndPopUntil(
+    //             const LoadingRoute(),
+    //             predicate: (route) => false,
+    //           );
+    //         },
+    //         orElse: () {});
+    //   },
+    // child:
+    return MaterialApp.router(
+      title: 'Hwashin NFC App',
+      // 다중 언어 세팅
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('ko', 'KR'),
+      ],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (final supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale?.languageCode &&
+              supportedLocale.countryCode == locale?.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
+      // router 세팅
+      routerDelegate: _appRouter.delegate(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
+      // debug banner 없애기
+      debugShowCheckedModeBanner: false,
+      // 테마 설정
+      // theme: state.theme.themeData,
+      // ),
+      // ),
     );
   }
 }
