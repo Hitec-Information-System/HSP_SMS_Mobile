@@ -7,7 +7,8 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
-import '../../../nfc/presentation/nfc_scan_page.dart' as _i6;
+import '../../../tag/core/presentation/tag_scan_page.dart' as _i6;
+import '../../../tag/qr/presentation/qr_scan_page.dart' as _i7;
 import '../../../theme/settings_page.dart' as _i4;
 import '../../../theme/theme_change_page.dart' as _i5;
 import '../home_page.dart' as _i3;
@@ -33,11 +34,19 @@ class AppRouter extends _i1.RootStackRouter {
         builder: (_) {
           return _i5.ThemeChangePage();
         }),
-    NfcReadRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+    TagScanRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i6.NfcReadPage();
-        })
+          return const _i6.TagScanPage();
+        }),
+    QRScanRoute.name: (routeData) => _i1.CustomPage<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return const _i7.QRScanPage();
+        },
+        transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
+        opaque: true,
+        barrierDismissible: false)
   };
 
   @override
@@ -45,7 +54,8 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(HomeRoute.name, path: '/'),
         _i1.RouteConfig(SettingsRoute.name, path: '/settings'),
         _i1.RouteConfig(ThemeChangeRoute.name, path: '/settings/themes'),
-        _i1.RouteConfig(NfcReadRoute.name, path: '/nfc-read')
+        _i1.RouteConfig(TagScanRoute.name, path: '/tag-scan'),
+        _i1.RouteConfig(QRScanRoute.name, path: '/spot-checker?method=qr')
       ];
 }
 
@@ -67,8 +77,14 @@ class ThemeChangeRoute extends _i1.PageRouteInfo {
   static const String name = 'ThemeChangeRoute';
 }
 
-class NfcReadRoute extends _i1.PageRouteInfo {
-  const NfcReadRoute() : super(name, path: '/nfc-read');
+class TagScanRoute extends _i1.PageRouteInfo {
+  const TagScanRoute() : super(name, path: '/tag-scan');
 
-  static const String name = 'NfcReadRoute';
+  static const String name = 'TagScanRoute';
+}
+
+class QRScanRoute extends _i1.PageRouteInfo {
+  const QRScanRoute() : super(name, path: '/spot-checker?method=qr');
+
+  static const String name = 'QRScanRoute';
 }

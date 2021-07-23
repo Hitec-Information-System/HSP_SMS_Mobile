@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
+// import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
@@ -36,7 +37,7 @@ class HomePage extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              AutoRouter.of(context).push(const NfcReadRoute());
+              AutoRouter.of(context).push(TagScanRoute());
             },
             child: Text("NFC Reader Button"),
           )

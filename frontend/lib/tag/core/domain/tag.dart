@@ -7,6 +7,5 @@ class Tag with _$Tag {
   const Tag._();
   const factory Tag({
     required String id,
-    Map? additionalData,
   }) = _Tag;
 }

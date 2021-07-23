@@ -16,10 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TagTearOff {
   const _$TagTearOff();
 
-  _Tag call({required String id, Map<dynamic, dynamic>? additionalData}) {
+  _Tag call({required String id}) {
     return _Tag(
       id: id,
-      additionalData: additionalData,
     );
   }
 }
@@ -30,8 +29,6 @@ const $Tag = _$TagTearOff();
 /// @nodoc
 mixin _$Tag {
   String get id => throw _privateConstructorUsedError;
-  Map<dynamic, dynamic>? get additionalData =>
-      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TagCopyWith<Tag> get copyWith => throw _privateConstructorUsedError;
@@ -41,7 +38,7 @@ mixin _$Tag {
 abstract class $TagCopyWith<$Res> {
   factory $TagCopyWith(Tag value, $Res Function(Tag) then) =
       _$TagCopyWithImpl<$Res>;
-  $Res call({String id, Map<dynamic, dynamic>? additionalData});
+  $Res call({String id});
 }
 
 /// @nodoc
@@ -55,17 +52,12 @@ class _$TagCopyWithImpl<$Res> implements $TagCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? additionalData = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      additionalData: additionalData == freezed
-          ? _value.additionalData
-          : additionalData // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>?,
     ));
   }
 }
@@ -75,7 +67,7 @@ abstract class _$TagCopyWith<$Res> implements $TagCopyWith<$Res> {
   factory _$TagCopyWith(_Tag value, $Res Function(_Tag) then) =
       __$TagCopyWithImpl<$Res>;
   @override
-  $Res call({String id, Map<dynamic, dynamic>? additionalData});
+  $Res call({String id});
 }
 
 /// @nodoc
@@ -90,17 +82,12 @@ class __$TagCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? additionalData = freezed,
   }) {
     return _then(_Tag(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      additionalData: additionalData == freezed
-          ? _value.additionalData
-          : additionalData // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>?,
     ));
   }
 }
@@ -108,16 +95,14 @@ class __$TagCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Tag extends _Tag {
-  const _$_Tag({required this.id, this.additionalData}) : super._();
+  const _$_Tag({required this.id}) : super._();
 
   @override
   final String id;
-  @override
-  final Map<dynamic, dynamic>? additionalData;
 
   @override
   String toString() {
-    return 'Tag(id: $id, additionalData: $additionalData)';
+    return 'Tag(id: $id)';
   }
 
   @override
@@ -125,17 +110,12 @@ class _$_Tag extends _Tag {
     return identical(this, other) ||
         (other is _Tag &&
             (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.additionalData, additionalData) ||
-                const DeepCollectionEquality()
-                    .equals(other.additionalData, additionalData)));
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(additionalData);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(id);
 
   @JsonKey(ignore: true)
   @override
@@ -144,15 +124,11 @@ class _$_Tag extends _Tag {
 }
 
 abstract class _Tag extends Tag {
-  const factory _Tag(
-      {required String id, Map<dynamic, dynamic>? additionalData}) = _$_Tag;
+  const factory _Tag({required String id}) = _$_Tag;
   const _Tag._() : super._();
 
   @override
   String get id => throw _privateConstructorUsedError;
-  @override
-  Map<dynamic, dynamic>? get additionalData =>
-      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TagCopyWith<_Tag> get copyWith => throw _privateConstructorUsedError;
