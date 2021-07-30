@@ -20,17 +20,17 @@ class ExpandableFABChild {
   ExpandableFABChild({
     this.key,
     this.label,
-    this.labelShadow,
     this.labelStyle,
     this.labelBackgroundColor,
     this.labelWidget,
+    this.labelShadow,
     this.child,
+    this.visible = true,
     this.backgroundColor,
     this.foregroundColor,
     this.elevation,
     this.onTap,
     this.onLongPress,
     this.shape,
-    this.visible = true,
   });
 }

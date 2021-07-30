@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedChild extends AnimatedWidget {
@@ -30,7 +29,7 @@ class AnimatedChild extends AnimatedWidget {
   final EdgeInsets childPadding;
 
   const AnimatedChild({
-    Key? key,
+    this.btnKey,
     required Animation<double> animation,
     this.index,
     this.backgroundColor,
@@ -38,60 +37,35 @@ class AnimatedChild extends AnimatedWidget {
     this.elevation = 6.0,
     this.buttonSize = 56.0,
     this.child,
-    this.labelShadow,
-    this.btnKey,
     this.label,
     this.labelStyle,
+    this.labelShadow,
     this.labelBackgroundColor,
     this.labelWidget,
     this.visible = true,
     this.onTap,
+    required this.switchLabelPosition,
+    required this.useColumn,
+    required this.margin,
     this.onLongPress,
     this.toggleChildren,
     this.shape,
     this.heroTag,
-    required this.useColumn,
-    required this.switchLabelPosition,
-    required this.margin,
     required this.childMargin,
     required this.childPadding,
-  }) : super(key: key, listenable: animation);
-
-  void _performAction([bool isLong = false]) {
-    if (onTap != null && !isLong) {
-      onTap!();
-    } else if (onLongPress != null && isLong) {
-      onLongPress!();
-    }
-  }
-
-  Widget _buildColumnOrRow(
-    bool isColumn, {
-    CrossAxisAlignment? crossAxisAlignment,
-    MainAxisAlignment? mainAxisAlignment,
-    required List<Widget> children,
-    MainAxisSize? mainAxisSize,
-  }) {
-    return isColumn
-        ? Column(
-            mainAxisSize: mainAxisSize ?? MainAxisSize.max,
-            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
-            crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-            children: children,
-          )
-        : Row(
-            mainAxisSize: mainAxisSize ?? MainAxisSize.max,
-            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
-            crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-            children: children,
-          );
-  }
+  }) : super(listenable: animation);
 
   @override
   Widget build(BuildContext context) {
-    final animation = listenable as Animation<double>;
-
+    final Animation<double> animation = listenable as Animation<double>;
     final dark = Theme.of(context).brightness == Brightness.dark;
+
+    void _performAction([bool isLong = false]) {
+      if (onTap != null && !isLong) {
+        onTap!();
+      } else if (onLongPress != null && isLong) onLongPress!();
+      toggleChildren!();
+    }
 
     Widget buildLabel() {
       if (label == null && labelWidget == null) return Container();
@@ -112,17 +86,17 @@ class AnimatedChild extends AnimatedWidget {
           margin: childMargin,
           decoration: BoxDecoration(
             color: labelBackgroundColor ??
-                (dark ? Colors.grey[800] : Colors.green[50]),
-            borderRadius: BorderRadius.circular(6.0),
+                (dark ? Colors.grey[800] : Colors.grey[50]),
+            borderRadius: const BorderRadius.all(Radius.circular(6.0)),
             boxShadow: labelShadow ??
                 [
                   BoxShadow(
                     color: dark
-                        ? Colors.grey[900]!.withOpacity(.7)
-                        : Colors.grey.withOpacity(.7),
-                    offset: const Offset(.8, .8),
+                        ? Colors.grey[900]!.withOpacity(0.7)
+                        : Colors.grey.withOpacity(0.7),
+                    offset: const Offset(0.8, 0.8),
                     blurRadius: 2.4,
-                  ),
+                  )
                 ],
           ),
           child: Text(label!, style: labelStyle),
@@ -131,20 +105,19 @@ class AnimatedChild extends AnimatedWidget {
     }
 
     final button = ScaleTransition(
-      scale: animation,
-      child: FloatingActionButton(
-        key: btnKey,
-        heroTag: heroTag,
-        onPressed: _performAction,
-        backgroundColor:
-            backgroundColor ?? (dark ? Colors.grey[800] : Colors.grey[50]),
-        foregroundColor:
-            foregroundColor ?? (dark ? Colors.white : Colors.black),
-        elevation: elevation ?? 6.0,
-        shape: shape,
-        child: child,
-      ),
-    );
+        scale: animation,
+        child: FloatingActionButton(
+          key: btnKey,
+          heroTag: heroTag,
+          onPressed: _performAction,
+          backgroundColor:
+              backgroundColor ?? (dark ? Colors.grey[800] : Colors.grey[50]),
+          foregroundColor:
+              foregroundColor ?? (dark ? Colors.white : Colors.black),
+          elevation: elevation ?? 6.0,
+          shape: shape,
+          child: child,
+        ));
 
     final children = [
       if (label != null || labelWidget != null)
@@ -173,6 +146,28 @@ class AnimatedChild extends AnimatedWidget {
                 ),
         )
     ];
+
+    Widget _buildColumnOrRow(bool isColumn,
+        {CrossAxisAlignment? crossAxisAlignment,
+        MainAxisAlignment? mainAxisAlignment,
+        required List<Widget> children,
+        MainAxisSize? mainAxisSize}) {
+      return isColumn
+          ? Column(
+              mainAxisSize: mainAxisSize ?? MainAxisSize.max,
+              mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+              crossAxisAlignment:
+                  crossAxisAlignment ?? CrossAxisAlignment.center,
+              children: children,
+            )
+          : Row(
+              mainAxisSize: mainAxisSize ?? MainAxisSize.max,
+              mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+              crossAxisAlignment:
+                  crossAxisAlignment ?? CrossAxisAlignment.center,
+              children: children,
+            );
+    }
 
     return visible
         ? Container(

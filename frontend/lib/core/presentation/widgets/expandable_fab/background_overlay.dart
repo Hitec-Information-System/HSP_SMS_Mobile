@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'global_key_extensions.dart';
 
@@ -29,21 +28,19 @@ class BackgroundOverlay extends AnimatedWidget {
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable as Animation<double>;
     return ColorFiltered(
-      colorFilter: ColorFilter.mode(
-          color.withOpacity(opacity * animation.value), BlendMode.srcOut),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          GestureDetector(
-            onTap: closeManually ? null : onTap,
-            child: Container(
-              decoration: BoxDecoration(
-                color: color,
-                backgroundBlendMode: BlendMode.dstOut,
+        colorFilter: ColorFilter.mode(
+            color.withOpacity(opacity * animation.value), BlendMode.srcOut),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            GestureDetector(
+              onTap: closeManually ? null : onTap,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: color, backgroundBlendMode: BlendMode.dstOut),
               ),
             ),
-          ),
-          Positioned(
+            Positioned(
               width: dialKey.globalPaintBounds!.size.width,
               child: CompositedTransformFollower(
                 link: layerLink,
@@ -51,22 +48,25 @@ class BackgroundOverlay extends AnimatedWidget {
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: Tooltip(
-                    message: tooltip ?? "",
-                    child: Container(
-                      width: dialKey.globalPaintBounds!.size.width,
-                      height: dialKey.globalPaintBounds!.size.height,
-                      decoration: ShapeDecoration(
-                        shape: shape == const CircleBorder()
-                            ? const StadiumBorder()
-                            : shape,
-                        color: Colors.white,
+                    message: tooltip ?? '',
+                    child: GestureDetector(
+                      onTap: onTap,
+                      child: Container(
+                        width: dialKey.globalPaintBounds!.size.width,
+                        height: dialKey.globalPaintBounds!.size.height,
+                        decoration: ShapeDecoration(
+                          shape: shape == const CircleBorder()
+                              ? const StadiumBorder()
+                              : shape,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              )),
-        ],
-      ),
-    );
+              ),
+            ),
+          ],
+        ));
   }
 }

@@ -1,25 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AnimatedFloatingButton extends StatefulWidget {
-  const AnimatedFloatingButton({
-    Key? key,
-    this.visible = true,
-    this.callback,
-    this.onLongPress,
-    this.label,
-    this.child,
-    this.backgroundColor,
-    this.foregroundColor,
-    this.tooltip,
-    this.heroTag,
-    this.size = 56.0,
-    this.elevation = 6.0,
-    this.shape = const CircleBorder(),
-    this.curve = Curves.fastOutSlowIn,
-    this.dialRoot,
-    this.useInkWell = false,
-  }) : super(key: key);
-
   final bool visible;
   final VoidCallback? callback;
   final VoidCallback? onLongPress;
@@ -36,6 +17,25 @@ class AnimatedFloatingButton extends StatefulWidget {
   final Widget? dialRoot;
   final bool useInkWell;
 
+  const AnimatedFloatingButton({
+    Key? key,
+    this.visible = true,
+    this.callback,
+    this.label,
+    this.child,
+    this.dialRoot,
+    this.useInkWell = false,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.tooltip,
+    this.heroTag,
+    this.elevation = 6.0,
+    this.size = 56.0,
+    this.shape = const CircleBorder(),
+    this.curve = Curves.fastOutSlowIn,
+    this.onLongPress,
+  }) : super(key: key);
+
   @override
   _AnimatedFloatingButtonState createState() => _AnimatedFloatingButtonState();
 }
@@ -48,13 +48,13 @@ class _AnimatedFloatingButtonState extends State<AnimatedFloatingButton>
         ? AnimatedContainer(
             curve: widget.curve,
             duration: const Duration(milliseconds: 150),
-            height: widget.visible ? widget.size : 0.0,
+            height: widget.visible ? widget.size : 0,
             child: FittedBox(
               child: GestureDetector(
                 onLongPress: widget.onLongPress,
                 child: widget.label != null
                     ? FloatingActionButton.extended(
-                        onPressed: widget.callback,
+                        icon: widget.visible ? widget.child : null,
                         label: widget.visible
                             ? widget.label!
                             : const SizedBox.shrink(),
@@ -63,17 +63,17 @@ class _AnimatedFloatingButtonState extends State<AnimatedFloatingButton>
                             : widget.shape,
                         backgroundColor: widget.backgroundColor,
                         foregroundColor: widget.foregroundColor,
+                        onPressed: widget.callback,
                         tooltip: widget.tooltip,
                         heroTag: widget.heroTag,
                         elevation: widget.elevation,
                         highlightElevation: widget.elevation,
-                        icon: widget.visible ? widget.child : null,
                       )
                     : FloatingActionButton(
-                        onPressed: widget.callback,
                         shape: widget.shape,
                         backgroundColor: widget.backgroundColor,
                         foregroundColor: widget.foregroundColor,
+                        onPressed: widget.callback,
                         tooltip: widget.tooltip,
                         heroTag: widget.heroTag,
                         elevation: widget.elevation,

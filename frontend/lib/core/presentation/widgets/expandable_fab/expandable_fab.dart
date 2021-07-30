@@ -1,0 +1,574 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+
+import 'package:frontend/core/presentation/widgets/expandable_fab/animated_child.dart';
+import 'package:frontend/core/presentation/widgets/expandable_fab/animated_floating_button.dart';
+import 'package:frontend/core/presentation/widgets/expandable_fab/background_overlay.dart';
+import 'package:frontend/core/presentation/widgets/expandable_fab/expandable_fab_child.dart';
+import 'package:frontend/core/presentation/widgets/expandable_fab/expandable_fab_direction.dart';
+
+import 'global_key_extensions.dart';
+
+class ExpandableFAB extends StatefulWidget {
+  /// Children buttons, from the lowest to the highest.
+  final List<ExpandableFABChild> children;
+
+  /// Used to get the button hidden on scroll. See examples for more info.
+  final bool visible;
+
+  /// The curve used to animate the button on scrolling.
+  final Curve curve;
+
+  final String? tooltip;
+  final String? heroTag;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final Color? activeBackgroundColor;
+  final Color? activeForegroundColor;
+  final double elevation;
+  final double buttonSize;
+  final double childrenButtonSize;
+  final ShapeBorder shape;
+  final Gradient? gradient;
+  final BoxShape gradientBoxShape;
+
+  /// Whether speedDial initialize with open state or not, defaults to false.
+  final bool isOpenOnStart;
+
+  /// The color of the background overlay.
+  final Color? overlayColor;
+
+  /// The opacity of the background overlay when the dial is open.
+  final double overlayOpacity;
+
+  /// The animated icon to show as the main button child. If this is provided the [child] is ignored.
+  final AnimatedIconData? animatedIcon;
+
+  /// The theme for the animated icon.
+  final IconThemeData? animatedIconTheme;
+
+  /// The icon of the main button, ignored if [animatedIcon] is non [null].
+  final IconData? icon;
+
+  /// The active icon of the main button, Defaults to icon if not specified, ignored if [animatedIcon] is non [null].
+  final IconData? activeIcon;
+
+  /// If true then rotation animation will be used when animating b/w activeIcon and icon.
+  final bool useRotationAnimation;
+
+  /// The theme for the icon generally includes color and size.
+  final IconThemeData? iconTheme;
+
+  /// The label of the main button.
+  final Widget? label;
+
+  /// The active label of the main button, Defaults to label if not specified.
+  final Widget? activeLabel;
+
+  /// Transition Builder between label and activeLabel, defaults to FadeTransition.
+  final Widget Function(Widget, Animation<double>)? labelTransitionBuilder;
+
+  /// Executed when the dial is opened.
+  final VoidCallback? onOpen;
+
+  /// Executed when the dial is closed.
+  final VoidCallback? onClose;
+
+  /// Executed when the dial is pressed. If given, the dial only opens on long press!
+  final VoidCallback? onPress;
+
+  /// If true user is forced to close dial manually by tapping main button. WARNING: If true, overlay is not rendered.
+  final bool closeManually;
+
+  /// If true overlay is rendered, no matter if closeManually is true or false.
+  final bool renderOverlay;
+
+  /// Open or close the dial via a notification
+  final ValueNotifier<bool>? openCloseDial;
+
+  /// The speed of the animation in milliseconds
+  final int animationSpeed;
+
+  /// The margin of each child
+  final EdgeInsets childMargin;
+
+  /// The padding of each child
+  final EdgeInsets childPadding;
+
+  /// Add a space at between speed dial and children
+  final double? spacing;
+
+  /// Add a space between each children
+  final double? spaceBetweenChildren;
+
+  /// The direction of the children. Default is [SpeedDialDirection.Up]
+  final ExpandableFABDirection direction;
+
+  /// If Provided then it will replace the default Floating Action Button
+  /// and will show the Widget Specified as dialRoot instead, it will also
+  /// ignore backgroundColor, foregroundColor or any other property
+  /// that was specific to FAB before like onPress, you will have to provide
+  /// it again to your dialRoot button.
+  final Widget Function(
+      BuildContext context, bool open, VoidCallback toggleChildren)? dialRoot;
+
+  /// This is the child of the FAB, if specified it will ignore icon, activeIcon.
+  final Widget? child;
+
+  /// This is the active child of the FAB, if specified it will animate b/w this
+  /// and the child.
+  final Widget? activeChild;
+
+  final bool switchLabelPosition;
+
+  const ExpandableFAB({
+    Key? key,
+    this.children = const [],
+    this.visible = true,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.activeBackgroundColor,
+    this.activeForegroundColor,
+    this.gradient,
+    this.gradientBoxShape = BoxShape.rectangle,
+    this.elevation = 6.0,
+    this.buttonSize = 56.0,
+    this.childrenButtonSize = 56.0,
+    this.dialRoot,
+    this.overlayOpacity = 0.8,
+    this.overlayColor,
+    this.tooltip,
+    this.heroTag,
+    this.animatedIcon,
+    this.animatedIconTheme,
+    this.icon,
+    this.activeIcon,
+    this.child,
+    this.activeChild,
+    this.switchLabelPosition = false,
+    this.useRotationAnimation = true,
+    this.iconTheme,
+    this.label,
+    this.activeLabel,
+    this.labelTransitionBuilder,
+    this.onOpen,
+    this.onClose,
+    this.direction = ExpandableFABDirection.up,
+    this.closeManually = false,
+    this.renderOverlay = true,
+    this.shape = const StadiumBorder(),
+    this.curve = Curves.fastOutSlowIn,
+    this.onPress,
+    this.animationSpeed = 150,
+    this.openCloseDial,
+    this.isOpenOnStart = false,
+    this.childMargin = const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+    this.childPadding = const EdgeInsets.symmetric(vertical: 5),
+    this.spaceBetweenChildren,
+    this.spacing,
+  }) : super(key: key);
+
+  @override
+  _ExpandableFABState createState() => _ExpandableFABState();
+}
+
+class _ExpandableFABState extends State<ExpandableFAB>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  bool _open = false;
+  OverlayEntry? overlayEntry;
+  OverlayEntry? backgroundOverlay;
+  final _layerLink = LayerLink();
+  final dialKey = GlobalKey<State<StatefulWidget>>();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: widget.animationSpeed),
+      vsync: this,
+    );
+    widget.openCloseDial?.addListener(() {
+      final show = widget.openCloseDial?.value;
+      if (!mounted) return;
+      if (_open != show) {
+        _toggleChildren();
+      }
+    });
+    Future.delayed(Duration.zero, () async {
+      if (mounted && widget.isOpenOnStart) _toggleChildren();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    widget.openCloseDial?.removeListener(() {});
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(ExpandableFAB oldWidget) {
+    if (oldWidget.children.length != widget.children.length) {
+      _controller.duration = Duration(milliseconds: widget.animationSpeed);
+    }
+
+    widget.openCloseDial?.removeListener(() {});
+    widget.openCloseDial?.addListener(() {
+      final show = widget.openCloseDial?.value;
+      if (!mounted) return;
+      if (_open != show) {
+        _toggleChildren();
+      }
+    });
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void _toggleChildren() {
+    if (widget.children.isNotEmpty) {
+      final newValue = !_open;
+      toggleOverlay();
+      if (widget.openCloseDial != null) widget.openCloseDial!.value = newValue;
+      if (newValue && widget.onOpen != null) widget.onOpen?.call();
+      if (!newValue && widget.onClose != null) widget.onClose?.call();
+    } else if (widget.onOpen != null) widget.onOpen?.call();
+  }
+
+  List<Widget> _getChildrenList() {
+    return widget.children
+        .map((ExpandableFABChild child) {
+          final index = widget.children.indexOf(child);
+
+          final childAnimation = Tween(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: _controller,
+                curve: Interval(0.2 * index, 1.0, curve: Curves.ease)),
+          );
+
+          return AnimatedChild(
+            animation: childAnimation,
+            index: index,
+            margin: widget.spaceBetweenChildren != null
+                ? EdgeInsets.fromLTRB(
+                    widget.direction.value == "right"
+                        ? widget.spaceBetweenChildren!
+                        : 0,
+                    widget.direction.value == "down"
+                        ? widget.spaceBetweenChildren!
+                        : 0,
+                    widget.direction.value == "left"
+                        ? widget.spaceBetweenChildren!
+                        : 0,
+                    widget.direction.value == "up"
+                        ? widget.spaceBetweenChildren!
+                        : 0,
+                  )
+                : null,
+            btnKey: child.key,
+            useColumn: widget.direction.value == "left" ||
+                widget.direction.value == "right",
+            visible: child.visible,
+            switchLabelPosition: widget.switchLabelPosition,
+            backgroundColor: child.backgroundColor,
+            foregroundColor: child.foregroundColor,
+            elevation: child.elevation,
+            buttonSize: widget.childrenButtonSize,
+            label: child.label,
+            labelStyle: child.labelStyle,
+            labelBackgroundColor: child.labelBackgroundColor,
+            labelWidget: child.labelWidget,
+            onTap: child.onTap,
+            onLongPress: child.onLongPress,
+            toggleChildren: () {
+              if (!widget.closeManually) _toggleChildren();
+            },
+            shape: child.shape,
+            heroTag: widget.heroTag != null
+                ? '${widget.heroTag}-child-$index'
+                : null,
+            childMargin: widget.childMargin,
+            childPadding: widget.childPadding,
+            child: child.child,
+          );
+        })
+        .toList()
+        .reversed
+        .toList();
+  }
+
+  void toggleOverlay() {
+    if (_open) {
+      _controller.reverse().whenComplete(() {
+        overlayEntry?.remove();
+        if (widget.renderOverlay && backgroundOverlay!.mounted) {
+          backgroundOverlay?.remove();
+        }
+      });
+    } else {
+      if (_controller.isAnimating) {
+        // overlayEntry?.remove();
+        // backgroundOverlay?.remove();
+        return;
+      }
+      overlayEntry = OverlayEntry(
+          builder: (ctx) => Stack(
+                children: [
+                  Positioned(
+                      child: CompositedTransformFollower(
+                    followerAnchor: widget.direction.value == "down"
+                        ? widget.switchLabelPosition
+                            ? Alignment.topLeft
+                            : Alignment.topRight
+                        : widget.direction.value == "up"
+                            ? widget.switchLabelPosition
+                                ? Alignment.bottomLeft
+                                : Alignment.bottomRight
+                            : widget.direction.value == "left"
+                                ? Alignment.centerRight
+                                : widget.direction.value == "right"
+                                    ? Alignment.centerLeft
+                                    : Alignment.center,
+                    offset: widget.direction.value == "down"
+                        ? Offset(
+                            widget.switchLabelPosition
+                                ? 0
+                                : dialKey.globalPaintBounds!.size.width,
+                            dialKey.globalPaintBounds!.size.height)
+                        : widget.direction.value == "up"
+                            ? Offset(
+                                widget.switchLabelPosition
+                                    ? 0
+                                    : dialKey.globalPaintBounds!.size.width,
+                                0)
+                            : widget.direction.value == "left"
+                                ? Offset(-10.0,
+                                    dialKey.globalPaintBounds!.size.height / 2)
+                                : widget.direction.value == "right"
+                                    ? Offset(
+                                        dialKey.globalPaintBounds!.size.width +
+                                            12,
+                                        dialKey.globalPaintBounds!.size.height /
+                                            2)
+                                    : const Offset(-10.0, 0.0),
+                    link: _layerLink,
+                    showWhenUnlinked: false,
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: Container(
+                        margin: widget.spacing != null
+                            ? EdgeInsets.fromLTRB(
+                                widget.direction.value == "right"
+                                    ? widget.spacing!
+                                    : 0,
+                                widget.direction.value == "down"
+                                    ? widget.spacing!
+                                    : 0,
+                                widget.direction.value == "left"
+                                    ? widget.spacing!
+                                    : 0,
+                                widget.direction.value == "up"
+                                    ? widget.spacing!
+                                    : 0,
+                              )
+                            : null,
+                        child: _buildColumnOrRow(
+                          widget.direction.value == "up" ||
+                              widget.direction.value == "down",
+                          crossAxisAlignment: widget.switchLabelPosition
+                              ? CrossAxisAlignment.start
+                              : CrossAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: widget.direction.value == "down" ||
+                                  widget.direction.value == "right"
+                              ? _getChildrenList().reversed.toList()
+                              : _getChildrenList(),
+                        ),
+                      ),
+                    ),
+                  )),
+                ],
+              ));
+      if (widget.renderOverlay) {
+        backgroundOverlay = OverlayEntry(
+          builder: (ctx) {
+            final _dark = Theme.of(ctx).brightness == Brightness.dark;
+            return BackgroundOverlay(
+              dialKey: dialKey,
+              layerLink: _layerLink,
+              closeManually: widget.closeManually,
+              tooltip: widget.tooltip,
+              shape: widget.shape,
+              onTap: _toggleChildren,
+              // (_open && !widget.closeManually) ? _toggleChildren : null,
+              animation: _controller,
+              color: widget.overlayColor ??
+                  (_dark ? Colors.grey[900] : Colors.white)!,
+              opacity: widget.overlayOpacity,
+            );
+          },
+        );
+      }
+
+      if (!mounted) return;
+
+      _controller.forward();
+      if (widget.renderOverlay) Overlay.of(context)!.insert(backgroundOverlay!);
+      Overlay.of(context)!.insert(overlayEntry!);
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _open = !_open;
+    });
+  }
+
+  Widget _renderButton() {
+    final child = widget.animatedIcon != null
+        ? Container(
+            decoration: BoxDecoration(
+              shape: widget.gradientBoxShape,
+              gradient: widget.gradient,
+            ),
+            child: Center(
+              child: AnimatedIcon(
+                icon: widget.animatedIcon!,
+                progress: _controller,
+                color: widget.animatedIconTheme?.color,
+                size: widget.animatedIconTheme?.size,
+              ),
+            ),
+          )
+        : AnimatedBuilder(
+            animation: _controller,
+            builder: (BuildContext context, Widget? _widget) =>
+                Transform.rotate(
+              angle:
+                  (widget.activeChild != null || widget.activeIcon != null) &&
+                          widget.useRotationAnimation
+                      ? _controller.value * pi / 2
+                      : 0,
+              child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: widget.animationSpeed),
+                  child: (widget.child != null && _controller.value < 0.4)
+                      ? widget.child
+                      : (widget.activeIcon == null &&
+                                  widget.activeChild == null ||
+                              _controller.value < 0.4)
+                          ? Container(
+                              decoration: BoxDecoration(
+                                shape: widget.gradientBoxShape,
+                                gradient: widget.gradient,
+                              ),
+                              child: Center(
+                                child: widget.icon != null
+                                    ? Icon(
+                                        widget.icon,
+                                        key: const ValueKey<int>(0),
+                                        color: widget.iconTheme?.color,
+                                        size: widget.iconTheme?.size,
+                                      )
+                                    : widget.child,
+                              ),
+                            )
+                          : Transform.rotate(
+                              angle:
+                                  widget.useRotationAnimation ? -pi * 1 / 2 : 0,
+                              child: widget.activeChild != null
+                                  ? widget.activeChild
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                        shape: widget.gradientBoxShape,
+                                        gradient: widget.gradient,
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          widget.activeIcon,
+                                          key: const ValueKey<int>(1),
+                                          color: widget.iconTheme?.color,
+                                          size: widget.iconTheme?.size,
+                                        ),
+                                      ),
+                                    ),
+                            )),
+            ),
+          );
+
+    final label = AnimatedSwitcher(
+      duration: Duration(milliseconds: widget.animationSpeed),
+      transitionBuilder: widget.labelTransitionBuilder ??
+          (child, animation) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+      child: (!_open || widget.activeLabel == null)
+          ? widget.label
+          : widget.activeLabel,
+    );
+
+    final backgroundColorTween = ColorTween(
+        begin: widget.backgroundColor,
+        end: widget.activeBackgroundColor ?? widget.backgroundColor);
+    final foregroundColorTween = ColorTween(
+        begin: widget.foregroundColor,
+        end: widget.activeForegroundColor ?? widget.foregroundColor);
+
+    final animatedFloatingButton = AnimatedBuilder(
+      animation: _controller,
+      builder: (context, ch) => CompositedTransformTarget(
+          link: _layerLink,
+          key: dialKey,
+          child: AnimatedFloatingButton(
+            visible: widget.visible,
+            tooltip: widget.tooltip,
+            dialRoot: widget.dialRoot != null
+                ? widget.dialRoot!(context, _open, _toggleChildren)
+                : null,
+            backgroundColor: widget.backgroundColor != null
+                ? backgroundColorTween.lerp(_controller.value)
+                : null,
+            foregroundColor: widget.foregroundColor != null
+                ? foregroundColorTween.lerp(_controller.value)
+                : null,
+            elevation: widget.elevation,
+            onLongPress: _toggleChildren,
+            callback: (_open || widget.onPress == null)
+                ? _toggleChildren
+                : widget.onPress,
+            size: widget.buttonSize,
+            label: widget.label != null ? label : null,
+            heroTag: widget.heroTag,
+            shape: widget.shape,
+            child: child,
+          )),
+    );
+
+    return animatedFloatingButton;
+  }
+
+  Widget _buildColumnOrRow(bool isColumn,
+      {CrossAxisAlignment? crossAxisAlignment,
+      MainAxisAlignment? mainAxisAlignment,
+      required List<Widget> children,
+      MainAxisSize? mainAxisSize}) {
+    return isColumn
+        ? Column(
+            mainAxisSize: mainAxisSize ?? MainAxisSize.max,
+            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+            crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
+            children: children,
+          )
+        : Row(
+            mainAxisSize: mainAxisSize ?? MainAxisSize.max,
+            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+            crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
+            children: children,
+          );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _renderButton();
+  }
+}
