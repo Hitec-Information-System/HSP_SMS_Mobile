@@ -1,16 +1,12 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-part 'theme_notifier.freezed.dart';
+class ThemeModeNotifier extends StateNotifier<ThemeMode> {
+  ThemeModeNotifier() : super(ThemeMode.system);
 
-@freezed
-class ThemeState with _$ThemeState {
-  const ThemeState._();
-  const factory ThemeState.initial() = _Initial;
-  const factory ThemeState.light() = _Light;
-  const factory ThemeState.dark() = _Dark;
-}
+  ThemeMode get themeMode => state;
 
-class ThemeNotifier extends StateNotifier<ThemeState> {
-  ThemeNotifier() : super(const ThemeState.light());
+  set themeMode(ThemeMode themeMode) {
+    state = themeMode;
+  }
 }

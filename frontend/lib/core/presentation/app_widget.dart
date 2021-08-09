@@ -5,6 +5,8 @@ import 'package:frontend/auth/application/auth_notifier.dart';
 import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:frontend/core/presentation/widgets.dart';
+import 'package:frontend/theme/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final initializationProvider = FutureProvider<Unit>((ref) async {
@@ -17,6 +19,8 @@ class AppWidget extends ConsumerWidget {
   final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeModeState = ref.watch(themeModeNotifierProvider);
+
     // return AnnotatedRegion<SystemUiOverlayStyle>(
     // status bar 값 조정
     // value: state.theme.systemStyle,
@@ -67,6 +71,10 @@ class AppWidget extends ConsumerWidget {
         }
         return supportedLocales.first;
       },
+      // theme
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeModeState,
       // router 세팅
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
