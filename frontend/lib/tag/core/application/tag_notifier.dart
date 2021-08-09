@@ -15,9 +15,8 @@ class TagState with _$TagState {
   const TagState._();
   const factory TagState.initial() = _TagInitial;
   const factory TagState.qrReading() = _QrTagReading;
-  const factory TagState.qrRead(Tag tag) = _QrTagRead;
   const factory TagState.nfcReading() = _NfcTagReading;
-  const factory TagState.nfcRead(Tag tag) = _NfcTagRead;
+  const factory TagState.read(Tag tag) = _TagRead;
   const factory TagState.failure(TagFailure failure) = _TagFailure;
 }
 
@@ -43,7 +42,7 @@ class TagNotifier extends StateNotifier<TagState> {
 
         state = failureOrSuccess.fold(
           (l) => TagState.failure(l),
-          (r) => TagState.nfcRead(r),
+          (r) => TagState.read(r),
         );
       } on MissingPluginException {
         await _nfcManager.stopSession();
@@ -58,7 +57,7 @@ class TagNotifier extends StateNotifier<TagState> {
 
     state = failureOrSuccess.fold(
       (l) => TagState.failure(l),
-      (r) => TagState.qrRead(r),
+      (r) => TagState.read(r),
     );
   }
 
@@ -67,11 +66,14 @@ class TagNotifier extends StateNotifier<TagState> {
   }
 
   Future<void> clear() async {
-    await state.maybeMap(nfcReading: (_) async {
-      await _nfcManager.stopSession();
-      state = const TagState.initial();
-    }, orElse: () {
-      state = const TagState.initial();
-    });
+    await state.maybeMap(
+      nfcReading: (_) async {
+        await _nfcManager.stopSession();
+        state = const TagState.initial();
+      },
+      orElse: () {
+        state = const TagState.initial();
+      },
+    );
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/tag/core/shared/providers.dart';
@@ -53,10 +52,11 @@ class _QRScanPageState extends ConsumerState<QRScanPage> {
                 });
               },
               overlay: QrScannerOverlayShape(
-                  borderRadius: 10,
-                  borderLength: 30,
-                  borderWidth: 10,
-                  cutOutSize: scanArea),
+                borderRadius: 10,
+                borderLength: 30,
+                borderWidth: 10,
+                cutOutSize: scanArea,
+              ),
             ),
           ),
         ],

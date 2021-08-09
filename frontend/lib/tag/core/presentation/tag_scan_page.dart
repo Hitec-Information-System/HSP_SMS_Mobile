@@ -16,7 +16,8 @@ class TagScanPage extends ConsumerWidget {
       onChange: (context, state) {
         state.maybeMap(
             qrReading: (_) => AutoRouter.of(context).push(const QRScanRoute()),
-            qrRead: (_) => AutoRouter.of(context).pop(const QRScanRoute()),
+            read: (_) =>
+                AutoRouter.of(context).popUntilRouteWithName("HomeRoute"),
             orElse: () {});
       },
       provider: tagNotifierProvider,
@@ -28,9 +29,8 @@ class TagScanPage extends ConsumerWidget {
               Text(state.map(
                   initial: (_) => "initial",
                   qrReading: (_) => "reading...",
-                  qrRead: (tagState) => tagState.tag.id,
+                  read: (tagState) => tagState.tag.id,
                   nfcReading: (_) => "reading...",
-                  nfcRead: (tagState) => tagState.tag.id,
                   failure: (failState) => failState.failure.toString())),
               ElevatedButton(
                 onPressed: () {

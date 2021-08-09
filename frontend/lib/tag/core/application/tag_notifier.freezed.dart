@@ -24,18 +24,12 @@ class _$TagStateTearOff {
     return const _QrTagReading();
   }
 
-  _QrTagRead qrRead(Tag tag) {
-    return _QrTagRead(
-      tag,
-    );
-  }
-
   _NfcTagReading nfcReading() {
     return const _NfcTagReading();
   }
 
-  _NfcTagRead nfcRead(Tag tag) {
-    return _NfcTagRead(
+  _TagRead read(Tag tag) {
+    return _TagRead(
       tag,
     );
   }
@@ -56,9 +50,8 @@ mixin _$TagState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() qrReading,
-    required TResult Function(Tag tag) qrRead,
     required TResult Function() nfcReading,
-    required TResult Function(Tag tag) nfcRead,
+    required TResult Function(Tag tag) read,
     required TResult Function(TagFailure failure) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -66,9 +59,8 @@ mixin _$TagState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? qrReading,
-    TResult Function(Tag tag)? qrRead,
     TResult Function()? nfcReading,
-    TResult Function(Tag tag)? nfcRead,
+    TResult Function(Tag tag)? read,
     TResult Function(TagFailure failure)? failure,
     required TResult orElse(),
   }) =>
@@ -77,9 +69,8 @@ mixin _$TagState {
   TResult map<TResult extends Object?>({
     required TResult Function(_TagInitial value) initial,
     required TResult Function(_QrTagReading value) qrReading,
-    required TResult Function(_QrTagRead value) qrRead,
     required TResult Function(_NfcTagReading value) nfcReading,
-    required TResult Function(_NfcTagRead value) nfcRead,
+    required TResult Function(_TagRead value) read,
     required TResult Function(_TagFailure value) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -87,9 +78,8 @@ mixin _$TagState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TagInitial value)? initial,
     TResult Function(_QrTagReading value)? qrReading,
-    TResult Function(_QrTagRead value)? qrRead,
     TResult Function(_NfcTagReading value)? nfcReading,
-    TResult Function(_NfcTagRead value)? nfcRead,
+    TResult Function(_TagRead value)? read,
     TResult Function(_TagFailure value)? failure,
     required TResult orElse(),
   }) =>
@@ -152,9 +142,8 @@ class _$_TagInitial extends _TagInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() qrReading,
-    required TResult Function(Tag tag) qrRead,
     required TResult Function() nfcReading,
-    required TResult Function(Tag tag) nfcRead,
+    required TResult Function(Tag tag) read,
     required TResult Function(TagFailure failure) failure,
   }) {
     return initial();
@@ -165,9 +154,8 @@ class _$_TagInitial extends _TagInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? qrReading,
-    TResult Function(Tag tag)? qrRead,
     TResult Function()? nfcReading,
-    TResult Function(Tag tag)? nfcRead,
+    TResult Function(Tag tag)? read,
     TResult Function(TagFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -182,9 +170,8 @@ class _$_TagInitial extends _TagInitial {
   TResult map<TResult extends Object?>({
     required TResult Function(_TagInitial value) initial,
     required TResult Function(_QrTagReading value) qrReading,
-    required TResult Function(_QrTagRead value) qrRead,
     required TResult Function(_NfcTagReading value) nfcReading,
-    required TResult Function(_NfcTagRead value) nfcRead,
+    required TResult Function(_TagRead value) read,
     required TResult Function(_TagFailure value) failure,
   }) {
     return initial(this);
@@ -195,9 +182,8 @@ class _$_TagInitial extends _TagInitial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TagInitial value)? initial,
     TResult Function(_QrTagReading value)? qrReading,
-    TResult Function(_QrTagRead value)? qrRead,
     TResult Function(_NfcTagReading value)? nfcReading,
-    TResult Function(_NfcTagRead value)? nfcRead,
+    TResult Function(_TagRead value)? read,
     TResult Function(_TagFailure value)? failure,
     required TResult orElse(),
   }) {
@@ -254,9 +240,8 @@ class _$_QrTagReading extends _QrTagReading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() qrReading,
-    required TResult Function(Tag tag) qrRead,
     required TResult Function() nfcReading,
-    required TResult Function(Tag tag) nfcRead,
+    required TResult Function(Tag tag) read,
     required TResult Function(TagFailure failure) failure,
   }) {
     return qrReading();
@@ -267,9 +252,8 @@ class _$_QrTagReading extends _QrTagReading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? qrReading,
-    TResult Function(Tag tag)? qrRead,
     TResult Function()? nfcReading,
-    TResult Function(Tag tag)? nfcRead,
+    TResult Function(Tag tag)? read,
     TResult Function(TagFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -284,9 +268,8 @@ class _$_QrTagReading extends _QrTagReading {
   TResult map<TResult extends Object?>({
     required TResult Function(_TagInitial value) initial,
     required TResult Function(_QrTagReading value) qrReading,
-    required TResult Function(_QrTagRead value) qrRead,
     required TResult Function(_NfcTagReading value) nfcReading,
-    required TResult Function(_NfcTagRead value) nfcRead,
+    required TResult Function(_TagRead value) read,
     required TResult Function(_TagFailure value) failure,
   }) {
     return qrReading(this);
@@ -297,9 +280,8 @@ class _$_QrTagReading extends _QrTagReading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TagInitial value)? initial,
     TResult Function(_QrTagReading value)? qrReading,
-    TResult Function(_QrTagRead value)? qrRead,
     TResult Function(_NfcTagReading value)? nfcReading,
-    TResult Function(_NfcTagRead value)? nfcRead,
+    TResult Function(_TagRead value)? read,
     TResult Function(_TagFailure value)? failure,
     required TResult orElse(),
   }) {
@@ -313,146 +295,6 @@ class _$_QrTagReading extends _QrTagReading {
 abstract class _QrTagReading extends TagState {
   const factory _QrTagReading() = _$_QrTagReading;
   const _QrTagReading._() : super._();
-}
-
-/// @nodoc
-abstract class _$QrTagReadCopyWith<$Res> {
-  factory _$QrTagReadCopyWith(
-          _QrTagRead value, $Res Function(_QrTagRead) then) =
-      __$QrTagReadCopyWithImpl<$Res>;
-  $Res call({Tag tag});
-
-  $TagCopyWith<$Res> get tag;
-}
-
-/// @nodoc
-class __$QrTagReadCopyWithImpl<$Res> extends _$TagStateCopyWithImpl<$Res>
-    implements _$QrTagReadCopyWith<$Res> {
-  __$QrTagReadCopyWithImpl(_QrTagRead _value, $Res Function(_QrTagRead) _then)
-      : super(_value, (v) => _then(v as _QrTagRead));
-
-  @override
-  _QrTagRead get _value => super._value as _QrTagRead;
-
-  @override
-  $Res call({
-    Object? tag = freezed,
-  }) {
-    return _then(_QrTagRead(
-      tag == freezed
-          ? _value.tag
-          : tag // ignore: cast_nullable_to_non_nullable
-              as Tag,
-    ));
-  }
-
-  @override
-  $TagCopyWith<$Res> get tag {
-    return $TagCopyWith<$Res>(_value.tag, (value) {
-      return _then(_value.copyWith(tag: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$_QrTagRead extends _QrTagRead {
-  const _$_QrTagRead(this.tag) : super._();
-
-  @override
-  final Tag tag;
-
-  @override
-  String toString() {
-    return 'TagState.qrRead(tag: $tag)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _QrTagRead &&
-            (identical(other.tag, tag) ||
-                const DeepCollectionEquality().equals(other.tag, tag)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tag);
-
-  @JsonKey(ignore: true)
-  @override
-  _$QrTagReadCopyWith<_QrTagRead> get copyWith =>
-      __$QrTagReadCopyWithImpl<_QrTagRead>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() qrReading,
-    required TResult Function(Tag tag) qrRead,
-    required TResult Function() nfcReading,
-    required TResult Function(Tag tag) nfcRead,
-    required TResult Function(TagFailure failure) failure,
-  }) {
-    return qrRead(tag);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? qrReading,
-    TResult Function(Tag tag)? qrRead,
-    TResult Function()? nfcReading,
-    TResult Function(Tag tag)? nfcRead,
-    TResult Function(TagFailure failure)? failure,
-    required TResult orElse(),
-  }) {
-    if (qrRead != null) {
-      return qrRead(tag);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_TagInitial value) initial,
-    required TResult Function(_QrTagReading value) qrReading,
-    required TResult Function(_QrTagRead value) qrRead,
-    required TResult Function(_NfcTagReading value) nfcReading,
-    required TResult Function(_NfcTagRead value) nfcRead,
-    required TResult Function(_TagFailure value) failure,
-  }) {
-    return qrRead(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TagInitial value)? initial,
-    TResult Function(_QrTagReading value)? qrReading,
-    TResult Function(_QrTagRead value)? qrRead,
-    TResult Function(_NfcTagReading value)? nfcReading,
-    TResult Function(_NfcTagRead value)? nfcRead,
-    TResult Function(_TagFailure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (qrRead != null) {
-      return qrRead(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _QrTagRead extends TagState {
-  const factory _QrTagRead(Tag tag) = _$_QrTagRead;
-  const _QrTagRead._() : super._();
-
-  Tag get tag => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$QrTagReadCopyWith<_QrTagRead> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -496,9 +338,8 @@ class _$_NfcTagReading extends _NfcTagReading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() qrReading,
-    required TResult Function(Tag tag) qrRead,
     required TResult Function() nfcReading,
-    required TResult Function(Tag tag) nfcRead,
+    required TResult Function(Tag tag) read,
     required TResult Function(TagFailure failure) failure,
   }) {
     return nfcReading();
@@ -509,9 +350,8 @@ class _$_NfcTagReading extends _NfcTagReading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? qrReading,
-    TResult Function(Tag tag)? qrRead,
     TResult Function()? nfcReading,
-    TResult Function(Tag tag)? nfcRead,
+    TResult Function(Tag tag)? read,
     TResult Function(TagFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -526,9 +366,8 @@ class _$_NfcTagReading extends _NfcTagReading {
   TResult map<TResult extends Object?>({
     required TResult Function(_TagInitial value) initial,
     required TResult Function(_QrTagReading value) qrReading,
-    required TResult Function(_QrTagRead value) qrRead,
     required TResult Function(_NfcTagReading value) nfcReading,
-    required TResult Function(_NfcTagRead value) nfcRead,
+    required TResult Function(_TagRead value) read,
     required TResult Function(_TagFailure value) failure,
   }) {
     return nfcReading(this);
@@ -539,9 +378,8 @@ class _$_NfcTagReading extends _NfcTagReading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TagInitial value)? initial,
     TResult Function(_QrTagReading value)? qrReading,
-    TResult Function(_QrTagRead value)? qrRead,
     TResult Function(_NfcTagReading value)? nfcReading,
-    TResult Function(_NfcTagRead value)? nfcRead,
+    TResult Function(_TagRead value)? read,
     TResult Function(_TagFailure value)? failure,
     required TResult orElse(),
   }) {
@@ -558,30 +396,28 @@ abstract class _NfcTagReading extends TagState {
 }
 
 /// @nodoc
-abstract class _$NfcTagReadCopyWith<$Res> {
-  factory _$NfcTagReadCopyWith(
-          _NfcTagRead value, $Res Function(_NfcTagRead) then) =
-      __$NfcTagReadCopyWithImpl<$Res>;
+abstract class _$TagReadCopyWith<$Res> {
+  factory _$TagReadCopyWith(_TagRead value, $Res Function(_TagRead) then) =
+      __$TagReadCopyWithImpl<$Res>;
   $Res call({Tag tag});
 
   $TagCopyWith<$Res> get tag;
 }
 
 /// @nodoc
-class __$NfcTagReadCopyWithImpl<$Res> extends _$TagStateCopyWithImpl<$Res>
-    implements _$NfcTagReadCopyWith<$Res> {
-  __$NfcTagReadCopyWithImpl(
-      _NfcTagRead _value, $Res Function(_NfcTagRead) _then)
-      : super(_value, (v) => _then(v as _NfcTagRead));
+class __$TagReadCopyWithImpl<$Res> extends _$TagStateCopyWithImpl<$Res>
+    implements _$TagReadCopyWith<$Res> {
+  __$TagReadCopyWithImpl(_TagRead _value, $Res Function(_TagRead) _then)
+      : super(_value, (v) => _then(v as _TagRead));
 
   @override
-  _NfcTagRead get _value => super._value as _NfcTagRead;
+  _TagRead get _value => super._value as _TagRead;
 
   @override
   $Res call({
     Object? tag = freezed,
   }) {
-    return _then(_NfcTagRead(
+    return _then(_TagRead(
       tag == freezed
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
@@ -599,21 +435,21 @@ class __$NfcTagReadCopyWithImpl<$Res> extends _$TagStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_NfcTagRead extends _NfcTagRead {
-  const _$_NfcTagRead(this.tag) : super._();
+class _$_TagRead extends _TagRead {
+  const _$_TagRead(this.tag) : super._();
 
   @override
   final Tag tag;
 
   @override
   String toString() {
-    return 'TagState.nfcRead(tag: $tag)';
+    return 'TagState.read(tag: $tag)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _NfcTagRead &&
+        (other is _TagRead &&
             (identical(other.tag, tag) ||
                 const DeepCollectionEquality().equals(other.tag, tag)));
   }
@@ -624,20 +460,19 @@ class _$_NfcTagRead extends _NfcTagRead {
 
   @JsonKey(ignore: true)
   @override
-  _$NfcTagReadCopyWith<_NfcTagRead> get copyWith =>
-      __$NfcTagReadCopyWithImpl<_NfcTagRead>(this, _$identity);
+  _$TagReadCopyWith<_TagRead> get copyWith =>
+      __$TagReadCopyWithImpl<_TagRead>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() qrReading,
-    required TResult Function(Tag tag) qrRead,
     required TResult Function() nfcReading,
-    required TResult Function(Tag tag) nfcRead,
+    required TResult Function(Tag tag) read,
     required TResult Function(TagFailure failure) failure,
   }) {
-    return nfcRead(tag);
+    return read(tag);
   }
 
   @override
@@ -645,14 +480,13 @@ class _$_NfcTagRead extends _NfcTagRead {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? qrReading,
-    TResult Function(Tag tag)? qrRead,
     TResult Function()? nfcReading,
-    TResult Function(Tag tag)? nfcRead,
+    TResult Function(Tag tag)? read,
     TResult Function(TagFailure failure)? failure,
     required TResult orElse(),
   }) {
-    if (nfcRead != null) {
-      return nfcRead(tag);
+    if (read != null) {
+      return read(tag);
     }
     return orElse();
   }
@@ -662,12 +496,11 @@ class _$_NfcTagRead extends _NfcTagRead {
   TResult map<TResult extends Object?>({
     required TResult Function(_TagInitial value) initial,
     required TResult Function(_QrTagReading value) qrReading,
-    required TResult Function(_QrTagRead value) qrRead,
     required TResult Function(_NfcTagReading value) nfcReading,
-    required TResult Function(_NfcTagRead value) nfcRead,
+    required TResult Function(_TagRead value) read,
     required TResult Function(_TagFailure value) failure,
   }) {
-    return nfcRead(this);
+    return read(this);
   }
 
   @override
@@ -675,26 +508,25 @@ class _$_NfcTagRead extends _NfcTagRead {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TagInitial value)? initial,
     TResult Function(_QrTagReading value)? qrReading,
-    TResult Function(_QrTagRead value)? qrRead,
     TResult Function(_NfcTagReading value)? nfcReading,
-    TResult Function(_NfcTagRead value)? nfcRead,
+    TResult Function(_TagRead value)? read,
     TResult Function(_TagFailure value)? failure,
     required TResult orElse(),
   }) {
-    if (nfcRead != null) {
-      return nfcRead(this);
+    if (read != null) {
+      return read(this);
     }
     return orElse();
   }
 }
 
-abstract class _NfcTagRead extends TagState {
-  const factory _NfcTagRead(Tag tag) = _$_NfcTagRead;
-  const _NfcTagRead._() : super._();
+abstract class _TagRead extends TagState {
+  const factory _TagRead(Tag tag) = _$_TagRead;
+  const _TagRead._() : super._();
 
   Tag get tag => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$NfcTagReadCopyWith<_NfcTagRead> get copyWith =>
+  _$TagReadCopyWith<_TagRead> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -773,9 +605,8 @@ class _$_TagFailure extends _TagFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() qrReading,
-    required TResult Function(Tag tag) qrRead,
     required TResult Function() nfcReading,
-    required TResult Function(Tag tag) nfcRead,
+    required TResult Function(Tag tag) read,
     required TResult Function(TagFailure failure) failure,
   }) {
     return failure(this.failure);
@@ -786,9 +617,8 @@ class _$_TagFailure extends _TagFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? qrReading,
-    TResult Function(Tag tag)? qrRead,
     TResult Function()? nfcReading,
-    TResult Function(Tag tag)? nfcRead,
+    TResult Function(Tag tag)? read,
     TResult Function(TagFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -803,9 +633,8 @@ class _$_TagFailure extends _TagFailure {
   TResult map<TResult extends Object?>({
     required TResult Function(_TagInitial value) initial,
     required TResult Function(_QrTagReading value) qrReading,
-    required TResult Function(_QrTagRead value) qrRead,
     required TResult Function(_NfcTagReading value) nfcReading,
-    required TResult Function(_NfcTagRead value) nfcRead,
+    required TResult Function(_TagRead value) read,
     required TResult Function(_TagFailure value) failure,
   }) {
     return failure(this);
@@ -816,9 +645,8 @@ class _$_TagFailure extends _TagFailure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TagInitial value)? initial,
     TResult Function(_QrTagReading value)? qrReading,
-    TResult Function(_QrTagRead value)? qrRead,
     TResult Function(_NfcTagReading value)? nfcReading,
-    TResult Function(_NfcTagRead value)? nfcRead,
+    TResult Function(_TagRead value)? read,
     TResult Function(_TagFailure value)? failure,
     required TResult orElse(),
   }) {

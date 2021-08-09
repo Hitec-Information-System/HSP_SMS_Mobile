@@ -1,4 +1,9 @@
 {
-    "title": "화신 NFC App",
-    "first_string": "안녕하세요, 테스트 중입니다."
+  "title": "화신 NFC App",
+  "first_string": "안녕하세요, 테스트 중입니다.",
+  "menu_main": "홈",
+  "menu_facility": "시설 점검",
+  "menu_line": "라인 점검",
+  "menu_forklift": "지게차 점검",
+  "menu_settings": "설정"
 }

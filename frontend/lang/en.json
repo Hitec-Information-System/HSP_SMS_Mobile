@@ -1,4 +1,9 @@
 {
-    "title": "Hwashin NFC App",
-    "first_string": "Hello, it is testing text"
+  "title": "Hwashin NFC App",
+  "first_string": "Hello, it is testing text",
+  "menu_main": "Main",
+  "menu_facility": "Facility",
+  "menu_line": "Line",
+  "menu_forklift": "Forklift",
+  "menu_settings": "Settings"
 }

@@ -10,7 +10,8 @@ final nfcConverterProvider = Provider.autoDispose((ref) => NFCConverter());
 
 final qrConverterProvider = Provider.autoDispose((ref) => QRConverter());
 
-final tagNotifierProvider = StateNotifierProvider.autoDispose<TagNotifier, TagState>(
+final tagNotifierProvider =
+    StateNotifierProvider.autoDispose<TagNotifier, TagState>(
   (ref) => TagNotifier(
     ref.watch(nfcConverterProvider),
     ref.watch(qrConverterProvider),
