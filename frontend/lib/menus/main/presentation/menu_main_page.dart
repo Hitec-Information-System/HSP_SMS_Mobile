@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:frontend/check/check_serial/shared/providers.dart';
 import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/presentation/widgets.dart';
+import 'package:frontend/menus/main/presentation/main_fab.dart';
 import 'package:frontend/tag/core/application/tag_notifier.dart';
 import 'package:frontend/tag/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,22 +15,28 @@ class MenuMainPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDialOpen = useState<bool>(false);
+    final tagState = ref.watch(tagNotifierProvider);
 
-    final state = ref.watch(tagNotifierProvider);
+    final serialLoadedState = ref.watch(checkSerialNotifierProvider);
+
+    final _controller =
+        useAnimationController(duration: const Duration(milliseconds: 100));
+
+    final _canvasSize =
+        Tween<double>(begin: 300.0, end: 200.0).animate(_controller);
 
     ref.listen(
       tagNotifierProvider,
-      (tagState) {
-        (tagState! as TagState).maybeWhen(
-          initial: () =>
-              AutoRouter.of(context).popUntilRouteWithName("HomeRoute"),
-          nfcReading: () {
-            showModalBottomSheet(
-                backgroundColor: Colors.transparent,
-                context: context,
-                builder: (context) {
-                  return BottomSheetWidget(children: [
+      (state) {
+        (state! as TagState).when(
+            initial: () => AutoRouter.of(context)
+                .popUntilRouteWithName(MenuFrameRoute.name),
+            nfcReading: () {
+              showCustomBottomSheet(
+                  context: context,
+                  controller: _controller,
+                  animation: _canvasSize,
+                  children: [
                     Text(
                       "Ready to Scan",
                       textAlign: TextAlign.center,
@@ -49,20 +57,47 @@ class MenuMainPage extends HookConsumerWidget {
                           "Cancel",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )),
-                  ]);
-                });
-          },
-          qrReading: () =>
-              AutoRouter.of(context).push(const QRScanRoute()).then((_) {
-            state.maybeMap(
-                read: (_) {},
-                orElse: () => ref.watch(tagNotifierProvider.notifier).clear());
-          }),
-          read: (tag) {
-            AutoRouter.of(context).popUntilRouteWithName("HomeRoute");
-          },
-          orElse: () {},
-        );
+                  ]).then((_) {
+                ref.read(tagNotifierProvider.notifier).stopNFCSession();
+              });
+            },
+            qrReading: () => AutoRouter.of(context).push(const QRScanRoute()),
+            nfcRead: (tag) {
+              // TODO: 태깅된 정보 보여주고 넘어갈 것인지 말 것인지 물어보기
+
+              _controller.forward();
+
+              ref
+                  .watch(checkSerialNotifierProvider.notifier)
+                  .getFakeInfo(tag.id)
+                  .then(
+                (_) {
+                  AutoRouter.of(context)
+                      .popUntilRouteWithName(MenuFrameRoute.name);
+                  _controller.reverse();
+                },
+              );
+              // TODO: 추후 데이터 설계 끝마쳐지고 난 후 아래 사용하기
+              // ref
+              //     .watch(checkSerialNotifierProvider.notifier)
+              //     .getSerialInfo(tag.id);
+              // AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
+              // _controller.reverse();
+            },
+            qrRead: (tag) {
+              AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
+              // TODO: 태깅된 정보 보여주고 넘어갈 것인지 말 것인지 물어보기
+              ref
+                  .watch(checkSerialNotifierProvider.notifier)
+                  .getFakeInfo(tag.id);
+              // TODO: 추후 데이터 설계 끝마쳐지고 난 후 아래 사용하기
+              // ref
+              //     .watch(checkSerialNotifierProvider.notifier)
+              //     .getSerialInfo(tag.id);
+            },
+            failure: (failure) {
+              // TODO: 문제 발생했을 때 Dialog 보여주기
+            });
       },
     );
 
@@ -92,41 +127,24 @@ class MenuMainPage extends HookConsumerWidget {
               style: const TextStyle(fontSize: 25),
               textAlign: TextAlign.center,
             ),
-            Text(state.map(
+            Text(tagState.map(
                 initial: (_) => "initial",
                 qrReading: (_) => "reading...",
-                read: (tagState) => tagState.tag.id,
+                qrRead: (tagState) => tagState.tag.id,
+                nfcRead: (tagState) => tagState.tag.id,
                 nfcReading: (_) => "reading...",
                 failure: (failState) => failState.failure.toString())),
+            Text(serialLoadedState.when(
+              initial: () => "not yet started",
+              loading: () => "loading",
+              loaded: (serial) => serial.location,
+              failure: (failure) => failure.when(
+                notFound: () => "찾을수 없음",
+                serverError: (msg) => "서버 에러 발생: $msg",
+              ),
+            )),
           ],
         )),
-        floatingActionButton: ExpandableFAB(
-          icon: Icons.qr_code,
-          activeIcon: Icons.close,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          spacing: 3,
-          openCloseDial: isDialOpen,
-          overlayColor: Colors.black,
-          overlayOpacity: .5,
-          spaceBetweenChildren: 4,
-          tooltip: "Tag Method",
-          heroTag: "expandable_fab_hero_tag",
-          elevation: 3.0,
-          animationSpeed: 200,
-          children: [
-            ExpandableFABChild(
-              child: const Icon(Icons.qr_code),
-              label: "QR 태그",
-              onTap: () =>
-                  ref.watch(tagNotifierProvider.notifier).navigateToQR(),
-            ),
-            ExpandableFABChild(
-              child: const Icon(Icons.nfc),
-              label: "NFC 태그",
-              onTap: () => ref.watch(tagNotifierProvider.notifier).readNFCTag(),
-            ),
-          ],
-        ));
+        floatingActionButton: const MainFAB());
   }
 }
