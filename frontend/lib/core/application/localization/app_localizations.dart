@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
-// 다중 언어 지원을 위한 절차
+// multi language support
 
 class AppLocalizations {
   final Locale locale;
