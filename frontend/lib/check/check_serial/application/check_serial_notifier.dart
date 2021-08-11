@@ -47,4 +47,8 @@ class CheckSerialNotifier extends StateNotifier<CheckSerialState> {
 
     state = CheckSerialState.loaded(fakeData);
   }
+
+  void clear() {
+    state = const CheckSerialState.initial();
+  }
 }

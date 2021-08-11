@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 Future<T?> showCustomBottomSheet<T>({
   required BuildContext context,
-  required List<Widget> children,
+  required Widget widget,
   required AnimationController controller,
   required Animation<double> animation,
 }) async {
@@ -15,7 +15,7 @@ Future<T?> showCustomBottomSheet<T>({
           builder: (context, child) {
             return BottomSheetWidget(
               animation: animation,
-              children: children,
+              widget: widget,
             );
           },
         );
@@ -24,27 +24,23 @@ Future<T?> showCustomBottomSheet<T>({
 
 class BottomSheetWidget extends StatelessWidget {
   const BottomSheetWidget(
-      {Key? key, required this.animation, required this.children})
+      {Key? key, required this.animation, required this.widget})
       : super(key: key);
 
-  final List<Widget> children;
+  final Widget widget;
 
   final Animation<double> animation;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: animation.value,
-      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
-      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: Theme.of(context).primaryColor,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: children,
-      ),
-    );
+        height: animation.value,
+        margin: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
+        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: Theme.of(context).primaryColor,
+        ),
+        child: widget);
   }
 }
