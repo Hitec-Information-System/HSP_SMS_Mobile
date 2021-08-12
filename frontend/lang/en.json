@@ -5,5 +5,6 @@
   "menu_facility": "Facility",
   "menu_line": "Line",
   "menu_forklift": "Forklift",
-  "menu_settings": "Settings"
+  "menu_settings": "Settings",
+  "scan_ready": "Ready to scan"
 }
