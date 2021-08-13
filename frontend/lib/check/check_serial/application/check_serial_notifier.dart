@@ -37,6 +37,8 @@ class CheckSerialNotifier extends StateNotifier<CheckSerialState> {
   }
 
   Future<void> getFakeInfo(String tagId) async {
+    state = const CheckSerialState.loading();
+
     final fakeData = CheckSerial(
       id: tagId,
       location: "2층 창고",

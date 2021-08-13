@@ -56,9 +56,9 @@ flutter_icons:
 
 flutter_native_splash:
   color: "#FFFFFF"
-  image: assets/splash/splash_hwashin.png
+  image: assets/splash/splash_hwashin_light.png
   color_dark: "#3A383F"
-  image_dark: assets/splash/splash_hwashin.png
+  image_dark: assets/splash/splash_dark.png
   android: true
   ios: true
   ## how to fill splash image to screen size

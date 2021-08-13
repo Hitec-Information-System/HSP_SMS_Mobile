@@ -4,14 +4,14 @@ import 'package:frontend/check/check_serial/infrastructure/remote/remote_check_s
 import 'package:frontend/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final remoteCheckSerialLoaderProvider = Provider<CheckSerialLoader>(
+final remoteCheckSerialLoaderProvider = Provider.autoDispose<CheckSerialLoader>(
   (ref) => RemoteCheckSerialLoader(
     ref.watch(dioProvider),
   ),
 );
 
 final checkSerialNotifierProvider =
-    StateNotifierProvider<CheckSerialNotifier, CheckSerialState>(
+    StateNotifierProvider.autoDispose<CheckSerialNotifier, CheckSerialState>(
   (ref) => CheckSerialNotifier(
     ref.watch(remoteCheckSerialLoaderProvider),
   ),

@@ -5,11 +5,21 @@ import 'package:rive/rive.dart';
 
 // tag rive animation controller;
 
-Map<String, dynamic> useTagRecognizerRiveController() {
+TagRive useTagRecognizerRiveController() {
   return use(const _RiveTagRecognizerHook());
 }
 
-class _RiveTagRecognizerHook extends Hook<Map<String, dynamic>> {
+class TagRive {
+  final Artboard? artboard;
+  final SMIInput<bool>? isComplete;
+
+  TagRive({
+    this.artboard,
+    this.isComplete,
+  });
+}
+
+class _RiveTagRecognizerHook extends Hook<TagRive> {
   const _RiveTagRecognizerHook();
 
   @override
@@ -18,7 +28,7 @@ class _RiveTagRecognizerHook extends Hook<Map<String, dynamic>> {
 }
 
 class __RiveTagRecognizerControllerState
-    extends HookState<Map<String, dynamic>, _RiveTagRecognizerHook> {
+    extends HookState<TagRive, _RiveTagRecognizerHook> {
   final riveFileName = "assets/animation/tagStateMachine.riv";
 
   Artboard? riveArtboard;
@@ -45,11 +55,11 @@ class __RiveTagRecognizerControllerState
   }
 
   @override
-  Map<String, dynamic> build(BuildContext context) {
-    return {
-      "artboard": riveArtboard,
-      "flag": isCompleteFlag,
-    };
+  TagRive build(BuildContext context) {
+    return TagRive(
+      artboard: riveArtboard,
+      isComplete: isCompleteFlag,
+    );
   }
 
   @override

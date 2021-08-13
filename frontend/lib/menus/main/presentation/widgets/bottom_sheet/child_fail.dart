@@ -7,7 +7,7 @@ class BottomSheetChildFail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
-      key: const ValueKey<String>("BTM-FAIL"),
+      key: const ValueKey<String>("BTM-SH-FAIL"),
       child: Column(
         children: [
           Text("해당하는 항목에 대한 조회결과가 없습니다."),
