@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/check/check_serial/shared/providers.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:frontend/core/presentation/widgets.dart';
+import 'package:frontend/core/presentation/widgets/widgets.dart';
 import 'package:frontend/menus/main/presentation/widgets/bottom_sheet/child_initial.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rive/rive.dart';

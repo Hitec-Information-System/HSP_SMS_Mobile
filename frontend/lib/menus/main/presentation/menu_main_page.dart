@@ -144,29 +144,6 @@ class MenuMainPage extends HookConsumerWidget {
               style: const TextStyle(fontSize: 25),
               textAlign: TextAlign.center,
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.blue,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("59%"),
-                        Text("점검완료"),
-                      ],
-                    ),
-                  ),
-                  CircleAvatar(
-                    radius: 20,
-                  )
-                ],
-              ),
-            )
           ],
         )),
         floatingActionButton: const MainFAB());

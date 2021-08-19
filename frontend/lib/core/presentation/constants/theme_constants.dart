@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppTheme {
-  const AppTheme._();
+class ThemeConstants {
+  const ThemeConstants._();
 
   static final lightTheme = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -42,15 +42,16 @@ class AppTheme {
       800: Color(0x8F8983F7),
       900: Color(0x9F8983F7),
     }),
-    primaryColor: const Color(0xFF1E1F28),
+    primaryColor: const Color(0xFF343434),
     brightness: Brightness.dark,
     accentColor: const Color(0xFF8983F7),
-    backgroundColor: const Color(0xFF26242e),
-    scaffoldBackgroundColor: const Color(0xFF26242e),
+    backgroundColor: const Color(0xFF1E1E1E),
+    scaffoldBackgroundColor: const Color(0xFF27292B),
+    cardColor: const Color(0xFF1C1C1E),
     textTheme: const TextTheme().apply(
       bodyColor: Colors.white,
       displayColor: Colors.white,
     ),
-    hintColor: const Color(0xFFFFFFFF),
+    hintColor: const Color(0xFFA7A4A4),
   );
 }
