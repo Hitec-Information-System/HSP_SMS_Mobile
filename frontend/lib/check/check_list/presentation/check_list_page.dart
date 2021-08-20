@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:frontend/core/presentation/constants/layout_constants.dart';
@@ -39,111 +41,193 @@ class _CheckListPageState extends State<CheckListPage> {
                   "4시",
                 ]),
                 CheckConditionRow(label: "테스트 예제", children: []),
+                const SizedBox(height: LayoutConstants.spaceM),
+                const Divider(thickness: 2),
+                const SizedBox(height: LayoutConstants.spaceM),
+                Text(
+                  "점검항목",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: LayoutConstants.spaceL),
                 Material(
                   elevation: 1,
                   borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
                   color: Theme.of(context).cardColor,
-                  child: Padding(
-                      padding: const EdgeInsets.all(LayoutConstants.paddingL),
-                      child: Column(
-                        children: [
-                          Row(
+                  child: Container(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Material(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      elevation: 2,
+                      borderRadius:
+                          BorderRadius.circular(LayoutConstants.radiusS),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: LayoutConstants.paddingL,
+                              vertical: LayoutConstants.paddingM),
+                          child: Column(
                             children: [
-                              Text("1"),
-                              const SizedBox(width: LayoutConstants.spaceM),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      alignment: Alignment.centerRight,
-                                      child: Stack(
-                                        children: [
-                                          Icon(
-                                            Icons.add_a_photo,
+                              Row(
+                                children: [
+                                  Text(
+                                    "1",
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
+                                  ),
+                                  const SizedBox(width: LayoutConstants.spaceL),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                              bottom: LayoutConstants.paddingM),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {},
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal:
+                                                          LayoutConstants
+                                                              .paddingS),
+                                                  child: Icon(
+                                                    Icons.add_a_photo,
+                                                  ),
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {},
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal:
+                                                          LayoutConstants
+                                                              .paddingS),
+                                                  child: Icon(
+                                                    Icons.delete,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 2),
+                                        ),
+                                        Container(
+                                          height: 40,
+                                          alignment: Alignment.centerLeft,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal:
+                                                  LayoutConstants.paddingM),
+                                          child: Text(
+                                            "PLT의 흔들림, 낙하할 위험 없이 안정된 적재 확인.  건축물 안전휀스, 소화전, 벽면 등의 시설물 파손 상태 확인 등의 시설물 파손 상태 확인 등의 시설물 파손 상태 확인 등의 시설물 파손 상태 확인",
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                            height: LayoutConstants.spaceM),
+                                        GestureDetector(
+                                          onTap: () {
+                                            // TODO: navigate to remark hero page
+                                            log("remark clicked");
+                                          },
+                                          child: Container(
+                                            height: 30,
                                             decoration: BoxDecoration(
-                                              color: Colors.red,
                                               borderRadius:
                                                   BorderRadius.circular(
-                                                LayoutConstants.radiusM,
-                                              ),
+                                                      LayoutConstants.radiusM),
+                                              color: Theme.of(context)
+                                                  .backgroundColor,
                                             ),
-                                            child: Text(
-                                              "2",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption
-                                                  ?.copyWith(
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white,
-                                                  ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Text(
-                                      "PLT의 흔들림, 낙하할 위험 없이 안정된 적재 확인. 건축물 안전휀스, 소화전, 벽면 등의 시설물 파손 상태 확인",
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.bottomRight,
-                                      child: ToggleButtons(
-                                        constraints: const BoxConstraints(
-                                          minHeight: 35,
-                                          minWidth: 45,
+                                            alignment: Alignment.centerLeft,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal:
+                                                    LayoutConstants.paddingM),
+                                            child: Text("비고란",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(
+                                                      color: Theme.of(context)
+                                                          .hintColor,
+                                                    )),
+                                          ),
                                         ),
-                                        selectedColor:
-                                            Theme.of(context).accentColor,
-                                        fillColor: Theme.of(context)
-                                            .accentColor
-                                            .withOpacity(.5),
-                                        hoverColor: Theme.of(context)
-                                            .accentColor
-                                            .withOpacity(.2),
-                                        disabledBorderColor:
-                                            Theme.of(context).disabledColor,
-                                        disabledColor:
-                                            Theme.of(context).disabledColor,
-                                        selectedBorderColor:
-                                            Theme.of(context).accentColor,
-                                        borderWidth: 2,
-                                        borderRadius: BorderRadius.circular(
-                                            LayoutConstants.radiusM),
-                                        isSelected: _isSelected,
-                                        onPressed: (index) {
-                                          setState(() {
-                                            for (var buttonIndex = 0;
-                                                buttonIndex <
-                                                    _isSelected.length;
-                                                buttonIndex++) {
-                                              if (buttonIndex == index) {
-                                                _isSelected[buttonIndex] = true;
-                                              } else {
-                                                _isSelected[buttonIndex] =
-                                                    false;
-                                              }
-                                            }
-                                          });
-                                        },
-                                        children: [
-                                          Text("양호"),
-                                          Text("불량"),
-                                        ],
-                                      ),
+                                        const SizedBox(
+                                            height: LayoutConstants.spaceM),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Text("육안 확인 결과:"),
+                                            const SizedBox(
+                                                width: LayoutConstants.spaceL),
+                                            ToggleButtons(
+                                              constraints: const BoxConstraints(
+                                                minHeight: 35,
+                                                minWidth: 40,
+                                              ),
+                                              selectedColor:
+                                                  Theme.of(context).accentColor,
+                                              fillColor: Theme.of(context)
+                                                  .accentColor
+                                                  .withOpacity(.5),
+                                              hoverColor: Theme.of(context)
+                                                  .accentColor
+                                                  .withOpacity(.2),
+                                              disabledBorderColor:
+                                                  Theme.of(context)
+                                                      .disabledColor,
+                                              disabledColor: Theme.of(context)
+                                                  .disabledColor,
+                                              selectedBorderColor:
+                                                  Theme.of(context).accentColor,
+                                              borderWidth: 2,
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      LayoutConstants.radiusM),
+                                              isSelected: _isSelected,
+                                              onPressed: (index) {
+                                                setState(() {
+                                                  for (var buttonIndex = 0;
+                                                      buttonIndex <
+                                                          _isSelected.length;
+                                                      buttonIndex++) {
+                                                    if (buttonIndex == index) {
+                                                      _isSelected[buttonIndex] =
+                                                          true;
+                                                    } else {
+                                                      _isSelected[buttonIndex] =
+                                                          false;
+                                                    }
+                                                  }
+                                                });
+                                              },
+                                              children: [
+                                                Text("양호"),
+                                                Text("불량"),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
+                                  ),
+                                ],
+                              )
                             ],
-                          )
-                        ],
-                      )),
+                          )),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -199,7 +283,7 @@ class _CheckConditionRowState extends State<CheckConditionRow> {
           ToggleButtons(
             constraints: const BoxConstraints(
               minHeight: 35,
-              minWidth: 45,
+              minWidth: 40,
             ),
             selectedColor: Theme.of(context).accentColor,
             fillColor: Theme.of(context).accentColor.withOpacity(.5),
