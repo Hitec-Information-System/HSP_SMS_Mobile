@@ -3,7 +3,8 @@ package repository
 import "hitecis.co.kr/hwashin_nfc/model"
 
 type DBRepository interface {
-	GetJsonData() ([]interface{}, error)
+	GetQueryData(query string) ([]interface{}, error)
+	GetSPDataWithLOC(query string) ([]interface{}, error)
 	GetUser(id string, pwd string) (model.User, error)
 	Close()
 }

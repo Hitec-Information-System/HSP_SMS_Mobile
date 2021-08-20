@@ -2,10 +2,13 @@
 package repository
 
 import (
+	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
+	"time"
 
-	_ "github.com/godror/godror"
+	"github.com/godror/godror"
 	"github.com/spf13/viper"
 	"hitecis.co.kr/hwashin_nfc/model"
 )
@@ -23,16 +26,17 @@ func (o *OracleRepository) GetUser(id string, pwd string) (model.User, error) {
 	var err error
 
 	query := fmt.Sprintf(`
- 		SELECT USER_ID, USER_PWD
-			FROM RMS_USER	
+ 		SELECT USER_ID, PWD
+			FROM SMS_B_USER	
  		WHERE USER_ID = '%s'
- 		AND USER_PWD = '%s'
+ 		AND PWD = '%s'
+		AND USE_YN = 'Y'
  `, id, pwd)
 
 	rows, err := o.db.Query(query)
 
 	if err != nil {
-		panic(err)
+		return user, err
 	}
 
 	defer rows.Close()
@@ -46,21 +50,17 @@ func (o *OracleRepository) GetUser(id string, pwd string) (model.User, error) {
 	return user, err
 }
 
-func (o *OracleRepository) GetJsonData() ([]interface{}, error) {
+func (o *OracleRepository) GetQueryData(query string) ([]interface{}, error) {
 
 	var results []interface{}
 	var err error
 
-	// query 예시
-	rows, err := o.db.Query(`
-	SELECT PROC_PART_NO, CRT_DT, CRT_BY, UDT_DT 
-	FROM T_COIL_PROC_PART
-	WHERE 1=1
-	AND CRT_BY = '1110531'
-	`)
+	rows, err := o.db.Query(query)
+
+	fmt.Println(rows)
 
 	if err != nil {
-		panic(err)
+		return results, err
 	}
 
 	defer rows.Close()
@@ -98,6 +98,43 @@ func (o *OracleRepository) GetJsonData() ([]interface{}, error) {
 
 }
 
+func (o *OracleRepository) GetSPDataWithLOC(qry string) ([]interface{}, error) {
+
+	var results []interface{}
+	var err error
+
+	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_loc"}), 10*time.Second)
+	defer cancel()
+
+	conn, err := o.db.Conn(ctx)
+	if err != nil {
+		return results, err
+	}
+
+	defer conn.Close()
+
+	stmt, err := conn.PrepareContext(ctx, qry)
+	if err != nil {
+		return results, err
+	}
+	defer stmt.Close()
+
+	var lob godror.Lob = godror.Lob{IsClob: true}
+
+	_, err = stmt.ExecContext(ctx, sql.Out{Dest: &lob, In: false})
+
+	if err != nil {
+		return results, err
+	}
+
+	if err := json.NewDecoder(lob.Reader).Decode(&results); err != nil {
+		return results, err
+	}
+
+	return results, err
+
+}
+
 func NewOracleRepository() DBRepository {
 
 	database, err := sql.Open("godror", getDbConnString())
@@ -115,6 +152,6 @@ func getDbConnString() (dbConnString string) {
 	dbPass := viper.GetString(`database.pass`)
 	dbName := viper.GetString(`database.name`)
 
-	dbConnString = fmt.Sprintf(`%s/%s@%s:%s/%s`, dbUser, dbPass, dbHost, dbPort, dbName)
+	dbConnString = fmt.Sprintf(`user="%s" password="%s" connectString="%s:%s/%s"`, dbUser, dbPass, dbHost, dbPort, dbName)
 	return
 }

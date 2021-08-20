@@ -12,8 +12,8 @@ POST http://localhost:8080/sign-in HTTP/2.0
 content-type: application/json 
 
 {
-	"USER_ID": "1",
-	"USER_PWD": "1"
+	"USER_ID": "admin",
+	"PWD": "admin"
 }
 ###
 POST http://localhost:8080/todo HTTP/2.0
@@ -32,11 +32,10 @@ Authorization: bearer {{accessToken}}
 
 }
 ###
-POST http://localhost:3000/token HTTP/2.0
+POST http://localhost:8080/proto HTTP/2.0
 content-type: application/json 
-Authorization: bearer {{accessToken}}
 
 {
-  "refresh_token": "{{refreshToken}}"
+  "COMP_CD": "3000"
 }
 ###

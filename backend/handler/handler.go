@@ -32,11 +32,13 @@ func MakeHandler() *AppHandler {
 	}
 
 	r.HandleFunc("/", indexHandler)
-	r.HandleFunc("/data", a.getData).Methods("GET")
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
 	r.HandleFunc("/sign-out", signOutHandler).Methods("DELETE")
 	r.HandleFunc("/token", refreshHandler).Methods("POST")
 	r.HandleFunc("/todo", CreateTodo).Methods("POST")
+	// for test
+	r.HandleFunc("/data", a.getData).Methods("GET")
+	r.HandleFunc("/proto", a.getTestData).Methods("POST")
 
 	return a
 
@@ -51,14 +53,14 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *AppHandler) getData(w http.ResponseWriter, r *http.Request) {
-	results, err := a.db.GetJsonData()
+
+	results, err := a.db.GetQueryData("SELECT * FROM SMS_B_MJ_CD")
 
 	if err != nil {
 		panic(err)
 	}
 
 	rd.JSON(w, http.StatusOK, results)
-	return
 
 }
 
@@ -67,7 +69,6 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.NewDecoder(r.Body).Decode(&u); err != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
-		return
 	}
 
 	user, err := a.db.GetUser(u.ID, u.Password)
@@ -90,14 +91,12 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, err.Error())
 		return
-
 	}
 
 	saveErr := CreateAuth(user.ID, ts)
 	if saveErr != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, saveErr.Error())
 		return
-
 	}
 
 	tokens := map[string]interface{}{
@@ -109,6 +108,29 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	rd.JSON(w, http.StatusOK, tokens)
-	return
 
+}
+
+func (a *AppHandler) getTestData(w http.ResponseWriter, r *http.Request) {
+	var params map[string]interface{}
+
+	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
+	}
+
+	compCd := params["COMP_CD"].(string)
+
+	if len(compCd) < 1 {
+		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
+	}
+
+	query := fmt.Sprintf(`BEGIN SMS_PK_JSON.GET_OBJ_GUBUN_LIST(%s,:1); END;`, compCd)
+
+	results, err := a.db.GetSPDataWithLOC(query)
+
+	if err != nil {
+		panic(err)
+	}
+
+	rd.JSON(w, http.StatusOK, results)
 }
