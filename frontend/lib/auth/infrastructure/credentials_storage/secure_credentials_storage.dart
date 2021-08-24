@@ -1,20 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/auth/infrastructure/credentials_storage/credentials_storage.dart';
-import 'package:oauth2/oauth2.dart';
+import 'package:frontend/auth/infrastructure/user_dto.dart';
 
 class SecureCredentialStorage implements CredentialsStorage {
   final FlutterSecureStorage _storage;
 
   SecureCredentialStorage(this._storage);
 
-  static const _key = "oauth2_credentilas";
+  static const _key = "user_info";
 
-  Credentials? _cachedCredentials;
+  UserDTO? _cachedUser;
 
   @override
-  Future<Credentials?> read() async {
-    if (_cachedCredentials != null) {
-      return _cachedCredentials;
+  Future<UserDTO?> read() async {
+    if (_cachedUser != null) {
+      return _cachedUser;
     }
 
     final json = await _storage.read(key: _key);
@@ -22,21 +24,22 @@ class SecureCredentialStorage implements CredentialsStorage {
       return null;
     }
     try {
-      return _cachedCredentials = Credentials.fromJson(json);
+      return _cachedUser =
+          UserDTO.fromJson(jsonDecode(json) as Map<String, dynamic>);
     } on FormatException {
       return null;
     }
   }
 
   @override
-  Future<void> save(Credentials credentials) {
-    _cachedCredentials = credentials;
-    return _storage.write(key: _key, value: credentials.toJson());
+  Future<void> save(UserDTO user) {
+    _cachedUser = user;
+    return _storage.write(key: _key, value: jsonEncode(user.toJson()));
   }
 
   @override
   Future<void> clear() {
-    _cachedCredentials = null;
+    _cachedUser = null;
     return _storage.delete(key: _key);
   }
 }

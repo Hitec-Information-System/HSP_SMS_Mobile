@@ -1,9 +1,9 @@
-import 'package:oauth2/oauth2.dart';
+import 'package:frontend/auth/infrastructure/user_dto.dart';
 
 abstract class CredentialsStorage {
-  Future<Credentials?> read();
+  Future<UserDTO?> read();
 
-  Future<void> save(Credentials info);
+  Future<void> save(UserDTO userDTO);
 
   Future<void> clear();
 }

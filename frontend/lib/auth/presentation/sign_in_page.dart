@@ -54,8 +54,8 @@ class SignInPage extends HookConsumerWidget {
                   onPressed: () {
                     if (formKey.currentState?.validate() == true) {
                       final params = {
-                        "USER_ID": idController.text,
-                        "USER_PWD": pwController.text,
+                        "id": idController.text,
+                        "pwd": pwController.text,
                       };
 
                       ref.watch(authNotifierProvider.notifier).signIn(params);
