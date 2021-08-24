@@ -8,7 +8,7 @@ import 'package:frontend/menus/main/presentation/menu_main_page.dart';
 import 'package:frontend/menus/settings/presentation/menu_settings_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MenuFramePage extends HookConsumerWidget {
+class MenuFramePage extends ConsumerWidget {
   final _pages = const [
     MenuMainPage(),
     MenuFacilityInspectionPage(),
@@ -25,5 +25,53 @@ class MenuFramePage extends HookConsumerWidget {
       body: _pages[menuState.index],
       bottomNavigationBar: const MenuNavBar(),
     );
+
+    // Size _size = MediaQuery.of(context).size;
+
+    // print(_size);
+
+    // return Responsive(
+    //   mobile: Container(
+    //     color: Colors.red,
+    //   ),
+    //   tablet: Row(
+    //     children: [
+    //       Expanded(
+    //         flex: 6,
+    //         child: Container(
+    //           color: Colors.amber,
+    //         ),
+    //       ),
+    //       Expanded(
+    //         flex: 9,
+    //         child: Container(
+    //           color: Colors.green,
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    //   desktop: Row(
+    //     children: [
+    //       Expanded(
+    //         flex: 4,
+    //         child: Container(
+    //           color: Colors.amber,
+    //         ),
+    //       ),
+    //       Expanded(
+    //         flex: 6,
+    //         child: Container(
+    //           color: Colors.amber,
+    //         ),
+    //       ),
+    //       Expanded(
+    //         flex: 9,
+    //         child: Container(
+    //           color: Colors.green,
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }

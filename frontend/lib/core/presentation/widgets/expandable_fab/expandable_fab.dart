@@ -163,7 +163,7 @@ class ExpandableFAB extends StatefulWidget {
     this.animationSpeed = 150,
     this.openCloseDial,
     this.isOpenOnStart = false,
-    this.childMargin = const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+    this.childMargin = const EdgeInsets.symmetric(horizontal: 16),
     this.childPadding = const EdgeInsets.symmetric(vertical: 5),
     this.spaceBetweenChildren,
     this.spacing,
@@ -308,8 +308,8 @@ class _ExpandableFABState extends State<ExpandableFAB>
       });
     } else {
       if (_controller.isAnimating) {
-        // overlayEntry?.remove();
-        // backgroundOverlay?.remove();
+        overlayEntry?.remove();
+        backgroundOverlay?.remove();
         return;
       }
       overlayEntry = OverlayEntry(
@@ -475,22 +475,21 @@ class _ExpandableFABState extends State<ExpandableFAB>
                           : Transform.rotate(
                               angle:
                                   widget.useRotationAnimation ? -pi * 1 / 2 : 0,
-                              child: widget.activeChild != null
-                                  ? widget.activeChild
-                                  : Container(
-                                      decoration: BoxDecoration(
-                                        shape: widget.gradientBoxShape,
-                                        gradient: widget.gradient,
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          widget.activeIcon,
-                                          key: const ValueKey<int>(1),
-                                          color: widget.iconTheme?.color,
-                                          size: widget.iconTheme?.size,
-                                        ),
+                              child: widget.activeChild ??
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      shape: widget.gradientBoxShape,
+                                      gradient: widget.gradient,
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        widget.activeIcon,
+                                        key: const ValueKey<int>(1),
+                                        color: widget.iconTheme?.color,
+                                        size: widget.iconTheme?.size,
                                       ),
                                     ),
+                                  ),
                             )),
             ),
           );

@@ -20,13 +20,15 @@ class ThemeConstants {
     primaryColor: Colors.white,
     brightness: Brightness.light,
     accentColor: const Color(0xFF8983F7),
+    cardColor: const Color(0xFFF9FAFC),
     backgroundColor: const Color(0xFFFFFFFF),
+    bottomAppBarColor: const Color(0xFFF1F1EF),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     textTheme: const TextTheme().apply(
       bodyColor: Colors.grey[900],
       displayColor: Colors.black,
     ),
-    hintColor: const Color(0xFFA7A4A4),
+    hintColor: const Color(0xFF6B6969),
   );
   static final darkTheme = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -48,6 +50,7 @@ class ThemeConstants {
     backgroundColor: const Color(0xFF1E1E1E),
     scaffoldBackgroundColor: const Color(0xFF27292B),
     cardColor: const Color(0xFF1C1C1E),
+    bottomAppBarColor: const Color(0xFF363636),
     textTheme: const TextTheme().apply(
       bodyColor: Colors.white,
       displayColor: Colors.white,

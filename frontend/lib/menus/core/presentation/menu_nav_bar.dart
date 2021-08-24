@@ -17,6 +17,7 @@ class MenuNavBar extends ConsumerWidget {
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,
       showUnselectedLabels: true,
+      backgroundColor: Theme.of(context).bottomAppBarColor,
       onTap: (tabIndex) =>
           ref.watch(menuNotifierProvider.notifier).changeCurrentPage(tabIndex),
       currentIndex: menuState.index,

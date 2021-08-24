@@ -1,9 +1,11 @@
 class LayoutConstants {
   const LayoutConstants._();
 
+  // tablet size example: 600: 960
+  // mobile size example: 360:640
+
   // Responsive breakpoints
-  // Desktop screen >= 900px
-  static const double screenTablet = 650;
+  static const double screenTablet = 580;
   static const double screenDesktop = 900;
 
   // Spacing

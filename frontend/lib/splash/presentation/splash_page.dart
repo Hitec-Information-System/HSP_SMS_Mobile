@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -6,18 +7,16 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 48.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(
-              Icons.check,
-              size: 120,
-            ),
-            SizedBox(height: 16),
-            LinearProgressIndicator(),
-          ],
+      body: Center(
+        child: SizedBox(
+          width: 262,
+          height: 262,
+          child: Image.asset(
+            SchedulerBinding.instance!.window.platformBrightness ==
+                    Brightness.dark
+                ? "assets/splash/splash_dark.png"
+                : "assets/splash/splash_light.png",
+          ),
         ),
       ),
     );

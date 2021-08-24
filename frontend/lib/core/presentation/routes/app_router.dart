@@ -10,12 +10,12 @@ import 'package:frontend/theme/theme_change_page.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: [
-    // AutoRoute(page: SplashPage, initial: true),
-    // AutoRoute(page: SignInPage, path: "/sign-in"),
+    AutoRoute(page: SplashPage, initial: true),
+    AutoRoute(page: SignInPage, path: "/sign-in"),
     AutoRoute(page: SettingsPage, path: '/settings'),
     AutoRoute(page: ThemeChangePage, path: '/settings/themes'),
 
-    AutoRoute(page: MenuFramePage, initial: true), //path: "/home"),
+    AutoRoute(page: MenuFramePage, path: "/home"),
 
     // Qr scan page
     CustomRoute(

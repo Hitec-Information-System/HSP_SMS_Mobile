@@ -1,8 +1,6 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/check/check_serial/shared/providers.dart';
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:frontend/core/presentation/widgets/widgets.dart';
 import 'package:frontend/menus/main/presentation/widgets/bottom_sheet/child_initial.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rive/rive.dart';
@@ -56,7 +54,7 @@ class TagBottomSheet extends ConsumerWidget {
                         (Widget child, Animation<double> animation) {
                       return SlideTransition(
                         position: Tween<Offset>(
-                                begin: const Offset(0, 1),
+                                begin: const Offset(0, .5),
                                 end: const Offset(0, 0))
                             .animate(
                           CurvedAnimation(
@@ -71,9 +69,18 @@ class TagBottomSheet extends ConsumerWidget {
                     child: serialLoadedState.when(
                       initial: () => const BottomSheetChildInitial(),
                       loading: () => Container(
-                        key: ValueKey<String>("loading"),
-                        child: Text("loading"),
-                      ),
+                          key: ValueKey<String>("loading"),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("정보를 확인하는 중입니다"),
+                              AnimatedTextKit(
+                                animatedTexts: [
+                                  TypewriterAnimatedText("..."),
+                                ],
+                              ),
+                            ],
+                          )),
                       loaded: (serial) => Container(
                         key: ValueKey<String>("loaded"),
                         child: Text("${serial.location}"),

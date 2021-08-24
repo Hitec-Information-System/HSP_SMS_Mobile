@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/check/check_serial/shared/providers.dart';
 import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
@@ -83,6 +84,7 @@ class MenuMainPage extends HookConsumerWidget {
             showModalBottomSheet(
               context: context,
               builder: (context) {
+                //
                 return TagBottomSheet(
                   controller: _controller,
                   artboard: rive.artboard!,
@@ -130,9 +132,13 @@ class MenuMainPage extends HookConsumerWidget {
             IconButton(
                 icon: const Icon(Icons.logout_rounded),
                 onPressed: () {
-                  // TODO: DB 고쳐지면 활성화
-                  // ref.watch(authNotifierProvider.notifier).signOut();
-                })
+                  ref.watch(authNotifierProvider.notifier).signOut();
+                }),
+            IconButton(
+                icon: const Icon(Icons.star),
+                onPressed: () {
+                  AutoRouter.of(context).push(const SplashRoute());
+                }),
           ],
         ),
         body: Center(
