@@ -26,7 +26,7 @@ func (o *OracleRepository) GetUser(id string, pwd string) (model.User, error) {
 	var err error
 
 	query := fmt.Sprintf(`
- 		SELECT USER_ID, PWD
+ 		SELECT COMP_CD, USER_ID, USER_NM 
 			FROM SMS_B_USER	
  		WHERE USER_ID = '%s'
  		AND PWD = '%s'
@@ -42,7 +42,7 @@ func (o *OracleRepository) GetUser(id string, pwd string) (model.User, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		if err := rows.Scan(&user.ID, &user.Password); err != nil {
+		if err := rows.Scan(&user.CompCd, &user.Id, &user.Name); err != nil {
 			return user, err
 		}
 	}

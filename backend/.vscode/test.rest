@@ -12,8 +12,8 @@ POST http://localhost:8080/sign-in HTTP/2.0
 content-type: application/json 
 
 {
-	"USER_ID": "admin",
-	"PWD": "admin"
+	"id": "dev",
+	"pwd": "dev"
 }
 ###
 POST http://localhost:8080/todo HTTP/2.0

@@ -33,7 +33,6 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/", indexHandler)
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
-	r.HandleFunc("/sign-out", signOutHandler).Methods("DELETE")
 	r.HandleFunc("/token", refreshHandler).Methods("POST")
 	r.HandleFunc("/todo", CreateTodo).Methods("POST")
 	// for test
@@ -65,49 +64,45 @@ func (a *AppHandler) getData(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
-	var u model.User
+	var u map[string]interface{}
 
 	if err := json.NewDecoder(r.Body).Decode(&u); err != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
 	}
 
-	user, err := a.db.GetUser(u.ID, u.Password)
+	user, err := a.db.GetUser(u["id"].(string), u["pwd"].(string))
 	if err != nil {
 		panic(err)
 	}
 
 	if (model.User{}) == user {
-		rd.JSON(w, http.StatusOK, "Account not registered")
+		rd.JSON(w, http.StatusUnprocessableEntity, "Account not registered")
 		return
 	}
 
-	// compare the user from the request, with the one we defined
-	if user.ID != u.ID || user.Password != u.Password {
-		rd.JSON(w, http.StatusUnauthorized, "Please, provide valid login details")
-		return
-	}
+	// In this project, token rather bothers app logics since app keeps requiring user ID
 
-	ts, err := CreateToken(user.ID)
-	if err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, err.Error())
-		return
-	}
+	// ts, err := CreateToken(user.ID)
+	// if err != nil {
+	// 	rd.JSON(w, http.StatusUnprocessableEntity, err.Error())
+	// 	return
+	// }
 
-	saveErr := CreateAuth(user.ID, ts)
-	if saveErr != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, saveErr.Error())
-		return
-	}
+	// saveErr := CreateAuth(user.ID, ts)
+	// if saveErr != nil {
+	// 	rd.JSON(w, http.StatusUnprocessableEntity, saveErr.Error())
+	// 	return
+	// }
 
-	tokens := map[string]interface{}{
-		"accessToken":   ts.AccessToken,
-		"refreshToken":  ts.RefreshToken,
-		"expiration":    ts.RtExpires,
-		"scopes":        []string{},
-		"tokenEndpoint": "http://192.168.0.117:8080/token",
-	}
+	// tokens := map[string]interface{}{
+	// 	"accessToken":   ts.AccessToken,
+	// 	"refreshToken":  ts.RefreshToken,
+	// 	"expiration":    ts.RtExpires,
+	// 	"scopes":        []string{},
+	// 	"tokenEndpoint": "http://192.168.0.117:8080/token",
+	// }
 
-	rd.JSON(w, http.StatusOK, tokens)
+	rd.JSON(w, http.StatusOK, user)
 
 }
 
