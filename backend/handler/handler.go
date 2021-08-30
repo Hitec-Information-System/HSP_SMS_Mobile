@@ -35,6 +35,7 @@ func MakeHandler() *AppHandler {
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
 	r.HandleFunc("/token", refreshHandler).Methods("POST")
 	r.HandleFunc("/todo", CreateTodo).Methods("POST")
+	r.HandleFunc("/check-list", a.fetchCheckStandard).Methods("GET")
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
 	r.HandleFunc("/proto", a.getTestData).Methods("POST")
@@ -80,28 +81,6 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// In this project, token rather bothers app logics since app keeps requiring user ID
-
-	// ts, err := CreateToken(user.ID)
-	// if err != nil {
-	// 	rd.JSON(w, http.StatusUnprocessableEntity, err.Error())
-	// 	return
-	// }
-
-	// saveErr := CreateAuth(user.ID, ts)
-	// if saveErr != nil {
-	// 	rd.JSON(w, http.StatusUnprocessableEntity, saveErr.Error())
-	// 	return
-	// }
-
-	// tokens := map[string]interface{}{
-	// 	"accessToken":   ts.AccessToken,
-	// 	"refreshToken":  ts.RefreshToken,
-	// 	"expiration":    ts.RtExpires,
-	// 	"scopes":        []string{},
-	// 	"tokenEndpoint": "http://192.168.0.117:8080/token",
-	// }
-
 	rd.JSON(w, http.StatusOK, user)
 
 }
@@ -125,6 +104,59 @@ func (a *AppHandler) getTestData(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		panic(err)
+	}
+
+	rd.JSON(w, http.StatusOK, results)
+}
+
+func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) {
+
+	queryString := r.URL.Query()
+	compCd := queryString.Get("comp-cd")
+	objFlag := queryString.Get("obj-flag")
+
+	if compCd == "" || objFlag == "" {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": "invalid json provided",
+		})
+		return
+	}
+
+	sessionsQuery := fmt.Sprintf(`
+	BEGIN 
+		SMS_PK_JSON.GET_CHK_CHASU_LIST('%s', '%s',:1); 
+	END;
+	`, compCd, objFlag)
+
+	fmt.Println(sessionsQuery)
+
+	sessions, err := a.db.GetSPDataWithLOC(sessionsQuery)
+	if err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	intervalsQuery := fmt.Sprintf(`
+	BEGIN 
+		SMS_PK_JSON.GET_CHK_INTERVAL_LIST('%s', '%s',:1); 
+	END;
+	`, compCd, objFlag)
+
+	fmt.Println(intervalsQuery)
+
+	intervals, err := a.db.GetSPDataWithLOC(intervalsQuery)
+	if err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	results := map[string]interface{}{
+		"sessions":  sessions,
+		"intervals": intervals,
 	}
 
 	rd.JSON(w, http.StatusOK, results)

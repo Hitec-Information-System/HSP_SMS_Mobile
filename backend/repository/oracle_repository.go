@@ -98,9 +98,9 @@ func (o *OracleRepository) GetQueryData(query string) ([]interface{}, error) {
 
 }
 
-func (o *OracleRepository) GetSPDataWithLOC(qry string) ([]interface{}, error) {
+func (o *OracleRepository) GetSPDataWithLOC(qry string) ([]map[string]interface{}, error) {
 
-	var results []interface{}
+	var results []map[string]interface{}
 	var err error
 
 	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_loc"}), 10*time.Second)
@@ -152,6 +152,6 @@ func getDbConnString() (dbConnString string) {
 	dbPass := viper.GetString(`database.pass`)
 	dbName := viper.GetString(`database.name`)
 
-	dbConnString = fmt.Sprintf(`user="%s" password="%s" connectString="%s:%s/%s"`, dbUser, dbPass, dbHost, dbPort, dbName)
+	dbConnString = fmt.Sprintf(`user="%s" password="%s" connectString="%s:%s/%s" interpolateParams=true`, dbUser, dbPass, dbHost, dbPort, dbName)
 	return
 }
