@@ -1,14 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/check/check_list/domain/tmp_check_details_list.dart';
-import 'package:frontend/check/check_list/presentation/widgets/widgets.dart';
+import 'package:frontend/check/check_list/presentation/mobile/widgets.dart';
+import 'package:frontend/check/check_list/presentation/widgets.dart';
+import 'package:frontend/check/check_list/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ChecklistMobilePage extends StatelessWidget {
+class ChecklistMobilePage extends ConsumerWidget {
   const ChecklistMobilePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -18,22 +21,33 @@ class ChecklistMobilePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const CheckStandardTitleSection(),
+                const CheckMobileTitle(),
                 const SizedBox(height: LayoutConstants.spaceS),
                 const CheckInfoSection(),
                 const SizedBox(height: LayoutConstants.spaceS),
-                CheckConditionRow(label: "점검주기", children: [
-                  "일상",
-                  "주간",
-                ]),
-                CheckConditionRow(label: "회차", children: [
-                  "8시",
-                  "12시",
-                  "16시",
-                  "18시",
-                  "21시",
-                  "4시",
-                ]),
+                ref.watch(checkStandardNotifierProvider).when(
+                      initial: () => Container(),
+                      loadInProgress: () => Container(),
+                      loadSuccess: (data) => CheckConditionRow(
+                        label: "점검주기",
+                        children: data.intervals.map((e) => e.name).toList(),
+                      ),
+                      loadFailure: (_) => Container(),
+                    ),
+                ref.watch(checkStandardNotifierProvider).when(
+                      initial: () => Container(),
+                      loadInProgress: () => Container(),
+                      loadSuccess: (data) => CheckConditionRow(
+                        label: "회차",
+                        children: data.sessions.map((e) => e.name).toList(),
+                      ),
+                      loadFailure: (_) => Container(),
+                    ),
+
+                // CheckConditionRow(label: "점검주기", children: [
+                //   "일상",
+                //   "주간",
+                // ]),
                 // CheckConditionRow(label: "테스트 예제", children: []),
                 const SizedBox(height: LayoutConstants.spaceM),
                 const Divider(thickness: 2),

@@ -134,11 +134,6 @@ class MenuMainPage extends HookConsumerWidget {
                 onPressed: () {
                   ref.watch(authNotifierProvider.notifier).signOut();
                 }),
-            IconButton(
-                icon: const Icon(Icons.star),
-                onPressed: () {
-                  AutoRouter.of(context).push(const SplashRoute());
-                }),
           ],
         ),
         body: Center(

@@ -17,18 +17,18 @@ class _$CheckInfoTearOff {
   const _$CheckInfoTearOff();
 
   _CheckInfo call(
-      {required String spotFlag,
+      {required String spot,
       required String checkDate,
-      required String checkTitme,
-      required int checkIntervalIndex,
-      required int checkRepIndex,
+      required String checkTime,
+      required String checkInterval,
+      required String checkSession,
       required List<CheckDetails> details}) {
     return _CheckInfo(
-      spotFlag: spotFlag,
+      spot: spot,
       checkDate: checkDate,
-      checkTitme: checkTitme,
-      checkIntervalIndex: checkIntervalIndex,
-      checkRepIndex: checkRepIndex,
+      checkTime: checkTime,
+      checkInterval: checkInterval,
+      checkSession: checkSession,
       details: details,
     );
   }
@@ -39,11 +39,11 @@ const $CheckInfo = _$CheckInfoTearOff();
 
 /// @nodoc
 mixin _$CheckInfo {
-  String get spotFlag => throw _privateConstructorUsedError;
+  String get spot => throw _privateConstructorUsedError;
   String get checkDate => throw _privateConstructorUsedError;
-  String get checkTitme => throw _privateConstructorUsedError;
-  int get checkIntervalIndex => throw _privateConstructorUsedError;
-  int get checkRepIndex => throw _privateConstructorUsedError;
+  String get checkTime => throw _privateConstructorUsedError;
+  String get checkInterval => throw _privateConstructorUsedError;
+  String get checkSession => throw _privateConstructorUsedError;
   List<CheckDetails> get details => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -56,11 +56,11 @@ abstract class $CheckInfoCopyWith<$Res> {
   factory $CheckInfoCopyWith(CheckInfo value, $Res Function(CheckInfo) then) =
       _$CheckInfoCopyWithImpl<$Res>;
   $Res call(
-      {String spotFlag,
+      {String spot,
       String checkDate,
-      String checkTitme,
-      int checkIntervalIndex,
-      int checkRepIndex,
+      String checkTime,
+      String checkInterval,
+      String checkSession,
       List<CheckDetails> details});
 }
 
@@ -74,34 +74,34 @@ class _$CheckInfoCopyWithImpl<$Res> implements $CheckInfoCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? spotFlag = freezed,
+    Object? spot = freezed,
     Object? checkDate = freezed,
-    Object? checkTitme = freezed,
-    Object? checkIntervalIndex = freezed,
-    Object? checkRepIndex = freezed,
+    Object? checkTime = freezed,
+    Object? checkInterval = freezed,
+    Object? checkSession = freezed,
     Object? details = freezed,
   }) {
     return _then(_value.copyWith(
-      spotFlag: spotFlag == freezed
-          ? _value.spotFlag
-          : spotFlag // ignore: cast_nullable_to_non_nullable
+      spot: spot == freezed
+          ? _value.spot
+          : spot // ignore: cast_nullable_to_non_nullable
               as String,
       checkDate: checkDate == freezed
           ? _value.checkDate
           : checkDate // ignore: cast_nullable_to_non_nullable
               as String,
-      checkTitme: checkTitme == freezed
-          ? _value.checkTitme
-          : checkTitme // ignore: cast_nullable_to_non_nullable
+      checkTime: checkTime == freezed
+          ? _value.checkTime
+          : checkTime // ignore: cast_nullable_to_non_nullable
               as String,
-      checkIntervalIndex: checkIntervalIndex == freezed
-          ? _value.checkIntervalIndex
-          : checkIntervalIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-      checkRepIndex: checkRepIndex == freezed
-          ? _value.checkRepIndex
-          : checkRepIndex // ignore: cast_nullable_to_non_nullable
-              as int,
+      checkInterval: checkInterval == freezed
+          ? _value.checkInterval
+          : checkInterval // ignore: cast_nullable_to_non_nullable
+              as String,
+      checkSession: checkSession == freezed
+          ? _value.checkSession
+          : checkSession // ignore: cast_nullable_to_non_nullable
+              as String,
       details: details == freezed
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
@@ -117,11 +117,11 @@ abstract class _$CheckInfoCopyWith<$Res> implements $CheckInfoCopyWith<$Res> {
       __$CheckInfoCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String spotFlag,
+      {String spot,
       String checkDate,
-      String checkTitme,
-      int checkIntervalIndex,
-      int checkRepIndex,
+      String checkTime,
+      String checkInterval,
+      String checkSession,
       List<CheckDetails> details});
 }
 
@@ -136,34 +136,34 @@ class __$CheckInfoCopyWithImpl<$Res> extends _$CheckInfoCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? spotFlag = freezed,
+    Object? spot = freezed,
     Object? checkDate = freezed,
-    Object? checkTitme = freezed,
-    Object? checkIntervalIndex = freezed,
-    Object? checkRepIndex = freezed,
+    Object? checkTime = freezed,
+    Object? checkInterval = freezed,
+    Object? checkSession = freezed,
     Object? details = freezed,
   }) {
     return _then(_CheckInfo(
-      spotFlag: spotFlag == freezed
-          ? _value.spotFlag
-          : spotFlag // ignore: cast_nullable_to_non_nullable
+      spot: spot == freezed
+          ? _value.spot
+          : spot // ignore: cast_nullable_to_non_nullable
               as String,
       checkDate: checkDate == freezed
           ? _value.checkDate
           : checkDate // ignore: cast_nullable_to_non_nullable
               as String,
-      checkTitme: checkTitme == freezed
-          ? _value.checkTitme
-          : checkTitme // ignore: cast_nullable_to_non_nullable
+      checkTime: checkTime == freezed
+          ? _value.checkTime
+          : checkTime // ignore: cast_nullable_to_non_nullable
               as String,
-      checkIntervalIndex: checkIntervalIndex == freezed
-          ? _value.checkIntervalIndex
-          : checkIntervalIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-      checkRepIndex: checkRepIndex == freezed
-          ? _value.checkRepIndex
-          : checkRepIndex // ignore: cast_nullable_to_non_nullable
-              as int,
+      checkInterval: checkInterval == freezed
+          ? _value.checkInterval
+          : checkInterval // ignore: cast_nullable_to_non_nullable
+              as String,
+      checkSession: checkSession == freezed
+          ? _value.checkSession
+          : checkSession // ignore: cast_nullable_to_non_nullable
+              as String,
       details: details == freezed
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
@@ -176,51 +176,50 @@ class __$CheckInfoCopyWithImpl<$Res> extends _$CheckInfoCopyWithImpl<$Res>
 
 class _$_CheckInfo extends _CheckInfo {
   const _$_CheckInfo(
-      {required this.spotFlag,
+      {required this.spot,
       required this.checkDate,
-      required this.checkTitme,
-      required this.checkIntervalIndex,
-      required this.checkRepIndex,
+      required this.checkTime,
+      required this.checkInterval,
+      required this.checkSession,
       required this.details})
       : super._();
 
   @override
-  final String spotFlag;
+  final String spot;
   @override
   final String checkDate;
   @override
-  final String checkTitme;
+  final String checkTime;
   @override
-  final int checkIntervalIndex;
+  final String checkInterval;
   @override
-  final int checkRepIndex;
+  final String checkSession;
   @override
   final List<CheckDetails> details;
 
   @override
   String toString() {
-    return 'CheckInfo(spotFlag: $spotFlag, checkDate: $checkDate, checkTitme: $checkTitme, checkIntervalIndex: $checkIntervalIndex, checkRepIndex: $checkRepIndex, details: $details)';
+    return 'CheckInfo(spot: $spot, checkDate: $checkDate, checkTime: $checkTime, checkInterval: $checkInterval, checkSession: $checkSession, details: $details)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _CheckInfo &&
-            (identical(other.spotFlag, spotFlag) ||
-                const DeepCollectionEquality()
-                    .equals(other.spotFlag, spotFlag)) &&
+            (identical(other.spot, spot) ||
+                const DeepCollectionEquality().equals(other.spot, spot)) &&
             (identical(other.checkDate, checkDate) ||
                 const DeepCollectionEquality()
                     .equals(other.checkDate, checkDate)) &&
-            (identical(other.checkTitme, checkTitme) ||
+            (identical(other.checkTime, checkTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.checkTitme, checkTitme)) &&
-            (identical(other.checkIntervalIndex, checkIntervalIndex) ||
+                    .equals(other.checkTime, checkTime)) &&
+            (identical(other.checkInterval, checkInterval) ||
                 const DeepCollectionEquality()
-                    .equals(other.checkIntervalIndex, checkIntervalIndex)) &&
-            (identical(other.checkRepIndex, checkRepIndex) ||
+                    .equals(other.checkInterval, checkInterval)) &&
+            (identical(other.checkSession, checkSession) ||
                 const DeepCollectionEquality()
-                    .equals(other.checkRepIndex, checkRepIndex)) &&
+                    .equals(other.checkSession, checkSession)) &&
             (identical(other.details, details) ||
                 const DeepCollectionEquality().equals(other.details, details)));
   }
@@ -228,11 +227,11 @@ class _$_CheckInfo extends _CheckInfo {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(spotFlag) ^
+      const DeepCollectionEquality().hash(spot) ^
       const DeepCollectionEquality().hash(checkDate) ^
-      const DeepCollectionEquality().hash(checkTitme) ^
-      const DeepCollectionEquality().hash(checkIntervalIndex) ^
-      const DeepCollectionEquality().hash(checkRepIndex) ^
+      const DeepCollectionEquality().hash(checkTime) ^
+      const DeepCollectionEquality().hash(checkInterval) ^
+      const DeepCollectionEquality().hash(checkSession) ^
       const DeepCollectionEquality().hash(details);
 
   @JsonKey(ignore: true)
@@ -243,24 +242,24 @@ class _$_CheckInfo extends _CheckInfo {
 
 abstract class _CheckInfo extends CheckInfo {
   const factory _CheckInfo(
-      {required String spotFlag,
+      {required String spot,
       required String checkDate,
-      required String checkTitme,
-      required int checkIntervalIndex,
-      required int checkRepIndex,
+      required String checkTime,
+      required String checkInterval,
+      required String checkSession,
       required List<CheckDetails> details}) = _$_CheckInfo;
   const _CheckInfo._() : super._();
 
   @override
-  String get spotFlag => throw _privateConstructorUsedError;
+  String get spot => throw _privateConstructorUsedError;
   @override
   String get checkDate => throw _privateConstructorUsedError;
   @override
-  String get checkTitme => throw _privateConstructorUsedError;
+  String get checkTime => throw _privateConstructorUsedError;
   @override
-  int get checkIntervalIndex => throw _privateConstructorUsedError;
+  String get checkInterval => throw _privateConstructorUsedError;
   @override
-  int get checkRepIndex => throw _privateConstructorUsedError;
+  String get checkSession => throw _privateConstructorUsedError;
   @override
   List<CheckDetails> get details => throw _privateConstructorUsedError;
   @override

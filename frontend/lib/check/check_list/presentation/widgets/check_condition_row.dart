@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:frontend/core/presentation/widgets/custom_toggle_button/widgets.dart';
 
 class CheckConditionRow extends StatefulWidget {
   const CheckConditionRow({
@@ -42,7 +43,7 @@ class _CheckConditionRowState extends State<CheckConditionRow> {
                 ),
           ),
           const Spacer(),
-          ToggleButtons(
+          CustomToggleButton(
             constraints: const BoxConstraints(
               minHeight: 35,
               minWidth: 40,
@@ -53,8 +54,9 @@ class _CheckConditionRowState extends State<CheckConditionRow> {
             disabledBorderColor: Theme.of(context).disabledColor,
             disabledColor: Theme.of(context).disabledColor,
             selectedBorderColor: Theme.of(context).accentColor,
+
             borderWidth: 2,
-            borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
+            borderRadius: LayoutConstants.radiusM,
             isSelected: _isSelected,
             // ! this toggle button will be disabled when onPressed is null
             onPressed: widget.children.isNotEmpty
@@ -73,8 +75,10 @@ class _CheckConditionRowState extends State<CheckConditionRow> {
                   }
                 : null,
             children: widget.children.isNotEmpty
-                ? widget.children.map((label) => Text(label)).toList()
-                : const [Text("없음")],
+                ? widget.children.map((itemNm) => Text(itemNm)).toList()
+                : const [
+                    Text("없음"),
+                  ],
           ),
         ],
       ),

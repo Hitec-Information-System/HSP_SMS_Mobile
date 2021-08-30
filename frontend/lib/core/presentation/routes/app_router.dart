@@ -10,7 +10,7 @@ import 'package:frontend/theme/theme_change_page.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: [
-    AutoRoute(page: SplashPage, initial: true),
+    //AutoRoute(page: SplashPage, initial: true),
     AutoRoute(page: SignInPage, path: "/sign-in"),
     AutoRoute(page: SettingsPage, path: '/settings'),
     AutoRoute(page: ThemeChangePage, path: '/settings/themes'),
@@ -26,7 +26,8 @@ import 'package:frontend/theme/theme_change_page.dart';
 
     CustomRoute(
       page: CheckListPage,
-      path: '/inspection',
+      initial: true,
+      // path: '/inspection',
       transitionsBuilder: TransitionsBuilders.slideBottom,
     ),
   ],

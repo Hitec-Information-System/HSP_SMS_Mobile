@@ -7,11 +7,11 @@ part 'check_info.freezed.dart';
 class CheckInfo with _$CheckInfo {
   const CheckInfo._();
   const factory CheckInfo({
-    required String spotFlag,
+    required String spot,
     required String checkDate,
-    required String checkTitme,
-    required int checkIntervalIndex,
-    required int checkRepIndex,
+    required String checkTime,
+    required String checkInterval,
+    required String checkSession,
     required List<CheckDetails> details,
   }) = _CheckInfo;
 }

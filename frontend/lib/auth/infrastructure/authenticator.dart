@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +26,7 @@ class Authenticator {
   }
 
   Future<bool> isSignedIn() =>
-      getSignedInCredentials().then((credentials) => credentials != null);
+      getSignedInCredentials().then((user) => user != null);
 
   Future<Either<AuthFailure, Unit>> handleAuthorizationResponse(
     Map<String, dynamic> params,

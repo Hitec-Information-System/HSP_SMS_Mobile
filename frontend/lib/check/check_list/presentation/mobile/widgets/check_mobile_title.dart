@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 
-class CheckStandardTitleSection extends StatelessWidget {
-  const CheckStandardTitleSection({
+class CheckMobileTitle extends StatelessWidget {
+  const CheckMobileTitle({
     Key? key,
   }) : super(key: key);
 
