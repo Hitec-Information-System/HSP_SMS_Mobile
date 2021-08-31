@@ -1,4 +1,3 @@
-// package 기능이름
 package repository
 
 import (
