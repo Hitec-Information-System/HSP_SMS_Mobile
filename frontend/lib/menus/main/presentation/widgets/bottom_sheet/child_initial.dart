@@ -7,22 +7,12 @@ class BottomSheetChildInitial extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
+    return Text(
+      AppLocalizations.of(context)?.translate('scan_ready') ?? "",
       key: const ValueKey<String>("BTM-SH-INIT"),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            AppLocalizations.of(context)?.translate('scan_ready') ?? "",
-            style: TextStyle(
-              color: Theme.of(context).hintColor,
-              fontSize: 20,
-            ),
-          ),
-          Expanded(
-            child: Container(),
-          )
-        ],
+      style: TextStyle(
+        color: Theme.of(context).hintColor,
+        fontSize: 20,
       ),
     );
   }

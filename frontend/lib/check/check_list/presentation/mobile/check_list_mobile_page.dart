@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/check/check_list/domain/tmp_check_details_list.dart';
-import 'package:frontend/check/check_list/presentation/mobile/widgets.dart';
 import 'package:frontend/check/check_list/presentation/widgets.dart';
-import 'package:frontend/check/check_list/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -21,28 +19,7 @@ class ChecklistMobilePage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const CheckMobileTitle(),
-                const SizedBox(height: LayoutConstants.spaceS),
-                const CheckInfoSection(),
-                const SizedBox(height: LayoutConstants.spaceS),
-                ref.watch(checkStandardNotifierProvider).when(
-                      initial: () => Container(),
-                      loadInProgress: () => Container(),
-                      loadSuccess: (data) => CheckConditionRow(
-                        label: "점검주기",
-                        children: data.intervals.map((e) => e.name).toList(),
-                      ),
-                      loadFailure: (_) => Container(),
-                    ),
-                ref.watch(checkStandardNotifierProvider).when(
-                      initial: () => Container(),
-                      loadInProgress: () => Container(),
-                      loadSuccess: (data) => CheckConditionRow(
-                        label: "회차",
-                        children: data.sessions.map((e) => e.name).toList(),
-                      ),
-                      loadFailure: (_) => Container(),
-                    ),
+                const CheckBaseInfoColumn(),
 
                 // CheckConditionRow(label: "점검주기", children: [
                 //   "일상",

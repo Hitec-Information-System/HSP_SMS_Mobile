@@ -468,3 +468,234 @@ abstract class _CheckSession extends CheckSession {
   _$CheckSessionCopyWith<_CheckSession> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$CheckProfileTearOff {
+  const _$CheckProfileTearOff();
+
+  _CheckProfile call(
+      {required String spotId,
+      required String spotNm,
+      required String userId,
+      required String userNm,
+      required String time}) {
+    return _CheckProfile(
+      spotId: spotId,
+      spotNm: spotNm,
+      userId: userId,
+      userNm: userNm,
+      time: time,
+    );
+  }
+}
+
+/// @nodoc
+const $CheckProfile = _$CheckProfileTearOff();
+
+/// @nodoc
+mixin _$CheckProfile {
+  String get spotId => throw _privateConstructorUsedError;
+  String get spotNm => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
+  String get userNm => throw _privateConstructorUsedError;
+  String get time => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CheckProfileCopyWith<CheckProfile> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CheckProfileCopyWith<$Res> {
+  factory $CheckProfileCopyWith(
+          CheckProfile value, $Res Function(CheckProfile) then) =
+      _$CheckProfileCopyWithImpl<$Res>;
+  $Res call(
+      {String spotId,
+      String spotNm,
+      String userId,
+      String userNm,
+      String time});
+}
+
+/// @nodoc
+class _$CheckProfileCopyWithImpl<$Res> implements $CheckProfileCopyWith<$Res> {
+  _$CheckProfileCopyWithImpl(this._value, this._then);
+
+  final CheckProfile _value;
+  // ignore: unused_field
+  final $Res Function(CheckProfile) _then;
+
+  @override
+  $Res call({
+    Object? spotId = freezed,
+    Object? spotNm = freezed,
+    Object? userId = freezed,
+    Object? userNm = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_value.copyWith(
+      spotId: spotId == freezed
+          ? _value.spotId
+          : spotId // ignore: cast_nullable_to_non_nullable
+              as String,
+      spotNm: spotNm == freezed
+          ? _value.spotNm
+          : spotNm // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNm: userNm == freezed
+          ? _value.userNm
+          : userNm // ignore: cast_nullable_to_non_nullable
+              as String,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CheckProfileCopyWith<$Res>
+    implements $CheckProfileCopyWith<$Res> {
+  factory _$CheckProfileCopyWith(
+          _CheckProfile value, $Res Function(_CheckProfile) then) =
+      __$CheckProfileCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String spotId,
+      String spotNm,
+      String userId,
+      String userNm,
+      String time});
+}
+
+/// @nodoc
+class __$CheckProfileCopyWithImpl<$Res> extends _$CheckProfileCopyWithImpl<$Res>
+    implements _$CheckProfileCopyWith<$Res> {
+  __$CheckProfileCopyWithImpl(
+      _CheckProfile _value, $Res Function(_CheckProfile) _then)
+      : super(_value, (v) => _then(v as _CheckProfile));
+
+  @override
+  _CheckProfile get _value => super._value as _CheckProfile;
+
+  @override
+  $Res call({
+    Object? spotId = freezed,
+    Object? spotNm = freezed,
+    Object? userId = freezed,
+    Object? userNm = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_CheckProfile(
+      spotId: spotId == freezed
+          ? _value.spotId
+          : spotId // ignore: cast_nullable_to_non_nullable
+              as String,
+      spotNm: spotNm == freezed
+          ? _value.spotNm
+          : spotNm // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNm: userNm == freezed
+          ? _value.userNm
+          : userNm // ignore: cast_nullable_to_non_nullable
+              as String,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CheckProfile extends _CheckProfile {
+  const _$_CheckProfile(
+      {required this.spotId,
+      required this.spotNm,
+      required this.userId,
+      required this.userNm,
+      required this.time})
+      : super._();
+
+  @override
+  final String spotId;
+  @override
+  final String spotNm;
+  @override
+  final String userId;
+  @override
+  final String userNm;
+  @override
+  final String time;
+
+  @override
+  String toString() {
+    return 'CheckProfile(spotId: $spotId, spotNm: $spotNm, userId: $userId, userNm: $userNm, time: $time)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CheckProfile &&
+            (identical(other.spotId, spotId) ||
+                const DeepCollectionEquality().equals(other.spotId, spotId)) &&
+            (identical(other.spotNm, spotNm) ||
+                const DeepCollectionEquality().equals(other.spotNm, spotNm)) &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.userNm, userNm) ||
+                const DeepCollectionEquality().equals(other.userNm, userNm)) &&
+            (identical(other.time, time) ||
+                const DeepCollectionEquality().equals(other.time, time)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(spotId) ^
+      const DeepCollectionEquality().hash(spotNm) ^
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(userNm) ^
+      const DeepCollectionEquality().hash(time);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CheckProfileCopyWith<_CheckProfile> get copyWith =>
+      __$CheckProfileCopyWithImpl<_CheckProfile>(this, _$identity);
+}
+
+abstract class _CheckProfile extends CheckProfile {
+  const factory _CheckProfile(
+      {required String spotId,
+      required String spotNm,
+      required String userId,
+      required String userNm,
+      required String time}) = _$_CheckProfile;
+  const _CheckProfile._() : super._();
+
+  @override
+  String get spotId => throw _privateConstructorUsedError;
+  @override
+  String get spotNm => throw _privateConstructorUsedError;
+  @override
+  String get userId => throw _privateConstructorUsedError;
+  @override
+  String get userNm => throw _privateConstructorUsedError;
+  @override
+  String get time => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CheckProfileCopyWith<_CheckProfile> get copyWith =>
+      throw _privateConstructorUsedError;
+}

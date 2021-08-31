@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/menus/core/presentation/menu_nav_bar.dart';
 import 'package:frontend/menus/core/shared/providers.dart';
@@ -6,9 +7,15 @@ import 'package:frontend/menus/inspection/forklift/presentation/menu_forklift_in
 import 'package:frontend/menus/inspection/line/presentation/menu_line_inspection_page.dart';
 import 'package:frontend/menus/main/presentation/menu_main_page.dart';
 import 'package:frontend/menus/settings/presentation/menu_settings_page.dart';
+import 'package:frontend/notifications/presentation/dialogs.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MenuFramePage extends ConsumerWidget {
+class MenuFramePage extends ConsumerStatefulWidget {
+  @override
+  _MenuFramePageState createState() => _MenuFramePageState();
+}
+
+class _MenuFramePageState extends ConsumerState<MenuFramePage> {
   final _pages = const [
     MenuMainPage(),
     MenuFacilityInspectionPage(),
@@ -18,7 +25,13 @@ class MenuFramePage extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    showAllowNotificationDialog(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final menuState = ref.watch(menuNotifierProvider);
 
     return Scaffold(

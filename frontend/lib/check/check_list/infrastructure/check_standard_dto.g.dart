@@ -50,3 +50,22 @@ Map<String, dynamic> _$_$_CheckSessionDTOToJson(_$_CheckSessionDTO instance) =>
       'GUBUN': instance.id,
       'GUBUN_NM': instance.name,
     };
+
+_$_CheckProfileDTO _$_$_CheckProfileDTOFromJson(Map<String, dynamic> json) {
+  return _$_CheckProfileDTO(
+    spotId: json['GUBUN'] as String,
+    spotNm: json['GUBUN_NM'] as String,
+    userId: json['userId'] as String? ?? '',
+    userNm: json['userNm'] as String? ?? '',
+    time: json['time'] as String? ?? '',
+  );
+}
+
+Map<String, dynamic> _$_$_CheckProfileDTOToJson(_$_CheckProfileDTO instance) =>
+    <String, dynamic>{
+      'GUBUN': instance.spotId,
+      'GUBUN_NM': instance.spotNm,
+      'userId': instance.userId,
+      'userNm': instance.userNm,
+      'time': instance.time,
+    };

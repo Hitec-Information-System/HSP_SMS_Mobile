@@ -11,8 +11,21 @@ class ChecklistTabletPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Row(
-          children: const [
-            Expanded(flex: 3, child: CheckBasicInfoColumn()),
+          children: [
+            Expanded(
+              flex: 3,
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(LayoutConstants.radiusM),
+                        bottomRight: Radius.circular(LayoutConstants.radiusM),
+                      )),
+                  padding: const EdgeInsets.all(
+                    LayoutConstants.paddingM,
+                  ),
+                  child: const CheckBaseInfoColumn()),
+            ),
             Expanded(
                 flex: 5,
                 child: SingleChildScrollView(

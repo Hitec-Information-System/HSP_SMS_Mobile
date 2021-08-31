@@ -13,6 +13,14 @@ class Responsive extends StatelessWidget {
   final Widget tablet;
   final Widget desktop;
 
+  static bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < LayoutConstants.screenTablet;
+  static bool isTablet(BuildContext context) =>
+      MediaQuery.of(context).size.width >= LayoutConstants.screenTablet &&
+      MediaQuery.of(context).size.width < LayoutConstants.screenDesktop;
+  static bool isDesktop(BuildContext context) =>
+      MediaQuery.of(context).size.width >= LayoutConstants.screenDesktop;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {

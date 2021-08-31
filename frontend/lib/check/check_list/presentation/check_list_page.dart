@@ -27,7 +27,8 @@ class _CheckListPageState extends ConsumerState<CheckListPage> {
     return const Responsive(
       mobile: ChecklistMobilePage(),
       tablet: ChecklistTabletPage(),
-      desktop: ChecklistDesktopPage(),
+      // desktop: ChecklistDesktopPage(),
+      desktop: ChecklistTabletPage(),
     );
   }
 }

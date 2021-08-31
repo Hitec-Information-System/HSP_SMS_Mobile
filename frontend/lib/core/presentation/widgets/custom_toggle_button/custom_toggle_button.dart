@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 
 class CustomToggleButton extends StatelessWidget {
-  const CustomToggleButton({
-    Key? key,
-    required this.children,
-    required this.isSelected,
-    this.onPressed,
-    this.constraints,
-    this.color,
-    this.selectedColor,
-    this.disabledColor,
-    this.fillColor,
-    this.unselectedFillColor,
-    this.disabledFillColor,
-    this.highlightColor,
-    this.splashColor,
-    this.borderColor,
-    this.hoverColor,
-    this.selectedBorderColor,
-    this.disabledBorderColor,
-    this.borderWidth,
-    this.borderRadius,
-    this.renderBorder = true,
-    this.spacing = 0,
-    this.runSpacing = 0,
-    this.elevation = 0,
-  })  : assert(children.length == isSelected.length),
+  const CustomToggleButton(
+      {Key? key,
+      required this.children,
+      required this.isSelected,
+      this.onPressed,
+      this.constraints,
+      this.color,
+      this.selectedColor,
+      this.disabledColor,
+      this.fillColor,
+      this.unselectedFillColor,
+      this.disabledFillColor,
+      this.highlightColor,
+      this.splashColor,
+      this.borderColor,
+      this.hoverColor,
+      this.selectedBorderColor,
+      this.disabledBorderColor,
+      this.borderWidth,
+      this.borderRadius,
+      this.renderBorder = true,
+      this.spacing = 0,
+      this.runSpacing = 0,
+      this.elevation = 0,
+      this.alignment = WrapAlignment.start})
+      : assert(children.length == isSelected.length),
         super(key: key);
 
   final List<Widget> children;
@@ -54,6 +55,8 @@ class CustomToggleButton extends StatelessWidget {
   final double runSpacing;
   final double elevation;
 
+  final WrapAlignment alignment;
+
   Border _getBorder(BuildContext context, int index) {
     Color? _borderColor = borderColor;
     if (onPressed == null) {
@@ -75,6 +78,7 @@ class CustomToggleButton extends StatelessWidget {
     return Wrap(
       spacing: spacing,
       runSpacing: runSpacing,
+      alignment: alignment,
       // direction: Axis.horizontal,
       children: List<Widget>.generate(children.length, (index) {
         return _CustomToggleButton(

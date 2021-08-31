@@ -37,7 +37,7 @@ class CheckStandardNotifier extends StateNotifier<CheckStandardState> {
         failure,
       ),
       (success) => CheckStandardState.loadSuccess(
-        success.entity as CheckStandard,
+        success.entity,
       ),
     );
   }

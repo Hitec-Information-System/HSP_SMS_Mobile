@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/check/check_list/domain/tmp_check_details_list.dart';
+import 'package:collection/collection.dart';
+
 import 'package:frontend/check/check_list/domain/check_details.dart';
 
 import 'package:frontend/check/check_list/presentation/remark_popup.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/routes/hero_dialog_router.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
+
+class CheckListDetailsSection extends StatelessWidget {
+  const CheckListDetailsSection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: tmpCheckDetails
+          .mapIndexed((index, element) =>
+              CheckDetailsCard(index: index, details: tmpCheckDetails[index]))
+          .toList(),
+    );
+  }
+}
 
 class CheckDetailsCard extends StatefulWidget {
   const CheckDetailsCard({

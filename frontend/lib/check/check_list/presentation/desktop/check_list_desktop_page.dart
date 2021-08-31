@@ -13,24 +13,26 @@ class ChecklistDesktopPage extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: CheckBasicInfoColumn(),
+            child: CheckBaseInfoColumn(),
           ),
           Expanded(
-              flex: 5,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: LayoutConstants.paddingL,
-                      vertical: LayoutConstants.paddingM),
-                  child: CheckListDetailsSection(),
-                ),
-              ),),
+            flex: 5,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: LayoutConstants.paddingL,
+                    vertical: LayoutConstants.paddingM),
+                child: CheckListDetailsSection(),
+              ),
+            ),
+          ),
           Expanded(
-              flex: 4,
-              child: Container(
-                color: Colors.blueAccent,
-              ),),
+            flex: 4,
+            child: Container(
+              color: Colors.blueAccent,
+            ),
+          ),
         ],
       ),
     );

@@ -578,3 +578,271 @@ abstract class _CheckSessionDTO extends CheckSessionDTO {
   _$CheckSessionDTOCopyWith<_CheckSessionDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+CheckProfileDTO _$CheckProfileDTOFromJson(Map<String, dynamic> json) {
+  return _CheckProfileDTO.fromJson(json);
+}
+
+/// @nodoc
+class _$CheckProfileDTOTearOff {
+  const _$CheckProfileDTOTearOff();
+
+  _CheckProfileDTO call(
+      {@JsonKey(name: "GUBUN") required String spotId,
+      @JsonKey(name: "GUBUN_NM") required String spotNm,
+      @JsonKey(defaultValue: "") required String userId,
+      @JsonKey(defaultValue: "") required String userNm,
+      @JsonKey(defaultValue: "") required String time}) {
+    return _CheckProfileDTO(
+      spotId: spotId,
+      spotNm: spotNm,
+      userId: userId,
+      userNm: userNm,
+      time: time,
+    );
+  }
+
+  CheckProfileDTO fromJson(Map<String, Object> json) {
+    return CheckProfileDTO.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $CheckProfileDTO = _$CheckProfileDTOTearOff();
+
+/// @nodoc
+mixin _$CheckProfileDTO {
+  @JsonKey(name: "GUBUN")
+  String get spotId => throw _privateConstructorUsedError;
+  @JsonKey(name: "GUBUN_NM")
+  String get spotNm => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: "")
+  String get userId => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: "")
+  String get userNm => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: "")
+  String get time => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CheckProfileDTOCopyWith<CheckProfileDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CheckProfileDTOCopyWith<$Res> {
+  factory $CheckProfileDTOCopyWith(
+          CheckProfileDTO value, $Res Function(CheckProfileDTO) then) =
+      _$CheckProfileDTOCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: "GUBUN") String spotId,
+      @JsonKey(name: "GUBUN_NM") String spotNm,
+      @JsonKey(defaultValue: "") String userId,
+      @JsonKey(defaultValue: "") String userNm,
+      @JsonKey(defaultValue: "") String time});
+}
+
+/// @nodoc
+class _$CheckProfileDTOCopyWithImpl<$Res>
+    implements $CheckProfileDTOCopyWith<$Res> {
+  _$CheckProfileDTOCopyWithImpl(this._value, this._then);
+
+  final CheckProfileDTO _value;
+  // ignore: unused_field
+  final $Res Function(CheckProfileDTO) _then;
+
+  @override
+  $Res call({
+    Object? spotId = freezed,
+    Object? spotNm = freezed,
+    Object? userId = freezed,
+    Object? userNm = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_value.copyWith(
+      spotId: spotId == freezed
+          ? _value.spotId
+          : spotId // ignore: cast_nullable_to_non_nullable
+              as String,
+      spotNm: spotNm == freezed
+          ? _value.spotNm
+          : spotNm // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNm: userNm == freezed
+          ? _value.userNm
+          : userNm // ignore: cast_nullable_to_non_nullable
+              as String,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CheckProfileDTOCopyWith<$Res>
+    implements $CheckProfileDTOCopyWith<$Res> {
+  factory _$CheckProfileDTOCopyWith(
+          _CheckProfileDTO value, $Res Function(_CheckProfileDTO) then) =
+      __$CheckProfileDTOCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: "GUBUN") String spotId,
+      @JsonKey(name: "GUBUN_NM") String spotNm,
+      @JsonKey(defaultValue: "") String userId,
+      @JsonKey(defaultValue: "") String userNm,
+      @JsonKey(defaultValue: "") String time});
+}
+
+/// @nodoc
+class __$CheckProfileDTOCopyWithImpl<$Res>
+    extends _$CheckProfileDTOCopyWithImpl<$Res>
+    implements _$CheckProfileDTOCopyWith<$Res> {
+  __$CheckProfileDTOCopyWithImpl(
+      _CheckProfileDTO _value, $Res Function(_CheckProfileDTO) _then)
+      : super(_value, (v) => _then(v as _CheckProfileDTO));
+
+  @override
+  _CheckProfileDTO get _value => super._value as _CheckProfileDTO;
+
+  @override
+  $Res call({
+    Object? spotId = freezed,
+    Object? spotNm = freezed,
+    Object? userId = freezed,
+    Object? userNm = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_CheckProfileDTO(
+      spotId: spotId == freezed
+          ? _value.spotId
+          : spotId // ignore: cast_nullable_to_non_nullable
+              as String,
+      spotNm: spotNm == freezed
+          ? _value.spotNm
+          : spotNm // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNm: userNm == freezed
+          ? _value.userNm
+          : userNm // ignore: cast_nullable_to_non_nullable
+              as String,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_CheckProfileDTO extends _CheckProfileDTO {
+  const _$_CheckProfileDTO(
+      {@JsonKey(name: "GUBUN") required this.spotId,
+      @JsonKey(name: "GUBUN_NM") required this.spotNm,
+      @JsonKey(defaultValue: "") required this.userId,
+      @JsonKey(defaultValue: "") required this.userNm,
+      @JsonKey(defaultValue: "") required this.time})
+      : super._();
+
+  factory _$_CheckProfileDTO.fromJson(Map<String, dynamic> json) =>
+      _$_$_CheckProfileDTOFromJson(json);
+
+  @override
+  @JsonKey(name: "GUBUN")
+  final String spotId;
+  @override
+  @JsonKey(name: "GUBUN_NM")
+  final String spotNm;
+  @override
+  @JsonKey(defaultValue: "")
+  final String userId;
+  @override
+  @JsonKey(defaultValue: "")
+  final String userNm;
+  @override
+  @JsonKey(defaultValue: "")
+  final String time;
+
+  @override
+  String toString() {
+    return 'CheckProfileDTO(spotId: $spotId, spotNm: $spotNm, userId: $userId, userNm: $userNm, time: $time)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CheckProfileDTO &&
+            (identical(other.spotId, spotId) ||
+                const DeepCollectionEquality().equals(other.spotId, spotId)) &&
+            (identical(other.spotNm, spotNm) ||
+                const DeepCollectionEquality().equals(other.spotNm, spotNm)) &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.userNm, userNm) ||
+                const DeepCollectionEquality().equals(other.userNm, userNm)) &&
+            (identical(other.time, time) ||
+                const DeepCollectionEquality().equals(other.time, time)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(spotId) ^
+      const DeepCollectionEquality().hash(spotNm) ^
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(userNm) ^
+      const DeepCollectionEquality().hash(time);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CheckProfileDTOCopyWith<_CheckProfileDTO> get copyWith =>
+      __$CheckProfileDTOCopyWithImpl<_CheckProfileDTO>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CheckProfileDTOToJson(this);
+  }
+}
+
+abstract class _CheckProfileDTO extends CheckProfileDTO {
+  const factory _CheckProfileDTO(
+      {@JsonKey(name: "GUBUN") required String spotId,
+      @JsonKey(name: "GUBUN_NM") required String spotNm,
+      @JsonKey(defaultValue: "") required String userId,
+      @JsonKey(defaultValue: "") required String userNm,
+      @JsonKey(defaultValue: "") required String time}) = _$_CheckProfileDTO;
+  const _CheckProfileDTO._() : super._();
+
+  factory _CheckProfileDTO.fromJson(Map<String, dynamic> json) =
+      _$_CheckProfileDTO.fromJson;
+
+  @override
+  @JsonKey(name: "GUBUN")
+  String get spotId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: "GUBUN_NM")
+  String get spotNm => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(defaultValue: "")
+  String get userId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(defaultValue: "")
+  String get userNm => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(defaultValue: "")
+  String get time => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CheckProfileDTOCopyWith<_CheckProfileDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}

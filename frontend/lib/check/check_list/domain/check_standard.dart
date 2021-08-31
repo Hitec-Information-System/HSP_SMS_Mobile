@@ -33,3 +33,15 @@ class CheckSession with _$CheckSession {
     required String name,
   }) = _CheckSession;
 }
+
+@freezed
+class CheckProfile with _$CheckProfile {
+  const CheckProfile._();
+  const factory CheckProfile({
+    required String spotId,
+    required String spotNm,
+    required String userId,
+    required String userNm,
+    required String time,
+  }) = _CheckProfile;
+}

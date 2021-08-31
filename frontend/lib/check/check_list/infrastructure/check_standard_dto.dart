@@ -60,3 +60,34 @@ class CheckSessionDTO with _$CheckSessionDTO {
     );
   }
 }
+
+@freezed
+class CheckProfileDTO with _$CheckProfileDTO {
+  const CheckProfileDTO._();
+  const factory CheckProfileDTO({
+    @JsonKey(name: "GUBUN") required String spotId,
+    @JsonKey(name: "GUBUN_NM") required String spotNm,
+    @JsonKey(defaultValue: "") required String userId,
+    @JsonKey(defaultValue: "") required String userNm,
+    @JsonKey(defaultValue: "") required String time,
+  }) = _CheckProfileDTO;
+
+  factory CheckProfileDTO.fromJson(Map<String, dynamic> json) =>
+      _$CheckProfileDTOFromJson(json);
+
+  factory CheckProfileDTO.fromDomain(CheckProfile _) => CheckProfileDTO(
+        spotId: _.spotId,
+        spotNm: _.spotNm,
+        userId: _.userId,
+        userNm: _.userNm,
+        time: _.time,
+      );
+
+  CheckProfile toDomain() => CheckProfile(
+        spotId: spotId,
+        spotNm: spotNm,
+        userId: userId,
+        userNm: userNm,
+        time: time,
+      );
+}

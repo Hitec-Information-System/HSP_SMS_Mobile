@@ -1,1 +1,1 @@
-export '../widgets/check_list_title.dart';
+export '../widgets/check_title.dart';

@@ -26,7 +26,7 @@ class CheckStandardRemoteService {
         queryParameters: {
           "comp-cd": compCd,
           // TODO: change hardCoded flag to dynamic flag
-          "obj-flag": "BUILDING",
+          "obj-flag": "LINE",
         },
       );
 

@@ -1,152 +1,139 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:frontend/auth/shared/providers.dart';
-import 'package:frontend/check/check_serial/shared/providers.dart';
-import 'package:frontend/core/application/localization/app_localizations.dart';
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:frontend/core/shared/hooks/rive/tag_recognizer_controller.dart';
-import 'package:frontend/menus/main/presentation/widgets/bottom_sheet/widgets.dart';
-import 'package:frontend/menus/main/presentation/widgets/widgets.dart';
-import 'package:frontend/tag/core/application/tag_notifier.dart';
-import 'package:frontend/tag/core/shared/providers.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MenuMainPage extends HookConsumerWidget {
+import 'indicator.dart';
+
+class MenuMainPage extends StatefulWidget {
   const MenuMainPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final _controller = useAnimationController(
-      duration: const Duration(
-        milliseconds: 100,
+  _MenuMainPageState createState() => _MenuMainPageState();
+}
+
+class _MenuMainPageState extends State<MenuMainPage> {
+  int touchedIndex = -1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          AspectRatio(
+            aspectRatio: 1.3,
+            child: Card(
+              color: Colors.white,
+              child: Row(
+                children: <Widget>[
+                  const SizedBox(
+                    height: 18,
+                  ),
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: PieChart(
+                        PieChartData(
+                          pieTouchData: PieTouchData(touchCallback:
+                              (FlTouchEvent event, pieTouchResponse) {
+                            setState(() {
+                              if (!event.isInterestedForInteractions ||
+                                  pieTouchResponse == null ||
+                                  pieTouchResponse.touchedSection == null) {
+                                touchedIndex = -1;
+                                return;
+                              }
+                              touchedIndex = pieTouchResponse
+                                  .touchedSection!.touchedSectionIndex;
+                            });
+                          }),
+                          borderData: FlBorderData(
+                            show: false,
+                          ),
+                          sectionsSpace: 0,
+                          centerSpaceRadius: 40,
+                          sections: showingSections(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const <Widget>[
+                      Indicator(
+                        color: Color(0xff0293ee),
+                        text: '완료',
+                        isSquare: true,
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 28,
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
+  }
 
-    final rive = useTagRecognizerRiveController();
-
-    ref.listen(
-      tagNotifierProvider,
-      (state) {
-        (state! as TagState).when(
-          initial: () {
-            AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
-          },
-          nfcReading: () {
-            showModalBottomSheet(
-              backgroundColor: Colors.transparent,
-              context: context,
-              builder: (context) => TagBottomSheet(
-                controller: _controller,
-                artboard: rive.artboard!,
-              ),
-            );
-          },
-          qrReading: () {
-            AutoRouter.of(context).push(const QRScanRoute());
-          },
-          nfcRead: (tag) {
-            // activate animation
-            _controller.forward();
-
-            // activate rive animation
-            rive.isComplete?.value = true;
-
-            ref
-                .watch(checkSerialNotifierProvider.notifier)
-                .getFakeInfo(tag.id)
-                .then(
-              (_) async {
-                // TODO: 검토해보고 지우기
-                await Future.delayed(const Duration(milliseconds: 3000), () {});
-
-                AutoRouter.of(context)
-                    .popUntilRouteWithName(MenuFrameRoute.name);
-
-                AutoRouter.of(context).push(const CheckListRoute()).then((_) {
-                  _controller.reverse();
-                  rive.isComplete?.value = false;
-                  ref.watch(tagNotifierProvider.notifier).clear();
-                  ref.watch(checkSerialNotifierProvider.notifier).clear();
-                });
-              },
-            );
-            // TODO: 추후 데이터 설계 끝마쳐지고 난 후 아래 사용하기
-            // ref
-            //     .watch(checkSerialNotifierProvider.notifier)
-            //     .getSerialInfo(tag.id);
-            // AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
-            // _controller.reverse();
-          },
-          qrRead: (tag) {
-            AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
-
-            showModalBottomSheet(
-              context: context,
-              builder: (context) {
-                //
-                return TagBottomSheet(
-                  controller: _controller,
-                  artboard: rive.artboard!,
-                );
-              },
-            );
-
-            _controller.forward();
-
-            // activate rive animation
-            rive.isComplete?.value = true;
-
-            ref
-                .watch(checkSerialNotifierProvider.notifier)
-                .getFakeInfo(tag.id)
-                .then((value) async {
-              // TODO: 검토해보고 지우기
-              await Future.delayed(const Duration(milliseconds: 3000), () {});
-
-              AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
-
-              AutoRouter.of(context).push(const CheckListRoute()).then((_) {
-                _controller.reverse();
-                rive.isComplete?.value = false;
-                ref.watch(tagNotifierProvider.notifier).clear();
-                ref.watch(checkSerialNotifierProvider.notifier).clear();
-              });
-            });
-            // TODO: 추후 데이터 설계 끝마쳐지고 난 후 아래 사용하기
-            // ref
-            //     .watch(checkSerialNotifierProvider.notifier)
-            //     .getSerialInfo(tag.id);
-          },
-          failure: (failure) {
-            // TODO: 문제 발생했을 때 Dialog 보여주기
-          },
-        );
-      },
-    );
-
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context)?.translate('title') ?? ""),
-          actions: [
-            IconButton(
-                icon: const Icon(Icons.logout_rounded),
-                onPressed: () {
-                  ref.watch(authNotifierProvider.notifier).signOut();
-                }),
-          ],
-        ),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              AppLocalizations.of(context)?.translate('first_string') ?? "",
-              style: const TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        )),
-        floatingActionButton: const MainFAB());
+  List<PieChartSectionData> showingSections() {
+    return List.generate(4, (i) {
+      final isTouched = i == touchedIndex;
+      final fontSize = isTouched ? 25.0 : 16.0;
+      final radius = isTouched ? 60.0 : 50.0;
+      switch (i) {
+        case 0:
+          return PieChartSectionData(
+            color: const Color(0xff0293ee),
+            value: 40,
+            title: '40%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
+          );
+        case 1:
+          return PieChartSectionData(
+            color: const Color(0xfff8b250),
+            value: 30,
+            title: '30%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
+          );
+        case 2:
+          return PieChartSectionData(
+            color: const Color(0xff845bef),
+            value: 15,
+            title: '15%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
+          );
+        case 3:
+          return PieChartSectionData(
+            color: const Color(0xff13d38e),
+            value: 15,
+            title: '15%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
+          );
+        default:
+          throw Error();
+      }
+    });
   }
 }
