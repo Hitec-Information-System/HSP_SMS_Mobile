@@ -136,17 +136,18 @@ class MenuMainPage extends HookConsumerWidget {
             IconButton(
                 icon: const Icon(Icons.logout_rounded),
                 onPressed: () {
-                  ref.watch(authNotifierProvider.notifier).signOut();
+                  // ref.watch(authNotifierProvider.notifier).signOut();
                 }),
           ],
         ),
         body: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Text(
-              AppLocalizations.of(context)?.translate('first_string') ?? "",
-              style: const TextStyle(fontSize: 25),
+              // AppLocalizations.of(context)?.translate('first_string') ?? "",
+              "현재 등록화면 이동만 가능합니다",
+              style: TextStyle(fontSize: 25),
               textAlign: TextAlign.center,
             ),
           ],

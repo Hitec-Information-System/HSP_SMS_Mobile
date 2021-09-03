@@ -7,7 +7,10 @@ class MenuSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Settings"),
+        child: Text(
+          "개발 준비 중입니다.",
+          style: Theme.of(context).textTheme.headline5,
+        ),
       ),
     );
   }

@@ -24,6 +24,7 @@ class ThemeConstants {
     backgroundColor: const Color(0xFFFFFFFF),
     bottomAppBarColor: const Color(0xFFF1F1EF),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+    errorColor: const Color(0xFFF26846),
     textTheme: const TextTheme().apply(
       bodyColor: Colors.grey[900],
       displayColor: Colors.black,
@@ -51,10 +52,11 @@ class ThemeConstants {
     scaffoldBackgroundColor: const Color(0xFF1F2022),
     cardColor: const Color(0xFF1C1C1E),
     bottomAppBarColor: const Color(0xFF2E2C2C),
+    hintColor: const Color(0xFFA7A4A4),
+    errorColor: const Color(0xFFF26846),
     textTheme: const TextTheme().apply(
       bodyColor: Colors.white,
       displayColor: Colors.white,
     ),
-    hintColor: const Color(0xFFA7A4A4),
   );
 }

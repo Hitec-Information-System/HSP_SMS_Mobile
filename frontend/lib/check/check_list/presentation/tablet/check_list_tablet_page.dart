@@ -15,18 +15,19 @@ class ChecklistTabletPage extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(LayoutConstants.radiusM),
-                        bottomRight: Radius.circular(LayoutConstants.radiusM),
-                      )),
-                  padding: const EdgeInsets.all(
-                    LayoutConstants.paddingM,
-                  ),
-                  child: const CheckBaseInfoColumn()),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(LayoutConstants.radiusM),
+                      bottomRight: Radius.circular(LayoutConstants.radiusM),
+                    )),
+                padding: const EdgeInsets.all(
+                  LayoutConstants.paddingM,
+                ),
+                child: const CheckBaseInfoColumn(),
+              ),
             ),
-            Expanded(
+            const Expanded(
                 flex: 5,
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),

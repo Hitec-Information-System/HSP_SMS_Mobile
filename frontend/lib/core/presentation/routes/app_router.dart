@@ -10,12 +10,13 @@ import 'package:frontend/theme/theme_change_page.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: [
-    //AutoRoute(page: SplashPage, initial: true),
+    AutoRoute(page: SplashPage, initial: true),
     AutoRoute(page: SignInPage, path: "/sign-in"),
     AutoRoute(page: SettingsPage, path: '/settings'),
     AutoRoute(page: ThemeChangePage, path: '/settings/themes'),
 
     AutoRoute(page: MenuFramePage, path: "/home"),
+    // AutoRoute(page: MenuFramePage, initial: true),
 
     // Qr scan page
     CustomRoute(
@@ -26,8 +27,8 @@ import 'package:frontend/theme/theme_change_page.dart';
 
     CustomRoute(
       page: CheckListPage,
-      initial: true,
-      // path: '/inspection',
+      // initial: true,
+      path: '/inspection',
       transitionsBuilder: TransitionsBuilders.slideBottom,
     ),
   ],
