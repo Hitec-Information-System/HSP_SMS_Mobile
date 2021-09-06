@@ -1,7 +1,9 @@
 package handler
 
 import (
+	"bytes"
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"net/http"
 
@@ -36,6 +38,8 @@ func MakeHandler() *AppHandler {
 	r.HandleFunc("/token", refreshHandler).Methods("POST")
 	r.HandleFunc("/todo", CreateTodo).Methods("POST")
 	r.HandleFunc("/check-list", a.fetchCheckStandard).Methods("GET")
+	r.HandleFunc("/list", a.fetchCheckList).Methods("GET")
+	r.HandleFunc("/facility", a.fetchFacilityLists).Methods("GET")
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
 	r.HandleFunc("/proto", a.getTestData).Methods("POST")
@@ -160,4 +164,78 @@ func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) 
 	}
 
 	rd.JSON(w, http.StatusOK, results)
+}
+
+func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
+
+	queryString := r.URL.Query()
+	compCd := queryString.Get("comp-cd")
+	userId := queryString.Get("user")
+	checkNo := queryString.Get("check-no")
+
+	if compCd == "" || userId == "" || checkNo == "" {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": "invalid json provided",
+		})
+		return
+	}
+
+	query := fmt.Sprintf(`
+	BEGIN
+		SMS_PK_JSON.P_FIND_CHKLIST_H('%s', '%s', '%s',:1);
+	END;
+	`, compCd, userId, checkNo)
+
+	fmt.Println(query)
+
+	results, err := a.db.GetSPDataWithLOC(query)
+	if err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	rd.JSON(w, http.StatusOK, results)
+}
+
+func (a *AppHandler) fetchFacilityLists(w http.ResponseWriter, r *http.Request) {
+
+	var buf bytes.Buffer
+
+	queryString := r.URL.Query()
+	compCd := queryString.Get("comp-cd")
+	userId := queryString.Get("user")
+	xmlData := queryString.Get("xml")
+
+	xmlElem := model.NewDataSet{}
+	xmlElem.Table1.COLUMNID = "OBJ_GUBUN"
+	xmlElem.Table1.VALUE = xmlData
+	xml.NewEncoder(&buf).Encode(&xmlElem)
+
+	if compCd == "" || userId == "" {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": "invalid json provided",
+		})
+		return
+	}
+
+	query := fmt.Sprintf(`
+	BEGIN
+		SMS_PK_3110.P_FIND('%s', '%s', '%s',:1);
+	END;
+	`, compCd, userId, buf.String())
+
+	fmt.Println(query)
+
+	results, err := a.db.GetSPDataWithCursor(query)
+	if err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	rd.XML(w, http.StatusOK, results)
+
 }

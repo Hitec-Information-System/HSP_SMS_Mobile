@@ -3,8 +3,10 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"database/sql/driver"
 	"encoding/json"
 	"fmt"
+	"io"
 	"time"
 
 	"github.com/godror/godror"
@@ -128,6 +130,123 @@ func (o *OracleRepository) GetSPDataWithLOC(qry string) ([]map[string]interface{
 
 	if err := json.NewDecoder(lob.Reader).Decode(&results); err != nil {
 		return results, err
+	}
+
+	return results, err
+
+}
+
+func (o *OracleRepository) GetSPDataWithCursor(qry string) ([]map[string]interface{}, error) {
+
+	var results []map[string]interface{}
+	var err error
+
+	var rset driver.Rows
+
+	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_loc"}), 10*time.Second)
+	defer cancel()
+
+	conn, err := o.db.Conn(ctx)
+	if err != nil {
+		return results, err
+	}
+
+	defer conn.Close()
+
+	stmt, err := conn.PrepareContext(ctx, qry)
+	if err != nil {
+		return results, err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.ExecContext(ctx, sql.Out{Dest: &rset, In: false})
+
+	if err != nil {
+		return results, err
+	}
+
+	columns := rset.(driver.RowsColumnTypeScanType).Columns()
+
+	fmt.Println(columns)
+
+	count := len(columns)
+	dests := make([]driver.Value, count)
+	for {
+		if err := rset.Next(dests); err != nil {
+			if err == io.EOF {
+				break
+			}
+			rset.Close()
+			return results, err
+		}
+		fmt.Println(dests)
+		// TODO : add here
+	}
+
+	for _, rowString := range dests {
+
+		fmt.Printf("%T\n", rowString)
+		fmt.Println(rowString)
+
+		// var parts []string
+
+		// resultsRow := make(map[string]interface{})
+
+		// for idx, val := range list {
+		// 	resultsRow[columns[idx]] = val
+		// }
+
+		// results = append(results, resultsRow)
+	}
+
+	return results, err
+
+}
+
+func (o *OracleRepository) GetSPDataWith2LOC(qry string) (map[string]interface{}, error) {
+
+	var results map[string]interface{}
+	var err error
+
+	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_loc2"}), 10*time.Second)
+	defer cancel()
+
+	conn, err := o.db.Conn(ctx)
+	if err != nil {
+		return results, err
+	}
+
+	defer conn.Close()
+
+	stmt, err := conn.PrepareContext(ctx, qry)
+	if err != nil {
+		return results, err
+	}
+	defer stmt.Close()
+
+	var lob1 godror.Lob = godror.Lob{IsClob: true}
+	var lob2 godror.Lob = godror.Lob{IsClob: true}
+
+	_, err = stmt.ExecContext(ctx, sql.Out{Dest: &lob1, In: false}, sql.Out{Dest: &lob2, In: false})
+
+	if err != nil {
+		return results, err
+	}
+
+	var result1 map[string]interface{}
+	var result2 map[string]interface{}
+
+	if err := json.NewDecoder(lob1.Reader).Decode(&result1); err != nil {
+		return results, err
+	}
+
+	if err := json.NewDecoder(lob2.Reader).Decode(&result2); err != nil {
+		return results, err
+	}
+
+	results = map[string]interface{}{
+		"result1": result1,
+		"result2": result2,
 	}
 
 	return results, err
