@@ -11,7 +11,6 @@ import (
 
 	"github.com/godror/godror"
 	"github.com/spf13/viper"
-	"hitecis.co.kr/hwashin_nfc/model"
 )
 
 type OracleRepository struct {
@@ -22,33 +21,61 @@ func (o *OracleRepository) Close() {
 	o.db.Close()
 }
 
-func (o *OracleRepository) GetUser(id string, pwd string) (model.User, error) {
-	var user model.User
+func (o *OracleRepository) GetSPDataWithStringAndCursor(qry string) (map[string]interface{}, error) {
 	var err error
 
-	query := fmt.Sprintf(`
- 		SELECT COMP_CD, USER_ID, USER_NM 
-			FROM SMS_B_USER	
- 		WHERE USER_ID = '%s'
- 		AND PWD = '%s'
-		AND USE_YN = 'Y'
- `, id, pwd)
+	var rset driver.Rows
+	var rstr string
 
-	rows, err := o.db.Query(query)
+	results := make(map[string]interface{})
+
+	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_cursor"}), 10*time.Second)
+	defer cancel()
+
+	conn, err := o.db.Conn(ctx)
+	if err != nil {
+		return results, err
+	}
+
+	defer conn.Close()
+
+	stmt, err := conn.PrepareContext(ctx, qry)
+	if err != nil {
+		return results, err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.ExecContext(ctx, sql.Out{Dest: &rstr}, sql.Out{Dest: &rset, In: false})
 
 	if err != nil {
-		return user, err
+		return results, err
 	}
 
-	defer rows.Close()
+	columns := rset.(driver.RowsColumnTypeScanType).Columns()
 
-	for rows.Next() {
-		if err := rows.Scan(&user.CompCd, &user.Id, &user.Name); err != nil {
-			return user, err
+	count := len(columns)
+	dsets := make([]driver.Value, count)
+	var cursorResults []map[string]interface{}
+	for {
+		if err := rset.Next(dsets); err != nil {
+			if err == io.EOF {
+				break
+			}
+			rset.Close()
+			return results, err
 		}
+		dMap := make(map[string]interface{})
+		for idx, val := range dsets {
+			dMap[columns[idx]] = val
+		}
+
+		cursorResults = append(cursorResults, dMap)
 	}
 
-	return user, err
+	results["res_str"] = rstr
+	results["res_cur"] = cursorResults
+
+	return results, err
 }
 
 func (o *OracleRepository) GetQueryData(query string) ([]interface{}, error) {
@@ -143,7 +170,7 @@ func (o *OracleRepository) GetSPDataWithCursor(qry string) ([]map[string]interfa
 
 	var rset driver.Rows
 
-	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_loc"}), 10*time.Second)
+	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_cursor"}), 10*time.Second)
 	defer cancel()
 
 	conn, err := o.db.Conn(ctx)
@@ -167,48 +194,35 @@ func (o *OracleRepository) GetSPDataWithCursor(qry string) ([]map[string]interfa
 
 	columns := rset.(driver.RowsColumnTypeScanType).Columns()
 
-	fmt.Println(columns)
-
 	count := len(columns)
-	dests := make([]driver.Value, count)
+	dsets := make([]driver.Value, count)
 	for {
-		if err := rset.Next(dests); err != nil {
+		if err := rset.Next(dsets); err != nil {
 			if err == io.EOF {
 				break
 			}
 			rset.Close()
 			return results, err
 		}
-		fmt.Println(dests)
-		// TODO : add here
-	}
+		dMap := make(map[string]interface{})
+		for idx, val := range dsets {
+			dMap[columns[idx]] = val
+		}
 
-	for _, rowString := range dests {
-
-		fmt.Printf("%T\n", rowString)
-		fmt.Println(rowString)
-
-		// var parts []string
-
-		// resultsRow := make(map[string]interface{})
-
-		// for idx, val := range list {
-		// 	resultsRow[columns[idx]] = val
-		// }
-
-		// results = append(results, resultsRow)
+		results = append(results, dMap)
 	}
 
 	return results, err
 
 }
+func (o *OracleRepository) GetSPDataWith2Cursor(qry string) (map[string]interface{}, error) {
 
-func (o *OracleRepository) GetSPDataWith2LOC(qry string) (map[string]interface{}, error) {
-
-	var results map[string]interface{}
+	results := make(map[string]interface{})
 	var err error
 
-	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_loc2"}), 10*time.Second)
+	var rset1, rset2 driver.Rows
+
+	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_cursor2"}), 10*time.Second)
 	defer cancel()
 
 	conn, err := o.db.Conn(ctx)
@@ -224,29 +238,38 @@ func (o *OracleRepository) GetSPDataWith2LOC(qry string) (map[string]interface{}
 	}
 	defer stmt.Close()
 
-	var lob1 godror.Lob = godror.Lob{IsClob: true}
-	var lob2 godror.Lob = godror.Lob{IsClob: true}
-
-	_, err = stmt.ExecContext(ctx, sql.Out{Dest: &lob1, In: false}, sql.Out{Dest: &lob2, In: false})
+	_, err = stmt.ExecContext(ctx, sql.Out{Dest: &rset1, In: false}, sql.Out{Dest: &rset2, In: false})
 
 	if err != nil {
 		return results, err
 	}
 
-	var result1 map[string]interface{}
-	var result2 map[string]interface{}
+	cursors := []driver.Rows{rset1, rset2}
 
-	if err := json.NewDecoder(lob1.Reader).Decode(&result1); err != nil {
-		return results, err
-	}
+	for idx, cursor := range cursors {
+		var cursorResults []map[string]interface{}
+		columns := cursor.(driver.RowsColumnTypeScanType).Columns()
 
-	if err := json.NewDecoder(lob2.Reader).Decode(&result2); err != nil {
-		return results, err
-	}
+		count := len(columns)
+		dsets := make([]driver.Value, count)
+		for {
+			if err := cursor.Next(dsets); err != nil {
+				if err == io.EOF {
+					break
+				}
+				cursor.Close()
+				return results, err
+			}
+			dMap := make(map[string]interface{})
+			for idx, val := range dsets {
+				dMap[columns[idx]] = val
+			}
 
-	results = map[string]interface{}{
-		"result1": result1,
-		"result2": result2,
+			cursorResults = append(cursorResults, dMap)
+		}
+
+		results[fmt.Sprintf("cursor%v", idx+1)] = cursorResults
+
 	}
 
 	return results, err

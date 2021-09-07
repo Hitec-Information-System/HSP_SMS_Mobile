@@ -16,6 +16,51 @@ import (
 	"hitecis.co.kr/hwashin_nfc/model"
 )
 
+func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
+	var user model.User
+
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
+	}
+
+	if user.Id == "" || user.Password == "" || user.CompanyCd == "" || user.SystemFlag == "" {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": "invalid json provided",
+		})
+		return
+	}
+
+	query := fmt.Sprintf(`
+	BEGIN
+		SMS_PK_AUTH.LOGIN('%s', '%s', '%s','%s',:STRING, :CURSOR);
+	END;
+	`, user.CompanyCd, user.Id, user.Password, user.SystemFlag)
+
+	fmt.Println(query)
+
+	results, err := a.db.GetSPDataWithStringAndCursor(query)
+	if err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	if results["res_str"] == nil {
+		rd.JSON(w, http.StatusNoContent, map[string]interface{}{
+			"msg": "아이디, 비밀번호의 조합에 해당하는 계정이 없습니다.",
+		})
+		return
+	}
+
+	results["res_cur"] = results["res_cur"].([]map[string]interface{})[0]
+
+	rd.JSON(w, http.StatusOK, results)
+
+}
+
+// ---- deprecated ----
+/// lines below are deprecated with the reasons of business characteristics
 var ACCESS_SECRET = viper.GetString(`token.ACCESS_SECRET`)
 var REFRESH_SECRET = viper.GetString(`token.REFRESH_SECRET`)
 

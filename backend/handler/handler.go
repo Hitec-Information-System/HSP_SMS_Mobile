@@ -2,7 +2,6 @@ package handler
 
 import (
 	"bytes"
-	"encoding/json"
 	"encoding/xml"
 	"fmt"
 	"net/http"
@@ -35,17 +34,15 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/", indexHandler)
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
-	r.HandleFunc("/token", refreshHandler).Methods("POST")
-	r.HandleFunc("/todo", CreateTodo).Methods("POST")
-	r.HandleFunc("/check-list", a.fetchCheckStandard).Methods("GET")
+
+	r.HandleFunc("/norm", a.fetchCheckStandard).Methods("GET")
 	r.HandleFunc("/list", a.fetchCheckList).Methods("GET")
-	r.HandleFunc("/facility", a.fetchFacilityLists).Methods("GET")
+	r.HandleFunc("/gubun", a.fetchCheckStatusTodayByGubun).Methods("GET")
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
 	r.HandleFunc("/proto", a.getTestData).Methods("POST")
 
 	return a
-
 }
 
 func (a *AppHandler) Close() {
@@ -56,63 +53,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello world")
 }
 
-func (a *AppHandler) getData(w http.ResponseWriter, r *http.Request) {
-
-	results, err := a.db.GetQueryData("SELECT * FROM SMS_B_MJ_CD")
-
-	if err != nil {
-		panic(err)
-	}
-
-	rd.JSON(w, http.StatusOK, results)
-
-}
-
-func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
-	var u map[string]interface{}
-
-	if err := json.NewDecoder(r.Body).Decode(&u); err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
-	}
-
-	user, err := a.db.GetUser(u["id"].(string), u["pwd"].(string))
-	if err != nil {
-		panic(err)
-	}
-
-	if (model.User{}) == user {
-		rd.JSON(w, http.StatusUnprocessableEntity, "Account not registered")
-		return
-	}
-
-	rd.JSON(w, http.StatusOK, user)
-
-}
-
-func (a *AppHandler) getTestData(w http.ResponseWriter, r *http.Request) {
-	var params map[string]interface{}
-
-	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
-	}
-
-	compCd := params["COMP_CD"].(string)
-
-	if len(compCd) < 1 {
-		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
-	}
-
-	query := fmt.Sprintf(`BEGIN SMS_PK_JSON.GET_OBJ_GUBUN_LIST(%s,:1); END;`, compCd)
-
-	results, err := a.db.GetSPDataWithLOC(query)
-
-	if err != nil {
-		panic(err)
-	}
-
-	rd.JSON(w, http.StatusOK, results)
-}
-
+// 점검 기준(회차,일상/주간 여부)
 func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) {
 
 	queryString := r.URL.Query()
@@ -128,13 +69,13 @@ func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) 
 
 	sessionsQuery := fmt.Sprintf(`
 	BEGIN 
-		SMS_PK_JSON.GET_CHK_CHASU_LIST('%s', '%s',:1); 
+		SMS_PK_CM.GET_CHK_CHASU_LIST('%s', '%s',:CURSOR1); 
 	END;
 	`, compCd, objFlag)
 
 	fmt.Println(sessionsQuery)
 
-	sessions, err := a.db.GetSPDataWithLOC(sessionsQuery)
+	sessions, err := a.db.GetSPDataWithCursor(sessionsQuery)
 	if err != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
 			"msg": err.Error(),
@@ -144,13 +85,13 @@ func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) 
 
 	intervalsQuery := fmt.Sprintf(`
 	BEGIN 
-		SMS_PK_JSON.GET_CHK_INTERVAL_LIST('%s', '%s',:1); 
+		SMS_PK_CM.GET_CHK_INTERVAL_LIST('%s', '%s',:CURSOR1); 
 	END;
 	`, compCd, objFlag)
 
 	fmt.Println(intervalsQuery)
 
-	intervals, err := a.db.GetSPDataWithLOC(intervalsQuery)
+	intervals, err := a.db.GetSPDataWithCursor(intervalsQuery)
 	if err != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
 			"msg": err.Error(),
@@ -180,15 +121,15 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	query := fmt.Sprintf(`
+	headerQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_JSON.P_FIND_CHKLIST_H('%s', '%s', '%s',:1);
+		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '일상', '',:CURSOR1);
 	END;
 	`, compCd, userId, checkNo)
 
-	fmt.Println(query)
+	fmt.Println(headerQuery)
 
-	results, err := a.db.GetSPDataWithLOC(query)
+	header, err := a.db.GetSPDataWithCursor(headerQuery)
 	if err != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
 			"msg": err.Error(),
@@ -196,21 +137,44 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	detailsQuery := fmt.Sprintf(`
+	BEGIN
+		SMS_PK_5010.P_FIND_CHKLIST_D('%s', '%s', '%s', '일상',:CURSOR1);
+	END;
+	`, compCd, userId, checkNo)
+
+	fmt.Println(detailsQuery)
+
+	details, err := a.db.GetSPDataWithCursor(detailsQuery)
+	if err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	results := map[string]interface{}{
+		"header":  header[0],
+		"details": details,
+	}
+
 	rd.JSON(w, http.StatusOK, results)
 }
 
-func (a *AppHandler) fetchFacilityLists(w http.ResponseWriter, r *http.Request) {
+// 점검 기록 리스트
+// - Gubun: 시설,라인,지게차 "구분" (Procedure 이름에 따라감)
+func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http.Request) {
 
 	var buf bytes.Buffer
 
 	queryString := r.URL.Query()
 	compCd := queryString.Get("comp-cd")
 	userId := queryString.Get("user")
-	xmlData := queryString.Get("xml")
+	flagData := queryString.Get("flag")
 
 	xmlElem := model.NewDataSet{}
 	xmlElem.Table1.COLUMNID = "OBJ_GUBUN"
-	xmlElem.Table1.VALUE = xmlData
+	xmlElem.Table1.VALUE = flagData
 	xml.NewEncoder(&buf).Encode(&xmlElem)
 
 	if compCd == "" || userId == "" {
@@ -222,13 +186,13 @@ func (a *AppHandler) fetchFacilityLists(w http.ResponseWriter, r *http.Request) 
 
 	query := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_3110.P_FIND('%s', '%s', '%s',:1);
+		SMS_PK_5010.P_FIND_OBJ_CHKLIST_TODAY_M('%s', '%s', '%s',:CURSOR1, :CURSOR2);
 	END;
 	`, compCd, userId, buf.String())
 
 	fmt.Println(query)
 
-	results, err := a.db.GetSPDataWithCursor(query)
+	results, err := a.db.GetSPDataWith2Cursor(query)
 	if err != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
 			"msg": err.Error(),
@@ -236,6 +200,6 @@ func (a *AppHandler) fetchFacilityLists(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	rd.XML(w, http.StatusOK, results)
+	rd.JSON(w, http.StatusOK, results)
 
 }

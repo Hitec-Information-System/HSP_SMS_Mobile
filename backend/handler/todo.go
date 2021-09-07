@@ -8,6 +8,8 @@ import (
 	"hitecis.co.kr/hwashin_nfc/model"
 )
 
+// deprecated
+
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	var td *model.Todo
 
@@ -34,6 +36,5 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	td.UserID = userid
 
 	rd.JSON(w, http.StatusCreated, td)
-	return
 
 }

@@ -1,6 +1,3 @@
-# OAuth 응답은 다음과 같이 넘어옴
-# {"accessToken":"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","refreshToken":null,"idToken":null,"tokenEndpoint":"https://github.com/login/oauth/access_token","scopes":["read:user,repo"],"expiration":null}
-
 ###
 GET http://localhost:9110/data HTTP/2.0
 
@@ -9,8 +6,10 @@ POST http://localhost:9110/sign-in HTTP/2.0
 content-type: application/json 
 
 {
-	"id": "dev",
-	"pwd": "dev"
+	"userId": "dev",
+	"pwd": "dev",
+  "compCd":"3000",
+  "sysFlag":"MOBILE"
 }
 ###
 POST http://localhost:9110/todo HTTP/2.0
@@ -18,13 +17,6 @@ content-type: application/json
 
 {
 	"title": "test todo"
-}
-###
-DELETE http://localhost:9110/sign-out HTTP/2.0
-content-type: application/json 
-
-{
-
 }
 ###
 POST http://localhost:9110/proto HTTP/2.0
@@ -35,24 +27,15 @@ content-type: application/json
 }
 ###
 
-GET http://localhost:9110/check-list?comp-cd=3000&obj-flag=BUILDING HTTP/2.0
+GET http://localhost:9110/norm?comp-cd=3000&obj-flag=BUILDING HTTP/2.0
 content-type: application/json 
 
-{
-  
-}
 ###
-GET http://localhost:9110/facility?comp-cd=3000&user=dev&xml=LINE HTTP/2.0
-content-type: application/xml
+GET http://localhost:9110/gubun?comp-cd=3000&user=dev&flag=FORKLIFT HTTP/2.0
+content-type: application/json
 
-{
-  
-}
 ###
 GET http://localhost:9110/list?comp-cd=3000&user=dev&check-no=33F1CC18 HTTP/2.0
 content-type: application/json
 
-{
-  
-}
 ###
