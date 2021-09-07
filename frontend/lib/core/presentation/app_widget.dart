@@ -24,7 +24,7 @@ class _AppWidgetState extends ConsumerState<AppWidget> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => ref.read(authNotifierProvider.notifier).checkAndUpdateAuthState(),
+      () => ref.read(authNotifierProvider.notifier).checkAuthState(),
     );
   }
 
@@ -34,7 +34,7 @@ class _AppWidgetState extends ConsumerState<AppWidget> {
 
     ref.listen<AuthState>(authNotifierProvider, (state) {
       state.maybeWhen(
-        authenticated: () => _appRouter.pushAndPopUntil(
+        authenticated: (_) => _appRouter.pushAndPopUntil(
           const MenuFrameRoute(),
           predicate: (route) => false,
         ),

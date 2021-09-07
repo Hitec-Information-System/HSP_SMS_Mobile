@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:frontend/auth/infrastructure/authenticator.dart';
+import 'package:frontend/auth/tmp/temperary_variable.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
 import 'package:frontend/core/infrastructure/remote_response.dart';
 import 'package:frontend/core/infrastructure/dio_extensions.dart';
@@ -8,21 +9,15 @@ import 'check_standard_dto.dart';
 
 class CheckStandardRemoteService {
   final Dio _dio;
-  final Authenticator _authenticator;
 
   const CheckStandardRemoteService(
     this._dio,
-    this._authenticator,
   );
 
   Future<RemoteResponse<CheckStandardDTO>> fetchCheckStandard() async {
     try {
-      final compCd = await _authenticator
-          .getSignedInCredentials()
-          .then((user) => user!.compCd);
-
       final response = await _dio.get(
-        "/check-list",
+        "/norm",
         queryParameters: {
           "comp-cd": compCd,
           // TODO: change hardCoded flag to dynamic flag

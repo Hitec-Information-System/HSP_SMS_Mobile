@@ -1,9 +1,9 @@
-import 'package:frontend/auth/infrastructure/user_dto.dart';
+import 'package:frontend/auth/infrastructure/api_key_dto.dart';
 
 abstract class CredentialsStorage {
-  Future<UserDTO?> read();
+  Future<ApiKeyDTO?> read();
 
-  Future<void> save(UserDTO userDTO);
+  Future<void> save(ApiKeyDTO userDTO);
 
   Future<void> clear();
 }

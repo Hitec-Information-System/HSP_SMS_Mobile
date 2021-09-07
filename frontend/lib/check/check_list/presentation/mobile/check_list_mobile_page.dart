@@ -20,12 +20,6 @@ class ChecklistMobilePage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const CheckBaseInfoColumn(),
-
-                // CheckConditionRow(label: "점검주기", children: [
-                //   "일상",
-                //   "주간",
-                // ]),
-                // CheckConditionRow(label: "테스트 예제", children: []),
                 const SizedBox(height: LayoutConstants.spaceM),
                 const Divider(thickness: 2),
                 const SizedBox(height: LayoutConstants.spaceM),

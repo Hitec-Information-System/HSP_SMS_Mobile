@@ -134,12 +134,12 @@ class TimeStampCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65,
+      height: 75,
       padding: const EdgeInsets.all(LayoutConstants.paddingXS),
       child: Column(
         children: [
           Container(
-            width: 50,
+            width: 55,
             height: 45,
             padding: const EdgeInsets.all(LayoutConstants.paddingS),
             decoration: BoxDecoration(
@@ -187,12 +187,12 @@ class EmptyStampCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65,
+      height: 75,
       padding: const EdgeInsets.all(LayoutConstants.paddingXS),
       child: Column(
         children: [
           Container(
-            width: 50,
+            width: 55,
             height: 45,
             padding: const EdgeInsets.all(LayoutConstants.paddingS),
             decoration: BoxDecoration(

@@ -2,36 +2,40 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:frontend/auth/domain/auth_failure.dart';
-import 'package:frontend/auth/domain/user.dart';
-import 'package:frontend/auth/infrastructure/user_dto.dart';
+import 'package:frontend/auth/domain/api_key.dart';
+import 'package:frontend/auth/infrastructure/api_key_dto.dart';
 
 import 'package:frontend/auth/infrastructure/credentials_storage/credentials_storage.dart';
+import 'package:frontend/auth/tmp/temperary_variable.dart';
 
 class Authenticator {
   final Dio _dio;
   final CredentialsStorage _credentialsStorage;
 
-  Authenticator(
+  const Authenticator(
     this._dio,
     this._credentialsStorage,
   );
 
-  Future<User?> getSignedInCredentials() async {
+  Future<APIKey?> getSignedInCredentials() async {
     try {
-      final storedUserDTO = await _credentialsStorage.read();
-      return storedUserDTO?.toDomain();
+      final storedAPIKeyDTO = await _credentialsStorage.read();
+      return storedAPIKeyDTO?.toDomain();
     } on PlatformException {
       return null;
     }
   }
 
   Future<bool> isSignedIn() =>
-      getSignedInCredentials().then((user) => user != null);
+      getSignedInCredentials().then((key) => key != null);
 
-  Future<Either<AuthFailure, Unit>> handleAuthorizationResponse(
+  Future<Either<AuthFailure, APIKey>> handleAuthorizationResponse(
     Map<String, dynamic> params,
   ) async {
     try {
+      params["compCd"] = compCd; // TODO: change constants
+      params["sysFlag"] = "MOBILE"; // constant, never gonna change
+
       final response = await _dio.post("/sign-in", data: params);
 
       // 응답코드가 200이 아닐 때 오류 처리
@@ -40,9 +44,10 @@ class Authenticator {
       }
 
       if (response.data != "" && response.data != null) {
-        final user = UserDTO.fromJson(response.data as Map<String, dynamic>);
-        await _credentialsStorage.save(user);
-        return right(unit);
+        final apiKey =
+            ApiKeyDTO.fromJson(response.data as Map<String, dynamic>);
+        await _credentialsStorage.save(apiKey);
+        return right(apiKey.toDomain());
       }
 
       // 데이터가 없을 때

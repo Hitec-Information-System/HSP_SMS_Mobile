@@ -136,7 +136,7 @@ class MenuMainPage extends HookConsumerWidget {
             IconButton(
                 icon: const Icon(Icons.logout_rounded),
                 onPressed: () {
-                  // ref.watch(authNotifierProvider.notifier).signOut();
+                  ref.watch(authNotifierProvider.notifier).signOut();
                 }),
           ],
         ),

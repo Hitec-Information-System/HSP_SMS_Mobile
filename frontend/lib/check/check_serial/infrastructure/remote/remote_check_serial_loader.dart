@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:frontend/check/check_serial/domain/check_serial_failure.dart';
 import 'package:frontend/check/check_serial/domain/check_serial.dart';
 import 'package:dartz/dartz.dart';
@@ -15,14 +14,14 @@ class RemoteCheckSerialLoader extends CheckSerialLoader {
       String tagId) async {
     final response = await _dio.get("/tag", queryParameters: {"id": tagId});
     if (response.statusCode != 200) {
-      return left(CheckSerialFailure.serverError(
-          response.statusMessage ?? "unknown error"));
+      return left(
+          CheckSerialFailure.server(response.statusMessage ?? "unknown error"));
     }
 
     final data = response.data as Map<String, dynamic>;
 
     if (data.isEmpty) {
-      return left(const CheckSerialFailure.notFound());
+      // TODO: 없을 때?
     }
 
     return right(CheckSerial.fromJson(data));

@@ -14,49 +14,54 @@ class CheckBaseInfoColumn extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const CheckTitle(),
-          const SizedBox(height: LayoutConstants.spaceL),
-          const CheckInfoSection(),
-          const SizedBox(height: LayoutConstants.spaceL),
-          ref.watch(checkStandardNotifierProvider).when(
-                initial: () => Container(),
-                loadInProgress: () => Container(),
-                loadSuccess: (data) => CheckStandardRow(
-                  label: "회차",
-                  children: data.intervals.map((e) => e.name).toList(),
-                ),
-                loadFailure: (_) => Container(),
-              ),
-          const SizedBox(height: LayoutConstants.spaceM),
-          ref.watch(checkStandardNotifierProvider).when(
-                initial: () => Container(),
-                loadInProgress: () => Container(),
-                loadSuccess: (data) => CheckStandardRow(
-                  label: "점검주기",
-                  children: data.sessions.map((e) => e.name).toList(),
-                ),
-                loadFailure: (_) => Container(),
-              ),
-          if (!Responsive.isMobile(context))
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: LayoutConstants.paddingM),
-              child: ElevatedButton(
-                onPressed: () {
-                  AutoRouter.of(context).pop();
-                },
-                child: const Text(
-                  "저장",
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+            child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              const CheckTitle(),
+              const SizedBox(height: LayoutConstants.spaceL),
+              const CheckInfoSection(),
+              const SizedBox(height: LayoutConstants.spaceL),
+              ref.watch(checkStandardNotifierProvider).when(
+                    initial: () => Container(),
+                    loadInProgress: () => Container(),
+                    loadSuccess: (data) => CheckStandardRow(
+                      label: "회차",
+                      children: data.intervals.map((e) => e.name).toList(),
+                    ),
+                    loadFailure: (_) => Container(),
+                  ),
+              const SizedBox(height: LayoutConstants.spaceM),
+              ref.watch(checkStandardNotifierProvider).when(
+                    initial: () => Container(),
+                    loadInProgress: () => Container(),
+                    loadSuccess: (data) => CheckStandardRow(
+                      label: "점검주기",
+                      children: data.sessions.map((e) => e.name).toList(),
+                    ),
+                    loadFailure: (_) => Container(),
+                  ),
+            ],
+          ),
+        )),
+        if (!Responsive.isMobile(context))
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: LayoutConstants.paddingM),
+            child: ElevatedButton(
+              onPressed: () {
+                AutoRouter.of(context).pop();
+              },
+              child: const Text(
+                "저장",
               ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

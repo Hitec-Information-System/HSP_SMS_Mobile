@@ -16,12 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CheckSerialFailureTearOff {
   const _$CheckSerialFailureTearOff();
 
-  _CheckSerialNotFound notFound() {
-    return const _CheckSerialNotFound();
-  }
-
-  _CheckSerialServerError serverError([String? message]) {
-    return _CheckSerialServerError(
+  _Server server([String? message]) {
+    return _Server(
       message,
     );
   }
@@ -32,31 +28,33 @@ const $CheckSerialFailure = _$CheckSerialFailureTearOff();
 
 /// @nodoc
 mixin _$CheckSerialFailure {
+  String? get message => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() notFound,
-    required TResult Function(String? message) serverError,
+    required TResult Function(String? message) server,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? notFound,
-    TResult Function(String? message)? serverError,
+    TResult Function(String? message)? server,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_CheckSerialNotFound value) notFound,
-    required TResult Function(_CheckSerialServerError value) serverError,
+    required TResult Function(_Server value) server,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_CheckSerialNotFound value)? notFound,
-    TResult Function(_CheckSerialServerError value)? serverError,
+    TResult Function(_Server value)? server,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CheckSerialFailureCopyWith<CheckSerialFailure> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -65,6 +63,7 @@ abstract class $CheckSerialFailureCopyWith<$Res> {
   factory $CheckSerialFailureCopyWith(
           CheckSerialFailure value, $Res Function(CheckSerialFailure) then) =
       _$CheckSerialFailureCopyWithImpl<$Res>;
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -75,119 +74,43 @@ class _$CheckSerialFailureCopyWithImpl<$Res>
   final CheckSerialFailure _value;
   // ignore: unused_field
   final $Res Function(CheckSerialFailure) _then;
-}
-
-/// @nodoc
-abstract class _$CheckSerialNotFoundCopyWith<$Res> {
-  factory _$CheckSerialNotFoundCopyWith(_CheckSerialNotFound value,
-          $Res Function(_CheckSerialNotFound) then) =
-      __$CheckSerialNotFoundCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$CheckSerialNotFoundCopyWithImpl<$Res>
-    extends _$CheckSerialFailureCopyWithImpl<$Res>
-    implements _$CheckSerialNotFoundCopyWith<$Res> {
-  __$CheckSerialNotFoundCopyWithImpl(
-      _CheckSerialNotFound _value, $Res Function(_CheckSerialNotFound) _then)
-      : super(_value, (v) => _then(v as _CheckSerialNotFound));
-
-  @override
-  _CheckSerialNotFound get _value => super._value as _CheckSerialNotFound;
-}
-
-/// @nodoc
-
-class _$_CheckSerialNotFound extends _CheckSerialNotFound {
-  const _$_CheckSerialNotFound() : super._();
-
-  @override
-  String toString() {
-    return 'CheckSerialFailure.notFound()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _CheckSerialNotFound);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() notFound,
-    required TResult Function(String? message) serverError,
-  }) {
-    return notFound();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? notFound,
-    TResult Function(String? message)? serverError,
-    required TResult orElse(),
-  }) {
-    if (notFound != null) {
-      return notFound();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_CheckSerialNotFound value) notFound,
-    required TResult Function(_CheckSerialServerError value) serverError,
-  }) {
-    return notFound(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_CheckSerialNotFound value)? notFound,
-    TResult Function(_CheckSerialServerError value)? serverError,
-    required TResult orElse(),
-  }) {
-    if (notFound != null) {
-      return notFound(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _CheckSerialNotFound extends CheckSerialFailure {
-  const factory _CheckSerialNotFound() = _$_CheckSerialNotFound;
-  const _CheckSerialNotFound._() : super._();
-}
-
-/// @nodoc
-abstract class _$CheckSerialServerErrorCopyWith<$Res> {
-  factory _$CheckSerialServerErrorCopyWith(_CheckSerialServerError value,
-          $Res Function(_CheckSerialServerError) then) =
-      __$CheckSerialServerErrorCopyWithImpl<$Res>;
-  $Res call({String? message});
-}
-
-/// @nodoc
-class __$CheckSerialServerErrorCopyWithImpl<$Res>
-    extends _$CheckSerialFailureCopyWithImpl<$Res>
-    implements _$CheckSerialServerErrorCopyWith<$Res> {
-  __$CheckSerialServerErrorCopyWithImpl(_CheckSerialServerError _value,
-      $Res Function(_CheckSerialServerError) _then)
-      : super(_value, (v) => _then(v as _CheckSerialServerError));
-
-  @override
-  _CheckSerialServerError get _value => super._value as _CheckSerialServerError;
 
   @override
   $Res call({
     Object? message = freezed,
   }) {
-    return _then(_CheckSerialServerError(
+    return _then(_value.copyWith(
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ServerCopyWith<$Res>
+    implements $CheckSerialFailureCopyWith<$Res> {
+  factory _$ServerCopyWith(_Server value, $Res Function(_Server) then) =
+      __$ServerCopyWithImpl<$Res>;
+  @override
+  $Res call({String? message});
+}
+
+/// @nodoc
+class __$ServerCopyWithImpl<$Res> extends _$CheckSerialFailureCopyWithImpl<$Res>
+    implements _$ServerCopyWith<$Res> {
+  __$ServerCopyWithImpl(_Server _value, $Res Function(_Server) _then)
+      : super(_value, (v) => _then(v as _Server));
+
+  @override
+  _Server get _value => super._value as _Server;
+
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(_Server(
       message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -198,21 +121,21 @@ class __$CheckSerialServerErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CheckSerialServerError extends _CheckSerialServerError {
-  const _$_CheckSerialServerError([this.message]) : super._();
+class _$_Server extends _Server {
+  const _$_Server([this.message]) : super._();
 
   @override
   final String? message;
 
   @override
   String toString() {
-    return 'CheckSerialFailure.serverError(message: $message)';
+    return 'CheckSerialFailure.server(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _CheckSerialServerError &&
+        (other is _Server &&
             (identical(other.message, message) ||
                 const DeepCollectionEquality().equals(other.message, message)));
   }
@@ -223,28 +146,25 @@ class _$_CheckSerialServerError extends _CheckSerialServerError {
 
   @JsonKey(ignore: true)
   @override
-  _$CheckSerialServerErrorCopyWith<_CheckSerialServerError> get copyWith =>
-      __$CheckSerialServerErrorCopyWithImpl<_CheckSerialServerError>(
-          this, _$identity);
+  _$ServerCopyWith<_Server> get copyWith =>
+      __$ServerCopyWithImpl<_Server>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() notFound,
-    required TResult Function(String? message) serverError,
+    required TResult Function(String? message) server,
   }) {
-    return serverError(message);
+    return server(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? notFound,
-    TResult Function(String? message)? serverError,
+    TResult Function(String? message)? server,
     required TResult orElse(),
   }) {
-    if (serverError != null) {
-      return serverError(message);
+    if (server != null) {
+      return server(message);
     }
     return orElse();
   }
@@ -252,33 +172,31 @@ class _$_CheckSerialServerError extends _CheckSerialServerError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_CheckSerialNotFound value) notFound,
-    required TResult Function(_CheckSerialServerError value) serverError,
+    required TResult Function(_Server value) server,
   }) {
-    return serverError(this);
+    return server(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_CheckSerialNotFound value)? notFound,
-    TResult Function(_CheckSerialServerError value)? serverError,
+    TResult Function(_Server value)? server,
     required TResult orElse(),
   }) {
-    if (serverError != null) {
-      return serverError(this);
+    if (server != null) {
+      return server(this);
     }
     return orElse();
   }
 }
 
-abstract class _CheckSerialServerError extends CheckSerialFailure {
-  const factory _CheckSerialServerError([String? message]) =
-      _$_CheckSerialServerError;
-  const _CheckSerialServerError._() : super._();
+abstract class _Server extends CheckSerialFailure {
+  const factory _Server([String? message]) = _$_Server;
+  const _Server._() : super._();
 
+  @override
   String? get message => throw _privateConstructorUsedError;
+  @override
   @JsonKey(ignore: true)
-  _$CheckSerialServerErrorCopyWith<_CheckSerialServerError> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$ServerCopyWith<_Server> get copyWith => throw _privateConstructorUsedError;
 }
