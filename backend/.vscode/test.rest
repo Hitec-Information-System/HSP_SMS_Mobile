@@ -31,11 +31,12 @@ GET http://localhost:9110/norm?comp-cd=3000&obj-flag=BUILDING HTTP/2.0
 content-type: application/json 
 
 ###
-GET http://localhost:9110/gubun?comp-cd=3000&user=dev&flag=FORKLIFT HTTP/2.0
+GET http://localhost:9110/gubun?comp-cd=3000&sys-flag=MOBILE&user=dev&flag=FORKLIFT HTTP/2.0
 content-type: application/json
 
 ###
-GET http://localhost:9110/list?comp-cd=3000&user=dev&check-no=33F1CC18 HTTP/2.0
+GET http://localhost:9110/info?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=33F1CC18 HTTP/2.0
 content-type: application/json
 
 ###
+

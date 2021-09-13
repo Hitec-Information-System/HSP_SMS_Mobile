@@ -53,7 +53,7 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	results["res_cur"] = results["res_cur"].([]map[string]interface{})[0]
+	results["res_cur"] = results["res_cur"].([]map[string]interface{})
 
 	rd.JSON(w, http.StatusOK, results)
 

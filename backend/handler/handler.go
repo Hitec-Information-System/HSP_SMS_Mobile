@@ -36,7 +36,7 @@ func MakeHandler() *AppHandler {
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
 
 	r.HandleFunc("/norm", a.fetchCheckStandard).Methods("GET")
-	r.HandleFunc("/list", a.fetchCheckList).Methods("GET")
+	r.HandleFunc("/info", a.fetchCheckList).Methods("GET")
 	r.HandleFunc("/gubun", a.fetchCheckStatusTodayByGubun).Methods("GET")
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
@@ -49,7 +49,7 @@ func (a *AppHandler) Close() {
 	a.db.Close()
 }
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w http.ResponseWriter, _ *http.Request) {
 	fmt.Fprint(w, "Hello world")
 }
 
@@ -111,6 +111,7 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	queryString := r.URL.Query()
 	compCd := queryString.Get("comp-cd")
+	systemFlag := queryString.Get("sys-flag")
 	userId := queryString.Get("user")
 	checkNo := queryString.Get("check-no")
 
@@ -123,9 +124,9 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	headerQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '일상', '',:CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '%s', '일상', '',:CURSOR1);
 	END;
-	`, compCd, userId, checkNo)
+	`, compCd, systemFlag, userId, checkNo)
 
 	fmt.Println(headerQuery)
 
@@ -139,9 +140,9 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	detailsQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_D('%s', '%s', '%s', '일상',:CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_D('%s', '%s', '%s', '%s', '일상',:CURSOR1);
 	END;
-	`, compCd, userId, checkNo)
+	`, compCd, systemFlag, userId, checkNo)
 
 	fmt.Println(detailsQuery)
 
@@ -153,9 +154,47 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	/// header에서 obj_gubun 뽑아내기
+	//  - 주기 데이터 받아오기 위해
+	objGubun := header[0]["OBJ_GUBUN"]
+
+	sessionsQuery := fmt.Sprintf(`
+	BEGIN 
+		SMS_PK_CM.GET_CHK_CHASU_LIST('%s', '%s',:CURSOR1); 
+	END;
+	`, compCd, objGubun)
+
+	fmt.Println(sessionsQuery)
+
+	sessions, err := a.db.GetSPDataWithCursor(sessionsQuery)
+	if err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	intervalsQuery := fmt.Sprintf(`
+	BEGIN 
+		SMS_PK_CM.GET_CHK_INTERVAL_LIST('%s', '%s',:CURSOR1); 
+	END;
+	`, compCd, objGubun)
+
+	fmt.Println(intervalsQuery)
+
+	intervals, err := a.db.GetSPDataWithCursor(intervalsQuery)
+	if err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
 	results := map[string]interface{}{
-		"header":  header[0],
-		"details": details,
+		"header":    header[0],
+		"details":   details,
+		"sessions":  sessions,
+		"intervals": intervals,
 	}
 
 	rd.JSON(w, http.StatusOK, results)
@@ -169,6 +208,7 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 
 	queryString := r.URL.Query()
 	compCd := queryString.Get("comp-cd")
+	systemFlag := queryString.Get("sys-flag")
 	userId := queryString.Get("user")
 	flagData := queryString.Get("flag")
 
@@ -186,9 +226,9 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 
 	query := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_OBJ_CHKLIST_TODAY_M('%s', '%s', '%s',:CURSOR1, :CURSOR2);
+		SMS_PK_5010.P_FIND_OBJ_CHKLIST_TODAY_M('%s', '%s', '%s', '%s',:CURSOR1, :CURSOR2);
 	END;
-	`, compCd, userId, buf.String())
+	`, compCd, systemFlag, userId, buf.String())
 
 	fmt.Println(query)
 
