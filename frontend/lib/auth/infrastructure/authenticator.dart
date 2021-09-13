@@ -6,7 +6,7 @@ import 'package:frontend/auth/domain/api_key.dart';
 import 'package:frontend/auth/infrastructure/api_key_dto.dart';
 
 import 'package:frontend/auth/infrastructure/credentials_storage/credentials_storage.dart';
-import 'package:frontend/auth/tmp/temperary_variable.dart';
+import 'package:frontend/core/presentation/constants/constants.dart';
 
 class Authenticator {
   final Dio _dio;
@@ -33,8 +33,8 @@ class Authenticator {
     Map<String, dynamic> params,
   ) async {
     try {
-      params["compCd"] = compCd; // TODO: change constants
-      params["sysFlag"] = "MOBILE"; // constant, never gonna change
+      params["compCd"] = LogicConstants.companyCd;
+      params["sysFlag"] = LogicConstants.systemFlag;
 
       final response = await _dio.post("/sign-in", data: params);
 

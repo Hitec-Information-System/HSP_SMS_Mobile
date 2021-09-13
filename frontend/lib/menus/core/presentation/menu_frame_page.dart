@@ -4,7 +4,7 @@ import 'package:frontend/menus/core/shared/providers.dart';
 import 'package:frontend/menus/inspection/facility/presentation/menu_facility_inspection_page.dart';
 import 'package:frontend/menus/inspection/forklift/presentation/menu_forklift_inspection_page.dart';
 import 'package:frontend/menus/inspection/line/presentation/menu_line_inspection_page.dart';
-import 'package:frontend/menus/main/presentation/menu_main_page_backup.dart';
+import 'package:frontend/menus/main/presentation/menu_main_page.dart';
 import 'package:frontend/menus/settings/presentation/menu_settings_page.dart';
 import 'package:frontend/notifications/presentation/dialogs.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

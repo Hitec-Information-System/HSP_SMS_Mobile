@@ -1,6 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/check/check_serial/shared/providers.dart';
+import 'package:frontend/check/check_info/shared/providers.dart';
 import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -19,7 +19,7 @@ class TagBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final serialLoadedState = ref.watch(checkSerialNotifierProvider);
+    final checkInfoState = ref.watch(checkInfoStateNotifierProvider);
 
     final _canvasSize = Tween<double>(begin: 200, end: 150).animate(controller);
 
@@ -74,7 +74,7 @@ class TagBottomSheet extends ConsumerWidget {
                           ),
                         );
                       },
-                      child: serialLoadedState.when(
+                      child: checkInfoState.when(
                         initial: () => Text(
                           AppLocalizations.of(context)
                                   ?.translate('scan_ready') ??
@@ -100,7 +100,8 @@ class TagBottomSheet extends ConsumerWidget {
                             )),
                         loaded: (serial) => Container(
                           key: ValueKey<String>("loaded"),
-                          child: Text("${serial.location}"),
+                          // todo: 수정
+                          // child: Text("${serial.location}"),
                         ),
                         failure: (failure) => Container(
                           key: ValueKey<String>("failure"),

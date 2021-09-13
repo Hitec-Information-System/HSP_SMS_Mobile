@@ -8,7 +8,7 @@ import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
 import '../../../auth/presentation/sign_in_page.dart' as _i4;
-import '../../../check/check_list/presentation/check_list_page.dart' as _i9;
+import '../../../check/check_info/presentation/check_list_page.dart' as _i9;
 import '../../../menus/core/presentation/menu_frame_page.dart' as _i7;
 import '../../../splash/presentation/splash_page.dart' as _i3;
 import '../../../tag/qr/presentation/qr_scan_page.dart' as _i8;
@@ -57,7 +57,7 @@ class AppRouter extends _i1.RootStackRouter {
     CheckListRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return _i9.CheckListPage();
+          return const _i9.CheckListPage();
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         opaque: true,

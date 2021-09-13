@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// 테마 상수
 class ThemeConstants {
   const ThemeConstants._();
 

@@ -22,14 +22,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
   AuthNotifier(this._authenticator) : super(const AuthState.initial());
 
   Future<void> checkAuthState() async {
-    // ignore: unnecessary_parenthesis
-    state = (await _authenticator.getSignedInCredentials().then((key) {
+    state = await _authenticator.getSignedInCredentials().then((key) {
       if (key == null) {
         return const AuthState.unauthenticated();
       } else {
         return AuthState.authenticated(key);
       }
-    }));
+    });
   }
 
   Future<void> signIn(Map<String, dynamic> params) async {

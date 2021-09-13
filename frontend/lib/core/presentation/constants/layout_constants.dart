@@ -1,3 +1,4 @@
+/// Presentation layer에서 사용되는 상수
 class LayoutConstants {
   const LayoutConstants._();
 
