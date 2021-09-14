@@ -13,7 +13,7 @@ class CheckTitle extends ConsumerWidget {
     return Container(
         margin: const EdgeInsets.only(left: LayoutConstants.paddingM),
         child: state.maybeWhen(
-            loaded: (data) => Column(
+            loaded: (_, data) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(

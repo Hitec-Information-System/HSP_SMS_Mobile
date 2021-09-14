@@ -58,7 +58,7 @@ class MenuMainPage extends HookConsumerWidget {
 
             ref
                 .watch(checkInfoStateNotifierProvider.notifier)
-                .getCheckInfo(tag.id)
+                .getCheckInfo(tag.id, "일상")
                 .then(
               (_) async {
                 AutoRouter.of(context)
@@ -94,11 +94,8 @@ class MenuMainPage extends HookConsumerWidget {
 
             ref
                 .watch(checkInfoStateNotifierProvider.notifier)
-                .getCheckInfo(tag.id)
+                .getCheckInfo(tag.id, "일상")
                 .then((value) async {
-              // TODO: 검토해보고 지우기
-              await Future.delayed(const Duration(milliseconds: 3000), () {});
-
               AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
 
               AutoRouter.of(context).push(const CheckListRoute()).then((_) {
@@ -108,10 +105,6 @@ class MenuMainPage extends HookConsumerWidget {
                 ref.watch(checkInfoStateNotifierProvider.notifier).clear();
               });
             });
-            // TODO: 추후 데이터 설계 끝마쳐지고 난 후 아래 사용하기
-            // ref
-            //     .watch(checkInfoStateNotifierProvider.notifier)
-            //     .getSerialInfo(tag.id);
           },
           failure: (failure) {
             // TODO: 문제 발생했을 때 Dialog 보여주기

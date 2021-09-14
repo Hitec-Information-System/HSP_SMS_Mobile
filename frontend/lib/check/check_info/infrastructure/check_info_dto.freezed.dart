@@ -24,14 +24,12 @@ class _$CheckInfoDTOTearOff {
       {@JsonKey(name: "header") required CheckHeaderDTO header,
       @JsonKey(name: "intervals") required List<CheckStandardDTO> intervals,
       @JsonKey(name: "sessions") required List<CheckStandardDTO> sessions,
-      @JsonKey(name: "details") required List<CheckDetailsDTO> details,
-      @JsonKey(ignore: true) List<String?> checkResult = const []}) {
+      @JsonKey(name: "details") required List<CheckDetailsDTO> details}) {
     return _CheckInfoDTO(
       header: header,
       intervals: intervals,
       sessions: sessions,
       details: details,
-      checkResult: checkResult,
     );
   }
 
@@ -53,8 +51,6 @@ mixin _$CheckInfoDTO {
   List<CheckStandardDTO> get sessions => throw _privateConstructorUsedError;
   @JsonKey(name: "details")
   List<CheckDetailsDTO> get details => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  List<String?> get checkResult => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,8 +67,7 @@ abstract class $CheckInfoDTOCopyWith<$Res> {
       {@JsonKey(name: "header") CheckHeaderDTO header,
       @JsonKey(name: "intervals") List<CheckStandardDTO> intervals,
       @JsonKey(name: "sessions") List<CheckStandardDTO> sessions,
-      @JsonKey(name: "details") List<CheckDetailsDTO> details,
-      @JsonKey(ignore: true) List<String?> checkResult});
+      @JsonKey(name: "details") List<CheckDetailsDTO> details});
 
   $CheckHeaderDTOCopyWith<$Res> get header;
 }
@@ -91,7 +86,6 @@ class _$CheckInfoDTOCopyWithImpl<$Res> implements $CheckInfoDTOCopyWith<$Res> {
     Object? intervals = freezed,
     Object? sessions = freezed,
     Object? details = freezed,
-    Object? checkResult = freezed,
   }) {
     return _then(_value.copyWith(
       header: header == freezed
@@ -110,10 +104,6 @@ class _$CheckInfoDTOCopyWithImpl<$Res> implements $CheckInfoDTOCopyWith<$Res> {
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as List<CheckDetailsDTO>,
-      checkResult: checkResult == freezed
-          ? _value.checkResult
-          : checkResult // ignore: cast_nullable_to_non_nullable
-              as List<String?>,
     ));
   }
 
@@ -136,8 +126,7 @@ abstract class _$CheckInfoDTOCopyWith<$Res>
       {@JsonKey(name: "header") CheckHeaderDTO header,
       @JsonKey(name: "intervals") List<CheckStandardDTO> intervals,
       @JsonKey(name: "sessions") List<CheckStandardDTO> sessions,
-      @JsonKey(name: "details") List<CheckDetailsDTO> details,
-      @JsonKey(ignore: true) List<String?> checkResult});
+      @JsonKey(name: "details") List<CheckDetailsDTO> details});
 
   @override
   $CheckHeaderDTOCopyWith<$Res> get header;
@@ -159,7 +148,6 @@ class __$CheckInfoDTOCopyWithImpl<$Res> extends _$CheckInfoDTOCopyWithImpl<$Res>
     Object? intervals = freezed,
     Object? sessions = freezed,
     Object? details = freezed,
-    Object? checkResult = freezed,
   }) {
     return _then(_CheckInfoDTO(
       header: header == freezed
@@ -178,10 +166,6 @@ class __$CheckInfoDTOCopyWithImpl<$Res> extends _$CheckInfoDTOCopyWithImpl<$Res>
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as List<CheckDetailsDTO>,
-      checkResult: checkResult == freezed
-          ? _value.checkResult
-          : checkResult // ignore: cast_nullable_to_non_nullable
-              as List<String?>,
     ));
   }
 }
@@ -193,8 +177,7 @@ class _$_CheckInfoDTO extends _CheckInfoDTO {
       {@JsonKey(name: "header") required this.header,
       @JsonKey(name: "intervals") required this.intervals,
       @JsonKey(name: "sessions") required this.sessions,
-      @JsonKey(name: "details") required this.details,
-      @JsonKey(ignore: true) this.checkResult = const []})
+      @JsonKey(name: "details") required this.details})
       : super._();
 
   factory _$_CheckInfoDTO.fromJson(Map<String, dynamic> json) =>
@@ -212,13 +195,10 @@ class _$_CheckInfoDTO extends _CheckInfoDTO {
   @override
   @JsonKey(name: "details")
   final List<CheckDetailsDTO> details;
-  @override
-  @JsonKey(ignore: true)
-  final List<String?> checkResult;
 
   @override
   String toString() {
-    return 'CheckInfoDTO(header: $header, intervals: $intervals, sessions: $sessions, details: $details, checkResult: $checkResult)';
+    return 'CheckInfoDTO(header: $header, intervals: $intervals, sessions: $sessions, details: $details)';
   }
 
   @override
@@ -234,11 +214,7 @@ class _$_CheckInfoDTO extends _CheckInfoDTO {
                 const DeepCollectionEquality()
                     .equals(other.sessions, sessions)) &&
             (identical(other.details, details) ||
-                const DeepCollectionEquality()
-                    .equals(other.details, details)) &&
-            (identical(other.checkResult, checkResult) ||
-                const DeepCollectionEquality()
-                    .equals(other.checkResult, checkResult)));
+                const DeepCollectionEquality().equals(other.details, details)));
   }
 
   @override
@@ -247,8 +223,7 @@ class _$_CheckInfoDTO extends _CheckInfoDTO {
       const DeepCollectionEquality().hash(header) ^
       const DeepCollectionEquality().hash(intervals) ^
       const DeepCollectionEquality().hash(sessions) ^
-      const DeepCollectionEquality().hash(details) ^
-      const DeepCollectionEquality().hash(checkResult);
+      const DeepCollectionEquality().hash(details);
 
   @JsonKey(ignore: true)
   @override
@@ -263,11 +238,11 @@ class _$_CheckInfoDTO extends _CheckInfoDTO {
 
 abstract class _CheckInfoDTO extends CheckInfoDTO {
   const factory _CheckInfoDTO(
-      {@JsonKey(name: "header") required CheckHeaderDTO header,
-      @JsonKey(name: "intervals") required List<CheckStandardDTO> intervals,
-      @JsonKey(name: "sessions") required List<CheckStandardDTO> sessions,
-      @JsonKey(name: "details") required List<CheckDetailsDTO> details,
-      @JsonKey(ignore: true) List<String?> checkResult}) = _$_CheckInfoDTO;
+          {@JsonKey(name: "header") required CheckHeaderDTO header,
+          @JsonKey(name: "intervals") required List<CheckStandardDTO> intervals,
+          @JsonKey(name: "sessions") required List<CheckStandardDTO> sessions,
+          @JsonKey(name: "details") required List<CheckDetailsDTO> details}) =
+      _$_CheckInfoDTO;
   const _CheckInfoDTO._() : super._();
 
   factory _CheckInfoDTO.fromJson(Map<String, dynamic> json) =
@@ -285,9 +260,6 @@ abstract class _CheckInfoDTO extends CheckInfoDTO {
   @override
   @JsonKey(name: "details")
   List<CheckDetailsDTO> get details => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  List<String?> get checkResult => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckInfoDTOCopyWith<_CheckInfoDTO> get copyWith =>
@@ -798,6 +770,7 @@ class _$CheckDetailsDTOTearOff {
       @JsonKey(name: "INTERVAL_CHECK") required String intervalChk,
       @JsonKey(name: "METHOD_CHECK") required String methodChk,
       @JsonKey(ignore: true) String remark = "",
+      @JsonKey(ignore: true) String result = "",
       @JsonKey(ignore: true) List<XFile> images = const []}) {
     return _CheckDetailsDTO(
       chkItemCd: chkItemCd,
@@ -805,6 +778,7 @@ class _$CheckDetailsDTOTearOff {
       intervalChk: intervalChk,
       methodChk: methodChk,
       remark: remark,
+      result: result,
       images: images,
     );
   }
@@ -832,6 +806,8 @@ mixin _$CheckDetailsDTO {
   @JsonKey(ignore: true)
   String get remark => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
+  String get result => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
   List<XFile> get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -851,6 +827,7 @@ abstract class $CheckDetailsDTOCopyWith<$Res> {
       @JsonKey(name: "INTERVAL_CHECK") String intervalChk,
       @JsonKey(name: "METHOD_CHECK") String methodChk,
       @JsonKey(ignore: true) String remark,
+      @JsonKey(ignore: true) String result,
       @JsonKey(ignore: true) List<XFile> images});
 }
 
@@ -870,6 +847,7 @@ class _$CheckDetailsDTOCopyWithImpl<$Res>
     Object? intervalChk = freezed,
     Object? methodChk = freezed,
     Object? remark = freezed,
+    Object? result = freezed,
     Object? images = freezed,
   }) {
     return _then(_value.copyWith(
@@ -893,6 +871,10 @@ class _$CheckDetailsDTOCopyWithImpl<$Res>
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String,
+      result: result == freezed
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as String,
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -914,6 +896,7 @@ abstract class _$CheckDetailsDTOCopyWith<$Res>
       @JsonKey(name: "INTERVAL_CHECK") String intervalChk,
       @JsonKey(name: "METHOD_CHECK") String methodChk,
       @JsonKey(ignore: true) String remark,
+      @JsonKey(ignore: true) String result,
       @JsonKey(ignore: true) List<XFile> images});
 }
 
@@ -935,6 +918,7 @@ class __$CheckDetailsDTOCopyWithImpl<$Res>
     Object? intervalChk = freezed,
     Object? methodChk = freezed,
     Object? remark = freezed,
+    Object? result = freezed,
     Object? images = freezed,
   }) {
     return _then(_CheckDetailsDTO(
@@ -958,6 +942,10 @@ class __$CheckDetailsDTOCopyWithImpl<$Res>
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String,
+      result: result == freezed
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as String,
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -975,6 +963,7 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
       @JsonKey(name: "INTERVAL_CHECK") required this.intervalChk,
       @JsonKey(name: "METHOD_CHECK") required this.methodChk,
       @JsonKey(ignore: true) this.remark = "",
+      @JsonKey(ignore: true) this.result = "",
       @JsonKey(ignore: true) this.images = const []})
       : super._();
 
@@ -999,11 +988,14 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
   final String remark;
   @override
   @JsonKey(ignore: true)
+  final String result;
+  @override
+  @JsonKey(ignore: true)
   final List<XFile> images;
 
   @override
   String toString() {
-    return 'CheckDetailsDTO(chkItemCd: $chkItemCd, chkItemNm: $chkItemNm, intervalChk: $intervalChk, methodChk: $methodChk, remark: $remark, images: $images)';
+    return 'CheckDetailsDTO(chkItemCd: $chkItemCd, chkItemNm: $chkItemNm, intervalChk: $intervalChk, methodChk: $methodChk, remark: $remark, result: $result, images: $images)';
   }
 
   @override
@@ -1024,6 +1016,8 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
                     .equals(other.methodChk, methodChk)) &&
             (identical(other.remark, remark) ||
                 const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.result, result) ||
+                const DeepCollectionEquality().equals(other.result, result)) &&
             (identical(other.images, images) ||
                 const DeepCollectionEquality().equals(other.images, images)));
   }
@@ -1036,6 +1030,7 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
       const DeepCollectionEquality().hash(intervalChk) ^
       const DeepCollectionEquality().hash(methodChk) ^
       const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(result) ^
       const DeepCollectionEquality().hash(images);
 
   @JsonKey(ignore: true)
@@ -1056,6 +1051,7 @@ abstract class _CheckDetailsDTO extends CheckDetailsDTO {
       @JsonKey(name: "INTERVAL_CHECK") required String intervalChk,
       @JsonKey(name: "METHOD_CHECK") required String methodChk,
       @JsonKey(ignore: true) String remark,
+      @JsonKey(ignore: true) String result,
       @JsonKey(ignore: true) List<XFile> images}) = _$_CheckDetailsDTO;
   const _CheckDetailsDTO._() : super._();
 
@@ -1078,6 +1074,9 @@ abstract class _CheckDetailsDTO extends CheckDetailsDTO {
 // @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
   @JsonKey(ignore: true)
   String get remark => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  String get result => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   List<XFile> get images => throw _privateConstructorUsedError;

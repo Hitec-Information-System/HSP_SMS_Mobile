@@ -2,6 +2,7 @@ package handler
 
 import (
 	"bytes"
+	"encoding/json"
 	"encoding/xml"
 	"fmt"
 	"net/http"
@@ -36,7 +37,10 @@ func MakeHandler() *AppHandler {
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
 
 	r.HandleFunc("/norm", a.fetchCheckStandard).Methods("GET")
-	r.HandleFunc("/info", a.fetchCheckList).Methods("GET")
+
+	r.HandleFunc("/check", a.fetchCheckList).Methods("GET")
+	r.HandleFunc("/check", a.saveCheckList).Methods("POST")
+
 	r.HandleFunc("/gubun", a.fetchCheckStatusTodayByGubun).Methods("GET")
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
@@ -114,6 +118,7 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 	systemFlag := queryString.Get("sys-flag")
 	userId := queryString.Get("user")
 	checkNo := queryString.Get("check-no")
+	interval := queryString.Get("interval")
 
 	if compCd == "" || userId == "" || checkNo == "" {
 		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
@@ -124,9 +129,9 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	headerQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '%s', '일상', '',:CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '%s', '%s', '',:CURSOR1);
 	END;
-	`, compCd, systemFlag, userId, checkNo)
+	`, compCd, systemFlag, userId, checkNo, interval)
 
 	fmt.Println(headerQuery)
 
@@ -195,6 +200,37 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 		"details":   details,
 		"sessions":  sessions,
 		"intervals": intervals,
+	}
+
+	rd.JSON(w, http.StatusOK, results)
+}
+
+func (a *AppHandler) saveCheckList(w http.ResponseWriter, r *http.Request) {
+	var params map[string]interface{}
+
+	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
+		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
+	}
+
+	compCd := params["compCd"].(string)
+	systemFlag := params["sysFlag"].(string)
+	userId := params["userId"].(string)
+	xmlH := params["xmlH"].(string)
+	xmlD := params["xmlD"].(string)
+	xmlI := params["xmlI"].(string)
+
+	if len(compCd) < 1 || len(systemFlag) < 1 || len(userId) < 1 || len(xmlH) < 1 || len(xmlD) < 1 || len(xmlI) < 1 {
+		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
+	}
+
+	query := fmt.Sprintf(`BEGIN SMS_PK_5010.P_SAVE_CHKLIST('%s','%s','%s','%s','%s','%s',:1); END;`, compCd, systemFlag, userId, xmlH, xmlD, xmlI)
+
+	fmt.Println(query)
+
+	results, err := a.db.GetSPDataWithLOC(query)
+
+	if err != nil {
+		panic(err)
 	}
 
 	rd.JSON(w, http.StatusOK, results)

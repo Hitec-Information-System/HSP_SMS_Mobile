@@ -29,7 +29,7 @@ class ChecklistMobilePage extends StatelessWidget {
                     Consumer(builder: (context, ref, child) {
                       final state = ref.watch(checkInfoStateNotifierProvider);
                       return state.maybeWhen(
-                          loaded: (data) =>
+                          loaded: (_, data) =>
                               Text("점검항목 : ${data.details.length}"),
                           orElse: () => nil);
                     }),

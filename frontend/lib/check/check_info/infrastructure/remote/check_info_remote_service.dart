@@ -11,14 +11,16 @@ class CheckInfoRemoteService {
 
   const CheckInfoRemoteService(this._dio);
 
-  Future<RemoteResponse<CheckInfoDTO>> fetchCheckInfo(String tagId) async {
+  Future<RemoteResponse<CheckInfoDTO>> fetchCheckInfo(
+      String tagId, String interval) async {
     try {
-      final response = await _dio.get("/info", queryParameters: {
+      final response = await _dio.get("/check", queryParameters: {
         "check-no": tagId,
         "sys-flag": LogicConstants.systemFlag,
         "comp-cd": LogicConstants.companyCd,
         // TODO: USER, COMP_CD 값 빼기
         "user": "dev",
+        "interval": interval
       });
       if (response.statusCode != 200) {
         throw RestApiException(errorCode: response.statusCode);

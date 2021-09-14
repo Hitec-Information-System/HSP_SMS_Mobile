@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:frontend/check/check_info/domain/check_info.dart';
 import 'package:frontend/check/check_info/presentation/remark_popup.dart';
+import 'package:frontend/check/check_info/presentation/widgets.dart';
 import 'package:frontend/check/check_info/shared/providers.dart';
 
 import 'package:frontend/core/presentation/constants/constants.dart';
@@ -18,17 +19,24 @@ class CheckListDetailsSection extends ConsumerWidget {
     final state = ref.watch(checkInfoStateNotifierProvider);
 
     return state.maybeWhen(
-        loaded: (data) => Column(
+        loaded: (_, data) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: data.details
-                  .mapIndexed((index, element) => CheckDetailsCard(
-                      index: index, details: data.details[index]))
+                  .mapIndexed(
+                    (index, element) => CheckDetailsCard(
+                      index: index,
+                      details: data.details[index],
+                    ),
+                  )
                   .toList(),
             ),
         orElse: () => nil);
   }
 }
 
-class CheckDetailsCard extends StatefulWidget {
+const resultOptions = ["양호", "불량"];
+
+class CheckDetailsCard extends StatelessWidget {
   const CheckDetailsCard({
     Key? key,
     required this.index,
@@ -40,16 +48,9 @@ class CheckDetailsCard extends StatefulWidget {
   final CheckDetails details;
 
   @override
-  _CheckDetailsCardState createState() => _CheckDetailsCardState();
-}
-
-class _CheckDetailsCardState extends State<CheckDetailsCard> {
-  String? _remark;
-
-  @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: widget.details.chkItemCd,
+      tag: details.chkItemCd,
       createRectTween: (begin, end) => CustomRectTween(begin: begin, end: end),
       child: Padding(
         padding: const EdgeInsets.all(LayoutConstants.paddingS),
@@ -59,14 +60,15 @@ class _CheckDetailsCardState extends State<CheckDetailsCard> {
           borderRadius: BorderRadius.circular(LayoutConstants.radiusS),
           child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: LayoutConstants.paddingL,
-                  vertical: LayoutConstants.paddingM),
+                horizontal: LayoutConstants.paddingL,
+                vertical: LayoutConstants.paddingM,
+              ),
               child: Column(
                 children: [
                   Row(
                     children: [
                       Text(
-                        (widget.index + 1).toString(),
+                        (index + 1).toString(),
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       const SizedBox(width: LayoutConstants.spaceL),
@@ -97,7 +99,7 @@ class _CheckDetailsCardState extends State<CheckDetailsCard> {
                                           ),
                                         ),
                                         // TODO: add logic for showing image counts if images are taken
-                                        if (widget.details.images.isEmpty)
+                                        if (details.images.isEmpty)
                                           const SizedBox()
                                         else
                                           Positioned(
@@ -119,7 +121,7 @@ class _CheckDetailsCardState extends State<CheckDetailsCard> {
                                                               .paddingS) /
                                                       2),
                                               child: Text(
-                                                widget.details.images.length
+                                                details.images.length
                                                     .toString(),
                                                 textAlign: TextAlign.center,
                                                 style: Theme.of(context)
@@ -157,7 +159,7 @@ class _CheckDetailsCardState extends State<CheckDetailsCard> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: LayoutConstants.paddingM),
                               child: Text(
-                                widget.details.chkItemNm,
+                                details.chkItemNm,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -169,17 +171,12 @@ class _CheckDetailsCardState extends State<CheckDetailsCard> {
                                   HeroDialogRouter(
                                     builder: (context) => Center(
                                       child: RemarkPopupCard(
-                                        details: widget.details,
+                                        index: index,
+                                        details: details,
                                       ),
                                     ),
                                   ),
                                 );
-                                //     .then((_) {
-                                //   setState(() {
-                                //     print("setstate!");
-                                //   });
-                                // },
-                                // );
                               },
                               child: Container(
                                 height: 30,
@@ -194,7 +191,7 @@ class _CheckDetailsCardState extends State<CheckDetailsCard> {
                                 alignment: Alignment.centerLeft,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: LayoutConstants.paddingM),
-                                child: Text(_remark ?? "비고란",
+                                child: Text(details.remark,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1!
@@ -207,57 +204,44 @@ class _CheckDetailsCardState extends State<CheckDetailsCard> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text("${widget.details.methodChk} 확인 결과:"),
+                                Text("${details.methodChk} 확인 결과:"),
                                 const SizedBox(width: LayoutConstants.spaceL),
-                                // ToggleButtons(
-                                //   constraints: const BoxConstraints(
-                                //     minHeight: 35,
-                                //     minWidth: 40,
-                                //   ),
-                                //   selectedColor: Theme.of(context).accentColor,
-                                //   fillColor: Theme.of(context)
-                                //       .accentColor
-                                //       .withOpacity(.5),
-                                //   hoverColor: Theme.of(context)
-                                //       .accentColor
-                                //       .withOpacity(.2),
-                                //   disabledBorderColor:
-                                //       Theme.of(context).disabledColor,
-                                //   disabledColor:
-                                //       Theme.of(context).disabledColor,
-                                //   selectedBorderColor:
-                                //       Theme.of(context).accentColor,
-                                //   borderWidth: 2,
-                                //   borderRadius: BorderRadius.circular(
-                                //       LayoutConstants.radiusM),
-                                //   isSelected: widget.details.checkResult,
-                                //   // onPressed: (index) {
-                                //   //   setState(
-                                //   //     () {
-                                //   //       print("setstate 2!");
-                                //   //       for (var buttonIndex = 0;
-                                //   //           buttonIndex <
-                                //   //               widget
-                                //   //                   .details.checkResult.length;
-                                //   //           buttonIndex++) {
-                                //   //         if (buttonIndex == index) {
-                                //   //           widget.details
-                                //   //                   .checkResult[buttonIndex] =
-                                //   //               true;
-                                //   //         } else {
-                                //   //           widget.details
-                                //   //                   .checkResult[buttonIndex] =
-                                //   //               false;
-                                //   //         }
-                                //   //       }
-                                //   //     },
-                                //   //   );
-                                //   // },
-                                //   children: const [
-                                //     Text("양호"),
-                                //     Text("불량"),
-                                //   ],
-                                // ),
+                                Consumer(builder: (context, ref, child) {
+                                  final state =
+                                      ref.watch(checkInfoStateNotifierProvider);
+                                  return state.maybeWhen(
+                                    loaded: (_, data) => CheckToggle(
+                                      isSelected: List<bool>.generate(
+                                          resultOptions.length,
+                                          (optionsIdx) =>
+                                              resultOptions[optionsIdx] ==
+                                              data.details[index].result),
+                                      children: resultOptions,
+                                      onPressed: (clickedIdx) {
+                                        ref
+                                            .read(checkInfoStateNotifierProvider
+                                                .notifier)
+                                            .setCheckInfo(
+                                              data.copyWith(
+                                                details: data.details
+                                                    .mapIndexed(
+                                                        (detailIdx, detail) {
+                                                  if (detailIdx == index) {
+                                                    return detail.copyWith(
+                                                      result: resultOptions[
+                                                          clickedIdx],
+                                                    );
+                                                  } else {
+                                                    return detail;
+                                                  }
+                                                }).toList(),
+                                              ),
+                                            );
+                                      },
+                                    ),
+                                    orElse: () => const SizedBox(),
+                                  );
+                                })
                               ],
                             ),
                           ],

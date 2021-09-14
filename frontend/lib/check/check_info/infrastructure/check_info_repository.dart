@@ -17,9 +17,9 @@ class CheckInfoRepository {
   );
 
   Future<Either<CheckInfoFailure, Fresh<CheckInfo>>> getCheckInfo(
-      String tagId) async {
+      String tagId, String interval) async {
     try {
-      final remoteFetch = await _remoteService.fetchCheckInfo(tagId);
+      final remoteFetch = await _remoteService.fetchCheckInfo(tagId, interval);
       return right(
         await remoteFetch.when(
           noConnection: () async => Fresh.no(
@@ -28,7 +28,7 @@ class CheckInfoRepository {
                 ),
           ),
           withNewData: (data) async {
-            await _localService.upsertCheckInfo(data, tagId);
+            await _localService.upsertCheckInfo(data, "$interval$tagId");
             return Fresh.yes(
               data.toDomain(),
             );

@@ -75,7 +75,7 @@ class TagBottomSheet extends ConsumerWidget {
                         );
                       },
                       child: checkInfoState.when(
-                        initial: () => Text(
+                        initial: (_) => Text(
                           AppLocalizations.of(context)
                                   ?.translate('scan_ready') ??
                               "",
@@ -85,7 +85,7 @@ class TagBottomSheet extends ConsumerWidget {
                             fontSize: 20,
                           ),
                         ),
-                        loading: () => Container(
+                        loading: (_) => Container(
                             key: ValueKey<String>("loading"),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -98,12 +98,12 @@ class TagBottomSheet extends ConsumerWidget {
                                 ),
                               ],
                             )),
-                        loaded: (serial) => Container(
+                        loaded: (_, data) => Container(
                           key: ValueKey<String>("loaded"),
                           // todo: 수정
                           // child: Text("${serial.location}"),
                         ),
-                        failure: (failure) => Container(
+                        failure: (_, failure) => Container(
                           key: ValueKey<String>("failure"),
                           child: Text("fail"),
                         ),

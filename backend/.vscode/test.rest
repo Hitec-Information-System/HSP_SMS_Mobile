@@ -35,8 +35,19 @@ GET http://localhost:9110/gubun?comp-cd=3000&sys-flag=MOBILE&user=dev&flag=FORKL
 content-type: application/json
 
 ###
-GET http://localhost:9110/info?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=33F1CC18 HTTP/2.0
+GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=33F1CC18&interval=일상 HTTP/2.0
+content-type: application/json
+###
+POST http://localhost:9110/check HTTP/2.0
 content-type: application/json
 
+{
+"compCd" : "3000",
+"sysFlag":"MOBILE",
+"userId":"dev",
+"xmlH":"123",
+"xmlD":"123",
+"xmlI":"123"
+}
 ###
 

@@ -20,14 +20,12 @@ class _$CheckInfoTearOff {
       {required CheckHeader header,
       required List<CheckStandard> intervals,
       required List<CheckStandard> sessions,
-      required List<CheckDetails> details,
-      required List<String?> checkResult}) {
+      required List<CheckDetails> details}) {
     return _CheckInfo(
       header: header,
       intervals: intervals,
       sessions: sessions,
       details: details,
-      checkResult: checkResult,
     );
   }
 }
@@ -41,7 +39,6 @@ mixin _$CheckInfo {
   List<CheckStandard> get intervals => throw _privateConstructorUsedError;
   List<CheckStandard> get sessions => throw _privateConstructorUsedError;
   List<CheckDetails> get details => throw _privateConstructorUsedError;
-  List<String?> get checkResult => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckInfoCopyWith<CheckInfo> get copyWith =>
@@ -56,8 +53,7 @@ abstract class $CheckInfoCopyWith<$Res> {
       {CheckHeader header,
       List<CheckStandard> intervals,
       List<CheckStandard> sessions,
-      List<CheckDetails> details,
-      List<String?> checkResult});
+      List<CheckDetails> details});
 
   $CheckHeaderCopyWith<$Res> get header;
 }
@@ -76,7 +72,6 @@ class _$CheckInfoCopyWithImpl<$Res> implements $CheckInfoCopyWith<$Res> {
     Object? intervals = freezed,
     Object? sessions = freezed,
     Object? details = freezed,
-    Object? checkResult = freezed,
   }) {
     return _then(_value.copyWith(
       header: header == freezed
@@ -95,10 +90,6 @@ class _$CheckInfoCopyWithImpl<$Res> implements $CheckInfoCopyWith<$Res> {
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as List<CheckDetails>,
-      checkResult: checkResult == freezed
-          ? _value.checkResult
-          : checkResult // ignore: cast_nullable_to_non_nullable
-              as List<String?>,
     ));
   }
 
@@ -120,8 +111,7 @@ abstract class _$CheckInfoCopyWith<$Res> implements $CheckInfoCopyWith<$Res> {
       {CheckHeader header,
       List<CheckStandard> intervals,
       List<CheckStandard> sessions,
-      List<CheckDetails> details,
-      List<String?> checkResult});
+      List<CheckDetails> details});
 
   @override
   $CheckHeaderCopyWith<$Res> get header;
@@ -142,7 +132,6 @@ class __$CheckInfoCopyWithImpl<$Res> extends _$CheckInfoCopyWithImpl<$Res>
     Object? intervals = freezed,
     Object? sessions = freezed,
     Object? details = freezed,
-    Object? checkResult = freezed,
   }) {
     return _then(_CheckInfo(
       header: header == freezed
@@ -161,10 +150,6 @@ class __$CheckInfoCopyWithImpl<$Res> extends _$CheckInfoCopyWithImpl<$Res>
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as List<CheckDetails>,
-      checkResult: checkResult == freezed
-          ? _value.checkResult
-          : checkResult // ignore: cast_nullable_to_non_nullable
-              as List<String?>,
     ));
   }
 }
@@ -176,8 +161,7 @@ class _$_CheckInfo extends _CheckInfo {
       {required this.header,
       required this.intervals,
       required this.sessions,
-      required this.details,
-      required this.checkResult})
+      required this.details})
       : super._();
 
   @override
@@ -188,12 +172,10 @@ class _$_CheckInfo extends _CheckInfo {
   final List<CheckStandard> sessions;
   @override
   final List<CheckDetails> details;
-  @override
-  final List<String?> checkResult;
 
   @override
   String toString() {
-    return 'CheckInfo(header: $header, intervals: $intervals, sessions: $sessions, details: $details, checkResult: $checkResult)';
+    return 'CheckInfo(header: $header, intervals: $intervals, sessions: $sessions, details: $details)';
   }
 
   @override
@@ -209,11 +191,7 @@ class _$_CheckInfo extends _CheckInfo {
                 const DeepCollectionEquality()
                     .equals(other.sessions, sessions)) &&
             (identical(other.details, details) ||
-                const DeepCollectionEquality()
-                    .equals(other.details, details)) &&
-            (identical(other.checkResult, checkResult) ||
-                const DeepCollectionEquality()
-                    .equals(other.checkResult, checkResult)));
+                const DeepCollectionEquality().equals(other.details, details)));
   }
 
   @override
@@ -222,8 +200,7 @@ class _$_CheckInfo extends _CheckInfo {
       const DeepCollectionEquality().hash(header) ^
       const DeepCollectionEquality().hash(intervals) ^
       const DeepCollectionEquality().hash(sessions) ^
-      const DeepCollectionEquality().hash(details) ^
-      const DeepCollectionEquality().hash(checkResult);
+      const DeepCollectionEquality().hash(details);
 
   @JsonKey(ignore: true)
   @override
@@ -236,8 +213,7 @@ abstract class _CheckInfo extends CheckInfo {
       {required CheckHeader header,
       required List<CheckStandard> intervals,
       required List<CheckStandard> sessions,
-      required List<CheckDetails> details,
-      required List<String?> checkResult}) = _$_CheckInfo;
+      required List<CheckDetails> details}) = _$_CheckInfo;
   const _CheckInfo._() : super._();
 
   @override
@@ -248,8 +224,6 @@ abstract class _CheckInfo extends CheckInfo {
   List<CheckStandard> get sessions => throw _privateConstructorUsedError;
   @override
   List<CheckDetails> get details => throw _privateConstructorUsedError;
-  @override
-  List<String?> get checkResult => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckInfoCopyWith<_CheckInfo> get copyWith =>
@@ -694,6 +668,7 @@ class _$CheckDetailsTearOff {
       required String intervalChk,
       required String methodChk,
       required String remark,
+      required String result,
       required List<XFile> images}) {
     return _CheckDetails(
       chkItemCd: chkItemCd,
@@ -701,6 +676,7 @@ class _$CheckDetailsTearOff {
       intervalChk: intervalChk,
       methodChk: methodChk,
       remark: remark,
+      result: result,
       images: images,
     );
   }
@@ -718,6 +694,7 @@ mixin _$CheckDetails {
       throw _privateConstructorUsedError; // required String objGubunSub,
 // required String objGubunSubNm,
   String get remark => throw _privateConstructorUsedError;
+  String get result => throw _privateConstructorUsedError;
   List<XFile> get images => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -736,6 +713,7 @@ abstract class $CheckDetailsCopyWith<$Res> {
       String intervalChk,
       String methodChk,
       String remark,
+      String result,
       List<XFile> images});
 }
 
@@ -754,6 +732,7 @@ class _$CheckDetailsCopyWithImpl<$Res> implements $CheckDetailsCopyWith<$Res> {
     Object? intervalChk = freezed,
     Object? methodChk = freezed,
     Object? remark = freezed,
+    Object? result = freezed,
     Object? images = freezed,
   }) {
     return _then(_value.copyWith(
@@ -777,6 +756,10 @@ class _$CheckDetailsCopyWithImpl<$Res> implements $CheckDetailsCopyWith<$Res> {
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String,
+      result: result == freezed
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as String,
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -798,6 +781,7 @@ abstract class _$CheckDetailsCopyWith<$Res>
       String intervalChk,
       String methodChk,
       String remark,
+      String result,
       List<XFile> images});
 }
 
@@ -818,6 +802,7 @@ class __$CheckDetailsCopyWithImpl<$Res> extends _$CheckDetailsCopyWithImpl<$Res>
     Object? intervalChk = freezed,
     Object? methodChk = freezed,
     Object? remark = freezed,
+    Object? result = freezed,
     Object? images = freezed,
   }) {
     return _then(_CheckDetails(
@@ -841,6 +826,10 @@ class __$CheckDetailsCopyWithImpl<$Res> extends _$CheckDetailsCopyWithImpl<$Res>
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String,
+      result: result == freezed
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as String,
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -858,6 +847,7 @@ class _$_CheckDetails extends _CheckDetails {
       required this.intervalChk,
       required this.methodChk,
       required this.remark,
+      required this.result,
       required this.images})
       : super._();
 
@@ -873,11 +863,13 @@ class _$_CheckDetails extends _CheckDetails {
 // required String objGubunSubNm,
   final String remark;
   @override
+  final String result;
+  @override
   final List<XFile> images;
 
   @override
   String toString() {
-    return 'CheckDetails(chkItemCd: $chkItemCd, chkItemNm: $chkItemNm, intervalChk: $intervalChk, methodChk: $methodChk, remark: $remark, images: $images)';
+    return 'CheckDetails(chkItemCd: $chkItemCd, chkItemNm: $chkItemNm, intervalChk: $intervalChk, methodChk: $methodChk, remark: $remark, result: $result, images: $images)';
   }
 
   @override
@@ -898,6 +890,8 @@ class _$_CheckDetails extends _CheckDetails {
                     .equals(other.methodChk, methodChk)) &&
             (identical(other.remark, remark) ||
                 const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.result, result) ||
+                const DeepCollectionEquality().equals(other.result, result)) &&
             (identical(other.images, images) ||
                 const DeepCollectionEquality().equals(other.images, images)));
   }
@@ -910,6 +904,7 @@ class _$_CheckDetails extends _CheckDetails {
       const DeepCollectionEquality().hash(intervalChk) ^
       const DeepCollectionEquality().hash(methodChk) ^
       const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(result) ^
       const DeepCollectionEquality().hash(images);
 
   @JsonKey(ignore: true)
@@ -925,6 +920,7 @@ abstract class _CheckDetails extends CheckDetails {
       required String intervalChk,
       required String methodChk,
       required String remark,
+      required String result,
       required List<XFile> images}) = _$_CheckDetails;
   const _CheckDetails._() : super._();
 
@@ -939,6 +935,8 @@ abstract class _CheckDetails extends CheckDetails {
   @override // required String objGubunSub,
 // required String objGubunSubNm,
   String get remark => throw _privateConstructorUsedError;
+  @override
+  String get result => throw _privateConstructorUsedError;
   @override
   List<XFile> get images => throw _privateConstructorUsedError;
   @override

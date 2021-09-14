@@ -1,24 +1,36 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:frontend/check/check_info/domain/check_info.dart';
 import 'package:frontend/check/check_info/shared/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:collection/collection.dart';
 
+import 'package:frontend/check/check_info/domain/check_info.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RemarkPopupCard extends HookConsumerWidget {
   const RemarkPopupCard({
     Key? key,
+    required this.index,
     required this.details,
   }) : super(key: key);
 
+  final int index;
   final CheckDetails details;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _remarkController = useTextEditingController();
+
+    final checkInfo = ref.watch(checkInfoStateNotifierProvider.select(
+      (state) => state.maybeWhen(
+        loaded: (_, data) => data,
+        orElse: () => CheckInfo.empty(),
+      ),
+    ));
+
+    _remarkController.text = checkInfo.details[index].remark;
 
     return Hero(
       tag: details.chkItemCd,
@@ -75,6 +87,19 @@ class RemarkPopupCard extends HookConsumerWidget {
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
                           onPressed: () {
+                            ref
+                                .read(checkInfoStateNotifierProvider.notifier)
+                                .setCheckInfo(checkInfo.copyWith(
+                                    details: checkInfo.details
+                                        .mapIndexed((idx, detail) {
+                                  if (idx == index) {
+                                    return detail.copyWith(
+                                      remark: _remarkController.text,
+                                    );
+                                  } else {
+                                    return detail;
+                                  }
+                                }).toList()));
                             AutoRouter.of(context).pop();
                           },
                           child: const Text("확인"),

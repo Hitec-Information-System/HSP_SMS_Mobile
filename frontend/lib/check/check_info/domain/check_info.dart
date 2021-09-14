@@ -11,7 +11,6 @@ class CheckInfo with _$CheckInfo {
     required List<CheckStandard> intervals,
     required List<CheckStandard> sessions,
     required List<CheckDetails> details,
-    required List<String?> checkResult,
   }) = _CheckInfo;
 
   factory CheckInfo.empty() => const CheckInfo(
@@ -33,7 +32,6 @@ class CheckInfo with _$CheckInfo {
         intervals: [],
         sessions: [],
         details: [],
-        checkResult: [],
       );
 }
 
@@ -68,6 +66,7 @@ class CheckDetails with _$CheckDetails {
     // required String objGubunSub,
     // required String objGubunSubNm,
     required String remark,
+    required String result,
     required List<XFile> images,
   }) = _CheckDetails;
 }

@@ -13,7 +13,6 @@ class CheckInfoDTO with _$CheckInfoDTO {
     @JsonKey(name: "intervals") required List<CheckStandardDTO> intervals,
     @JsonKey(name: "sessions") required List<CheckStandardDTO> sessions,
     @JsonKey(name: "details") required List<CheckDetailsDTO> details,
-    @Default([]) @JsonKey(ignore: true) List<String?> checkResult,
   }) = _CheckInfoDTO;
 
   factory CheckInfoDTO.fromJson(Map<String, dynamic> json) =>
@@ -37,7 +36,6 @@ class CheckInfoDTO with _$CheckInfoDTO {
         intervals: intervals.map((interval) => interval.toDomain()).toList(),
         sessions: sessions.map((session) => session.toDomain()).toList(),
         details: details.map((detail) => detail.toDomain()).toList(),
-        checkResult: checkResult,
       );
 }
 
@@ -107,6 +105,7 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
     // @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
     // @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
     @Default("") @JsonKey(ignore: true) String remark,
+    @Default("") @JsonKey(ignore: true) String result,
     @Default([]) @JsonKey(ignore: true) List<XFile> images,
   }) = _CheckDetailsDTO;
 
@@ -121,6 +120,7 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
         // objGubunSub: objGubunSub,
         // objGubunSubNm: objGubunSubNm,
         remark: remark,
+        result: result,
         images: images,
       );
 
@@ -131,6 +131,7 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
         methodChk: _.methodChk,
         // objGubunSub: _.objGubunSub,
         // objGubunSubNm: _.objGubunSubNm,
+        result: _.result,
         remark: _.remark,
         images: _.images,
       );
