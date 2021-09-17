@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/auth/domain/auth_failure.dart';
 import 'package:frontend/auth/domain/api_key.dart';
+import 'package:frontend/auth/domain/auth_failure.dart';
 import 'package:frontend/auth/infrastructure/api_key_dto.dart';
-
 import 'package:frontend/auth/infrastructure/credentials_storage/credentials_storage.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 
@@ -25,9 +24,6 @@ class Authenticator {
       return null;
     }
   }
-
-  Future<bool> isSignedIn() =>
-      getSignedInCredentials().then((key) => key != null);
 
   Future<Either<AuthFailure, APIKey>> handleAuthorizationResponse(
     Map<String, dynamic> params,

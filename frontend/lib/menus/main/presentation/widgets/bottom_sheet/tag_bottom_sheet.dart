@@ -6,7 +6,7 @@ import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rive/rive.dart';
 
-class TagBottomSheet extends ConsumerWidget {
+class TagBottomSheet extends StatelessWidget {
   const TagBottomSheet({
     Key? key,
     required this.controller,
@@ -18,9 +18,7 @@ class TagBottomSheet extends ConsumerWidget {
   final Artboard artboard;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final checkInfoState = ref.watch(checkInfoStateNotifierProvider);
-
+  Widget build(BuildContext context) {
     final _canvasSize = Tween<double>(begin: 200, end: 150).animate(controller);
 
     return AnimatedBuilder(
@@ -74,40 +72,46 @@ class TagBottomSheet extends ConsumerWidget {
                           ),
                         );
                       },
-                      child: checkInfoState.when(
-                        initial: (_) => Text(
-                          AppLocalizations.of(context)
-                                  ?.translate('scan_ready') ??
-                              "",
-                          key: const ValueKey<String>("BTM-SH-INIT"),
-                          style: TextStyle(
-                            color: Theme.of(context).hintColor,
-                            fontSize: 20,
+                      child: Consumer(builder: (context, ref, child) {
+                        final checkInfoState =
+                            ref.watch(checkInfoStateNotifierProvider);
+
+                        return checkInfoState.maybeWhen(
+                          initial: (_, info) => Text(
+                            AppLocalizations.of(context)
+                                    ?.translate('scan_ready') ??
+                                "",
+                            key: const ValueKey<String>("BTM-SH-INIT"),
+                            style: TextStyle(
+                              color: Theme.of(context).hintColor,
+                              fontSize: 20,
+                            ),
                           ),
-                        ),
-                        loading: (_) => Container(
-                            key: ValueKey<String>("loading"),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("정보를 확인하는 중입니다"),
-                                AnimatedTextKit(
-                                  animatedTexts: [
-                                    TypewriterAnimatedText("..."),
-                                  ],
-                                ),
-                              ],
-                            )),
-                        loaded: (_, data) => Container(
-                          key: ValueKey<String>("loaded"),
-                          // todo: 수정
-                          // child: Text("${serial.location}"),
-                        ),
-                        failure: (_, failure) => Container(
-                          key: ValueKey<String>("failure"),
-                          child: Text("fail"),
-                        ),
-                      ),
+                          loading: (_, info) => Container(
+                              key: ValueKey<String>("loading"),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("정보를 확인하는 중입니다"),
+                                  AnimatedTextKit(
+                                    animatedTexts: [
+                                      TypewriterAnimatedText("..."),
+                                    ],
+                                  ),
+                                ],
+                              )),
+                          loaded: (_, data) => Container(
+                            key: ValueKey<String>("loaded"),
+                            // todo: 수정
+                            // child: Text("${serial.location}"),
+                          ),
+                          failure: (_, info, failure) => Container(
+                            key: ValueKey<String>("failure"),
+                            child: Text("fail"),
+                          ),
+                          orElse: () => const SizedBox(),
+                        );
+                      }),
                     ),
                     const Spacer(),
                     SizedBox(

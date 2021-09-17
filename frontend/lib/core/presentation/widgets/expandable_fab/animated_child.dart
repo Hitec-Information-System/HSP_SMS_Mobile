@@ -63,7 +63,9 @@ class AnimatedChild extends AnimatedWidget {
     void _performAction([bool isLong = false]) {
       if (onTap != null && !isLong) {
         onTap!();
-      } else if (onLongPress != null && isLong) onLongPress!();
+      } else if (onLongPress != null && isLong) {
+        onLongPress!();
+      }
       toggleChildren!();
     }
 

@@ -71,7 +71,7 @@ class SubCategoryCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: LayoutConstants.paddingXS / 2),
                         child: Circle(
-                          color: Theme.of(context).accentColor,
+                          color: Theme.of(context).colorScheme.secondary,
                           radius: LayoutConstants.radiusS,
                         ),
                       );
@@ -90,7 +90,10 @@ class SubCategoryCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: LayoutConstants.paddingXS / 2),
                       child: Circle(
-                        color: Theme.of(context).accentColor.withOpacity(.3),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .secondary
+                            .withOpacity(.3),
                         radius: LayoutConstants.radiusS,
                       ),
                     );
@@ -143,7 +146,7 @@ class TimeStampCard extends StatelessWidget {
             height: 45,
             padding: const EdgeInsets.all(LayoutConstants.paddingS),
             decoration: BoxDecoration(
-              color: Theme.of(context).accentColor.withOpacity(.3),
+              color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
             ),
             child: Column(
@@ -154,7 +157,7 @@ class TimeStampCard extends StatelessWidget {
                             .textTheme
                             .bodyText1
                             ?.color
-                            ?.withOpacity(.4))),
+                            ?.withOpacity(.5))),
                 Text(
                   stamp.checkTime,
                   style: Theme.of(context).textTheme.bodyText1?.copyWith(
@@ -221,7 +224,7 @@ class MissedStampCard extends StatelessWidget {
             height: 45,
             padding: const EdgeInsets.all(LayoutConstants.paddingS),
             decoration: BoxDecoration(
-              color: Theme.of(context).errorColor.withOpacity(.3),
+              color: Theme.of(context).errorColor.withOpacity(.5),
               borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
             ),
             child: Center(

@@ -16,15 +16,17 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CheckInfoStateTearOff {
   const _$CheckInfoStateTearOff();
 
-  _CheckInfoStateInitial initial(String tagId) {
+  _CheckInfoStateInitial initial(String tagId, CheckInfo info) {
     return _CheckInfoStateInitial(
       tagId,
+      info,
     );
   }
 
-  _CheckInfoStateLoading loading(String tagId) {
+  _CheckInfoStateLoading loading(String tagId, CheckInfo info) {
     return _CheckInfoStateLoading(
       tagId,
+      info,
     );
   }
 
@@ -35,9 +37,25 @@ class _$CheckInfoStateTearOff {
     );
   }
 
-  _CheckInfoStateFailure failure(String tagId, CheckInfoFailure failure) {
+  _CheckInfoStateSaving saving(String tagId, CheckInfo info) {
+    return _CheckInfoStateSaving(
+      tagId,
+      info,
+    );
+  }
+
+  _CheckInfoStateSaved saved(String tagId, CheckInfo info) {
+    return _CheckInfoStateSaved(
+      tagId,
+      info,
+    );
+  }
+
+  _CheckInfoStateFailure failure(
+      String tagId, CheckInfo info, CheckInfoFailure failure) {
     return _CheckInfoStateFailure(
       tagId,
+      info,
       failure,
     );
   }
@@ -49,21 +67,29 @@ const $CheckInfoState = _$CheckInfoStateTearOff();
 /// @nodoc
 mixin _$CheckInfoState {
   String get tagId => throw _privateConstructorUsedError;
+  CheckInfo get info => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String tagId) initial,
-    required TResult Function(String tagId) loading,
+    required TResult Function(String tagId, CheckInfo info) initial,
+    required TResult Function(String tagId, CheckInfo info) loading,
     required TResult Function(String tagId, CheckInfo info) loaded,
-    required TResult Function(String tagId, CheckInfoFailure failure) failure,
+    required TResult Function(String tagId, CheckInfo info) saving,
+    required TResult Function(String tagId, CheckInfo info) saved,
+    required TResult Function(
+            String tagId, CheckInfo info, CheckInfoFailure failure)
+        failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String tagId)? initial,
-    TResult Function(String tagId)? loading,
+    TResult Function(String tagId, CheckInfo info)? initial,
+    TResult Function(String tagId, CheckInfo info)? loading,
     TResult Function(String tagId, CheckInfo info)? loaded,
-    TResult Function(String tagId, CheckInfoFailure failure)? failure,
+    TResult Function(String tagId, CheckInfo info)? saving,
+    TResult Function(String tagId, CheckInfo info)? saved,
+    TResult Function(String tagId, CheckInfo info, CheckInfoFailure failure)?
+        failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -72,6 +98,8 @@ mixin _$CheckInfoState {
     required TResult Function(_CheckInfoStateInitial value) initial,
     required TResult Function(_CheckInfoStateLoading value) loading,
     required TResult Function(_CheckInfoStateLoaded value) loaded,
+    required TResult Function(_CheckInfoStateSaving value) saving,
+    required TResult Function(_CheckInfoStateSaved value) saved,
     required TResult Function(_CheckInfoStateFailure value) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -80,6 +108,8 @@ mixin _$CheckInfoState {
     TResult Function(_CheckInfoStateInitial value)? initial,
     TResult Function(_CheckInfoStateLoading value)? loading,
     TResult Function(_CheckInfoStateLoaded value)? loaded,
+    TResult Function(_CheckInfoStateSaving value)? saving,
+    TResult Function(_CheckInfoStateSaved value)? saved,
     TResult Function(_CheckInfoStateFailure value)? failure,
     required TResult orElse(),
   }) =>
@@ -95,7 +125,9 @@ abstract class $CheckInfoStateCopyWith<$Res> {
   factory $CheckInfoStateCopyWith(
           CheckInfoState value, $Res Function(CheckInfoState) then) =
       _$CheckInfoStateCopyWithImpl<$Res>;
-  $Res call({String tagId});
+  $Res call({String tagId, CheckInfo info});
+
+  $CheckInfoCopyWith<$Res> get info;
 }
 
 /// @nodoc
@@ -110,13 +142,25 @@ class _$CheckInfoStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tagId = freezed,
+    Object? info = freezed,
   }) {
     return _then(_value.copyWith(
       tagId: tagId == freezed
           ? _value.tagId
           : tagId // ignore: cast_nullable_to_non_nullable
               as String,
+      info: info == freezed
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as CheckInfo,
     ));
+  }
+
+  @override
+  $CheckInfoCopyWith<$Res> get info {
+    return $CheckInfoCopyWith<$Res>(_value.info, (value) {
+      return _then(_value.copyWith(info: value));
+    });
   }
 }
 
@@ -127,7 +171,10 @@ abstract class _$CheckInfoStateInitialCopyWith<$Res>
           $Res Function(_CheckInfoStateInitial) then) =
       __$CheckInfoStateInitialCopyWithImpl<$Res>;
   @override
-  $Res call({String tagId});
+  $Res call({String tagId, CheckInfo info});
+
+  @override
+  $CheckInfoCopyWith<$Res> get info;
 }
 
 /// @nodoc
@@ -144,12 +191,17 @@ class __$CheckInfoStateInitialCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tagId = freezed,
+    Object? info = freezed,
   }) {
     return _then(_CheckInfoStateInitial(
       tagId == freezed
           ? _value.tagId
           : tagId // ignore: cast_nullable_to_non_nullable
               as String,
+      info == freezed
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as CheckInfo,
     ));
   }
 }
@@ -157,14 +209,16 @@ class __$CheckInfoStateInitialCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CheckInfoStateInitial extends _CheckInfoStateInitial {
-  const _$_CheckInfoStateInitial(this.tagId) : super._();
+  const _$_CheckInfoStateInitial(this.tagId, this.info) : super._();
 
   @override
   final String tagId;
+  @override
+  final CheckInfo info;
 
   @override
   String toString() {
-    return 'CheckInfoState.initial(tagId: $tagId)';
+    return 'CheckInfoState.initial(tagId: $tagId, info: $info)';
   }
 
   @override
@@ -172,12 +226,16 @@ class _$_CheckInfoStateInitial extends _CheckInfoStateInitial {
     return identical(this, other) ||
         (other is _CheckInfoStateInitial &&
             (identical(other.tagId, tagId) ||
-                const DeepCollectionEquality().equals(other.tagId, tagId)));
+                const DeepCollectionEquality().equals(other.tagId, tagId)) &&
+            (identical(other.info, info) ||
+                const DeepCollectionEquality().equals(other.info, info)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tagId);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(tagId) ^
+      const DeepCollectionEquality().hash(info);
 
   @JsonKey(ignore: true)
   @override
@@ -188,25 +246,32 @@ class _$_CheckInfoStateInitial extends _CheckInfoStateInitial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String tagId) initial,
-    required TResult Function(String tagId) loading,
+    required TResult Function(String tagId, CheckInfo info) initial,
+    required TResult Function(String tagId, CheckInfo info) loading,
     required TResult Function(String tagId, CheckInfo info) loaded,
-    required TResult Function(String tagId, CheckInfoFailure failure) failure,
+    required TResult Function(String tagId, CheckInfo info) saving,
+    required TResult Function(String tagId, CheckInfo info) saved,
+    required TResult Function(
+            String tagId, CheckInfo info, CheckInfoFailure failure)
+        failure,
   }) {
-    return initial(tagId);
+    return initial(tagId, info);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String tagId)? initial,
-    TResult Function(String tagId)? loading,
+    TResult Function(String tagId, CheckInfo info)? initial,
+    TResult Function(String tagId, CheckInfo info)? loading,
     TResult Function(String tagId, CheckInfo info)? loaded,
-    TResult Function(String tagId, CheckInfoFailure failure)? failure,
+    TResult Function(String tagId, CheckInfo info)? saving,
+    TResult Function(String tagId, CheckInfo info)? saved,
+    TResult Function(String tagId, CheckInfo info, CheckInfoFailure failure)?
+        failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(tagId);
+      return initial(tagId, info);
     }
     return orElse();
   }
@@ -217,6 +282,8 @@ class _$_CheckInfoStateInitial extends _CheckInfoStateInitial {
     required TResult Function(_CheckInfoStateInitial value) initial,
     required TResult Function(_CheckInfoStateLoading value) loading,
     required TResult Function(_CheckInfoStateLoaded value) loaded,
+    required TResult Function(_CheckInfoStateSaving value) saving,
+    required TResult Function(_CheckInfoStateSaved value) saved,
     required TResult Function(_CheckInfoStateFailure value) failure,
   }) {
     return initial(this);
@@ -228,6 +295,8 @@ class _$_CheckInfoStateInitial extends _CheckInfoStateInitial {
     TResult Function(_CheckInfoStateInitial value)? initial,
     TResult Function(_CheckInfoStateLoading value)? loading,
     TResult Function(_CheckInfoStateLoaded value)? loaded,
+    TResult Function(_CheckInfoStateSaving value)? saving,
+    TResult Function(_CheckInfoStateSaved value)? saved,
     TResult Function(_CheckInfoStateFailure value)? failure,
     required TResult orElse(),
   }) {
@@ -239,11 +308,14 @@ class _$_CheckInfoStateInitial extends _CheckInfoStateInitial {
 }
 
 abstract class _CheckInfoStateInitial extends CheckInfoState {
-  const factory _CheckInfoStateInitial(String tagId) = _$_CheckInfoStateInitial;
+  const factory _CheckInfoStateInitial(String tagId, CheckInfo info) =
+      _$_CheckInfoStateInitial;
   const _CheckInfoStateInitial._() : super._();
 
   @override
   String get tagId => throw _privateConstructorUsedError;
+  @override
+  CheckInfo get info => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckInfoStateInitialCopyWith<_CheckInfoStateInitial> get copyWith =>
@@ -257,7 +329,10 @@ abstract class _$CheckInfoStateLoadingCopyWith<$Res>
           $Res Function(_CheckInfoStateLoading) then) =
       __$CheckInfoStateLoadingCopyWithImpl<$Res>;
   @override
-  $Res call({String tagId});
+  $Res call({String tagId, CheckInfo info});
+
+  @override
+  $CheckInfoCopyWith<$Res> get info;
 }
 
 /// @nodoc
@@ -274,12 +349,17 @@ class __$CheckInfoStateLoadingCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tagId = freezed,
+    Object? info = freezed,
   }) {
     return _then(_CheckInfoStateLoading(
       tagId == freezed
           ? _value.tagId
           : tagId // ignore: cast_nullable_to_non_nullable
               as String,
+      info == freezed
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as CheckInfo,
     ));
   }
 }
@@ -287,14 +367,16 @@ class __$CheckInfoStateLoadingCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CheckInfoStateLoading extends _CheckInfoStateLoading {
-  const _$_CheckInfoStateLoading(this.tagId) : super._();
+  const _$_CheckInfoStateLoading(this.tagId, this.info) : super._();
 
   @override
   final String tagId;
+  @override
+  final CheckInfo info;
 
   @override
   String toString() {
-    return 'CheckInfoState.loading(tagId: $tagId)';
+    return 'CheckInfoState.loading(tagId: $tagId, info: $info)';
   }
 
   @override
@@ -302,12 +384,16 @@ class _$_CheckInfoStateLoading extends _CheckInfoStateLoading {
     return identical(this, other) ||
         (other is _CheckInfoStateLoading &&
             (identical(other.tagId, tagId) ||
-                const DeepCollectionEquality().equals(other.tagId, tagId)));
+                const DeepCollectionEquality().equals(other.tagId, tagId)) &&
+            (identical(other.info, info) ||
+                const DeepCollectionEquality().equals(other.info, info)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tagId);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(tagId) ^
+      const DeepCollectionEquality().hash(info);
 
   @JsonKey(ignore: true)
   @override
@@ -318,25 +404,32 @@ class _$_CheckInfoStateLoading extends _CheckInfoStateLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String tagId) initial,
-    required TResult Function(String tagId) loading,
+    required TResult Function(String tagId, CheckInfo info) initial,
+    required TResult Function(String tagId, CheckInfo info) loading,
     required TResult Function(String tagId, CheckInfo info) loaded,
-    required TResult Function(String tagId, CheckInfoFailure failure) failure,
+    required TResult Function(String tagId, CheckInfo info) saving,
+    required TResult Function(String tagId, CheckInfo info) saved,
+    required TResult Function(
+            String tagId, CheckInfo info, CheckInfoFailure failure)
+        failure,
   }) {
-    return loading(tagId);
+    return loading(tagId, info);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String tagId)? initial,
-    TResult Function(String tagId)? loading,
+    TResult Function(String tagId, CheckInfo info)? initial,
+    TResult Function(String tagId, CheckInfo info)? loading,
     TResult Function(String tagId, CheckInfo info)? loaded,
-    TResult Function(String tagId, CheckInfoFailure failure)? failure,
+    TResult Function(String tagId, CheckInfo info)? saving,
+    TResult Function(String tagId, CheckInfo info)? saved,
+    TResult Function(String tagId, CheckInfo info, CheckInfoFailure failure)?
+        failure,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading(tagId);
+      return loading(tagId, info);
     }
     return orElse();
   }
@@ -347,6 +440,8 @@ class _$_CheckInfoStateLoading extends _CheckInfoStateLoading {
     required TResult Function(_CheckInfoStateInitial value) initial,
     required TResult Function(_CheckInfoStateLoading value) loading,
     required TResult Function(_CheckInfoStateLoaded value) loaded,
+    required TResult Function(_CheckInfoStateSaving value) saving,
+    required TResult Function(_CheckInfoStateSaved value) saved,
     required TResult Function(_CheckInfoStateFailure value) failure,
   }) {
     return loading(this);
@@ -358,6 +453,8 @@ class _$_CheckInfoStateLoading extends _CheckInfoStateLoading {
     TResult Function(_CheckInfoStateInitial value)? initial,
     TResult Function(_CheckInfoStateLoading value)? loading,
     TResult Function(_CheckInfoStateLoaded value)? loaded,
+    TResult Function(_CheckInfoStateSaving value)? saving,
+    TResult Function(_CheckInfoStateSaved value)? saved,
     TResult Function(_CheckInfoStateFailure value)? failure,
     required TResult orElse(),
   }) {
@@ -369,11 +466,14 @@ class _$_CheckInfoStateLoading extends _CheckInfoStateLoading {
 }
 
 abstract class _CheckInfoStateLoading extends CheckInfoState {
-  const factory _CheckInfoStateLoading(String tagId) = _$_CheckInfoStateLoading;
+  const factory _CheckInfoStateLoading(String tagId, CheckInfo info) =
+      _$_CheckInfoStateLoading;
   const _CheckInfoStateLoading._() : super._();
 
   @override
   String get tagId => throw _privateConstructorUsedError;
+  @override
+  CheckInfo get info => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckInfoStateLoadingCopyWith<_CheckInfoStateLoading> get copyWith =>
@@ -389,6 +489,7 @@ abstract class _$CheckInfoStateLoadedCopyWith<$Res>
   @override
   $Res call({String tagId, CheckInfo info});
 
+  @override
   $CheckInfoCopyWith<$Res> get info;
 }
 
@@ -418,13 +519,6 @@ class __$CheckInfoStateLoadedCopyWithImpl<$Res>
           : info // ignore: cast_nullable_to_non_nullable
               as CheckInfo,
     ));
-  }
-
-  @override
-  $CheckInfoCopyWith<$Res> get info {
-    return $CheckInfoCopyWith<$Res>(_value.info, (value) {
-      return _then(_value.copyWith(info: value));
-    });
   }
 }
 
@@ -468,10 +562,14 @@ class _$_CheckInfoStateLoaded extends _CheckInfoStateLoaded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String tagId) initial,
-    required TResult Function(String tagId) loading,
+    required TResult Function(String tagId, CheckInfo info) initial,
+    required TResult Function(String tagId, CheckInfo info) loading,
     required TResult Function(String tagId, CheckInfo info) loaded,
-    required TResult Function(String tagId, CheckInfoFailure failure) failure,
+    required TResult Function(String tagId, CheckInfo info) saving,
+    required TResult Function(String tagId, CheckInfo info) saved,
+    required TResult Function(
+            String tagId, CheckInfo info, CheckInfoFailure failure)
+        failure,
   }) {
     return loaded(tagId, info);
   }
@@ -479,10 +577,13 @@ class _$_CheckInfoStateLoaded extends _CheckInfoStateLoaded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String tagId)? initial,
-    TResult Function(String tagId)? loading,
+    TResult Function(String tagId, CheckInfo info)? initial,
+    TResult Function(String tagId, CheckInfo info)? loading,
     TResult Function(String tagId, CheckInfo info)? loaded,
-    TResult Function(String tagId, CheckInfoFailure failure)? failure,
+    TResult Function(String tagId, CheckInfo info)? saving,
+    TResult Function(String tagId, CheckInfo info)? saved,
+    TResult Function(String tagId, CheckInfo info, CheckInfoFailure failure)?
+        failure,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -497,6 +598,8 @@ class _$_CheckInfoStateLoaded extends _CheckInfoStateLoaded {
     required TResult Function(_CheckInfoStateInitial value) initial,
     required TResult Function(_CheckInfoStateLoading value) loading,
     required TResult Function(_CheckInfoStateLoaded value) loaded,
+    required TResult Function(_CheckInfoStateSaving value) saving,
+    required TResult Function(_CheckInfoStateSaved value) saved,
     required TResult Function(_CheckInfoStateFailure value) failure,
   }) {
     return loaded(this);
@@ -508,6 +611,8 @@ class _$_CheckInfoStateLoaded extends _CheckInfoStateLoaded {
     TResult Function(_CheckInfoStateInitial value)? initial,
     TResult Function(_CheckInfoStateLoading value)? loading,
     TResult Function(_CheckInfoStateLoaded value)? loaded,
+    TResult Function(_CheckInfoStateSaving value)? saving,
+    TResult Function(_CheckInfoStateSaved value)? saved,
     TResult Function(_CheckInfoStateFailure value)? failure,
     required TResult orElse(),
   }) {
@@ -525,10 +630,327 @@ abstract class _CheckInfoStateLoaded extends CheckInfoState {
 
   @override
   String get tagId => throw _privateConstructorUsedError;
+  @override
   CheckInfo get info => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckInfoStateLoadedCopyWith<_CheckInfoStateLoaded> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$CheckInfoStateSavingCopyWith<$Res>
+    implements $CheckInfoStateCopyWith<$Res> {
+  factory _$CheckInfoStateSavingCopyWith(_CheckInfoStateSaving value,
+          $Res Function(_CheckInfoStateSaving) then) =
+      __$CheckInfoStateSavingCopyWithImpl<$Res>;
+  @override
+  $Res call({String tagId, CheckInfo info});
+
+  @override
+  $CheckInfoCopyWith<$Res> get info;
+}
+
+/// @nodoc
+class __$CheckInfoStateSavingCopyWithImpl<$Res>
+    extends _$CheckInfoStateCopyWithImpl<$Res>
+    implements _$CheckInfoStateSavingCopyWith<$Res> {
+  __$CheckInfoStateSavingCopyWithImpl(
+      _CheckInfoStateSaving _value, $Res Function(_CheckInfoStateSaving) _then)
+      : super(_value, (v) => _then(v as _CheckInfoStateSaving));
+
+  @override
+  _CheckInfoStateSaving get _value => super._value as _CheckInfoStateSaving;
+
+  @override
+  $Res call({
+    Object? tagId = freezed,
+    Object? info = freezed,
+  }) {
+    return _then(_CheckInfoStateSaving(
+      tagId == freezed
+          ? _value.tagId
+          : tagId // ignore: cast_nullable_to_non_nullable
+              as String,
+      info == freezed
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as CheckInfo,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CheckInfoStateSaving extends _CheckInfoStateSaving {
+  const _$_CheckInfoStateSaving(this.tagId, this.info) : super._();
+
+  @override
+  final String tagId;
+  @override
+  final CheckInfo info;
+
+  @override
+  String toString() {
+    return 'CheckInfoState.saving(tagId: $tagId, info: $info)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CheckInfoStateSaving &&
+            (identical(other.tagId, tagId) ||
+                const DeepCollectionEquality().equals(other.tagId, tagId)) &&
+            (identical(other.info, info) ||
+                const DeepCollectionEquality().equals(other.info, info)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(tagId) ^
+      const DeepCollectionEquality().hash(info);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CheckInfoStateSavingCopyWith<_CheckInfoStateSaving> get copyWith =>
+      __$CheckInfoStateSavingCopyWithImpl<_CheckInfoStateSaving>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String tagId, CheckInfo info) initial,
+    required TResult Function(String tagId, CheckInfo info) loading,
+    required TResult Function(String tagId, CheckInfo info) loaded,
+    required TResult Function(String tagId, CheckInfo info) saving,
+    required TResult Function(String tagId, CheckInfo info) saved,
+    required TResult Function(
+            String tagId, CheckInfo info, CheckInfoFailure failure)
+        failure,
+  }) {
+    return saving(tagId, info);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String tagId, CheckInfo info)? initial,
+    TResult Function(String tagId, CheckInfo info)? loading,
+    TResult Function(String tagId, CheckInfo info)? loaded,
+    TResult Function(String tagId, CheckInfo info)? saving,
+    TResult Function(String tagId, CheckInfo info)? saved,
+    TResult Function(String tagId, CheckInfo info, CheckInfoFailure failure)?
+        failure,
+    required TResult orElse(),
+  }) {
+    if (saving != null) {
+      return saving(tagId, info);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CheckInfoStateInitial value) initial,
+    required TResult Function(_CheckInfoStateLoading value) loading,
+    required TResult Function(_CheckInfoStateLoaded value) loaded,
+    required TResult Function(_CheckInfoStateSaving value) saving,
+    required TResult Function(_CheckInfoStateSaved value) saved,
+    required TResult Function(_CheckInfoStateFailure value) failure,
+  }) {
+    return saving(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CheckInfoStateInitial value)? initial,
+    TResult Function(_CheckInfoStateLoading value)? loading,
+    TResult Function(_CheckInfoStateLoaded value)? loaded,
+    TResult Function(_CheckInfoStateSaving value)? saving,
+    TResult Function(_CheckInfoStateSaved value)? saved,
+    TResult Function(_CheckInfoStateFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (saving != null) {
+      return saving(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CheckInfoStateSaving extends CheckInfoState {
+  const factory _CheckInfoStateSaving(String tagId, CheckInfo info) =
+      _$_CheckInfoStateSaving;
+  const _CheckInfoStateSaving._() : super._();
+
+  @override
+  String get tagId => throw _privateConstructorUsedError;
+  @override
+  CheckInfo get info => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CheckInfoStateSavingCopyWith<_CheckInfoStateSaving> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$CheckInfoStateSavedCopyWith<$Res>
+    implements $CheckInfoStateCopyWith<$Res> {
+  factory _$CheckInfoStateSavedCopyWith(_CheckInfoStateSaved value,
+          $Res Function(_CheckInfoStateSaved) then) =
+      __$CheckInfoStateSavedCopyWithImpl<$Res>;
+  @override
+  $Res call({String tagId, CheckInfo info});
+
+  @override
+  $CheckInfoCopyWith<$Res> get info;
+}
+
+/// @nodoc
+class __$CheckInfoStateSavedCopyWithImpl<$Res>
+    extends _$CheckInfoStateCopyWithImpl<$Res>
+    implements _$CheckInfoStateSavedCopyWith<$Res> {
+  __$CheckInfoStateSavedCopyWithImpl(
+      _CheckInfoStateSaved _value, $Res Function(_CheckInfoStateSaved) _then)
+      : super(_value, (v) => _then(v as _CheckInfoStateSaved));
+
+  @override
+  _CheckInfoStateSaved get _value => super._value as _CheckInfoStateSaved;
+
+  @override
+  $Res call({
+    Object? tagId = freezed,
+    Object? info = freezed,
+  }) {
+    return _then(_CheckInfoStateSaved(
+      tagId == freezed
+          ? _value.tagId
+          : tagId // ignore: cast_nullable_to_non_nullable
+              as String,
+      info == freezed
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as CheckInfo,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CheckInfoStateSaved extends _CheckInfoStateSaved {
+  const _$_CheckInfoStateSaved(this.tagId, this.info) : super._();
+
+  @override
+  final String tagId;
+  @override
+  final CheckInfo info;
+
+  @override
+  String toString() {
+    return 'CheckInfoState.saved(tagId: $tagId, info: $info)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CheckInfoStateSaved &&
+            (identical(other.tagId, tagId) ||
+                const DeepCollectionEquality().equals(other.tagId, tagId)) &&
+            (identical(other.info, info) ||
+                const DeepCollectionEquality().equals(other.info, info)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(tagId) ^
+      const DeepCollectionEquality().hash(info);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CheckInfoStateSavedCopyWith<_CheckInfoStateSaved> get copyWith =>
+      __$CheckInfoStateSavedCopyWithImpl<_CheckInfoStateSaved>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String tagId, CheckInfo info) initial,
+    required TResult Function(String tagId, CheckInfo info) loading,
+    required TResult Function(String tagId, CheckInfo info) loaded,
+    required TResult Function(String tagId, CheckInfo info) saving,
+    required TResult Function(String tagId, CheckInfo info) saved,
+    required TResult Function(
+            String tagId, CheckInfo info, CheckInfoFailure failure)
+        failure,
+  }) {
+    return saved(tagId, info);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String tagId, CheckInfo info)? initial,
+    TResult Function(String tagId, CheckInfo info)? loading,
+    TResult Function(String tagId, CheckInfo info)? loaded,
+    TResult Function(String tagId, CheckInfo info)? saving,
+    TResult Function(String tagId, CheckInfo info)? saved,
+    TResult Function(String tagId, CheckInfo info, CheckInfoFailure failure)?
+        failure,
+    required TResult orElse(),
+  }) {
+    if (saved != null) {
+      return saved(tagId, info);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CheckInfoStateInitial value) initial,
+    required TResult Function(_CheckInfoStateLoading value) loading,
+    required TResult Function(_CheckInfoStateLoaded value) loaded,
+    required TResult Function(_CheckInfoStateSaving value) saving,
+    required TResult Function(_CheckInfoStateSaved value) saved,
+    required TResult Function(_CheckInfoStateFailure value) failure,
+  }) {
+    return saved(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CheckInfoStateInitial value)? initial,
+    TResult Function(_CheckInfoStateLoading value)? loading,
+    TResult Function(_CheckInfoStateLoaded value)? loaded,
+    TResult Function(_CheckInfoStateSaving value)? saving,
+    TResult Function(_CheckInfoStateSaved value)? saved,
+    TResult Function(_CheckInfoStateFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (saved != null) {
+      return saved(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CheckInfoStateSaved extends CheckInfoState {
+  const factory _CheckInfoStateSaved(String tagId, CheckInfo info) =
+      _$_CheckInfoStateSaved;
+  const _CheckInfoStateSaved._() : super._();
+
+  @override
+  String get tagId => throw _privateConstructorUsedError;
+  @override
+  CheckInfo get info => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CheckInfoStateSavedCopyWith<_CheckInfoStateSaved> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -539,8 +961,10 @@ abstract class _$CheckInfoStateFailureCopyWith<$Res>
           $Res Function(_CheckInfoStateFailure) then) =
       __$CheckInfoStateFailureCopyWithImpl<$Res>;
   @override
-  $Res call({String tagId, CheckInfoFailure failure});
+  $Res call({String tagId, CheckInfo info, CheckInfoFailure failure});
 
+  @override
+  $CheckInfoCopyWith<$Res> get info;
   $CheckInfoFailureCopyWith<$Res> get failure;
 }
 
@@ -558,6 +982,7 @@ class __$CheckInfoStateFailureCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tagId = freezed,
+    Object? info = freezed,
     Object? failure = freezed,
   }) {
     return _then(_CheckInfoStateFailure(
@@ -565,6 +990,10 @@ class __$CheckInfoStateFailureCopyWithImpl<$Res>
           ? _value.tagId
           : tagId // ignore: cast_nullable_to_non_nullable
               as String,
+      info == freezed
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as CheckInfo,
       failure == freezed
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -583,16 +1012,19 @@ class __$CheckInfoStateFailureCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CheckInfoStateFailure extends _CheckInfoStateFailure {
-  const _$_CheckInfoStateFailure(this.tagId, this.failure) : super._();
+  const _$_CheckInfoStateFailure(this.tagId, this.info, this.failure)
+      : super._();
 
   @override
   final String tagId;
+  @override
+  final CheckInfo info;
   @override
   final CheckInfoFailure failure;
 
   @override
   String toString() {
-    return 'CheckInfoState.failure(tagId: $tagId, failure: $failure)';
+    return 'CheckInfoState.failure(tagId: $tagId, info: $info, failure: $failure)';
   }
 
   @override
@@ -601,6 +1033,8 @@ class _$_CheckInfoStateFailure extends _CheckInfoStateFailure {
         (other is _CheckInfoStateFailure &&
             (identical(other.tagId, tagId) ||
                 const DeepCollectionEquality().equals(other.tagId, tagId)) &&
+            (identical(other.info, info) ||
+                const DeepCollectionEquality().equals(other.info, info)) &&
             (identical(other.failure, failure) ||
                 const DeepCollectionEquality().equals(other.failure, failure)));
   }
@@ -609,6 +1043,7 @@ class _$_CheckInfoStateFailure extends _CheckInfoStateFailure {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(tagId) ^
+      const DeepCollectionEquality().hash(info) ^
       const DeepCollectionEquality().hash(failure);
 
   @JsonKey(ignore: true)
@@ -620,25 +1055,32 @@ class _$_CheckInfoStateFailure extends _CheckInfoStateFailure {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String tagId) initial,
-    required TResult Function(String tagId) loading,
+    required TResult Function(String tagId, CheckInfo info) initial,
+    required TResult Function(String tagId, CheckInfo info) loading,
     required TResult Function(String tagId, CheckInfo info) loaded,
-    required TResult Function(String tagId, CheckInfoFailure failure) failure,
+    required TResult Function(String tagId, CheckInfo info) saving,
+    required TResult Function(String tagId, CheckInfo info) saved,
+    required TResult Function(
+            String tagId, CheckInfo info, CheckInfoFailure failure)
+        failure,
   }) {
-    return failure(tagId, this.failure);
+    return failure(tagId, info, this.failure);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String tagId)? initial,
-    TResult Function(String tagId)? loading,
+    TResult Function(String tagId, CheckInfo info)? initial,
+    TResult Function(String tagId, CheckInfo info)? loading,
     TResult Function(String tagId, CheckInfo info)? loaded,
-    TResult Function(String tagId, CheckInfoFailure failure)? failure,
+    TResult Function(String tagId, CheckInfo info)? saving,
+    TResult Function(String tagId, CheckInfo info)? saved,
+    TResult Function(String tagId, CheckInfo info, CheckInfoFailure failure)?
+        failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
-      return failure(tagId, this.failure);
+      return failure(tagId, info, this.failure);
     }
     return orElse();
   }
@@ -649,6 +1091,8 @@ class _$_CheckInfoStateFailure extends _CheckInfoStateFailure {
     required TResult Function(_CheckInfoStateInitial value) initial,
     required TResult Function(_CheckInfoStateLoading value) loading,
     required TResult Function(_CheckInfoStateLoaded value) loaded,
+    required TResult Function(_CheckInfoStateSaving value) saving,
+    required TResult Function(_CheckInfoStateSaved value) saved,
     required TResult Function(_CheckInfoStateFailure value) failure,
   }) {
     return failure(this);
@@ -660,6 +1104,8 @@ class _$_CheckInfoStateFailure extends _CheckInfoStateFailure {
     TResult Function(_CheckInfoStateInitial value)? initial,
     TResult Function(_CheckInfoStateLoading value)? loading,
     TResult Function(_CheckInfoStateLoaded value)? loaded,
+    TResult Function(_CheckInfoStateSaving value)? saving,
+    TResult Function(_CheckInfoStateSaved value)? saved,
     TResult Function(_CheckInfoStateFailure value)? failure,
     required TResult orElse(),
   }) {
@@ -671,12 +1117,15 @@ class _$_CheckInfoStateFailure extends _CheckInfoStateFailure {
 }
 
 abstract class _CheckInfoStateFailure extends CheckInfoState {
-  const factory _CheckInfoStateFailure(String tagId, CheckInfoFailure failure) =
+  const factory _CheckInfoStateFailure(
+          String tagId, CheckInfo info, CheckInfoFailure failure) =
       _$_CheckInfoStateFailure;
   const _CheckInfoStateFailure._() : super._();
 
   @override
   String get tagId => throw _privateConstructorUsedError;
+  @override
+  CheckInfo get info => throw _privateConstructorUsedError;
   CheckInfoFailure get failure => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

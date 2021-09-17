@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:frontend/auth/shared/providers.dart';
+import 'package:frontend/check/check_info/application/check_info_notifier.dart';
 import 'package:frontend/check/check_info/shared/providers.dart';
 import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
@@ -19,6 +20,8 @@ class MenuMainPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print("main page built");
+
     final _controller = useAnimationController(
       duration: const Duration(
         milliseconds: 100,
@@ -27,10 +30,10 @@ class MenuMainPage extends HookConsumerWidget {
 
     final rive = useTagRecognizerRiveController();
 
-    ref.listen(
+    ref.listen<TagState>(
       tagNotifierProvider,
       (state) {
-        (state! as TagState).when(
+        state.when(
           initial: () {
             AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
           },
@@ -42,69 +45,45 @@ class MenuMainPage extends HookConsumerWidget {
                 controller: _controller,
                 artboard: rive.artboard!,
               ),
-            );
+            ).then((_) {
+              _controller.reverse();
+              rive.isComplete?.value = false;
+            });
           },
           qrReading: () {
             AutoRouter.of(context).push(const QRScanRoute());
           },
           nfcRead: (tag) {
-            // activate animation
             _controller.forward();
-
-            // activate rive animation
             rive.isComplete?.value = true;
 
             log(tag.id);
 
             ref
-                .watch(checkInfoStateNotifierProvider.notifier)
-                .getCheckInfo(tag.id, "일상")
-                .then(
-              (_) async {
-                AutoRouter.of(context)
-                    .popUntilRouteWithName(MenuFrameRoute.name);
-
-                AutoRouter.of(context).push(const CheckListRoute()).then((_) {
-                  _controller.reverse();
-                  rive.isComplete?.value = false;
-                  ref.watch(tagNotifierProvider.notifier).clear();
-                  ref.watch(checkInfoStateNotifierProvider.notifier).clear();
-                });
-              },
-            );
+                .read(checkInfoStateNotifierProvider.notifier)
+                .getCheckInfo(tag.id, "일상");
           },
           qrRead: (tag) {
-            AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
-
             showModalBottomSheet(
+              backgroundColor: Colors.transparent,
               context: context,
               builder: (context) {
-                //
                 return TagBottomSheet(
                   controller: _controller,
                   artboard: rive.artboard!,
                 );
               },
-            );
+            ).then((_) {
+              _controller.reverse();
+              rive.isComplete?.value = false;
+            });
 
             _controller.forward();
-
-            // activate rive animation
             rive.isComplete?.value = true;
 
             ref
                 .watch(checkInfoStateNotifierProvider.notifier)
-                .getCheckInfo(tag.id, "일상")
-                .then((value) async {
-              AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
-
-              AutoRouter.of(context).push(const CheckListRoute()).then((_) {
-                _controller.reverse();
-                rive.isComplete?.value = false;
-                ref.watch(tagNotifierProvider.notifier).clear();
-                ref.watch(checkInfoStateNotifierProvider.notifier).clear();
-              });
-            });
+                .getCheckInfo(tag.id, "일상");
           },
           failure: (failure) {
             // TODO: 문제 발생했을 때 Dialog 보여주기
@@ -112,6 +91,26 @@ class MenuMainPage extends HookConsumerWidget {
         );
       },
     );
+
+    ref.listen<CheckInfoState>(checkInfoStateNotifierProvider, (state) {
+      state.maybeWhen(
+        loaded: (tagId, info) {
+          AutoRouter.of(context).push(const CheckListRoute()).then((_) {
+            ref.read(tagNotifierProvider.notifier).clear();
+            ref.read(checkInfoStateNotifierProvider.notifier).clear();
+          });
+        },
+        failure: (tagId, info, failure) async {
+          await Future.delayed(
+            const Duration(milliseconds: 2000),
+          );
+
+          ref.read(tagNotifierProvider.notifier).clear();
+          ref.read(checkInfoStateNotifierProvider.notifier).clear();
+        },
+        orElse: () {},
+      );
+    });
 
     return Scaffold(
         appBar: AppBar(

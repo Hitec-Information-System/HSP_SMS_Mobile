@@ -9,10 +9,10 @@ class CheckInfoLocalService {
 
   CheckInfoLocalService(this._sembastDatabase);
 
-  Future<void> upsertCheckInfo(CheckInfoDTO dto, String tagId) async {
+  Future<void> upsertCheckInfo(Map<String, dynamic> json, String tagId) async {
     await _store.record(tagId).put(
           _sembastDatabase.instance,
-          dto.toJson(),
+          json,
         );
   }
 

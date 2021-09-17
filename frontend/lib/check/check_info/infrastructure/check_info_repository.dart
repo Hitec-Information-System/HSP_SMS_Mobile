@@ -6,6 +6,7 @@ import 'package:frontend/check/check_info/infrastructure/remote/check_info_remot
 
 import 'package:frontend/core/domain/fresh.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CheckInfoRepository {
   final CheckInfoLocalService _localService;
@@ -28,10 +29,33 @@ class CheckInfoRepository {
                 ),
           ),
           withNewData: (data) async {
-            await _localService.upsertCheckInfo(data, "$interval$tagId");
+            await _localService.upsertCheckInfo(
+                data.toJson(), "$interval$tagId");
             return Fresh.yes(
               data.toDomain(),
             );
+          },
+        ),
+      );
+    } on RestApiException catch (e) {
+      return left(
+        CheckInfoFailure.api(e.errorCode),
+      );
+    }
+  }
+
+  Future<Either<CheckInfoFailure, Fresh<String>>> saveCheckInfo(
+      Map<String, dynamic> params, List<XFile> images) async {
+    try {
+      final remoteFetch = await _remoteService.saveCheckResults(params, images);
+      return right(
+        await remoteFetch.when(
+          noConnection: () async {
+            // await _localService.upsertCheckInfo(params, "$interval$tagId");
+            return Fresh.no("error");
+          },
+          withNewData: (data) async {
+            return Fresh.yes(data);
           },
         ),
       );

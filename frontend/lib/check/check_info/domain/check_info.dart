@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -33,6 +34,32 @@ class CheckInfo with _$CheckInfo {
         sessions: [],
         details: [],
       );
+
+  String get toHeaderXml => header.toHeaderXml;
+
+  String get toResultsXml {
+    final list = details.map((detail) {
+      return detail.toResultXml;
+    }).toList();
+
+    list.insert(0, "<NewDataSet>");
+    list.insert(list.length, "</NewDataSet>");
+
+    return list.join().replaceAll(" ", "");
+  }
+
+  String get toImgsXml {
+    final list = details.map((detail) => detail.toImgXml).toList();
+
+    if (list.join() == "") {
+      return "";
+    }
+
+    list.insert(0, "<NewDataSet>");
+    list.insert(list.length, "</NewDataSet>");
+
+    return list.join().replaceAll(" ", "");
+  }
 }
 
 @freezed
@@ -53,6 +80,19 @@ class CheckHeader with _$CheckHeader {
     required String userId,
     required String userNm,
   }) = _CheckHeader;
+
+  String get toHeaderXml => '''
+  <NewDataSet><Table1>
+    <CHKLIST_NO>$id</CHKLIST_NO>
+    <CHK_YMD>$chkYmd</CHK_YMD>
+    <CHK_INTERVAL>$interval</CHK_INTERVAL>
+    <CHK_CHASU>$chasu</CHK_CHASU>
+    <OBJ_CD>$objCd</OBJ_CD>
+    <OBJ_GUBUN>$objGubun</OBJ_GUBUN>
+    <CHK_USER_ID>$userId</CHK_USER_ID>
+  </Table1></NewDataSet>
+  '''
+      .replaceAll(" ", "");
 }
 
 @freezed
@@ -69,6 +109,37 @@ class CheckDetails with _$CheckDetails {
     required String result,
     required List<XFile> images,
   }) = _CheckDetails;
+
+  String get toResultXml => '''
+  <Table1>
+    <CHK_ITEM_CD>$chkItemCd</CHK_ITEM_CD>
+    <CHK_RESULT>$result</CHK_RESULT>
+    <DFCT_ITEM_CD></DFCT_ITEM_CD>
+    <DFCT_RMK></DFCT_RMK>
+    <RMK>$remark</RMK>
+  </Table1>
+  '''
+      .replaceAll(" ", "");
+
+  String get toImgXml {
+    if (images.isEmpty) {
+      return "";
+    }
+
+    return images
+        .mapIndexed(
+          (index, element) => '''
+    <Table1>
+      <CHK_ITEM_CD>$chkItemCd</CHK_ITEM_CD>
+      <CHK_IMG_NO>$index</CHK_IMG_NO>
+      <CHK_IMG_URL>./uploads/${images[index].name}</CHK_IMG_URL>
+      <RMK></RMK>
+    </Table1>
+  '''
+              .replaceAll(" ", ""),
+        )
+        .join();
+  }
 }
 
 @freezed

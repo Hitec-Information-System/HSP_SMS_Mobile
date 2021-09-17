@@ -23,14 +23,11 @@ class RemarkPopupCard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _remarkController = useTextEditingController();
 
-    final checkInfo = ref.watch(checkInfoStateNotifierProvider.select(
-      (state) => state.maybeWhen(
-        loaded: (_, data) => data,
-        orElse: () => CheckInfo.empty(),
-      ),
+    final data = ref.watch(checkInfoStateNotifierProvider.select(
+      (state) => state.info,
     ));
 
-    _remarkController.text = checkInfo.details[index].remark;
+    _remarkController.text = data.details[index].remark;
 
     return Hero(
       tag: details.chkItemCd,
@@ -89,9 +86,9 @@ class RemarkPopupCard extends HookConsumerWidget {
                           onPressed: () {
                             ref
                                 .read(checkInfoStateNotifierProvider.notifier)
-                                .setCheckInfo(checkInfo.copyWith(
-                                    details: checkInfo.details
-                                        .mapIndexed((idx, detail) {
+                                .setCheckInfo(data.copyWith(
+                                    details:
+                                        data.details.mapIndexed((idx, detail) {
                                   if (idx == index) {
                                     return detail.copyWith(
                                       remark: _remarkController.text,

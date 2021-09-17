@@ -14,7 +14,7 @@ class CheckMobileTitle extends StatelessWidget {
           padding: const EdgeInsets.all(LayoutConstants.paddingM),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           child: const Icon(
             Icons.home,

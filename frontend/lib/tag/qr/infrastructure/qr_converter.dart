@@ -1,6 +1,6 @@
-import 'package:frontend/tag/core/domain/tag_failure.dart';
-import 'package:frontend/tag/core/domain/tag.dart';
 import 'package:dartz/dartz.dart';
+import 'package:frontend/tag/core/domain/tag.dart';
+import 'package:frontend/tag/core/domain/tag_failure.dart';
 import 'package:frontend/tag/core/infrastructure/tag_converter.dart';
 import 'package:frontend/tag/core/infrastructure/tag_dto.dart';
 

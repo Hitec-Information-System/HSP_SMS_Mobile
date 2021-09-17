@@ -9,5 +9,13 @@
     "**/*.g.dart": true,
     "**/.gitkeep": false
   },
-  "explorerExclude.backup": null
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
+  // Remove .fvm files from search
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  // Remove from file watching
+  "files.watcherExclude": {
+    "**/.fvm": true
+  }
 }

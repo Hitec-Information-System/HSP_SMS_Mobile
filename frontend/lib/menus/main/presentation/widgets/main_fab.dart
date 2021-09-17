@@ -9,6 +9,8 @@ class MainFAB extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print("fab built");
+
     final isDialOpen = useState<bool>(false);
 
     return ExpandableFAB(
