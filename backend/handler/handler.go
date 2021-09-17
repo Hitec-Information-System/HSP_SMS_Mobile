@@ -40,6 +40,7 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/check", a.fetchCheckList).Methods("GET")
 	r.HandleFunc("/check", a.saveCheckList).Methods("POST")
+	r.HandleFunc("/check/images", uploadHandler).Methods("POST")
 
 	r.HandleFunc("/gubun", a.fetchCheckStatusTodayByGubun).Methods("GET")
 	// for test
