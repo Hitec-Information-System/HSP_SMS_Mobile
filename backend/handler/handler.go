@@ -219,15 +219,11 @@ func (a *AppHandler) saveCheckList(w http.ResponseWriter, r *http.Request) {
 	xmlD := params["xmlD"].(string)
 	xmlI := params["xmlI"].(string)
 
-	if len(compCd) < 1 || len(systemFlag) < 1 || len(userId) < 1 || len(xmlH) < 1 || len(xmlD) < 1 || len(xmlI) < 1 {
-		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
-	}
-
 	query := fmt.Sprintf(`BEGIN SMS_PK_5010.P_SAVE_CHKLIST('%s','%s','%s','%s','%s','%s',:1); END;`, compCd, systemFlag, userId, xmlH, xmlD, xmlI)
 
 	fmt.Println(query)
 
-	results, err := a.db.GetSPDataWithLOC(query)
+	results, err := a.db.GetSPDataWithString(query)
 
 	if err != nil {
 		panic(err)

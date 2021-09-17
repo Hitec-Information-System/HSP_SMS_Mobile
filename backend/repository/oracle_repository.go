@@ -78,6 +78,36 @@ func (o *OracleRepository) GetSPDataWithStringAndCursor(qry string) (map[string]
 	return results, err
 }
 
+func (o *OracleRepository) GetSPDataWithString(qry string) (string, error) {
+	var err error
+
+	var results string
+
+	ctx, cancel := context.WithTimeout(godror.ContextWithTraceTag(context.Background(), godror.TraceTag{Module: "plsql_with_cursor"}), 10*time.Second)
+	defer cancel()
+
+	conn, err := o.db.Conn(ctx)
+	if err != nil {
+		return results, err
+	}
+
+	defer conn.Close()
+
+	stmt, err := conn.PrepareContext(ctx, qry)
+	if err != nil {
+		return results, err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.ExecContext(ctx, sql.Out{Dest: &results, In: false})
+
+	if err != nil {
+		return results, err
+	}
+
+	return results, err
+}
+
 func (o *OracleRepository) GetQueryData(query string) ([]interface{}, error) {
 
 	var results []interface{}
