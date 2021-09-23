@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:frontend/check/check_info/presentation/widgets.dart';
+import 'package:frontend/check/presentation/widgets.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 
 class CheckStandardRow extends StatelessWidget {

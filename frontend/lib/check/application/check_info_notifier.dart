@@ -1,11 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:frontend/check/check_info/domain/check_info.dart';
-import 'package:frontend/check/check_info/domain/check_info_failure.dart';
-import 'package:frontend/check/check_info/infrastructure/check_info_repository.dart';
+import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/check/domain/check_info_failure.dart';
+import 'package:frontend/check/infrastructure/check_info_repository.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 part 'check_info_notifier.freezed.dart';
 
@@ -48,49 +47,55 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
   }
 
   void setCheckInfo(CheckInfo info) {
-    state = state.maybeWhen(
-      loaded: (tagId, data) => CheckInfoState.loaded(tagId, info),
-      orElse: () => CheckInfoState.initial(state.tagId, state.info),
+    state = state.copyWith(
+      info: info,
     );
   }
 
   Future<void> pickImages(int index) async {
     final images = await _picker.pickMultiImage();
     if (images != null) {
-      state = state.maybeWhen(
-        loaded: (tagId, data) => CheckInfoState.loaded(
-            tagId,
-            state.info.copyWith(
-                details: state.info.details.mapIndexed((detailIdx, detail) {
-              if (detailIdx == index) {
-                return detail.copyWith(
-                  images: images.map((image) {
-                    final newImg = XFile(
-                      image.path,
-                      name:
-                          "${DateFormat("yyyyMMddHmmss").format(DateTime.now())}${data.header.chasu}${detail.chkItemCd}",
-                    );
-                    return newImg;
-                  }).toList(),
+      state = state.copyWith.info(
+        details: state.info.details.mapIndexed((detailIdx, detail) {
+          if (detailIdx == index) {
+            return detail.copyWith(
+              images: images.mapIndexed((imageIdx, image) {
+                // TODO: set image file name convention
+
+                final chklistNo = state.info.header.id;
+                final chkItemCd = detail.chkItemCd.replaceAll("_", "");
+                final imageNo = imageIdx + 1;
+                final fileNameExt = image.name.split(".").last;
+
+                return CheckImage(
+                  name: "$chklistNo$chkItemCd$imageNo.$fileNameExt",
+                  image: image,
                 );
-              } else {
-                return detail;
-              }
-            }).toList())),
-        orElse: () => CheckInfoState.initial(state.tagId, state.info),
+              }).toList(),
+            );
+          } else {
+            return detail;
+          }
+        }).toList(),
       );
     }
   }
 
   void setCheckHeaderChasu(String chasu) {
-    state = state.maybeWhen(
-      loaded: (tagId, data) => CheckInfoState.loaded(
-        tagId,
-        state.info.copyWith.header(
-          chasu: chasu,
-        ),
-      ),
-      orElse: () => CheckInfoState.initial(state.tagId, state.info),
+    state = state.copyWith.info.header(
+      chasu: chasu,
+    );
+  }
+
+  void clearDetailsImages(int index) {
+    state = state.copyWith.info(
+      details: state.info.details.mapIndexed((detailIndex, detail) {
+        if (detailIndex == index) {
+          return detail..images.clear();
+        } else {
+          return detail;
+        }
+      }).toList(),
     );
   }
 
@@ -99,13 +104,13 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
   }
 
   Future<void> saveCheckInfo(
-      Map<String, dynamic> params, List<XFile> images) async {
-    state = CheckInfoState.loading(state.tagId, state.info);
+      Map<String, dynamic> params, List<CheckImage> images) async {
+    state = CheckInfoState.saving(state.tagId, state.info);
 
     final failureOrSuccess = await _repository.saveCheckInfo(params, images);
     state = failureOrSuccess.fold(
       (failure) => CheckInfoState.failure(state.tagId, state.info, failure),
-      (success) => CheckInfoState.loaded(state.tagId, state.info),
+      (success) => CheckInfoState.saved(state.tagId, state.info),
     );
   }
 }

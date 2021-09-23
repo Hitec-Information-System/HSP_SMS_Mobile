@@ -669,7 +669,7 @@ class _$CheckDetailsTearOff {
       required String methodChk,
       required String remark,
       required String result,
-      required List<XFile> images}) {
+      required List<CheckImage> images}) {
     return _CheckDetails(
       chkItemCd: chkItemCd,
       chkItemNm: chkItemNm,
@@ -695,7 +695,7 @@ mixin _$CheckDetails {
 // required String objGubunSubNm,
   String get remark => throw _privateConstructorUsedError;
   String get result => throw _privateConstructorUsedError;
-  List<XFile> get images => throw _privateConstructorUsedError;
+  List<CheckImage> get images => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckDetailsCopyWith<CheckDetails> get copyWith =>
@@ -714,7 +714,7 @@ abstract class $CheckDetailsCopyWith<$Res> {
       String methodChk,
       String remark,
       String result,
-      List<XFile> images});
+      List<CheckImage> images});
 }
 
 /// @nodoc
@@ -763,7 +763,7 @@ class _$CheckDetailsCopyWithImpl<$Res> implements $CheckDetailsCopyWith<$Res> {
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<XFile>,
+              as List<CheckImage>,
     ));
   }
 }
@@ -782,7 +782,7 @@ abstract class _$CheckDetailsCopyWith<$Res>
       String methodChk,
       String remark,
       String result,
-      List<XFile> images});
+      List<CheckImage> images});
 }
 
 /// @nodoc
@@ -833,7 +833,7 @@ class __$CheckDetailsCopyWithImpl<$Res> extends _$CheckDetailsCopyWithImpl<$Res>
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<XFile>,
+              as List<CheckImage>,
     ));
   }
 }
@@ -865,7 +865,7 @@ class _$_CheckDetails extends _CheckDetails {
   @override
   final String result;
   @override
-  final List<XFile> images;
+  final List<CheckImage> images;
 
   @override
   String toString() {
@@ -921,7 +921,7 @@ abstract class _CheckDetails extends CheckDetails {
       required String methodChk,
       required String remark,
       required String result,
-      required List<XFile> images}) = _$_CheckDetails;
+      required List<CheckImage> images}) = _$_CheckDetails;
   const _CheckDetails._() : super._();
 
   @override
@@ -938,7 +938,7 @@ abstract class _CheckDetails extends CheckDetails {
   @override
   String get result => throw _privateConstructorUsedError;
   @override
-  List<XFile> get images => throw _privateConstructorUsedError;
+  List<CheckImage> get images => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckDetailsCopyWith<_CheckDetails> get copyWith =>
@@ -1093,5 +1093,153 @@ abstract class _CheckStandard extends CheckStandard {
   @override
   @JsonKey(ignore: true)
   _$CheckStandardCopyWith<_CheckStandard> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+class _$CheckImageTearOff {
+  const _$CheckImageTearOff();
+
+  _CheckImage call({required String name, required XFile image}) {
+    return _CheckImage(
+      name: name,
+      image: image,
+    );
+  }
+}
+
+/// @nodoc
+const $CheckImage = _$CheckImageTearOff();
+
+/// @nodoc
+mixin _$CheckImage {
+  String get name => throw _privateConstructorUsedError;
+  XFile get image => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CheckImageCopyWith<CheckImage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CheckImageCopyWith<$Res> {
+  factory $CheckImageCopyWith(
+          CheckImage value, $Res Function(CheckImage) then) =
+      _$CheckImageCopyWithImpl<$Res>;
+  $Res call({String name, XFile image});
+}
+
+/// @nodoc
+class _$CheckImageCopyWithImpl<$Res> implements $CheckImageCopyWith<$Res> {
+  _$CheckImageCopyWithImpl(this._value, this._then);
+
+  final CheckImage _value;
+  // ignore: unused_field
+  final $Res Function(CheckImage) _then;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? image = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as XFile,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CheckImageCopyWith<$Res> implements $CheckImageCopyWith<$Res> {
+  factory _$CheckImageCopyWith(
+          _CheckImage value, $Res Function(_CheckImage) then) =
+      __$CheckImageCopyWithImpl<$Res>;
+  @override
+  $Res call({String name, XFile image});
+}
+
+/// @nodoc
+class __$CheckImageCopyWithImpl<$Res> extends _$CheckImageCopyWithImpl<$Res>
+    implements _$CheckImageCopyWith<$Res> {
+  __$CheckImageCopyWithImpl(
+      _CheckImage _value, $Res Function(_CheckImage) _then)
+      : super(_value, (v) => _then(v as _CheckImage));
+
+  @override
+  _CheckImage get _value => super._value as _CheckImage;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? image = freezed,
+  }) {
+    return _then(_CheckImage(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as XFile,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CheckImage extends _CheckImage {
+  const _$_CheckImage({required this.name, required this.image}) : super._();
+
+  @override
+  final String name;
+  @override
+  final XFile image;
+
+  @override
+  String toString() {
+    return 'CheckImage(name: $name, image: $image)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CheckImage &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.image, image) ||
+                const DeepCollectionEquality().equals(other.image, image)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(image);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CheckImageCopyWith<_CheckImage> get copyWith =>
+      __$CheckImageCopyWithImpl<_CheckImage>(this, _$identity);
+}
+
+abstract class _CheckImage extends CheckImage {
+  const factory _CheckImage({required String name, required XFile image}) =
+      _$_CheckImage;
+  const _CheckImage._() : super._();
+
+  @override
+  String get name => throw _privateConstructorUsedError;
+  @override
+  XFile get image => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CheckImageCopyWith<_CheckImage> get copyWith =>
       throw _privateConstructorUsedError;
 }

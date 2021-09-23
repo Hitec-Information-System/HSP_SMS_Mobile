@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:frontend/check/check_info/domain/check_info.dart';
+import 'package:frontend/check/domain/check_info.dart';
 import 'package:image_picker/image_picker.dart';
 
 part 'check_info_dto.freezed.dart';
@@ -106,7 +106,7 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
     // @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
     @Default("") @JsonKey(ignore: true) String remark,
     @Default("") @JsonKey(ignore: true) String result,
-    @Default([]) @JsonKey(ignore: true) List<XFile> images,
+    @Default([]) @JsonKey(ignore: true) List<CheckImageDTO> images,
   }) = _CheckDetailsDTO;
 
   factory CheckDetailsDTO.fromJson(Map<String, dynamic> json) =>
@@ -121,7 +121,7 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
         // objGubunSubNm: objGubunSubNm,
         remark: remark,
         result: result,
-        images: images,
+        images: images.map((e) => e.toDomain()).toList(),
       );
 
   factory CheckDetailsDTO.fromDomain(CheckDetails _) => CheckDetailsDTO(
@@ -133,7 +133,9 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
         // objGubunSubNm: _.objGubunSubNm,
         result: _.result,
         remark: _.remark,
-        images: _.images,
+        images: _.images
+            .map((checkImage) => CheckImageDTO.fromDomain(checkImage))
+            .toList(),
       );
 }
 
@@ -157,6 +159,25 @@ class CheckStandardDTO with _$CheckStandardDTO {
     return CheckStandard(
       id: id.toString(),
       name: name.toString(),
+    );
+  }
+}
+
+@freezed
+class CheckImageDTO with _$CheckImageDTO {
+  const CheckImageDTO._();
+  const factory CheckImageDTO({
+    @Default("") @JsonKey(ignore: true) String name,
+    @JsonKey(ignore: true) XFile? image,
+  }) = _CheckImageDTO;
+
+  factory CheckImageDTO.fromDomain(CheckImage _) =>
+      CheckImageDTO(name: _.name, image: _.image);
+
+  CheckImage toDomain() {
+    return CheckImage(
+      name: name,
+      image: image!,
     );
   }
 }

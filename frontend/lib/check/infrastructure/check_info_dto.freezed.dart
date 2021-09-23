@@ -771,7 +771,7 @@ class _$CheckDetailsDTOTearOff {
       @JsonKey(name: "METHOD_CHECK") required String methodChk,
       @JsonKey(ignore: true) String remark = "",
       @JsonKey(ignore: true) String result = "",
-      @JsonKey(ignore: true) List<XFile> images = const []}) {
+      @JsonKey(ignore: true) List<CheckImageDTO> images = const []}) {
     return _CheckDetailsDTO(
       chkItemCd: chkItemCd,
       chkItemNm: chkItemNm,
@@ -808,7 +808,7 @@ mixin _$CheckDetailsDTO {
   @JsonKey(ignore: true)
   String get result => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  List<XFile> get images => throw _privateConstructorUsedError;
+  List<CheckImageDTO> get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -828,7 +828,7 @@ abstract class $CheckDetailsDTOCopyWith<$Res> {
       @JsonKey(name: "METHOD_CHECK") String methodChk,
       @JsonKey(ignore: true) String remark,
       @JsonKey(ignore: true) String result,
-      @JsonKey(ignore: true) List<XFile> images});
+      @JsonKey(ignore: true) List<CheckImageDTO> images});
 }
 
 /// @nodoc
@@ -878,7 +878,7 @@ class _$CheckDetailsDTOCopyWithImpl<$Res>
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<XFile>,
+              as List<CheckImageDTO>,
     ));
   }
 }
@@ -897,7 +897,7 @@ abstract class _$CheckDetailsDTOCopyWith<$Res>
       @JsonKey(name: "METHOD_CHECK") String methodChk,
       @JsonKey(ignore: true) String remark,
       @JsonKey(ignore: true) String result,
-      @JsonKey(ignore: true) List<XFile> images});
+      @JsonKey(ignore: true) List<CheckImageDTO> images});
 }
 
 /// @nodoc
@@ -949,7 +949,7 @@ class __$CheckDetailsDTOCopyWithImpl<$Res>
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<XFile>,
+              as List<CheckImageDTO>,
     ));
   }
 }
@@ -991,7 +991,7 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
   final String result;
   @override
   @JsonKey(ignore: true)
-  final List<XFile> images;
+  final List<CheckImageDTO> images;
 
   @override
   String toString() {
@@ -1052,7 +1052,7 @@ abstract class _CheckDetailsDTO extends CheckDetailsDTO {
       @JsonKey(name: "METHOD_CHECK") required String methodChk,
       @JsonKey(ignore: true) String remark,
       @JsonKey(ignore: true) String result,
-      @JsonKey(ignore: true) List<XFile> images}) = _$_CheckDetailsDTO;
+      @JsonKey(ignore: true) List<CheckImageDTO> images}) = _$_CheckDetailsDTO;
   const _CheckDetailsDTO._() : super._();
 
   factory _CheckDetailsDTO.fromJson(Map<String, dynamic> json) =
@@ -1079,7 +1079,7 @@ abstract class _CheckDetailsDTO extends CheckDetailsDTO {
   String get result => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  List<XFile> get images => throw _privateConstructorUsedError;
+  List<CheckImageDTO> get images => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckDetailsDTOCopyWith<_CheckDetailsDTO> get copyWith =>
@@ -1271,5 +1271,172 @@ abstract class _CheckStandardDTO extends CheckStandardDTO {
   @override
   @JsonKey(ignore: true)
   _$CheckStandardDTOCopyWith<_CheckStandardDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+class _$CheckImageDTOTearOff {
+  const _$CheckImageDTOTearOff();
+
+  _CheckImageDTO call(
+      {@JsonKey(ignore: true) String name = "",
+      @JsonKey(ignore: true) XFile? image}) {
+    return _CheckImageDTO(
+      name: name,
+      image: image,
+    );
+  }
+}
+
+/// @nodoc
+const $CheckImageDTO = _$CheckImageDTOTearOff();
+
+/// @nodoc
+mixin _$CheckImageDTO {
+  @JsonKey(ignore: true)
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  XFile? get image => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CheckImageDTOCopyWith<CheckImageDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CheckImageDTOCopyWith<$Res> {
+  factory $CheckImageDTOCopyWith(
+          CheckImageDTO value, $Res Function(CheckImageDTO) then) =
+      _$CheckImageDTOCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(ignore: true) String name,
+      @JsonKey(ignore: true) XFile? image});
+}
+
+/// @nodoc
+class _$CheckImageDTOCopyWithImpl<$Res>
+    implements $CheckImageDTOCopyWith<$Res> {
+  _$CheckImageDTOCopyWithImpl(this._value, this._then);
+
+  final CheckImageDTO _value;
+  // ignore: unused_field
+  final $Res Function(CheckImageDTO) _then;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? image = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as XFile?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CheckImageDTOCopyWith<$Res>
+    implements $CheckImageDTOCopyWith<$Res> {
+  factory _$CheckImageDTOCopyWith(
+          _CheckImageDTO value, $Res Function(_CheckImageDTO) then) =
+      __$CheckImageDTOCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(ignore: true) String name,
+      @JsonKey(ignore: true) XFile? image});
+}
+
+/// @nodoc
+class __$CheckImageDTOCopyWithImpl<$Res>
+    extends _$CheckImageDTOCopyWithImpl<$Res>
+    implements _$CheckImageDTOCopyWith<$Res> {
+  __$CheckImageDTOCopyWithImpl(
+      _CheckImageDTO _value, $Res Function(_CheckImageDTO) _then)
+      : super(_value, (v) => _then(v as _CheckImageDTO));
+
+  @override
+  _CheckImageDTO get _value => super._value as _CheckImageDTO;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? image = freezed,
+  }) {
+    return _then(_CheckImageDTO(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as XFile?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CheckImageDTO extends _CheckImageDTO {
+  const _$_CheckImageDTO(
+      {@JsonKey(ignore: true) this.name = "",
+      @JsonKey(ignore: true) this.image})
+      : super._();
+
+  @override
+  @JsonKey(ignore: true)
+  final String name;
+  @override
+  @JsonKey(ignore: true)
+  final XFile? image;
+
+  @override
+  String toString() {
+    return 'CheckImageDTO(name: $name, image: $image)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CheckImageDTO &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.image, image) ||
+                const DeepCollectionEquality().equals(other.image, image)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(image);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CheckImageDTOCopyWith<_CheckImageDTO> get copyWith =>
+      __$CheckImageDTOCopyWithImpl<_CheckImageDTO>(this, _$identity);
+}
+
+abstract class _CheckImageDTO extends CheckImageDTO {
+  const factory _CheckImageDTO(
+      {@JsonKey(ignore: true) String name,
+      @JsonKey(ignore: true) XFile? image}) = _$_CheckImageDTO;
+  const _CheckImageDTO._() : super._();
+
+  @override
+  @JsonKey(ignore: true)
+  String get name => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  XFile? get image => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CheckImageDTOCopyWith<_CheckImageDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }

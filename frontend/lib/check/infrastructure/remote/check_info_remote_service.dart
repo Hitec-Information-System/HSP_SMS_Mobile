@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:frontend/check/check_info/infrastructure/check_info_dto.dart';
+import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/check/infrastructure/check_info_dto.dart';
 import 'package:frontend/core/infrastructure/dio_extensions.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
 import 'package:frontend/core/infrastructure/remote_response.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CheckInfoRemoteService {
   final Dio _dio;
@@ -45,7 +45,7 @@ class CheckInfoRemoteService {
   }
 
   Future<RemoteResponse<String>> saveCheckResults(
-      Map<String, dynamic> params, List<XFile> images) async {
+      Map<String, dynamic> params, List<CheckImage> images) async {
     try {
       await _saveCheckInfoResult(params);
       await _saveCheckImages(images);
@@ -77,19 +77,16 @@ class CheckInfoRemoteService {
     }
   }
 
-  Future<void> _saveCheckImages(List<XFile> images) async {
+  Future<void> _saveCheckImages(List<CheckImage> images) async {
     try {
       final formData = FormData();
       final imageParams = <MapEntry<String, MultipartFile>>[];
 
       for (final image in images) {
         final img =
-            await MultipartFile.fromFile(image.path, filename: image.name);
+            MultipartFile.fromFileSync(image.image.path, filename: image.name);
         imageParams.add(MapEntry("file", img));
       }
-
-      formData.fields
-          .addAll(images.map((image) => MapEntry("name", image.name)).toList());
 
       formData.files.addAll(imageParams);
 

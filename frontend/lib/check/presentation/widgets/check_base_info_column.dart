@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/check/check_info/shared/providers.dart';
+import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/presentation/widgets/responsive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../widgets.dart';
 
@@ -83,26 +84,42 @@ class CheckBaseInfoColumn extends StatelessWidget {
                   horizontal: LayoutConstants.paddingM),
               child: ElevatedButton(
                 onPressed: () {
-                  final params = {
-                    "compCd": LogicConstants.companyCd,
-                    "sysFlag": LogicConstants.systemFlag,
-                    // TODO: USERID 변경
-                    "userId": "dev",
-                    "xmlH": data.toHeaderXml,
-                    "xmlD": data.toResultsXml,
-                    "xmlI": data.toImgsXml,
-                  };
-                  final images = <XFile>[];
-                  for (final detail in data.details) {
-                    images.addAll(detail.images);
-                  }
+                  print("pressed");
 
-                  ref
-                      .read(checkInfoStateNotifierProvider.notifier)
-                      .saveCheckInfo(
-                        params,
-                        images,
-                      );
+                  Dialogs.showTwoAnswersDialog(
+                    context,
+                    color: Theme.of(context).colorScheme.secondary,
+                    icon: Icons.help,
+                    title: "점검목록 저장",
+                    message: "점검내용을 저장하시겠습니까?",
+                    yesTitle: "저장",
+                    onYesPressed: () {
+                      final params = {
+                        "compCd": LogicConstants.companyCd,
+                        "sysFlag": LogicConstants.systemFlag,
+                        // TODO: USERID 변경
+                        "userId": "dev",
+                        "xmlH": data.toHeaderXml,
+                        "xmlD": data.toResultsXml,
+                        "xmlI": data.toImgsXml,
+                      };
+
+                      final images = <CheckImage>[];
+                      for (final detail in data.details) {
+                        images.addAll(detail.images);
+                      }
+
+                      ref
+                          .read(checkInfoStateNotifierProvider.notifier)
+                          .saveCheckInfo(
+                            params,
+                            images,
+                          );
+                    },
+                    noTitle: "취소",
+                    onNoPressed: () {},
+                    onDismissed: () {},
+                  );
                 },
                 child: const Text(
                   "저장",

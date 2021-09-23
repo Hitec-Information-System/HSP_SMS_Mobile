@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/check/check_info/shared/providers.dart';
+import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/layout_constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

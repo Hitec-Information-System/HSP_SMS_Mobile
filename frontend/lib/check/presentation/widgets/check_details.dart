@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/check/check_info/domain/check_info.dart';
-import 'package:frontend/check/check_info/presentation/remark_popup.dart';
-import 'package:frontend/check/check_info/presentation/widgets.dart';
-import 'package:frontend/check/check_info/shared/providers.dart';
+import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/check/presentation/remark_popup.dart';
+import 'package:frontend/check/presentation/widgets.dart';
+import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/routes/hero_dialog_router.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
@@ -142,18 +142,26 @@ class CheckDetailsCard extends StatelessWidget {
                                     );
                                   },
                                 ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    // TODO: Cached Image Clear
+                                Consumer(
+                                  builder: (context, ref, child) {
+                                    return GestureDetector(
+                                      onTap: () async {
+                                        // TODO: Cached Image Clear
+                                        ref
+                                            .read(checkInfoStateNotifierProvider
+                                                .notifier)
+                                            .clearDetailsImages(index);
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: LayoutConstants.paddingS,
+                                        ),
+                                        child: Icon(
+                                          Icons.refresh,
+                                        ),
+                                      ),
+                                    );
                                   },
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: LayoutConstants.paddingS,
-                                    ),
-                                    child: Icon(
-                                      Icons.refresh,
-                                    ),
-                                  ),
                                 ),
                               ],
                             ),

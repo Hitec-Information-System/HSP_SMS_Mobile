@@ -1,12 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:frontend/check/check_info/domain/check_info.dart';
-import 'package:frontend/check/check_info/domain/check_info_failure.dart';
-import 'package:frontend/check/check_info/infrastructure/local/check_info_local_service.dart';
-import 'package:frontend/check/check_info/infrastructure/remote/check_info_remote_service.dart';
+import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/check/domain/check_info_failure.dart';
+import 'package:frontend/check/infrastructure/local/check_info_local_service.dart';
+import 'package:frontend/check/infrastructure/remote/check_info_remote_service.dart';
 
 import 'package:frontend/core/domain/fresh.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CheckInfoRepository {
   final CheckInfoLocalService _localService;
@@ -45,7 +44,7 @@ class CheckInfoRepository {
   }
 
   Future<Either<CheckInfoFailure, Fresh<String>>> saveCheckInfo(
-      Map<String, dynamic> params, List<XFile> images) async {
+      Map<String, dynamic> params, List<CheckImage> images) async {
     try {
       final remoteFetch = await _remoteService.saveCheckResults(params, images);
       return right(

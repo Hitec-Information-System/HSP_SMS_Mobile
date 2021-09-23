@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 
 part 'check_info.freezed.dart';
 
+const saveDirPath = "./uploads";
+
 @freezed
 class CheckInfo with _$CheckInfo {
   const CheckInfo._();
@@ -107,7 +109,7 @@ class CheckDetails with _$CheckDetails {
     // required String objGubunSubNm,
     required String remark,
     required String result,
-    required List<XFile> images,
+    required List<CheckImage> images,
   }) = _CheckDetails;
 
   String get toResultXml => '''
@@ -126,13 +128,15 @@ class CheckDetails with _$CheckDetails {
       return "";
     }
 
+    // image name: ./uploads/${images[index].name}
+
     return images
         .mapIndexed(
           (index, element) => '''
     <Table1>
       <CHK_ITEM_CD>$chkItemCd</CHK_ITEM_CD>
-      <CHK_IMG_NO>$index</CHK_IMG_NO>
-      <CHK_IMG_URL>./uploads/${images[index].name}</CHK_IMG_URL>
+      <CHK_IMG_NO>${index + 1}</CHK_IMG_NO>
+      <CHK_IMG_URL>$saveDirPath/${images[index].name}</CHK_IMG_URL>
       <RMK></RMK>
     </Table1>
   '''
@@ -149,4 +153,13 @@ class CheckStandard with _$CheckStandard {
     required String id,
     required String name,
   }) = _CheckStandard;
+}
+
+@freezed
+class CheckImage with _$CheckImage {
+  const CheckImage._();
+  const factory CheckImage({
+    required String name,
+    required XFile image,
+  }) = _CheckImage;
 }

@@ -4,8 +4,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:frontend/auth/shared/providers.dart';
-import 'package:frontend/check/check_info/application/check_info_notifier.dart';
-import 'package:frontend/check/check_info/shared/providers.dart';
+import 'package:frontend/check/application/check_info_notifier.dart';
+import 'package:frontend/check/shared/providers.dart';
+
 import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/shared/hooks/rive/tag_recognizer_controller.dart';
@@ -94,19 +95,18 @@ class MenuMainPage extends HookConsumerWidget {
 
     ref.listen<CheckInfoState>(checkInfoStateNotifierProvider, (state) {
       state.maybeWhen(
-        loaded: (tagId, info) {
+        initial: (_, __) {
+          AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
+        },
+        loaded: (_, __) {
           AutoRouter.of(context).push(const CheckListRoute()).then((_) {
             ref.read(tagNotifierProvider.notifier).clear();
-            ref.read(checkInfoStateNotifierProvider.notifier).clear();
+            // ref.read(checkInfoStateNotifierProvider.notifier).clear();
           });
         },
-        failure: (tagId, info, failure) async {
-          await Future.delayed(
-            const Duration(milliseconds: 2000),
-          );
-
+        failure: (_, __, ___) async {
           ref.read(tagNotifierProvider.notifier).clear();
-          ref.read(checkInfoStateNotifierProvider.notifier).clear();
+          // ref.read(checkInfoStateNotifierProvider.notifier).clear();
         },
         orElse: () {},
       );
@@ -124,17 +124,18 @@ class MenuMainPage extends HookConsumerWidget {
           ],
         ),
         body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              // AppLocalizations.of(context)?.translate('first_string') ?? "",
-              "현재 등록화면 이동만 가능합니다",
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        )),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                // AppLocalizations.of(context)?.translate('first_string') ?? "",
+                "현재 등록화면 이동만 가능합니다",
+                style: TextStyle(fontSize: 25),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
         floatingActionButton: const MainFAB());
   }
 }
