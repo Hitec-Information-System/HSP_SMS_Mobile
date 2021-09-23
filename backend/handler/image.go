@@ -5,7 +5,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
 )
 
 const MAX_UPLOAD_SIZE = 1024 * 1024 * 20 // 20MB
@@ -68,15 +67,15 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 		dirname := "./uploads"
 
-		err = os.MkdirAll(dirname, 0777)
+		err = os.MkdirAll(dirname, os.ModePerm)
 		if err != nil {
 			rd.JSON(w, http.StatusInternalServerError, err.Error())
 			return
 		}
 
-		fmt.Println(filepath.Ext(fileHeader.Filename))
+		fmt.Println(fileHeader.Filename)
 
-		f, err := os.Create(filepath.Ext(fileHeader.Filename))
+		f, err := os.Create(fmt.Sprintf("%s/%s", dirname, fileHeader.Filename))
 		if err != nil {
 			rd.JSON(w, http.StatusInternalServerError, err.Error())
 			return

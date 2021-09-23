@@ -42,7 +42,7 @@ POST http://localhost:9110/check HTTP/2.0
 content-type: application/json
 
 {
-"compCd" : "3000",
+"compCd":"3000",
 "sysFlag":"MOBILE",
 "userId":"dev",
 "xmlH":"<NewDataSet><Table1><CHKLIST_NO>20210915130621362-5Y5</CHKLIST_NO><CHK_YMD>20210915</CHK_YMD><CHK_INTERVAL>일상</CHK_INTERVAL><CHK_CHASU>14</CHK_CHASU><OBJ_CD>BD-0001</OBJ_CD><OBJ_GUBUN>BUILDING</OBJ_GUBUN><CHK_USER_ID>dev</CHK_USER_ID></Table1></NewDataSet>",
