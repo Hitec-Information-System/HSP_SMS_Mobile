@@ -62,6 +62,15 @@ class CheckInfo with _$CheckInfo {
 
     return list.join().replaceAll(" ", "");
   }
+
+  bool get hasChecksBeenDone {
+    for (final detail in details) {
+      if (detail.result == "") {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 @freezed

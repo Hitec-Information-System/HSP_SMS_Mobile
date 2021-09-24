@@ -9,6 +9,7 @@ import 'package:frontend/check/shared/providers.dart';
 
 import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/shared/hooks/rive/tag_recognizer_controller.dart';
 import 'package:frontend/menus/main/presentation/widgets/bottom_sheet/widgets.dart';
 import 'package:frontend/menus/main/presentation/widgets/widgets.dart';
@@ -39,6 +40,8 @@ class MenuMainPage extends HookConsumerWidget {
             AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
           },
           nfcReading: () {
+            ref.read(checkInfoStateNotifierProvider.notifier).clear();
+
             showModalBottomSheet(
               backgroundColor: Colors.transparent,
               context: context,
@@ -52,6 +55,8 @@ class MenuMainPage extends HookConsumerWidget {
             });
           },
           qrReading: () {
+            ref.read(checkInfoStateNotifierProvider.notifier).clear();
+
             AutoRouter.of(context).push(const QRScanRoute());
           },
           nfcRead: (tag) {
@@ -83,7 +88,7 @@ class MenuMainPage extends HookConsumerWidget {
             rive.isComplete?.value = true;
 
             ref
-                .watch(checkInfoStateNotifierProvider.notifier)
+                .read(checkInfoStateNotifierProvider.notifier)
                 .getCheckInfo(tag.id, "일상");
           },
           failure: (failure) {
@@ -98,15 +103,43 @@ class MenuMainPage extends HookConsumerWidget {
         initial: (_, __) {
           AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
         },
-        loaded: (_, __) {
+        loaded: (_, __) async {
+          await Future.delayed(const Duration(milliseconds: 1000));
+
           AutoRouter.of(context).push(const CheckListRoute()).then((_) {
             ref.read(tagNotifierProvider.notifier).clear();
-            // ref.read(checkInfoStateNotifierProvider.notifier).clear();
           });
         },
-        failure: (_, __, ___) async {
+        saved: (_, __) {
+          Dialogs.showOneAnswerDialog(
+            context,
+            color: Theme.of(context).colorScheme.secondary,
+            icon: Icons.check_circle,
+            title: "저장 완료",
+            message: "저장을 완료하였습니다",
+            yesTitle: "확인",
+            onYesPressed: () {},
+            onDismissed: () {
+              AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
+            },
+          );
+        },
+        failure: (_, __, failure) async {
           ref.read(tagNotifierProvider.notifier).clear();
-          // ref.read(checkInfoStateNotifierProvider.notifier).clear();
+          Dialogs.showOneAnswerDialog(
+            context,
+            color: Theme.of(context).errorColor,
+            title: "오류",
+            message:
+                "오류가 발생하였습니다. 관리자에게 문의하여 주세요.\n오류는 다음과 같습니다.\n\n${failure.when(
+              api: (code) => code,
+            )}\n",
+            yesTitle: "확인",
+            onYesPressed: () {},
+            onDismissed: () {
+              AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
+            },
+          );
         },
         orElse: () {},
       );

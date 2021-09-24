@@ -7,12 +7,13 @@ import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ChecklistMobilePage extends StatelessWidget {
+class ChecklistMobilePage extends ConsumerWidget {
   const ChecklistMobilePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     print("mobile page built");
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -39,7 +40,10 @@ class ChecklistMobilePage extends StatelessWidget {
                       final data = ref.watch(checkInfoStateNotifierProvider
                           .select((value) => value.info));
                       return ElevatedButton(
-                          onPressed: () {
+                        onPressed: () {
+                          print("pressed");
+
+                          if (data.hasChecksBeenDone) {
                             Dialogs.showTwoAnswersDialog(
                               context,
                               color: Theme.of(context).colorScheme.secondary,
@@ -47,33 +51,49 @@ class ChecklistMobilePage extends StatelessWidget {
                               title: "점검목록 저장",
                               message: "점검내용을 저장하시겠습니까?",
                               yesTitle: "저장",
-                              onYesPressed: () {},
+                              onYesPressed: () {
+                                final params = {
+                                  "compCd": LogicConstants.companyCd,
+                                  "sysFlag": LogicConstants.systemFlag,
+                                  // TODO: USERID 변경
+                                  "userId": "dev",
+                                  "xmlH": data.toHeaderXml,
+                                  "xmlD": data.toResultsXml,
+                                  "xmlI": data.toImgsXml,
+                                };
+
+                                final images = <CheckImage>[];
+                                for (final detail in data.details) {
+                                  images.addAll(detail.images);
+                                }
+
+                                ref
+                                    .read(
+                                        checkInfoStateNotifierProvider.notifier)
+                                    .saveCheckInfo(
+                                      params,
+                                      images,
+                                    );
+                              },
                               noTitle: "취소",
                               onNoPressed: () {},
                               onDismissed: () {},
                             );
-                            // final params = {
-                            //   "compCd": LogicConstants.companyCd,
-                            //   "sysFlag": LogicConstants.systemFlag,
-                            //   // TODO: USERID 변경
-                            //   "userId": "dev",
-                            //   "xmlH": data.toHeaderXml,
-                            //   "xmlD": data.toResultsXml,
-                            //   "xmlI": data.toImgsXml,
-                            // };
-                            // final images = <CheckImage>[];
-                            // for (final detail in data.details) {
-                            //   images.addAll(detail.images);
-                            // }
-
-                            // ref
-                            //     .read(checkInfoStateNotifierProvider.notifier)
-                            //     .saveCheckInfo(
-                            //       params,
-                            //       images,
-                            //     );
-                          },
-                          child: const Text("저장"));
+                          } else {
+                            Dialogs.showOneAnswerDialog(
+                              context,
+                              color: Theme.of(context).errorColor,
+                              title: "점검 미완료",
+                              message: "점검을 모두 완료하지 않았습니다",
+                              yesTitle: "확인",
+                              onYesPressed: () {},
+                            );
+                          }
+                        },
+                        child: const Text(
+                          "저장",
+                        ),
+                      );
                     }),
                   ],
                 ),

@@ -1,11 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:collection/collection.dart';
 
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
@@ -14,24 +11,22 @@ class RemarkPopupCard extends HookConsumerWidget {
   const RemarkPopupCard({
     Key? key,
     required this.index,
-    required this.details,
   }) : super(key: key);
 
   final int index;
-  final CheckDetails details;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _remarkController = useTextEditingController();
 
-    final data = ref.watch(checkInfoStateNotifierProvider.select(
-      (state) => state.info,
+    final detail = ref.watch(checkInfoStateNotifierProvider.select(
+      (state) => state.info.details[index],
     ));
 
-    _remarkController.text = data.details[index].remark;
+    _remarkController.text = detail.remark;
 
     return Hero(
-      tag: details.chkItemCd,
+      tag: detail.chkItemCd,
       createRectTween: (begin, end) => CustomRectTween(begin: begin, end: end),
       child: Padding(
         padding: const EdgeInsets.all(LayoutConstants.paddingL),
@@ -50,7 +45,7 @@ class RemarkPopupCard extends HookConsumerWidget {
                     children: [
                       const SizedBox(height: LayoutConstants.spaceM),
                       Text(
-                        details.chkItemNm,
+                        detail.chkItemNm,
                       ),
                       const SizedBox(height: LayoutConstants.spaceM),
                       Container(
@@ -62,7 +57,18 @@ class RemarkPopupCard extends HookConsumerWidget {
                         ),
                         child: TextField(
                           controller: _remarkController,
+                          autofocus: true,
                           keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.done,
+                          onSubmitted: (value) {
+                            if (value.isNotEmpty) {
+                              ref
+                                  .read(checkInfoStateNotifierProvider.notifier)
+                                  .setCheckRemark(
+                                      index, _remarkController.text);
+                              AutoRouter.of(context).pop();
+                            }
+                          },
                           maxLines: null,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
@@ -87,17 +93,7 @@ class RemarkPopupCard extends HookConsumerWidget {
                           onPressed: () {
                             ref
                                 .read(checkInfoStateNotifierProvider.notifier)
-                                .setCheckInfo(data.copyWith(
-                                    details:
-                                        data.details.mapIndexed((idx, detail) {
-                                  if (idx == index) {
-                                    return detail.copyWith(
-                                      remark: _remarkController.text,
-                                    );
-                                  } else {
-                                    return detail;
-                                  }
-                                }).toList()));
+                                .setCheckRemark(index, _remarkController.text);
                             AutoRouter.of(context).pop();
                           },
                           child: const Text("확인"),

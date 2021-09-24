@@ -46,10 +46,42 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
     );
   }
 
-  void setCheckInfo(CheckInfo info) {
-    state = state.copyWith(
-      info: info,
+  void setCheckChasu(String chasu) {
+    state = state.copyWith.info.header(
+      chasu: chasu,
     );
+  }
+
+  void setCheckInterval(String interval) {
+    state = state.copyWith.info.header(
+      interval: interval,
+    );
+  }
+
+  void setCheckResult(int index, String result) {
+    state = state.copyWith.info(
+        details: state.info.details.mapIndexed((detailIdx, detail) {
+      if (index == detailIdx) {
+        return state.info.details[index].copyWith(
+          result: result,
+        );
+      } else {
+        return detail;
+      }
+    }).toList());
+  }
+
+  void setCheckRemark(int index, String remark) {
+    state = state.copyWith.info(
+        details: state.info.details.mapIndexed((detailIdx, detail) {
+      if (index == detailIdx) {
+        return state.info.details[index].copyWith(
+          remark: remark,
+        );
+      } else {
+        return detail;
+      }
+    }).toList());
   }
 
   Future<void> pickImages(int index) async {

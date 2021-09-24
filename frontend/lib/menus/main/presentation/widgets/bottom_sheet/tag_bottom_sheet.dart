@@ -1,7 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/check/shared/providers.dart';
-import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rive/rive.dart';
@@ -78,9 +77,7 @@ class TagBottomSheet extends StatelessWidget {
 
                         return checkInfoState.maybeWhen(
                           initial: (_, info) => Text(
-                            AppLocalizations.of(context)
-                                    ?.translate('scan_ready') ??
-                                "",
+                            "태그를 스캔하여 주세요",
                             key: const ValueKey<String>("BTM-SH-INIT"),
                             style: TextStyle(
                               color: Theme.of(context).hintColor,
@@ -88,11 +85,11 @@ class TagBottomSheet extends StatelessWidget {
                             ),
                           ),
                           loading: (_, info) => Container(
-                              key: ValueKey<String>("loading"),
+                              key: const ValueKey<String>("loading"),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("정보를 확인하는 중입니다"),
+                                  const Text("정보를 확인하는 중입니다"),
                                   AnimatedTextKit(
                                     animatedTexts: [
                                       TypewriterAnimatedText("..."),
@@ -101,13 +98,24 @@ class TagBottomSheet extends StatelessWidget {
                                 ],
                               )),
                           loaded: (_, data) => Container(
-                            key: ValueKey<String>("loaded"),
+                            key: const ValueKey<String>("loaded"),
                             // todo: 수정
-                            // child: Text("${serial.location}"),
+                            child: Text.rich(TextSpan(children: <TextSpan>[
+                              TextSpan(
+                                text: data.header.objNm,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                              const TextSpan(text: " 검사로 이동합니다"),
+                            ])),
                           ),
                           failure: (_, info, failure) => Container(
-                            key: ValueKey<String>("failure"),
-                            child: Text("fail"),
+                            key: const ValueKey<String>("failure"),
+                            child: const Text("정보를 읽어오는데 실패하였습니다."),
                           ),
                           orElse: () => const SizedBox(),
                         );
