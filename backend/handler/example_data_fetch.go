@@ -35,7 +35,7 @@ func (a *AppHandler) getTestData(w http.ResponseWriter, r *http.Request) {
 
 	query := fmt.Sprintf(`BEGIN SMS_PK_JSON.GET_OBJ_GUBUN_LIST(%s,:1); END;`, compCd)
 
-	results, err := a.db.GetSPDataWithLOC(query)
+	results, err := a.db.GetSPDataWithLOB(query)
 
 	if err != nil {
 		panic(err)

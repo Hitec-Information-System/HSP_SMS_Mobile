@@ -42,7 +42,7 @@ func MakeHandler() *AppHandler {
 	r.HandleFunc("/check", a.saveCheckList).Methods("POST")
 	r.HandleFunc("/check/images", uploadHandler).Methods("POST")
 
-	r.HandleFunc("/gubun", a.fetchCheckStatusTodayByGubun).Methods("GET")
+	r.HandleFunc("/monitor", a.fetchCheckStatusTodayByGubun).Methods("GET")
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
 	r.HandleFunc("/proto", a.getTestData).Methods("POST")
@@ -120,6 +120,7 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 	userId := queryString.Get("user")
 	checkNo := queryString.Get("check-no")
 	interval := queryString.Get("interval")
+	session := queryString.Get("session")
 
 	if compCd == "" || userId == "" || checkNo == "" {
 		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
@@ -128,11 +129,13 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// TODO: 점검 주기 인자 넘기기
+
 	headerQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '%s', '%s', '',:CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '%s', '%s', '%s',:CURSOR1);
 	END;
-	`, compCd, systemFlag, userId, checkNo, interval)
+	`, compCd, systemFlag, userId, checkNo, interval, session)
 
 	fmt.Println(headerQuery)
 
@@ -146,9 +149,9 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	detailsQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_D('%s', '%s', '%s', '%s', '일상',:CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_D('%s', '%s', '%s', '%s', '%s', '%s', :CURSOR1);
 	END;
-	`, compCd, systemFlag, userId, checkNo)
+	`, compCd, systemFlag, userId, checkNo, interval, session)
 
 	fmt.Println(detailsQuery)
 
@@ -259,13 +262,13 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 
 	query := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_OBJ_CHKLIST_TODAY_M('%s', '%s', '%s', '%s',:CURSOR1, :CURSOR2);
+		SMS_PK_5010.P_FIND_OBJ_CHKLIST_TODAY_JSON('%s', '%s', '%s', '%s',:CURSOR1);
 	END;
 	`, compCd, systemFlag, userId, buf.String())
 
 	fmt.Println(query)
 
-	results, err := a.db.GetSPDataWith2Cursor(query)
+	results, err := a.db.GetSPDataWithLOB(query)
 	if err != nil {
 		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
 			"msg": err.Error(),

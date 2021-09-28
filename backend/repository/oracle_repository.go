@@ -156,7 +156,7 @@ func (o *OracleRepository) GetQueryData(query string) ([]interface{}, error) {
 
 }
 
-func (o *OracleRepository) GetSPDataWithLOC(qry string) ([]map[string]interface{}, error) {
+func (o *OracleRepository) GetSPDataWithLOB(qry string) ([]map[string]interface{}, error) {
 
 	var results []map[string]interface{}
 	var err error
@@ -305,6 +305,7 @@ func (o *OracleRepository) GetSPDataWith2Cursor(qry string) (map[string]interfac
 	return results, err
 
 }
+
 
 func NewOracleRepository() DBRepository {
 
