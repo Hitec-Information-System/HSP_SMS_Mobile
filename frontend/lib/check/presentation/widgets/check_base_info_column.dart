@@ -4,7 +4,9 @@ import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/presentation/widgets/responsive.dart';
+import 'package:frontend/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:frontend/check/domain/check_details_extension.dart';
 
 import '../widgets.dart';
 
@@ -24,53 +26,60 @@ class CheckBaseInfoColumn extends StatelessWidget {
         const CheckInfoSection(),
         const SizedBox(height: LayoutConstants.spaceL),
         Consumer(builder: (context, ref, child) {
-          print("회차 built");
+          print("회차, 점검주기 built");
 
           final tagId = ref.watch(
               checkInfoStateNotifierProvider.select((state) => state.tagId));
-          final interval = ref.watch(checkInfoStateNotifierProvider
-              .select((state) => state.info.header.interval));
-          final intervals = ref.watch(checkInfoStateNotifierProvider
-              .select((state) => state.info.intervals));
+          final interval = ref.watch(
+              checkHeaderNotifierProvider.select((header) => header.interval));
+          final session = ref.watch(
+              checkHeaderNotifierProvider.select((header) => header.session));
+          final intervals = ref.watch(checkIntervalsProvider);
+          final sessions = ref.watch(checkSessionsProvider);
 
-          return CheckStandardRow(
-            label: "회차",
-            isSelected: intervals.map((item) => item.id == interval).toList(),
-            children: intervals.map((item) => item.name).toList(),
-            onPressed: (index) {
-              ref
-                  .read(checkInfoStateNotifierProvider.notifier)
-                  .setCheckInterval(intervals[index].id);
-              ref
-                  .read(checkInfoStateNotifierProvider.notifier)
-                  .getCheckInfo(tagId, intervals[index].id);
-            },
-          );
-        }),
-        const SizedBox(height: LayoutConstants.spaceM),
-        Consumer(builder: (context, ref, child) {
-          print("점검주기 built");
+          return Column(
+            children: [
+              CheckStandardRow(
+                label: "회차",
+                isSelected:
+                    intervals.map((item) => item.id == interval).toList(),
+                children: intervals.map((item) => item.name).toList(),
+                onPressed: (index) {
+                  final interval = intervals[index].id;
 
-          final chasu = ref.watch(checkInfoStateNotifierProvider
-              .select((state) => state.info.header.chasu));
-          final sessions = ref.watch(checkInfoStateNotifierProvider
-              .select((state) => state.info.sessions));
+                  ref
+                      .read(checkHeaderNotifierProvider.notifier)
+                      .setInterval(interval);
+                  ref
+                      .read(checkInfoStateNotifierProvider.notifier)
+                      .getCheckInfo(tagId, interval, session);
+                },
+              ),
+              const SizedBox(height: LayoutConstants.spaceM),
+              CheckStandardRow(
+                label: "점검주기",
+                isSelected: sessions.map((item) => item.id == session).toList(),
+                onPressed: (index) {
+                  final session = sessions[index].id;
+                  ref
+                      .read(checkHeaderNotifierProvider.notifier)
+                      .setSession(session);
 
-          return CheckStandardRow(
-            label: "점검주기",
-            isSelected: sessions.map((item) => item.id == chasu).toList(),
-            onPressed: (index) {
-              ref
-                  .read(checkInfoStateNotifierProvider.notifier)
-                  .setCheckChasu(sessions[index].id);
-            },
-            children: sessions.map((item) => item.name).toList(),
+                  ref
+                      .read(checkInfoStateNotifierProvider.notifier)
+                      .getCheckInfo(tagId, interval, session);
+                },
+                children: sessions.map((item) => item.name).toList(),
+              )
+            ],
           );
         }),
         if (!Responsive.isMobile(context))
           Consumer(builder: (context, ref, child) {
-            final data = ref.watch(
-                checkInfoStateNotifierProvider.select((value) => value.info));
+            final header = ref.watch(checkHeaderNotifierProvider);
+            final details = ref.watch(checkDetailsProvider);
+
+            final token = ref.watch(tokenProvider);
 
             return Padding(
               padding: const EdgeInsets.symmetric(
@@ -79,7 +88,7 @@ class CheckBaseInfoColumn extends StatelessWidget {
                 onPressed: () {
                   print("pressed");
 
-                  if (data.hasChecksBeenDone) {
+                  if (details.hasChecksBeenDone) {
                     Dialogs.showTwoAnswersDialog(
                       context,
                       color: Theme.of(context).colorScheme.secondary,
@@ -91,15 +100,14 @@ class CheckBaseInfoColumn extends StatelessWidget {
                         final params = {
                           "compCd": LogicConstants.companyCd,
                           "sysFlag": LogicConstants.systemFlag,
-                          // TODO: USERID 변경
-                          "userId": "dev",
-                          "xmlH": data.toHeaderXml,
-                          "xmlD": data.toResultsXml,
-                          "xmlI": data.toImgsXml,
+                          "userId": token?.key ?? "",
+                          "xmlH": header.toHeaderXml,
+                          "xmlD": details.toResultsXml,
+                          "xmlI": details.toImgsXml,
                         };
 
                         final images = <CheckImage>[];
-                        for (final detail in data.details) {
+                        for (final detail in details) {
                           images.addAll(detail.images);
                         }
 

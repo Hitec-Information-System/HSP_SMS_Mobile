@@ -11,6 +11,7 @@ class CheckInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("title rebuilt");
     return Padding(
       padding:
           const EdgeInsets.symmetric(horizontal: LayoutConstants.paddingXS),
@@ -22,12 +23,12 @@ class CheckInfoSection extends StatelessWidget {
           padding: const EdgeInsets.all(
               (LayoutConstants.paddingM + LayoutConstants.paddingL) / 2),
           child: Consumer(builder: (context, ref, child) {
-            final objGubunNm = ref.watch(checkInfoStateNotifierProvider
-                .select((state) => state.info.header.objGubunNm));
-            final objNm = ref.watch(checkInfoStateNotifierProvider
-                .select((state) => state.info.header.objNm));
-            final userNm = ref.watch(checkInfoStateNotifierProvider
-                .select((state) => state.info.header.userNm));
+            final objGubunNm = ref.watch(checkHeaderNotifierProvider
+                .select((header) => header.objGubunNm));
+            final objNm = ref.watch(
+                checkHeaderNotifierProvider.select((header) => header.objNm));
+            final userNm = ref.watch(
+                checkHeaderNotifierProvider.select((header) => header.userNm));
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

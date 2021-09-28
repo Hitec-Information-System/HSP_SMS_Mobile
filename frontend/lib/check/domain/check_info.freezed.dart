@@ -236,7 +236,7 @@ class _$CheckHeaderTearOff {
 
   _CheckHeader call(
       {required String id,
-      required String chasu,
+      required String session,
       required String interval,
       required String chkYmd,
       required String compCd,
@@ -250,7 +250,7 @@ class _$CheckHeaderTearOff {
       required String userNm}) {
     return _CheckHeader(
       id: id,
-      chasu: chasu,
+      session: session,
       interval: interval,
       chkYmd: chkYmd,
       compCd: compCd,
@@ -272,7 +272,7 @@ const $CheckHeader = _$CheckHeaderTearOff();
 /// @nodoc
 mixin _$CheckHeader {
   String get id => throw _privateConstructorUsedError;
-  String get chasu => throw _privateConstructorUsedError;
+  String get session => throw _privateConstructorUsedError;
   String get interval => throw _privateConstructorUsedError;
   String get chkYmd => throw _privateConstructorUsedError;
   String get compCd => throw _privateConstructorUsedError;
@@ -297,7 +297,7 @@ abstract class $CheckHeaderCopyWith<$Res> {
       _$CheckHeaderCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      String chasu,
+      String session,
       String interval,
       String chkYmd,
       String compCd,
@@ -322,7 +322,7 @@ class _$CheckHeaderCopyWithImpl<$Res> implements $CheckHeaderCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? chasu = freezed,
+    Object? session = freezed,
     Object? interval = freezed,
     Object? chkYmd = freezed,
     Object? compCd = freezed,
@@ -340,9 +340,9 @@ class _$CheckHeaderCopyWithImpl<$Res> implements $CheckHeaderCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      chasu: chasu == freezed
-          ? _value.chasu
-          : chasu // ignore: cast_nullable_to_non_nullable
+      session: session == freezed
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
               as String,
       interval: interval == freezed
           ? _value.interval
@@ -401,7 +401,7 @@ abstract class _$CheckHeaderCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      String chasu,
+      String session,
       String interval,
       String chkYmd,
       String compCd,
@@ -428,7 +428,7 @@ class __$CheckHeaderCopyWithImpl<$Res> extends _$CheckHeaderCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? chasu = freezed,
+    Object? session = freezed,
     Object? interval = freezed,
     Object? chkYmd = freezed,
     Object? compCd = freezed,
@@ -446,9 +446,9 @@ class __$CheckHeaderCopyWithImpl<$Res> extends _$CheckHeaderCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      chasu: chasu == freezed
-          ? _value.chasu
-          : chasu // ignore: cast_nullable_to_non_nullable
+      session: session == freezed
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
               as String,
       interval: interval == freezed
           ? _value.interval
@@ -503,7 +503,7 @@ class __$CheckHeaderCopyWithImpl<$Res> extends _$CheckHeaderCopyWithImpl<$Res>
 class _$_CheckHeader extends _CheckHeader {
   const _$_CheckHeader(
       {required this.id,
-      required this.chasu,
+      required this.session,
       required this.interval,
       required this.chkYmd,
       required this.compCd,
@@ -520,7 +520,7 @@ class _$_CheckHeader extends _CheckHeader {
   @override
   final String id;
   @override
-  final String chasu;
+  final String session;
   @override
   final String interval;
   @override
@@ -546,7 +546,7 @@ class _$_CheckHeader extends _CheckHeader {
 
   @override
   String toString() {
-    return 'CheckHeader(id: $id, chasu: $chasu, interval: $interval, chkYmd: $chkYmd, compCd: $compCd, objCd: $objCd, objNm: $objNm, objGubun: $objGubun, objGubunNm: $objGubunNm, plantCd: $plantCd, plantNm: $plantNm, userId: $userId, userNm: $userNm)';
+    return 'CheckHeader(id: $id, session: $session, interval: $interval, chkYmd: $chkYmd, compCd: $compCd, objCd: $objCd, objNm: $objNm, objGubun: $objGubun, objGubunNm: $objGubunNm, plantCd: $plantCd, plantNm: $plantNm, userId: $userId, userNm: $userNm)';
   }
 
   @override
@@ -555,8 +555,9 @@ class _$_CheckHeader extends _CheckHeader {
         (other is _CheckHeader &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.chasu, chasu) ||
-                const DeepCollectionEquality().equals(other.chasu, chasu)) &&
+            (identical(other.session, session) ||
+                const DeepCollectionEquality()
+                    .equals(other.session, session)) &&
             (identical(other.interval, interval) ||
                 const DeepCollectionEquality()
                     .equals(other.interval, interval)) &&
@@ -590,7 +591,7 @@ class _$_CheckHeader extends _CheckHeader {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(chasu) ^
+      const DeepCollectionEquality().hash(session) ^
       const DeepCollectionEquality().hash(interval) ^
       const DeepCollectionEquality().hash(chkYmd) ^
       const DeepCollectionEquality().hash(compCd) ^
@@ -612,7 +613,7 @@ class _$_CheckHeader extends _CheckHeader {
 abstract class _CheckHeader extends CheckHeader {
   const factory _CheckHeader(
       {required String id,
-      required String chasu,
+      required String session,
       required String interval,
       required String chkYmd,
       required String compCd,
@@ -629,7 +630,7 @@ abstract class _CheckHeader extends CheckHeader {
   @override
   String get id => throw _privateConstructorUsedError;
   @override
-  String get chasu => throw _privateConstructorUsedError;
+  String get session => throw _privateConstructorUsedError;
   @override
   String get interval => throw _privateConstructorUsedError;
   @override
@@ -667,6 +668,8 @@ class _$CheckDetailsTearOff {
       required String chkItemNm,
       required String intervalChk,
       required String methodChk,
+      required String objGubunSub,
+      required String objGubunSubNm,
       required String remark,
       required String result,
       required List<CheckImage> images}) {
@@ -675,6 +678,8 @@ class _$CheckDetailsTearOff {
       chkItemNm: chkItemNm,
       intervalChk: intervalChk,
       methodChk: methodChk,
+      objGubunSub: objGubunSub,
+      objGubunSubNm: objGubunSubNm,
       remark: remark,
       result: result,
       images: images,
@@ -690,9 +695,9 @@ mixin _$CheckDetails {
   String get chkItemCd => throw _privateConstructorUsedError;
   String get chkItemNm => throw _privateConstructorUsedError;
   String get intervalChk => throw _privateConstructorUsedError;
-  String get methodChk =>
-      throw _privateConstructorUsedError; // required String objGubunSub,
-// required String objGubunSubNm,
+  String get methodChk => throw _privateConstructorUsedError;
+  String get objGubunSub => throw _privateConstructorUsedError;
+  String get objGubunSubNm => throw _privateConstructorUsedError;
   String get remark => throw _privateConstructorUsedError;
   String get result => throw _privateConstructorUsedError;
   List<CheckImage> get images => throw _privateConstructorUsedError;
@@ -712,6 +717,8 @@ abstract class $CheckDetailsCopyWith<$Res> {
       String chkItemNm,
       String intervalChk,
       String methodChk,
+      String objGubunSub,
+      String objGubunSubNm,
       String remark,
       String result,
       List<CheckImage> images});
@@ -731,6 +738,8 @@ class _$CheckDetailsCopyWithImpl<$Res> implements $CheckDetailsCopyWith<$Res> {
     Object? chkItemNm = freezed,
     Object? intervalChk = freezed,
     Object? methodChk = freezed,
+    Object? objGubunSub = freezed,
+    Object? objGubunSubNm = freezed,
     Object? remark = freezed,
     Object? result = freezed,
     Object? images = freezed,
@@ -751,6 +760,14 @@ class _$CheckDetailsCopyWithImpl<$Res> implements $CheckDetailsCopyWith<$Res> {
       methodChk: methodChk == freezed
           ? _value.methodChk
           : methodChk // ignore: cast_nullable_to_non_nullable
+              as String,
+      objGubunSub: objGubunSub == freezed
+          ? _value.objGubunSub
+          : objGubunSub // ignore: cast_nullable_to_non_nullable
+              as String,
+      objGubunSubNm: objGubunSubNm == freezed
+          ? _value.objGubunSubNm
+          : objGubunSubNm // ignore: cast_nullable_to_non_nullable
               as String,
       remark: remark == freezed
           ? _value.remark
@@ -780,6 +797,8 @@ abstract class _$CheckDetailsCopyWith<$Res>
       String chkItemNm,
       String intervalChk,
       String methodChk,
+      String objGubunSub,
+      String objGubunSubNm,
       String remark,
       String result,
       List<CheckImage> images});
@@ -801,6 +820,8 @@ class __$CheckDetailsCopyWithImpl<$Res> extends _$CheckDetailsCopyWithImpl<$Res>
     Object? chkItemNm = freezed,
     Object? intervalChk = freezed,
     Object? methodChk = freezed,
+    Object? objGubunSub = freezed,
+    Object? objGubunSubNm = freezed,
     Object? remark = freezed,
     Object? result = freezed,
     Object? images = freezed,
@@ -821,6 +842,14 @@ class __$CheckDetailsCopyWithImpl<$Res> extends _$CheckDetailsCopyWithImpl<$Res>
       methodChk: methodChk == freezed
           ? _value.methodChk
           : methodChk // ignore: cast_nullable_to_non_nullable
+              as String,
+      objGubunSub: objGubunSub == freezed
+          ? _value.objGubunSub
+          : objGubunSub // ignore: cast_nullable_to_non_nullable
+              as String,
+      objGubunSubNm: objGubunSubNm == freezed
+          ? _value.objGubunSubNm
+          : objGubunSubNm // ignore: cast_nullable_to_non_nullable
               as String,
       remark: remark == freezed
           ? _value.remark
@@ -846,6 +875,8 @@ class _$_CheckDetails extends _CheckDetails {
       required this.chkItemNm,
       required this.intervalChk,
       required this.methodChk,
+      required this.objGubunSub,
+      required this.objGubunSubNm,
       required this.remark,
       required this.result,
       required this.images})
@@ -859,8 +890,11 @@ class _$_CheckDetails extends _CheckDetails {
   final String intervalChk;
   @override
   final String methodChk;
-  @override // required String objGubunSub,
-// required String objGubunSubNm,
+  @override
+  final String objGubunSub;
+  @override
+  final String objGubunSubNm;
+  @override
   final String remark;
   @override
   final String result;
@@ -869,7 +903,7 @@ class _$_CheckDetails extends _CheckDetails {
 
   @override
   String toString() {
-    return 'CheckDetails(chkItemCd: $chkItemCd, chkItemNm: $chkItemNm, intervalChk: $intervalChk, methodChk: $methodChk, remark: $remark, result: $result, images: $images)';
+    return 'CheckDetails(chkItemCd: $chkItemCd, chkItemNm: $chkItemNm, intervalChk: $intervalChk, methodChk: $methodChk, objGubunSub: $objGubunSub, objGubunSubNm: $objGubunSubNm, remark: $remark, result: $result, images: $images)';
   }
 
   @override
@@ -888,6 +922,12 @@ class _$_CheckDetails extends _CheckDetails {
             (identical(other.methodChk, methodChk) ||
                 const DeepCollectionEquality()
                     .equals(other.methodChk, methodChk)) &&
+            (identical(other.objGubunSub, objGubunSub) ||
+                const DeepCollectionEquality()
+                    .equals(other.objGubunSub, objGubunSub)) &&
+            (identical(other.objGubunSubNm, objGubunSubNm) ||
+                const DeepCollectionEquality()
+                    .equals(other.objGubunSubNm, objGubunSubNm)) &&
             (identical(other.remark, remark) ||
                 const DeepCollectionEquality().equals(other.remark, remark)) &&
             (identical(other.result, result) ||
@@ -903,6 +943,8 @@ class _$_CheckDetails extends _CheckDetails {
       const DeepCollectionEquality().hash(chkItemNm) ^
       const DeepCollectionEquality().hash(intervalChk) ^
       const DeepCollectionEquality().hash(methodChk) ^
+      const DeepCollectionEquality().hash(objGubunSub) ^
+      const DeepCollectionEquality().hash(objGubunSubNm) ^
       const DeepCollectionEquality().hash(remark) ^
       const DeepCollectionEquality().hash(result) ^
       const DeepCollectionEquality().hash(images);
@@ -919,6 +961,8 @@ abstract class _CheckDetails extends CheckDetails {
       required String chkItemNm,
       required String intervalChk,
       required String methodChk,
+      required String objGubunSub,
+      required String objGubunSubNm,
       required String remark,
       required String result,
       required List<CheckImage> images}) = _$_CheckDetails;
@@ -932,8 +976,11 @@ abstract class _CheckDetails extends CheckDetails {
   String get intervalChk => throw _privateConstructorUsedError;
   @override
   String get methodChk => throw _privateConstructorUsedError;
-  @override // required String objGubunSub,
-// required String objGubunSubNm,
+  @override
+  String get objGubunSub => throw _privateConstructorUsedError;
+  @override
+  String get objGubunSubNm => throw _privateConstructorUsedError;
+  @override
   String get remark => throw _privateConstructorUsedError;
   @override
   String get result => throw _privateConstructorUsedError;

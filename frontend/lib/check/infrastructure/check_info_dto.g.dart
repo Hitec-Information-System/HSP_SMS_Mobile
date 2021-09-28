@@ -32,7 +32,7 @@ Map<String, dynamic> _$_$_CheckInfoDTOToJson(_$_CheckInfoDTO instance) =>
 _$_CheckHeaderDTO _$_$_CheckHeaderDTOFromJson(Map<String, dynamic> json) {
   return _$_CheckHeaderDTO(
     id: json['CHKLIST_NO'] as String,
-    chasu: json['CHK_CHASU'] as String,
+    session: json['CHK_CHASU'] as String,
     interval: json['CHK_INTERVAL'] as String,
     chkYmd: json['CHK_YMD'] as String,
     compCd: json['COMP_CD'] as String,
@@ -50,7 +50,7 @@ _$_CheckHeaderDTO _$_$_CheckHeaderDTOFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_CheckHeaderDTOToJson(_$_CheckHeaderDTO instance) =>
     <String, dynamic>{
       'CHKLIST_NO': instance.id,
-      'CHK_CHASU': instance.chasu,
+      'CHK_CHASU': instance.session,
       'CHK_INTERVAL': instance.interval,
       'CHK_YMD': instance.chkYmd,
       'COMP_CD': instance.compCd,
@@ -70,6 +70,10 @@ _$_CheckDetailsDTO _$_$_CheckDetailsDTOFromJson(Map<String, dynamic> json) {
     chkItemNm: json['CHK_ITEM_NM'] as String,
     intervalChk: json['INTERVAL_CHECK'] as String,
     methodChk: json['METHOD_CHECK'] as String,
+    objGubunSub: json['OBJ_GUBUN_SUB'] as String,
+    objGubunSubNm: json['OBJ_GUBUN_SUB_NM'] as String,
+    remark: json['D_RMK'] as String? ?? '',
+    result: json['CHK_RESULT'] as String? ?? '',
   );
 }
 
@@ -79,6 +83,10 @@ Map<String, dynamic> _$_$_CheckDetailsDTOToJson(_$_CheckDetailsDTO instance) =>
       'CHK_ITEM_NM': instance.chkItemNm,
       'INTERVAL_CHECK': instance.intervalChk,
       'METHOD_CHECK': instance.methodChk,
+      'OBJ_GUBUN_SUB': instance.objGubunSub,
+      'OBJ_GUBUN_SUB_NM': instance.objGubunSubNm,
+      'D_RMK': instance.remark,
+      'CHK_RESULT': instance.result,
     };
 
 _$_CheckStandardDTO _$_$_CheckStandardDTOFromJson(Map<String, dynamic> json) {

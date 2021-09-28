@@ -1,10 +1,11 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/presentation/remark_popup.dart';
 import 'package:frontend/check/presentation/widgets.dart';
 import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/routes/hero_dialog_router.dart';
+import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,23 +14,28 @@ class CheckListDetailsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemCount = ref.watch(checkInfoStateNotifierProvider
-        .select((state) => state.info.details.length));
+    final checkDetails = ref.watch(checkDetailsProvider);
 
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: itemCount,
+      itemCount: checkDetails.length,
       itemBuilder: (context, index) {
-        return CheckDetailsCard(
-          index: index,
+        return ProviderScope(
+          overrides: [_currentDetail.overrideWithValue(checkDetails[index])],
+          child: CheckDetailsCard(
+            index: index,
+          ),
         );
       },
     );
   }
 }
 
-const resultOptions = ["양호", "불량"];
+final _currentDetail =
+    Provider<CheckDetails>((ref) => throw UnimplementedError());
+
+const resultOptions = ["양호", "미흡", "불량"];
 
 class CheckDetailsCard extends ConsumerWidget {
   const CheckDetailsCard({
@@ -37,13 +43,13 @@ class CheckDetailsCard extends ConsumerWidget {
     required this.index,
   }) : super(key: key);
 
-  // Todo: change these fields to one entity
   final int index;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final detail = ref.watch(checkInfoStateNotifierProvider
-        .select((state) => state.info.details[index]));
+    final detail = ref.watch(_currentDetail);
+    final chkNo =
+        ref.watch(checkHeaderNotifierProvider.select((header) => header.id));
 
     return Hero(
       tag: detail.chkItemCd,
@@ -84,10 +90,33 @@ class CheckDetailsCard extends ConsumerWidget {
                                   GestureDetector(
                                     onTap: () async {
                                       // TODO: Image picking
-                                      ref
-                                          .read(checkInfoStateNotifierProvider
-                                              .notifier)
-                                          .pickImages(index);
+
+                                      Dialogs.showTwoAnswersDialog(
+                                        context,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        icon: Icons.help,
+                                        title: "이미지 추가",
+                                        message: "사진을 추가할 방법을 선택해주세요",
+                                        yesTitle: "카메라",
+                                        onYesPressed: () {
+                                          ref
+                                              .read(
+                                                  checkDetailsProvider.notifier)
+                                              .pickImageFromCamera(
+                                                  index, chkNo);
+                                        },
+                                        noTitle: "앨범",
+                                        onNoPressed: () {
+                                          ref
+                                              .read(
+                                                  checkDetailsProvider.notifier)
+                                              .pickImagesFromGallery(
+                                                  index, chkNo);
+                                        },
+                                        onDismissed: () {},
+                                      );
                                     },
                                     child: Stack(
                                       children: [
@@ -145,8 +174,7 @@ class CheckDetailsCard extends ConsumerWidget {
                                           // TODO: Cached Image Clear
                                           ref
                                               .read(
-                                                  checkInfoStateNotifierProvider
-                                                      .notifier)
+                                                  checkDetailsProvider.notifier)
                                               .clearDetailsImages(index);
                                         },
                                         child: const Padding(
@@ -227,8 +255,7 @@ class CheckDetailsCard extends ConsumerWidget {
                                   children: resultOptions,
                                   onPressed: (clickedIdx) {
                                     ref
-                                        .read(checkInfoStateNotifierProvider
-                                            .notifier)
+                                        .read(checkDetailsProvider.notifier)
                                         .setCheckResult(
                                             index, resultOptions[clickedIdx]);
                                   },

@@ -276,7 +276,7 @@ class _$CheckHeaderDTOTearOff {
 
   _CheckHeaderDTO call(
       {@JsonKey(name: "CHKLIST_NO") required String id,
-      @JsonKey(name: "CHK_CHASU") required String chasu,
+      @JsonKey(name: "CHK_CHASU") required String session,
       @JsonKey(name: "CHK_INTERVAL") required String interval,
       @JsonKey(name: "CHK_YMD") required String chkYmd,
       @JsonKey(name: "COMP_CD") required String compCd,
@@ -290,7 +290,7 @@ class _$CheckHeaderDTOTearOff {
       @JsonKey(name: "CHK_USER_NM") required String userNm}) {
     return _CheckHeaderDTO(
       id: id,
-      chasu: chasu,
+      session: session,
       interval: interval,
       chkYmd: chkYmd,
       compCd: compCd,
@@ -318,7 +318,7 @@ mixin _$CheckHeaderDTO {
   @JsonKey(name: "CHKLIST_NO")
   String get id => throw _privateConstructorUsedError;
   @JsonKey(name: "CHK_CHASU")
-  String get chasu => throw _privateConstructorUsedError;
+  String get session => throw _privateConstructorUsedError;
   @JsonKey(name: "CHK_INTERVAL")
   String get interval => throw _privateConstructorUsedError;
   @JsonKey(name: "CHK_YMD")
@@ -355,7 +355,7 @@ abstract class $CheckHeaderDTOCopyWith<$Res> {
       _$CheckHeaderDTOCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: "CHKLIST_NO") String id,
-      @JsonKey(name: "CHK_CHASU") String chasu,
+      @JsonKey(name: "CHK_CHASU") String session,
       @JsonKey(name: "CHK_INTERVAL") String interval,
       @JsonKey(name: "CHK_YMD") String chkYmd,
       @JsonKey(name: "COMP_CD") String compCd,
@@ -381,7 +381,7 @@ class _$CheckHeaderDTOCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? chasu = freezed,
+    Object? session = freezed,
     Object? interval = freezed,
     Object? chkYmd = freezed,
     Object? compCd = freezed,
@@ -399,9 +399,9 @@ class _$CheckHeaderDTOCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      chasu: chasu == freezed
-          ? _value.chasu
-          : chasu // ignore: cast_nullable_to_non_nullable
+      session: session == freezed
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
               as String,
       interval: interval == freezed
           ? _value.interval
@@ -460,7 +460,7 @@ abstract class _$CheckHeaderDTOCopyWith<$Res>
   @override
   $Res call(
       {@JsonKey(name: "CHKLIST_NO") String id,
-      @JsonKey(name: "CHK_CHASU") String chasu,
+      @JsonKey(name: "CHK_CHASU") String session,
       @JsonKey(name: "CHK_INTERVAL") String interval,
       @JsonKey(name: "CHK_YMD") String chkYmd,
       @JsonKey(name: "COMP_CD") String compCd,
@@ -488,7 +488,7 @@ class __$CheckHeaderDTOCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? chasu = freezed,
+    Object? session = freezed,
     Object? interval = freezed,
     Object? chkYmd = freezed,
     Object? compCd = freezed,
@@ -506,9 +506,9 @@ class __$CheckHeaderDTOCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      chasu: chasu == freezed
-          ? _value.chasu
-          : chasu // ignore: cast_nullable_to_non_nullable
+      session: session == freezed
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
               as String,
       interval: interval == freezed
           ? _value.interval
@@ -563,7 +563,7 @@ class __$CheckHeaderDTOCopyWithImpl<$Res>
 class _$_CheckHeaderDTO extends _CheckHeaderDTO {
   const _$_CheckHeaderDTO(
       {@JsonKey(name: "CHKLIST_NO") required this.id,
-      @JsonKey(name: "CHK_CHASU") required this.chasu,
+      @JsonKey(name: "CHK_CHASU") required this.session,
       @JsonKey(name: "CHK_INTERVAL") required this.interval,
       @JsonKey(name: "CHK_YMD") required this.chkYmd,
       @JsonKey(name: "COMP_CD") required this.compCd,
@@ -585,7 +585,7 @@ class _$_CheckHeaderDTO extends _CheckHeaderDTO {
   final String id;
   @override
   @JsonKey(name: "CHK_CHASU")
-  final String chasu;
+  final String session;
   @override
   @JsonKey(name: "CHK_INTERVAL")
   final String interval;
@@ -622,7 +622,7 @@ class _$_CheckHeaderDTO extends _CheckHeaderDTO {
 
   @override
   String toString() {
-    return 'CheckHeaderDTO(id: $id, chasu: $chasu, interval: $interval, chkYmd: $chkYmd, compCd: $compCd, objCd: $objCd, objNm: $objNm, objGubun: $objGubun, objGubunNm: $objGubunNm, plantCd: $plantCd, plantNm: $plantNm, userId: $userId, userNm: $userNm)';
+    return 'CheckHeaderDTO(id: $id, session: $session, interval: $interval, chkYmd: $chkYmd, compCd: $compCd, objCd: $objCd, objNm: $objNm, objGubun: $objGubun, objGubunNm: $objGubunNm, plantCd: $plantCd, plantNm: $plantNm, userId: $userId, userNm: $userNm)';
   }
 
   @override
@@ -631,8 +631,9 @@ class _$_CheckHeaderDTO extends _CheckHeaderDTO {
         (other is _CheckHeaderDTO &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.chasu, chasu) ||
-                const DeepCollectionEquality().equals(other.chasu, chasu)) &&
+            (identical(other.session, session) ||
+                const DeepCollectionEquality()
+                    .equals(other.session, session)) &&
             (identical(other.interval, interval) ||
                 const DeepCollectionEquality()
                     .equals(other.interval, interval)) &&
@@ -666,7 +667,7 @@ class _$_CheckHeaderDTO extends _CheckHeaderDTO {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(chasu) ^
+      const DeepCollectionEquality().hash(session) ^
       const DeepCollectionEquality().hash(interval) ^
       const DeepCollectionEquality().hash(chkYmd) ^
       const DeepCollectionEquality().hash(compCd) ^
@@ -693,7 +694,7 @@ class _$_CheckHeaderDTO extends _CheckHeaderDTO {
 abstract class _CheckHeaderDTO extends CheckHeaderDTO {
   const factory _CheckHeaderDTO(
           {@JsonKey(name: "CHKLIST_NO") required String id,
-          @JsonKey(name: "CHK_CHASU") required String chasu,
+          @JsonKey(name: "CHK_CHASU") required String session,
           @JsonKey(name: "CHK_INTERVAL") required String interval,
           @JsonKey(name: "CHK_YMD") required String chkYmd,
           @JsonKey(name: "COMP_CD") required String compCd,
@@ -716,7 +717,7 @@ abstract class _CheckHeaderDTO extends CheckHeaderDTO {
   String get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "CHK_CHASU")
-  String get chasu => throw _privateConstructorUsedError;
+  String get session => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "CHK_INTERVAL")
   String get interval => throw _privateConstructorUsedError;
@@ -769,14 +770,18 @@ class _$CheckDetailsDTOTearOff {
       @JsonKey(name: "CHK_ITEM_NM") required String chkItemNm,
       @JsonKey(name: "INTERVAL_CHECK") required String intervalChk,
       @JsonKey(name: "METHOD_CHECK") required String methodChk,
-      @JsonKey(ignore: true) String remark = "",
-      @JsonKey(ignore: true) String result = "",
+      @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
+      @JsonKey(name: "D_RMK", defaultValue: "") required String remark,
+      @JsonKey(name: "CHK_RESULT", defaultValue: "") required String result,
       @JsonKey(ignore: true) List<CheckImageDTO> images = const []}) {
     return _CheckDetailsDTO(
       chkItemCd: chkItemCd,
       chkItemNm: chkItemNm,
       intervalChk: intervalChk,
       methodChk: methodChk,
+      objGubunSub: objGubunSub,
+      objGubunSubNm: objGubunSubNm,
       remark: remark,
       result: result,
       images: images,
@@ -800,12 +805,14 @@ mixin _$CheckDetailsDTO {
   @JsonKey(name: "INTERVAL_CHECK")
   String get intervalChk => throw _privateConstructorUsedError;
   @JsonKey(name: "METHOD_CHECK")
-  String get methodChk =>
-      throw _privateConstructorUsedError; // @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
-// @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
-  @JsonKey(ignore: true)
+  String get methodChk => throw _privateConstructorUsedError;
+  @JsonKey(name: "OBJ_GUBUN_SUB")
+  String get objGubunSub => throw _privateConstructorUsedError;
+  @JsonKey(name: "OBJ_GUBUN_SUB_NM")
+  String get objGubunSubNm => throw _privateConstructorUsedError;
+  @JsonKey(name: "D_RMK", defaultValue: "")
   String get remark => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  @JsonKey(name: "CHK_RESULT", defaultValue: "")
   String get result => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   List<CheckImageDTO> get images => throw _privateConstructorUsedError;
@@ -826,8 +833,10 @@ abstract class $CheckDetailsDTOCopyWith<$Res> {
       @JsonKey(name: "CHK_ITEM_NM") String chkItemNm,
       @JsonKey(name: "INTERVAL_CHECK") String intervalChk,
       @JsonKey(name: "METHOD_CHECK") String methodChk,
-      @JsonKey(ignore: true) String remark,
-      @JsonKey(ignore: true) String result,
+      @JsonKey(name: "OBJ_GUBUN_SUB") String objGubunSub,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM") String objGubunSubNm,
+      @JsonKey(name: "D_RMK", defaultValue: "") String remark,
+      @JsonKey(name: "CHK_RESULT", defaultValue: "") String result,
       @JsonKey(ignore: true) List<CheckImageDTO> images});
 }
 
@@ -846,6 +855,8 @@ class _$CheckDetailsDTOCopyWithImpl<$Res>
     Object? chkItemNm = freezed,
     Object? intervalChk = freezed,
     Object? methodChk = freezed,
+    Object? objGubunSub = freezed,
+    Object? objGubunSubNm = freezed,
     Object? remark = freezed,
     Object? result = freezed,
     Object? images = freezed,
@@ -866,6 +877,14 @@ class _$CheckDetailsDTOCopyWithImpl<$Res>
       methodChk: methodChk == freezed
           ? _value.methodChk
           : methodChk // ignore: cast_nullable_to_non_nullable
+              as String,
+      objGubunSub: objGubunSub == freezed
+          ? _value.objGubunSub
+          : objGubunSub // ignore: cast_nullable_to_non_nullable
+              as String,
+      objGubunSubNm: objGubunSubNm == freezed
+          ? _value.objGubunSubNm
+          : objGubunSubNm // ignore: cast_nullable_to_non_nullable
               as String,
       remark: remark == freezed
           ? _value.remark
@@ -895,8 +914,10 @@ abstract class _$CheckDetailsDTOCopyWith<$Res>
       @JsonKey(name: "CHK_ITEM_NM") String chkItemNm,
       @JsonKey(name: "INTERVAL_CHECK") String intervalChk,
       @JsonKey(name: "METHOD_CHECK") String methodChk,
-      @JsonKey(ignore: true) String remark,
-      @JsonKey(ignore: true) String result,
+      @JsonKey(name: "OBJ_GUBUN_SUB") String objGubunSub,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM") String objGubunSubNm,
+      @JsonKey(name: "D_RMK", defaultValue: "") String remark,
+      @JsonKey(name: "CHK_RESULT", defaultValue: "") String result,
       @JsonKey(ignore: true) List<CheckImageDTO> images});
 }
 
@@ -917,6 +938,8 @@ class __$CheckDetailsDTOCopyWithImpl<$Res>
     Object? chkItemNm = freezed,
     Object? intervalChk = freezed,
     Object? methodChk = freezed,
+    Object? objGubunSub = freezed,
+    Object? objGubunSubNm = freezed,
     Object? remark = freezed,
     Object? result = freezed,
     Object? images = freezed,
@@ -937,6 +960,14 @@ class __$CheckDetailsDTOCopyWithImpl<$Res>
       methodChk: methodChk == freezed
           ? _value.methodChk
           : methodChk // ignore: cast_nullable_to_non_nullable
+              as String,
+      objGubunSub: objGubunSub == freezed
+          ? _value.objGubunSub
+          : objGubunSub // ignore: cast_nullable_to_non_nullable
+              as String,
+      objGubunSubNm: objGubunSubNm == freezed
+          ? _value.objGubunSubNm
+          : objGubunSubNm // ignore: cast_nullable_to_non_nullable
               as String,
       remark: remark == freezed
           ? _value.remark
@@ -962,8 +993,10 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
       @JsonKey(name: "CHK_ITEM_NM") required this.chkItemNm,
       @JsonKey(name: "INTERVAL_CHECK") required this.intervalChk,
       @JsonKey(name: "METHOD_CHECK") required this.methodChk,
-      @JsonKey(ignore: true) this.remark = "",
-      @JsonKey(ignore: true) this.result = "",
+      @JsonKey(name: "OBJ_GUBUN_SUB") required this.objGubunSub,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM") required this.objGubunSubNm,
+      @JsonKey(name: "D_RMK", defaultValue: "") required this.remark,
+      @JsonKey(name: "CHK_RESULT", defaultValue: "") required this.result,
       @JsonKey(ignore: true) this.images = const []})
       : super._();
 
@@ -982,12 +1015,17 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
   @override
   @JsonKey(name: "METHOD_CHECK")
   final String methodChk;
-  @override // @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
-// @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
-  @JsonKey(ignore: true)
+  @override
+  @JsonKey(name: "OBJ_GUBUN_SUB")
+  final String objGubunSub;
+  @override
+  @JsonKey(name: "OBJ_GUBUN_SUB_NM")
+  final String objGubunSubNm;
+  @override
+  @JsonKey(name: "D_RMK", defaultValue: "")
   final String remark;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: "CHK_RESULT", defaultValue: "")
   final String result;
   @override
   @JsonKey(ignore: true)
@@ -995,7 +1033,7 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
 
   @override
   String toString() {
-    return 'CheckDetailsDTO(chkItemCd: $chkItemCd, chkItemNm: $chkItemNm, intervalChk: $intervalChk, methodChk: $methodChk, remark: $remark, result: $result, images: $images)';
+    return 'CheckDetailsDTO(chkItemCd: $chkItemCd, chkItemNm: $chkItemNm, intervalChk: $intervalChk, methodChk: $methodChk, objGubunSub: $objGubunSub, objGubunSubNm: $objGubunSubNm, remark: $remark, result: $result, images: $images)';
   }
 
   @override
@@ -1014,6 +1052,12 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
             (identical(other.methodChk, methodChk) ||
                 const DeepCollectionEquality()
                     .equals(other.methodChk, methodChk)) &&
+            (identical(other.objGubunSub, objGubunSub) ||
+                const DeepCollectionEquality()
+                    .equals(other.objGubunSub, objGubunSub)) &&
+            (identical(other.objGubunSubNm, objGubunSubNm) ||
+                const DeepCollectionEquality()
+                    .equals(other.objGubunSubNm, objGubunSubNm)) &&
             (identical(other.remark, remark) ||
                 const DeepCollectionEquality().equals(other.remark, remark)) &&
             (identical(other.result, result) ||
@@ -1029,6 +1073,8 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
       const DeepCollectionEquality().hash(chkItemNm) ^
       const DeepCollectionEquality().hash(intervalChk) ^
       const DeepCollectionEquality().hash(methodChk) ^
+      const DeepCollectionEquality().hash(objGubunSub) ^
+      const DeepCollectionEquality().hash(objGubunSubNm) ^
       const DeepCollectionEquality().hash(remark) ^
       const DeepCollectionEquality().hash(result) ^
       const DeepCollectionEquality().hash(images);
@@ -1050,8 +1096,10 @@ abstract class _CheckDetailsDTO extends CheckDetailsDTO {
       @JsonKey(name: "CHK_ITEM_NM") required String chkItemNm,
       @JsonKey(name: "INTERVAL_CHECK") required String intervalChk,
       @JsonKey(name: "METHOD_CHECK") required String methodChk,
-      @JsonKey(ignore: true) String remark,
-      @JsonKey(ignore: true) String result,
+      @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
+      @JsonKey(name: "D_RMK", defaultValue: "") required String remark,
+      @JsonKey(name: "CHK_RESULT", defaultValue: "") required String result,
       @JsonKey(ignore: true) List<CheckImageDTO> images}) = _$_CheckDetailsDTO;
   const _CheckDetailsDTO._() : super._();
 
@@ -1070,12 +1118,17 @@ abstract class _CheckDetailsDTO extends CheckDetailsDTO {
   @override
   @JsonKey(name: "METHOD_CHECK")
   String get methodChk => throw _privateConstructorUsedError;
-  @override // @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
-// @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
-  @JsonKey(ignore: true)
+  @override
+  @JsonKey(name: "OBJ_GUBUN_SUB")
+  String get objGubunSub => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: "OBJ_GUBUN_SUB_NM")
+  String get objGubunSubNm => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: "D_RMK", defaultValue: "")
   String get remark => throw _privateConstructorUsedError;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: "CHK_RESULT", defaultValue: "")
   String get result => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

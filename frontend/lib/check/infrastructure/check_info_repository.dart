@@ -6,6 +6,7 @@ import 'package:frontend/check/infrastructure/remote/check_info_remote_service.d
 
 import 'package:frontend/core/domain/fresh.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
+import 'package:frontend/core/presentation/constants/constants.dart';
 
 class CheckInfoRepository {
   final CheckInfoLocalService _localService;
@@ -17,9 +18,19 @@ class CheckInfoRepository {
   );
 
   Future<Either<CheckInfoFailure, Fresh<CheckInfo>>> getCheckInfo(
-      String tagId, String interval) async {
+      String tagId, String interval, String session, String token) async {
     try {
-      final remoteFetch = await _remoteService.fetchCheckInfo(tagId, interval);
+      final params = {
+        "check-no": tagId,
+        "sys-flag": LogicConstants.systemFlag,
+        "comp-cd": LogicConstants.companyCd,
+        // TODO: COMP_CD 값 빼기
+        "user": token,
+        "interval": interval,
+        "session": session,
+      };
+
+      final remoteFetch = await _remoteService.fetchCheckInfo(params);
       return right(
         await remoteFetch.when(
           noConnection: () async => Fresh.no(
@@ -29,7 +40,7 @@ class CheckInfoRepository {
           ),
           withNewData: (data) async {
             await _localService.upsertCheckInfo(
-                data.toJson(), "$interval$tagId");
+                data.toJson(), "$tagId-$interval-$session");
             return Fresh.yes(
               data.toDomain(),
             );

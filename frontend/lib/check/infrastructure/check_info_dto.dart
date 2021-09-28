@@ -44,7 +44,7 @@ class CheckHeaderDTO with _$CheckHeaderDTO {
   const CheckHeaderDTO._();
   const factory CheckHeaderDTO({
     @JsonKey(name: "CHKLIST_NO") required String id,
-    @JsonKey(name: "CHK_CHASU") required String chasu,
+    @JsonKey(name: "CHK_CHASU") required String session,
     @JsonKey(name: "CHK_INTERVAL") required String interval,
     @JsonKey(name: "CHK_YMD") required String chkYmd,
     @JsonKey(name: "COMP_CD") required String compCd,
@@ -63,7 +63,7 @@ class CheckHeaderDTO with _$CheckHeaderDTO {
 
   CheckHeader toDomain() => CheckHeader(
         id: id,
-        chasu: chasu,
+        session: session,
         interval: interval,
         chkYmd: chkYmd,
         compCd: compCd,
@@ -79,7 +79,7 @@ class CheckHeaderDTO with _$CheckHeaderDTO {
 
   factory CheckHeaderDTO.fromDomain(CheckHeader _) => CheckHeaderDTO(
         id: _.id,
-        chasu: _.chasu,
+        session: _.session,
         interval: _.interval,
         chkYmd: _.chkYmd,
         compCd: _.compCd,
@@ -102,10 +102,10 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
     @JsonKey(name: "CHK_ITEM_NM") required String chkItemNm,
     @JsonKey(name: "INTERVAL_CHECK") required String intervalChk,
     @JsonKey(name: "METHOD_CHECK") required String methodChk,
-    // @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
-    // @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
-    @Default("") @JsonKey(ignore: true) String remark,
-    @Default("") @JsonKey(ignore: true) String result,
+    @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
+    @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
+    @JsonKey(name: "D_RMK", defaultValue: "") required String remark,
+    @JsonKey(name: "CHK_RESULT", defaultValue: "") required String result,
     @Default([]) @JsonKey(ignore: true) List<CheckImageDTO> images,
   }) = _CheckDetailsDTO;
 
@@ -117,8 +117,8 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
         chkItemNm: chkItemNm,
         intervalChk: intervalChk,
         methodChk: methodChk,
-        // objGubunSub: objGubunSub,
-        // objGubunSubNm: objGubunSubNm,
+        objGubunSub: objGubunSub,
+        objGubunSubNm: objGubunSubNm,
         remark: remark,
         result: result,
         images: images.map((e) => e.toDomain()).toList(),
@@ -129,8 +129,8 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
         chkItemNm: _.chkItemNm,
         intervalChk: _.intervalChk,
         methodChk: _.methodChk,
-        // objGubunSub: _.objGubunSub,
-        // objGubunSubNm: _.objGubunSubNm,
+        objGubunSub: _.objGubunSub,
+        objGubunSubNm: _.objGubunSubNm,
         result: _.result,
         remark: _.remark,
         images: _.images

@@ -5,7 +5,9 @@ import 'package:frontend/check/presentation/widgets/check_details.dart';
 import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
+import 'package:frontend/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:frontend/check/domain/check_details_extension.dart';
 
 class ChecklistMobilePage extends ConsumerWidget {
   const ChecklistMobilePage({Key? key}) : super(key: key);
@@ -37,13 +39,15 @@ class ChecklistMobilePage extends ConsumerWidget {
                     }),
                     const Spacer(),
                     Consumer(builder: (context, ref, child) {
-                      final data = ref.watch(checkInfoStateNotifierProvider
-                          .select((value) => value.info));
+                      final header = ref.watch(checkHeaderNotifierProvider);
+                      final details = ref.watch(checkDetailsProvider);
+
+                      final token = ref.watch(tokenProvider);
                       return ElevatedButton(
                         onPressed: () {
                           print("pressed");
 
-                          if (data.hasChecksBeenDone) {
+                          if (details.hasChecksBeenDone) {
                             Dialogs.showTwoAnswersDialog(
                               context,
                               color: Theme.of(context).colorScheme.secondary,
@@ -55,15 +59,14 @@ class ChecklistMobilePage extends ConsumerWidget {
                                 final params = {
                                   "compCd": LogicConstants.companyCd,
                                   "sysFlag": LogicConstants.systemFlag,
-                                  // TODO: USERID 변경
-                                  "userId": "dev",
-                                  "xmlH": data.toHeaderXml,
-                                  "xmlD": data.toResultsXml,
-                                  "xmlI": data.toImgsXml,
+                                  "userId": token?.key ?? "",
+                                  "xmlH": header.toHeaderXml,
+                                  "xmlD": details.toResultsXml,
+                                  "xmlI": details.toImgsXml,
                                 };
 
                                 final images = <CheckImage>[];
-                                for (final detail in data.details) {
+                                for (final detail in details) {
                                   images.addAll(detail.images);
                                 }
 

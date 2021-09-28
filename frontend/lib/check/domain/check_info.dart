@@ -19,7 +19,7 @@ class CheckInfo with _$CheckInfo {
   factory CheckInfo.empty() => const CheckInfo(
         header: CheckHeader(
           id: "",
-          chasu: "",
+          session: "",
           interval: "",
           chkYmd: "",
           compCd: "",
@@ -36,41 +36,6 @@ class CheckInfo with _$CheckInfo {
         sessions: [],
         details: [],
       );
-
-  String get toHeaderXml => header.toHeaderXml;
-
-  String get toResultsXml {
-    final list = details.map((detail) {
-      return detail.toResultXml;
-    }).toList();
-
-    list.insert(0, "<NewDataSet>");
-    list.insert(list.length, "</NewDataSet>");
-
-    return list.join().replaceAll(" ", "");
-  }
-
-  String get toImgsXml {
-    final list = details.map((detail) => detail.toImgXml).toList();
-
-    if (list.join() == "") {
-      return "";
-    }
-
-    list.insert(0, "<NewDataSet>");
-    list.insert(list.length, "</NewDataSet>");
-
-    return list.join().replaceAll(" ", "");
-  }
-
-  bool get hasChecksBeenDone {
-    for (final detail in details) {
-      if (detail.result == "") {
-        return false;
-      }
-    }
-    return true;
-  }
 }
 
 @freezed
@@ -78,7 +43,7 @@ class CheckHeader with _$CheckHeader {
   const CheckHeader._();
   const factory CheckHeader({
     required String id,
-    required String chasu,
+    required String session,
     required String interval,
     required String chkYmd,
     required String compCd,
@@ -97,7 +62,7 @@ class CheckHeader with _$CheckHeader {
     <CHKLIST_NO>$id</CHKLIST_NO>
     <CHK_YMD>$chkYmd</CHK_YMD>
     <CHK_INTERVAL>$interval</CHK_INTERVAL>
-    <CHK_CHASU>$chasu</CHK_CHASU>
+    <CHK_CHASU>$session</CHK_CHASU>
     <OBJ_CD>$objCd</OBJ_CD>
     <OBJ_GUBUN>$objGubun</OBJ_GUBUN>
     <CHK_USER_ID>$userId</CHK_USER_ID>
@@ -114,8 +79,8 @@ class CheckDetails with _$CheckDetails {
     required String chkItemNm,
     required String intervalChk,
     required String methodChk,
-    // required String objGubunSub,
-    // required String objGubunSubNm,
+    required String objGubunSub,
+    required String objGubunSubNm,
     required String remark,
     required String result,
     required List<CheckImage> images,

@@ -4,7 +4,6 @@ import 'package:frontend/check/infrastructure/check_info_dto.dart';
 import 'package:frontend/core/infrastructure/dio_extensions.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
 import 'package:frontend/core/infrastructure/remote_response.dart';
-import 'package:frontend/core/presentation/constants/constants.dart';
 
 class CheckInfoRemoteService {
   final Dio _dio;
@@ -12,16 +11,12 @@ class CheckInfoRemoteService {
   const CheckInfoRemoteService(this._dio);
 
   Future<RemoteResponse<CheckInfoDTO>> fetchCheckInfo(
-      String tagId, String interval) async {
+      Map<String, dynamic> params) async {
     try {
-      final response = await _dio.get("/check", queryParameters: {
-        "check-no": tagId,
-        "sys-flag": LogicConstants.systemFlag,
-        "comp-cd": LogicConstants.companyCd,
-        // TODO: USER, COMP_CD 값 빼기
-        "user": "dev",
-        "interval": interval
-      });
+      final response = await _dio.get(
+        "/check",
+        queryParameters: params,
+      );
       if (response.statusCode != 200) {
         throw RestApiException(errorCode: response.statusCode);
       }
