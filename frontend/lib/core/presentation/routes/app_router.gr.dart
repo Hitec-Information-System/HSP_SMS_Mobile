@@ -44,7 +44,7 @@ class AppRouter extends _i1.RootStackRouter {
     MenuFrameRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return _i7.MenuFramePage();
+          return const _i7.MenuFramePage();
         }),
     QRScanRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,

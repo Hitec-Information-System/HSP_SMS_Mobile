@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
-import 'package:frontend/menus/inspection/facility/domain/local_category_data.dart';
+import 'package:frontend/menus/monitor/facility/domain/local_category_data.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({

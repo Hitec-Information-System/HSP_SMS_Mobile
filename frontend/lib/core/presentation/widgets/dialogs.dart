@@ -71,6 +71,38 @@ class Dialogs {
       }
     });
   }
+
+  static void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return const LoadingDialog();
+      },
+    );
+  }
+}
+
+class LoadingDialog extends StatelessWidget {
+  const LoadingDialog({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(LayoutConstants.radiusL),
+      ),
+      backgroundColor: Theme.of(context).backgroundColor.withOpacity(.7),
+      content: Container(
+        width: 150,
+        height: 150,
+        alignment: Alignment.center,
+        child: const CircularProgressIndicator(),
+      ),
+    );
+  }
 }
 
 class NormalDialog extends StatelessWidget {

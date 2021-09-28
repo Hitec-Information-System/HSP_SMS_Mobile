@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:frontend/auth/domain/api_key.dart';
+import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/infrastructure/sembast_database.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,4 +19,11 @@ final dioProvider = Provider<Dio>(
 
 final sembastProvider = Provider<SembastDatabase>(
   (ref) => SembastDatabase(),
+);
+
+final tokenProvider = Provider<APIKey?>(
+  (ref) => ref.watch(authNotifierProvider).maybeWhen(
+        authenticated: (auth) => auth,
+        orElse: () => null,
+      ),
 );

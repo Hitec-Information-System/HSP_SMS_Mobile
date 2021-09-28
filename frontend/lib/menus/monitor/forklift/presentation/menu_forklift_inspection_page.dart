@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
-import 'package:frontend/menus/inspection/facility/domain/local_category_data.dart';
-import 'package:frontend/menus/inspection/facility/presentation/category_card.dart';
+import 'package:frontend/menus/monitor/facility/domain/local_category_data.dart';
+import 'package:frontend/menus/monitor/facility/presentation/category_card.dart';
 
-class MenuLineInspectionPage extends StatelessWidget {
-  const MenuLineInspectionPage({Key? key}) : super(key: key);
+class MenuForkLiftInspectionPage extends StatelessWidget {
+  const MenuForkLiftInspectionPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
+      extendBody: true,
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(LayoutConstants.paddingL),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "라인 점검",
+                "지게차 점검",
                 style: Theme.of(context).textTheme.headline4,
               ),
               const SizedBox(height: LayoutConstants.spaceL),
@@ -34,7 +35,7 @@ class MenuLineInspectionPage extends StatelessWidget {
               ),
               Wrap(
                 children: List<Widget>.generate(
-                  localLineData.length,
+                  localForkliftData.length,
                   (index) => Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: LayoutConstants.paddingS),
@@ -42,7 +43,7 @@ class MenuLineInspectionPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: LayoutConstants.paddingS),
                       child: CategoryCard(
-                        category: localLineData[index],
+                        category: localForkliftData[index],
                       ),
                     ),
                   ),
@@ -52,6 +53,6 @@ class MenuLineInspectionPage extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 }
