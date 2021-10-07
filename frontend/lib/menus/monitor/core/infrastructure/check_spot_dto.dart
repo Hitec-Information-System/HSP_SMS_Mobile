@@ -1,8 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/menus/monitor/core/domain/check_spot.dart';
+import 'package:intl/intl.dart';
 
 part 'check_spot_dto.freezed.dart';
 part 'check_spot_dto.g.dart';
+
+String formatDateTimeStrToTimeStr(String? dateTimeStr) {
+  if (dateTimeStr == null) return "";
+
+  final convertedDt = DateFormat("yyyy/MM/dd HH:mm:ss").parse(dateTimeStr);
+
+  return DateFormat("HH:mm").format(convertedDt);
+}
 
 @freezed
 class CheckSpotDTO with _$CheckSpotDTO {
@@ -15,7 +24,8 @@ class CheckSpotDTO with _$CheckSpotDTO {
         required String objSubFlag,
     @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "")
         required String objSubFlagNm,
-    required List<CheckedItemDTO> checkedList,
+    @JsonKey(name: "CHKLISTS", defaultValue: [])
+        required List<CheckedItemDTO> checkedList,
   }) = _CheckSpotDTO;
 
   factory CheckSpotDTO.fromJson(Map<String, dynamic> json) =>
@@ -50,7 +60,9 @@ class CheckedItemDTO with _$CheckedItemDTO {
     @JsonKey(name: "CHK_CHASU", defaultValue: "") required dynamic session,
     @JsonKey(name: "CHK_USER_ID", defaultValue: "") required String userId,
     @JsonKey(name: "CHK_USER_NM", defaultValue: "") required String userNm,
-    @JsonKey(name: "CRT_DT_DISP", defaultValue: "") required String checkedTime,
+    @JsonKey(name: "CRT_DT_DISP", fromJson: formatDateTimeStrToTimeStr)
+        required String checkedTime,
+    @JsonKey(name: "CHK_STATE", defaultValue: "") required String checkState,
   }) = _CheckedItemDTO;
 
   factory CheckedItemDTO.fromJson(Map<String, dynamic> json) =>
@@ -62,6 +74,7 @@ class CheckedItemDTO with _$CheckedItemDTO {
         userId: _.userId,
         userNm: _.userNm,
         checkedTime: _.checkedTime,
+        checkState: _.checkState,
       );
 
   CheckedItem toDomain() => CheckedItem(
@@ -70,5 +83,6 @@ class CheckedItemDTO with _$CheckedItemDTO {
         userId: userId,
         userNm: userNm,
         checkedTime: checkedTime,
+        checkState: checkState,
       );
 }

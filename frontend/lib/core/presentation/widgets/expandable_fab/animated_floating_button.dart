@@ -88,9 +88,7 @@ class _AnimatedFloatingButtonState extends State<AnimatedFloatingButton>
             duration: const Duration(milliseconds: 150),
             curve: widget.curve,
             child: Container(
-              child: widget.visible
-                  ? widget.dialRoot
-                  : const SizedBox(height: 0, width: 0),
+              child: widget.visible ? widget.dialRoot : const SizedBox(),
             ),
           );
   }

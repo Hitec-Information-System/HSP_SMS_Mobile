@@ -1,52 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'package:frontend/menus/core/shared/providers.dart';
-
-// class MenuNavBar extends ConsumerWidget {
-//   const MenuNavBar({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final menuState = ref.watch(menuNotifierProvider);
-
-//     return BottomNavigationBar(
-//       type: BottomNavigationBarType.fixed,
-//       showSelectedLabels: true,
-//       showUnselectedLabels: true,
-//       backgroundColor: Theme.of(context).bottomAppBarColor,
-//       onTap: (tabIndex) =>
-//           ref.read(menuNotifierProvider.notifier).changeCurrentPage(tabIndex),
-//       currentIndex: menuState.index,
-//       items: [
-//         BottomNavigationBarItem(
-//             icon: const Icon(Icons.home),
-//             label: AppLocalizations.of(context)?.translate('menu_main') ?? ""),
-//         BottomNavigationBarItem(
-//             icon: const Icon(Icons.gite),
-//             label:
-//                 AppLocalizations.of(context)?.translate('menu_facility') ?? ""),
-//         BottomNavigationBarItem(
-//             icon: const Icon(Icons.precision_manufacturing),
-//             label: AppLocalizations.of(context)?.translate('menu_line') ?? ""),
-//         BottomNavigationBarItem(
-//             icon: const Icon(MdiIcons.forklift),
-//             label:
-//                 AppLocalizations.of(context)?.translate('menu_forklift') ?? ""),
-//         BottomNavigationBarItem(
-//             icon: const Icon(Icons.settings),
-//             label:
-//                 AppLocalizations.of(context)?.translate('menu_settings') ?? ""),
-//       ],
-//     );
-//   }
-// }
-
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+  const BottomNavBar({
+    Key? key,
+    required this.currentIdx,
+    required this.onTap,
+  }) : super(key: key);
+
+  final int currentIdx;
+  final void Function(int) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -55,33 +18,57 @@ class BottomNavBar extends StatelessWidget {
       notchMargin: 5,
       color: Theme.of(context).bottomAppBarColor,
       child: Row(
-        children: const [
-          BottomNavBarItem(icon: Icons.gite, index: 0),
-          BottomNavBarItem(icon: Icons.precision_manufacturing, index: 1),
-          BottomNavBarItem(),
-          BottomNavBarItem(icon: MdiIcons.forklift, index: 2),
-          BottomNavBarItem(icon: Icons.settings, index: 3),
+        children: [
+          BottomNavBarItem(
+            currentIdx: currentIdx,
+            icon: Icons.gite,
+            index: 0,
+            onTap: onTap,
+          ),
+          BottomNavBarItem(
+            currentIdx: currentIdx,
+            icon: Icons.precision_manufacturing,
+            index: 1,
+            onTap: onTap,
+          ),
+          BottomNavBarItem(currentIdx: currentIdx),
+          BottomNavBarItem(
+            currentIdx: currentIdx,
+            icon: MdiIcons.forklift,
+            index: 2,
+            onTap: onTap,
+          ),
+          BottomNavBarItem(
+            currentIdx: currentIdx,
+            icon: Icons.settings,
+            index: 3,
+            onTap: onTap,
+          ),
         ],
       ),
     );
   }
 }
 
-class BottomNavBarItem extends ConsumerWidget {
+class BottomNavBarItem extends StatelessWidget {
   const BottomNavBarItem({
     Key? key,
     this.icon,
     this.index,
-  }) : super(key: key);
+    required this.currentIdx,
+    this.onTap,
+  })  : assert((index != null && onTap != null) ||
+            (index == null && onTap == null)),
+        super(key: key);
 
   final IconData? icon;
   final int? index;
+  final int currentIdx;
+
+  final void Function(int)? onTap;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final currentIdx =
-        ref.watch(menuNotifierProvider.select((state) => state.index));
-
+  Widget build(BuildContext context) {
     if (index == null) {
       return const Expanded(
         child: Opacity(
@@ -99,11 +86,9 @@ class BottomNavBarItem extends ConsumerWidget {
     } else {
       return Expanded(
         child: GestureDetector(
-          behavior: HitTestBehavior.translucent, // to increase touchable area
-          onTap: () {
-            ref.read(menuNotifierProvider.notifier).changeCurrentPage(index!);
-          },
-          child: Container(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => onTap!(index!),
+          child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 20),
             child: Icon(
               icon,

@@ -21,11 +21,11 @@ func (o *OracleRepository) Close() {
 	o.db.Close()
 }
 
-func (o *OracleRepository) GetSPDataWithStringAndCursor(qry string) (map[string]interface{}, error) {
+func (o *OracleRepository) GetSPDataWith2StringsAndCursor(qry string) (map[string]interface{}, error) {
 	var err error
 
 	var rset driver.Rows
-	var rstr string
+	var rstr1, rstr2 string
 
 	results := make(map[string]interface{})
 
@@ -45,7 +45,7 @@ func (o *OracleRepository) GetSPDataWithStringAndCursor(qry string) (map[string]
 	}
 	defer stmt.Close()
 
-	_, err = stmt.ExecContext(ctx, sql.Out{Dest: &rstr}, sql.Out{Dest: &rset, In: false})
+	_, err = stmt.ExecContext(ctx, sql.Out{Dest: &rstr1}, sql.Out{Dest: &rstr2}, sql.Out{Dest: &rset, In: false})
 
 	if err != nil {
 		return results, err
@@ -72,7 +72,8 @@ func (o *OracleRepository) GetSPDataWithStringAndCursor(qry string) (map[string]
 		cursorResults = append(cursorResults, dMap)
 	}
 
-	results["res_str"] = rstr
+	results["res_str1"] = rstr1
+	results["res_str2"] = rstr2
 	results["res_cur"] = cursorResults
 
 	return results, err
@@ -305,7 +306,6 @@ func (o *OracleRepository) GetSPDataWith2Cursor(qry string) (map[string]interfac
 	return results, err
 
 }
-
 
 func NewOracleRepository() DBRepository {
 

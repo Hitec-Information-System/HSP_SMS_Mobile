@@ -8,7 +8,7 @@ import 'package:frontend/core/presentation/widgets/expandable_fab/background_ove
 import 'package:frontend/core/presentation/widgets/expandable_fab/expandable_fab_child.dart';
 import 'package:frontend/core/presentation/widgets/expandable_fab/expandable_fab_direction.dart';
 
-import 'global_key_extensions.dart';
+import '../global_key_extensions.dart';
 
 class ExpandableFAB extends StatefulWidget {
   /// Children buttons, from the lowest to the highest.
@@ -390,6 +390,7 @@ class _ExpandableFABState extends State<ExpandableFAB>
                   )),
                 ],
               ));
+      // TODO: CHECK
       if (widget.renderOverlay) {
         backgroundOverlay = OverlayEntry(
           builder: (ctx) {

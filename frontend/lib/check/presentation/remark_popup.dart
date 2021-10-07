@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -10,20 +11,18 @@ import 'package:frontend/core/presentation/widgets/widgets.dart';
 class RemarkPopupCard extends HookConsumerWidget {
   const RemarkPopupCard({
     Key? key,
-    required this.index,
+    required this.detail,
   }) : super(key: key);
 
-  final int index;
+  final CheckDetails detail;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _remarkController = useTextEditingController();
+    print("popup built");
 
-    final detail = ref.watch(checkInfoStateNotifierProvider.select(
-      (state) => state.info.details[index],
-    ));
-
-    _remarkController.text = detail.remark;
+    final _remarkController = useTextEditingController(
+      text: detail.remark,
+    );
 
     return Hero(
       tag: detail.chkItemCd,
@@ -65,7 +64,7 @@ class RemarkPopupCard extends HookConsumerWidget {
                               ref
                                   .read(checkDetailsProvider.notifier)
                                   .setCheckRemark(
-                                      index, _remarkController.text);
+                                      detail.chkItemCd, _remarkController.text);
                               AutoRouter.of(context).pop();
                             }
                           },
@@ -87,17 +86,38 @@ class RemarkPopupCard extends HookConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: LayoutConstants.spaceS),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            ref
-                                .read(checkDetailsProvider.notifier)
-                                .setCheckRemark(index, _remarkController.text);
-                            AutoRouter.of(context).pop();
-                          },
-                          child: const Text("확인"),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              AutoRouter.of(context).pop();
+                            },
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).backgroundColor,
+                            )),
+                            child: Text(
+                              "취소",
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                          ),
+                          const SizedBox(width: LayoutConstants.spaceM),
+                          ElevatedButton(
+                            onPressed: () {
+                              ref
+                                  .read(checkDetailsProvider.notifier)
+                                  .setCheckRemark(
+                                      detail.chkItemCd, _remarkController.text);
+                              AutoRouter.of(context).pop();
+                            },
+                            child: const Text(
+                              "확인",
+                            ),
+                          ),
+                        ],
                       )
                     ],
                   ),

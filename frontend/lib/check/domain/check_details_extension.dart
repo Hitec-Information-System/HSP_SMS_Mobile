@@ -25,8 +25,18 @@ extension CheckDetailsX on List<CheckDetails> {
     return list.join().replaceAll(" ", "");
   }
 
-  bool get hasChecksBeenDone {
-    for (final detail in this) {
+  // bool get hasChecksBeenDone {
+  //   for (final detail in this) {
+  //     if (detail.result == "") {
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // }
+
+  bool hasNormalChecksBeenDone(String normalCd) {
+    final normals = where((detail) => detail.intervalChk == normalCd).toList();
+    for (final detail in normals) {
       if (detail.result == "") {
         return false;
       }

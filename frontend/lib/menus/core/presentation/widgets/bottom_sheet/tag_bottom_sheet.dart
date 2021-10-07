@@ -75,6 +75,8 @@ class TagBottomSheet extends StatelessWidget {
                         final checkInfoState =
                             ref.watch(checkInfoStateNotifierProvider);
 
+                        print("bottom sheet built");
+
                         return checkInfoState.maybeWhen(
                           initial: (_, info) => Text(
                             "태그를 스캔하여 주세요",
@@ -97,22 +99,24 @@ class TagBottomSheet extends StatelessWidget {
                                   ),
                                 ],
                               )),
-                          loaded: (_, data) => Container(
-                            key: const ValueKey<String>("loaded"),
-                            // todo: 수정
-                            child: Text.rich(TextSpan(children: <TextSpan>[
-                              TextSpan(
-                                text: data.header.objNm,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              const TextSpan(text: " 검사로 이동합니다"),
-                            ])),
-                          ),
+                          loaded: (_, data) {
+                            return Container(
+                              key: const ValueKey<String>("loaded"),
+                              // todo: 수정
+                              child: Text.rich(TextSpan(children: <TextSpan>[
+                                TextSpan(
+                                  text: data.header.objNm,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                const TextSpan(text: " 검사로 이동합니다"),
+                              ])),
+                            );
+                          },
                           failure: (_, info, failure) => Container(
                             key: const ValueKey<String>("failure"),
                             child: const Text("정보를 읽어오는데 실패하였습니다."),

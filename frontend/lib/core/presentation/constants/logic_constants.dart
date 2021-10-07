@@ -2,6 +2,5 @@
 class LogicConstants {
   const LogicConstants._();
 
-  static const companyCd = "3000";
   static const systemFlag = "MOBILE";
 }

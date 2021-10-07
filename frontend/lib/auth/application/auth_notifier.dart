@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:frontend/auth/domain/api_key.dart';
+import 'package:frontend/auth/domain/user.dart';
 import 'package:frontend/auth/domain/auth_failure.dart';
 import 'package:frontend/auth/infrastructure/authenticator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,7 +12,7 @@ class AuthState with _$AuthState {
   const factory AuthState.initial() = _Initial;
   const factory AuthState.loading() = _Loading;
   const factory AuthState.unauthenticated() = _Unauthenticated;
-  const factory AuthState.authenticated(APIKey key) = _Authenticated;
+  const factory AuthState.authenticated(User user) = _Authenticated;
   const factory AuthState.failure(AuthFailure failure) = _Failure;
 }
 
@@ -22,11 +22,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
   AuthNotifier(this._authenticator) : super(const AuthState.initial());
 
   Future<void> checkAuthState() async {
-    state = await _authenticator.getSignedInCredentials().then((key) {
-      if (key == null) {
+    state = await _authenticator.getSignedInCredentials().then((user) {
+      if (user == null) {
         return const AuthState.unauthenticated();
       } else {
-        return AuthState.authenticated(key);
+        return AuthState.authenticated(user);
       }
     });
   }

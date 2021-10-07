@@ -1,89 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:frontend/check/domain/check_details_extension.dart';
+import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/check/presentation/widgets/check_save_button.dart';
 import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:frontend/core/presentation/widgets/dialogs.dart';
+import 'package:frontend/core/presentation/widgets/responsive.dart';
+import 'package:frontend/core/shared/providers.dart';
+import 'package:frontend/tag/core/shared/providers.dart';
+
+import '../widgets.dart';
 
 class CheckInfoSection extends StatelessWidget {
   const CheckInfoSection({
     Key? key,
+    required this.info,
   }) : super(key: key);
+
+  final CheckInfo info;
 
   @override
   Widget build(BuildContext context) {
-    print("title rebuilt");
-    return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: LayoutConstants.paddingXS),
-      child: Material(
-        elevation: 2,
-        borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
-        color: Theme.of(context).cardColor,
-        child: Padding(
-          padding: const EdgeInsets.all(
-              (LayoutConstants.paddingM + LayoutConstants.paddingL) / 2),
-          child: Consumer(builder: (context, ref, child) {
-            final objGubunNm = ref.watch(checkHeaderNotifierProvider
-                .select((header) => header.objGubunNm));
-            final objNm = ref.watch(
-                checkHeaderNotifierProvider.select((header) => header.objNm));
-            final userNm = ref.watch(
-                checkHeaderNotifierProvider.select((header) => header.userNm));
+    print("base info built");
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CheckInfoRow(
-                  label: objGubunNm,
-                  value: objNm,
-                ),
-                const Divider(thickness: 1),
-                CheckInfoRow(
-                  label: "작성자",
-                  value: userNm,
-                ),
-                const Divider(thickness: 1),
-                CheckInfoRow(
-                  label: "점검시간",
-                  value: DateFormat("yyyy-MM-dd H:mm").format(DateTime.now()),
-                ),
-              ],
-            );
-          }),
-        ),
-      ),
-    );
-  }
-}
-
-class CheckInfoRow extends StatelessWidget {
-  const CheckInfoRow({
-    Key? key,
-    required this.label,
-    required this.value,
-  }) : super(key: key);
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                color: Theme.of(context).hintColor,
+        CheckTitle(
+          objNm: info.header.objNm,
+          objGubunNm: info.header.objGubunNm,
+        ),
+        const SizedBox(height: LayoutConstants.spaceL),
+        CheckHeaderInfo(
+          header: info.header,
+        ),
+        const SizedBox(height: LayoutConstants.spaceL),
+        Consumer(builder: (context, ref, child) {
+          final tagId = ref.watch(
+            tagNotifierProvider.select(
+              (state) => state.maybeWhen(
+                nfcRead: (tag) => tag.id,
+                qrRead: (tag) => tag.id,
+                orElse: () => "",
               ),
-        ),
-        Expanded(
-          child: Text(
-            value,
-            textAlign: TextAlign.right,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-        ),
+            ),
+          );
+          return CheckStandardRow(
+            label: "회차",
+            isSelected: info.sessions
+                .map((item) => item.id == info.header.session)
+                .toList(),
+            onPressed: (index) {
+              final selectedSession = info.sessions[index].id;
+
+              ref
+                  .read(checkInfoStateNotifierProvider.notifier)
+                  .getCheckInfo(tagId, info.header.interval, selectedSession);
+            },
+            children: info.sessions.map((item) => item.name).toList(),
+          );
+        }),
+        if (!Responsive.isMobile(context)) const CheckSaveButton(),
       ],
     );
   }

@@ -5,7 +5,7 @@ type DBRepository interface {
 	GetSPDataWithLOB(query string) ([]map[string]interface{}, error)
 	GetSPDataWithCursor(query string) ([]map[string]interface{}, error)
 	GetSPDataWith2Cursor(query string) (map[string]interface{}, error)
-	GetSPDataWithStringAndCursor(query string) (map[string]interface{}, error)
+	GetSPDataWith2StringsAndCursor(query string) (map[string]interface{}, error)
 	GetSPDataWithString(query string) (string, error)
 	Close()
 }

@@ -31,12 +31,12 @@ class MainFAB extends HookConsumerWidget {
         ExpandableFABChild(
           child: const Icon(Icons.qr_code),
           label: "QR 태그",
-          onTap: () => ref.watch(tagNotifierProvider.notifier).navigateToQR(),
+          onTap: () => ref.read(tagNotifierProvider.notifier).navigateToQR(),
         ),
         ExpandableFABChild(
           child: const Icon(Icons.nfc),
           label: "NFC 태그",
-          onTap: () => ref.watch(tagNotifierProvider.notifier).readNFCTag(),
+          onTap: () => ref.read(tagNotifierProvider.notifier).readNFCTag(),
         ),
       ],
     );

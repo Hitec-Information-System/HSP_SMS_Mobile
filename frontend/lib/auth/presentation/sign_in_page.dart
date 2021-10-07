@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:frontend/auth/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,16 +15,26 @@ class SignInPage extends HookConsumerWidget {
     final pwController = useTextEditingController();
 
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 48),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 48),
+        child: Center(
           child: SingleChildScrollView(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 16),
+                Image.asset(
+                  SchedulerBinding.instance!.window.platformBrightness ==
+                          Brightness.dark
+                      ? "assets/splash/splash_dark.png"
+                      : "assets/splash/splash_light.png",
+                  width: 200,
+                  height: 200,
+                ),
                 Form(
                   key: formKey,
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextFormField(
@@ -54,11 +65,11 @@ class SignInPage extends HookConsumerWidget {
                   onPressed: () {
                     if (formKey.currentState?.validate() == true) {
                       final params = {
-                        "userId": idController.text,
+                        "user-id": idController.text,
                         "pwd": pwController.text,
                       };
 
-                      ref.watch(authNotifierProvider.notifier).signIn(params);
+                      ref.read(authNotifierProvider.notifier).signIn(params);
                     }
                   },
                   child: const Text("로그인"),

@@ -13,9 +13,10 @@ _$_CheckSpotDTO _$_$_CheckSpotDTOFromJson(Map<String, dynamic> json) {
     objFlag: json['OBJ_GUBUN'] as String? ?? '',
     objSubFlag: json['OBJ_GUBUN_SUB'] as String? ?? '',
     objSubFlagNm: json['OBJ_GUBUN_SUB_NM'] as String? ?? '',
-    checkedList: (json['checkedList'] as List<dynamic>)
-        .map((e) => CheckedItemDTO.fromJson(e as Map<String, dynamic>))
-        .toList(),
+    checkedList: (json['CHKLISTS'] as List<dynamic>?)
+            ?.map((e) => CheckedItemDTO.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
   );
 }
 
@@ -26,7 +27,7 @@ Map<String, dynamic> _$_$_CheckSpotDTOToJson(_$_CheckSpotDTO instance) =>
       'OBJ_GUBUN': instance.objFlag,
       'OBJ_GUBUN_SUB': instance.objSubFlag,
       'OBJ_GUBUN_SUB_NM': instance.objSubFlagNm,
-      'checkedList': instance.checkedList.map((e) => e.toJson()).toList(),
+      'CHKLISTS': instance.checkedList.map((e) => e.toJson()).toList(),
     };
 
 _$_CheckedItemDTO _$_$_CheckedItemDTOFromJson(Map<String, dynamic> json) {
@@ -35,7 +36,8 @@ _$_CheckedItemDTO _$_$_CheckedItemDTOFromJson(Map<String, dynamic> json) {
     session: json['CHK_CHASU'] ?? '',
     userId: json['CHK_USER_ID'] as String? ?? '',
     userNm: json['CHK_USER_NM'] as String? ?? '',
-    checkedTime: json['CRT_DT_DISP'] as String? ?? '',
+    checkedTime: formatDateTimeStrToTimeStr(json['CRT_DT_DISP'] as String?),
+    checkState: json['CHK_STATE'] as String? ?? '',
   );
 }
 
@@ -46,4 +48,5 @@ Map<String, dynamic> _$_$_CheckedItemDTOToJson(_$_CheckedItemDTO instance) =>
       'CHK_USER_ID': instance.userId,
       'CHK_USER_NM': instance.userNm,
       'CRT_DT_DISP': instance.checkedTime,
+      'CHK_STATE': instance.checkState,
     };

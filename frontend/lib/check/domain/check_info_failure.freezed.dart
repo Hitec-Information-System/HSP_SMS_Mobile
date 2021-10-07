@@ -16,10 +16,15 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CheckInfoFailureTearOff {
   const _$CheckInfoFailureTearOff();
 
-  _Api api([int? message]) {
+  _Api api([int? statusCode, String? message]) {
     return _Api(
+      statusCode,
       message,
     );
+  }
+
+  _NoConnection noConnection() {
+    return const _NoConnection();
   }
 }
 
@@ -28,33 +33,31 @@ const $CheckInfoFailure = _$CheckInfoFailureTearOff();
 
 /// @nodoc
 mixin _$CheckInfoFailure {
-  int? get message => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int? message) api,
+    required TResult Function(int? statusCode, String? message) api,
+    required TResult Function() noConnection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int? message)? api,
+    TResult Function(int? statusCode, String? message)? api,
+    TResult Function()? noConnection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Api value) api,
+    required TResult Function(_NoConnection value) noConnection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Api value)? api,
+    TResult Function(_NoConnection value)? noConnection,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $CheckInfoFailureCopyWith<CheckInfoFailure> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -63,7 +66,6 @@ abstract class $CheckInfoFailureCopyWith<$Res> {
   factory $CheckInfoFailureCopyWith(
           CheckInfoFailure value, $Res Function(CheckInfoFailure) then) =
       _$CheckInfoFailureCopyWithImpl<$Res>;
-  $Res call({int? message});
 }
 
 /// @nodoc
@@ -74,26 +76,13 @@ class _$CheckInfoFailureCopyWithImpl<$Res>
   final CheckInfoFailure _value;
   // ignore: unused_field
   final $Res Function(CheckInfoFailure) _then;
-
-  @override
-  $Res call({
-    Object? message = freezed,
-  }) {
-    return _then(_value.copyWith(
-      message: message == freezed
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$ApiCopyWith<$Res> implements $CheckInfoFailureCopyWith<$Res> {
+abstract class _$ApiCopyWith<$Res> {
   factory _$ApiCopyWith(_Api value, $Res Function(_Api) then) =
       __$ApiCopyWithImpl<$Res>;
-  @override
-  $Res call({int? message});
+  $Res call({int? statusCode, String? message});
 }
 
 /// @nodoc
@@ -107,13 +96,18 @@ class __$ApiCopyWithImpl<$Res> extends _$CheckInfoFailureCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? statusCode = freezed,
     Object? message = freezed,
   }) {
     return _then(_Api(
+      statusCode == freezed
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int?,
       message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -121,27 +115,34 @@ class __$ApiCopyWithImpl<$Res> extends _$CheckInfoFailureCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Api extends _Api {
-  const _$_Api([this.message]) : super._();
+  const _$_Api([this.statusCode, this.message]) : super._();
 
   @override
-  final int? message;
+  final int? statusCode;
+  @override
+  final String? message;
 
   @override
   String toString() {
-    return 'CheckInfoFailure.api(message: $message)';
+    return 'CheckInfoFailure.api(statusCode: $statusCode, message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Api &&
+            (identical(other.statusCode, statusCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.statusCode, statusCode)) &&
             (identical(other.message, message) ||
                 const DeepCollectionEquality().equals(other.message, message)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(statusCode) ^
+      const DeepCollectionEquality().hash(message);
 
   @JsonKey(ignore: true)
   @override
@@ -151,19 +152,21 @@ class _$_Api extends _Api {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int? message) api,
+    required TResult Function(int? statusCode, String? message) api,
+    required TResult Function() noConnection,
   }) {
-    return api(message);
+    return api(statusCode, message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int? message)? api,
+    TResult Function(int? statusCode, String? message)? api,
+    TResult Function()? noConnection,
     required TResult orElse(),
   }) {
     if (api != null) {
-      return api(message);
+      return api(statusCode, message);
     }
     return orElse();
   }
@@ -172,6 +175,7 @@ class _$_Api extends _Api {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Api value) api,
+    required TResult Function(_NoConnection value) noConnection,
   }) {
     return api(this);
   }
@@ -180,6 +184,7 @@ class _$_Api extends _Api {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Api value)? api,
+    TResult Function(_NoConnection value)? noConnection,
     required TResult orElse(),
   }) {
     if (api != null) {
@@ -190,12 +195,98 @@ class _$_Api extends _Api {
 }
 
 abstract class _Api extends CheckInfoFailure {
-  const factory _Api([int? message]) = _$_Api;
+  const factory _Api([int? statusCode, String? message]) = _$_Api;
   const _Api._() : super._();
 
-  @override
-  int? get message => throw _privateConstructorUsedError;
-  @override
+  int? get statusCode => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ApiCopyWith<_Api> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$NoConnectionCopyWith<$Res> {
+  factory _$NoConnectionCopyWith(
+          _NoConnection value, $Res Function(_NoConnection) then) =
+      __$NoConnectionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$NoConnectionCopyWithImpl<$Res>
+    extends _$CheckInfoFailureCopyWithImpl<$Res>
+    implements _$NoConnectionCopyWith<$Res> {
+  __$NoConnectionCopyWithImpl(
+      _NoConnection _value, $Res Function(_NoConnection) _then)
+      : super(_value, (v) => _then(v as _NoConnection));
+
+  @override
+  _NoConnection get _value => super._value as _NoConnection;
+}
+
+/// @nodoc
+
+class _$_NoConnection extends _NoConnection {
+  const _$_NoConnection() : super._();
+
+  @override
+  String toString() {
+    return 'CheckInfoFailure.noConnection()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _NoConnection);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int? statusCode, String? message) api,
+    required TResult Function() noConnection,
+  }) {
+    return noConnection();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int? statusCode, String? message)? api,
+    TResult Function()? noConnection,
+    required TResult orElse(),
+  }) {
+    if (noConnection != null) {
+      return noConnection();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Api value) api,
+    required TResult Function(_NoConnection value) noConnection,
+  }) {
+    return noConnection(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Api value)? api,
+    TResult Function(_NoConnection value)? noConnection,
+    required TResult orElse(),
+  }) {
+    if (noConnection != null) {
+      return noConnection(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _NoConnection extends CheckInfoFailure {
+  const factory _NoConnection() = _$_NoConnection;
+  const _NoConnection._() : super._();
 }

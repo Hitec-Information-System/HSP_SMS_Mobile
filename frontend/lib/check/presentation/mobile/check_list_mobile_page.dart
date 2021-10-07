@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/check/domain/check_info.dart';
-import 'package:frontend/check/presentation/widgets/check_base_info_column.dart';
-import 'package:frontend/check/presentation/widgets/check_details.dart';
-import 'package:frontend/check/shared/providers.dart';
-import 'package:frontend/core/presentation/constants/constants.dart';
-import 'package:frontend/core/presentation/widgets/dialogs.dart';
-import 'package:frontend/core/shared/providers.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:frontend/check/domain/check_details_extension.dart';
 
-class ChecklistMobilePage extends ConsumerWidget {
-  const ChecklistMobilePage({Key? key}) : super(key: key);
+import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/check/presentation/widgets/check_details_section.dart';
+import 'package:frontend/check/presentation/widgets/check_info_section.dart';
+import 'package:frontend/check/presentation/widgets/check_save_button.dart';
+import 'package:frontend/core/presentation/constants/constants.dart';
+
+class ChecklistMobilePage extends StatelessWidget {
+  const ChecklistMobilePage({
+    Key? key,
+    required this.info,
+  }) : super(key: key);
+
+  final CheckInfo info;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     print("mobile page built");
 
     return Scaffold(
@@ -25,79 +27,17 @@ class ChecklistMobilePage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const CheckBaseInfoColumn(),
+                CheckInfoSection(
+                  info: info,
+                ),
                 const SizedBox(height: LayoutConstants.spaceM),
                 const Divider(thickness: 2),
                 const SizedBox(height: LayoutConstants.spaceM),
                 Row(
                   children: [
-                    Consumer(builder: (context, ref, child) {
-                      final detailsQty = ref.watch(
-                          checkInfoStateNotifierProvider
-                              .select((state) => state.info.details.length));
-                      return Text("점검항목 : $detailsQty");
-                    }),
+                    Text("점검항목 : ${info.details.length}"),
                     const Spacer(),
-                    Consumer(builder: (context, ref, child) {
-                      final header = ref.watch(checkHeaderNotifierProvider);
-                      final details = ref.watch(checkDetailsProvider);
-
-                      final token = ref.watch(tokenProvider);
-                      return ElevatedButton(
-                        onPressed: () {
-                          print("pressed");
-
-                          if (details.hasChecksBeenDone) {
-                            Dialogs.showTwoAnswersDialog(
-                              context,
-                              color: Theme.of(context).colorScheme.secondary,
-                              icon: Icons.help,
-                              title: "점검목록 저장",
-                              message: "점검내용을 저장하시겠습니까?",
-                              yesTitle: "저장",
-                              onYesPressed: () {
-                                final params = {
-                                  "compCd": LogicConstants.companyCd,
-                                  "sysFlag": LogicConstants.systemFlag,
-                                  "userId": token?.key ?? "",
-                                  "xmlH": header.toHeaderXml,
-                                  "xmlD": details.toResultsXml,
-                                  "xmlI": details.toImgsXml,
-                                };
-
-                                final images = <CheckImage>[];
-                                for (final detail in details) {
-                                  images.addAll(detail.images);
-                                }
-
-                                ref
-                                    .read(
-                                        checkInfoStateNotifierProvider.notifier)
-                                    .saveCheckInfo(
-                                      params,
-                                      images,
-                                    );
-                              },
-                              noTitle: "취소",
-                              onNoPressed: () {},
-                              onDismissed: () {},
-                            );
-                          } else {
-                            Dialogs.showOneAnswerDialog(
-                              context,
-                              color: Theme.of(context).errorColor,
-                              title: "점검 미완료",
-                              message: "점검을 모두 완료하지 않았습니다",
-                              yesTitle: "확인",
-                              onYesPressed: () {},
-                            );
-                          }
-                        },
-                        child: const Text(
-                          "저장",
-                        ),
-                      );
-                    }),
+                    const CheckSaveButton(),
                   ],
                 ),
                 const SizedBox(height: LayoutConstants.spaceXS),
@@ -110,9 +50,9 @@ class ChecklistMobilePage extends ConsumerWidget {
                     borderRadius:
                         BorderRadius.circular(LayoutConstants.radiusM),
                     color: Theme.of(context).cardColor,
-                    child: const Padding(
-                      padding: EdgeInsets.all(LayoutConstants.paddingM),
-                      child: CheckListDetailsSection(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(LayoutConstants.paddingM),
+                      child: CheckListDetailsSection(info: info),
                     ),
                   ),
                 ),

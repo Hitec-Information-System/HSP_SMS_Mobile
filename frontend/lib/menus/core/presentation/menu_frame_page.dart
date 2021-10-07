@@ -1,28 +1,39 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/check/application/check_info_notifier.dart';
 import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/shared/hooks/rive/tag_recognizer_controller.dart';
-import 'package:frontend/core/shared/providers.dart';
 import 'package:frontend/menus/core/presentation/menu_nav_bar.dart';
 import 'package:frontend/menus/core/presentation/widgets/widgets.dart';
-import 'package:frontend/menus/core/shared/providers.dart';
-import 'package:frontend/menus/monitor/facility/presentation/menu_facility_inspection_page.dart';
-import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_inspection_page.dart';
-import 'package:frontend/menus/monitor/line/presentation/menu_line_inspection_page.dart';
-import 'package:frontend/menus/settings/presentation/menu_settings_page.dart';
 import 'package:frontend/tag/core/application/tag_notifier.dart';
 import 'package:frontend/tag/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 
-const _pages = [
-  MenuFacilityInspectionPage(),
-  MenuLineInspectionPage(),
-  MenuForkLiftInspectionPage(),
-  MenuSettingsPage(),
+const _hardCodedRoutes = [
+  BuildingTab(
+    children: [
+      MenuBuildingRoute(),
+    ],
+  ),
+  LineTab(
+    children: [
+      MenuLineRoute(),
+    ],
+  ),
+  ForkliftTab(
+    children: [
+      MenuForkLiftRoute(),
+    ],
+  ),
+  SettingsTab(
+    children: [
+      MenuSettingsRoute(),
+    ],
+  ),
 ];
 
 class MenuFramePage extends HookConsumerWidget {
@@ -106,7 +117,12 @@ class MenuFramePage extends HookConsumerWidget {
       },
     );
 
-    ref.listen<CheckInfoState>(checkInfoStateNotifierProvider, (state) {
+    // FIXME: 점검 페이지로 이동한 경우,
+    //        Navigator에 페이지가 Stack 되어 있는 상태로 쌓여있기 때문에 union state 가 바뀌는 것에 지속적으로 영향을 받음
+    //        점검 페이지 안에 watch 혹은 StateNotifier로 부터 파생한 provider들이 있기 때문에 화면이 여러번 그려지는 오류가 있음
+
+    ref.listen<CheckInfoState>(
+        checkInfoStateNotifierProvider.select((value) => value), (state) {
       state.maybeWhen(
         initial: (_, __) {
           AutoRouter.of(context).popUntilRouteWithName(MenuFrameRoute.name);
@@ -114,12 +130,22 @@ class MenuFramePage extends HookConsumerWidget {
         loading: (_, __) {
           Dialogs.showLoadingDialog(context);
         },
-        loaded: (_, __) async {
+        loaded: (_, info) async {
           await Future.delayed(const Duration(milliseconds: 1000));
 
-          AutoRouter.of(context).push(const CheckListRoute()).then((_) {
+          AutoRouter.of(context)
+              .pushAndPopUntil(
+                  CheckListRoute(
+                    info: info,
+                  ),
+                  predicate: (route) => false)
+              .then((_) {
+            AutoRouter.of(context).push(const MenuFrameRoute());
             ref.read(tagNotifierProvider.notifier).clear();
           });
+        },
+        saving: (_, __) {
+          Dialogs.showLoadingDialog(context);
         },
         saved: (_, __) {
           Dialogs.showOneAnswerDialog(
@@ -143,7 +169,8 @@ class MenuFramePage extends HookConsumerWidget {
             title: "오류",
             message:
                 "오류가 발생하였습니다. 관리자에게 문의하여 주세요.\n오류는 다음과 같습니다.\n\n${failure.when(
-              api: (code) => code,
+              api: (code, message) => message,
+              noConnection: () => "인터넷 연결 오류",
             )}\n",
             yesTitle: "확인",
             onYesPressed: () {},
@@ -156,65 +183,22 @@ class MenuFramePage extends HookConsumerWidget {
       );
     });
 
-    return Scaffold(
-      extendBody: true,
-      body: Consumer(
-        builder: (context, ref, child) {
-          final menuState = ref.watch(menuNotifierProvider);
-          return _pages[menuState.index];
-        },
-      ),
-      bottomNavigationBar: const BottomNavBar(),
-      floatingActionButton: const MainFAB(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    return AutoTabsRouter(
+      routes: _hardCodedRoutes,
+      builder: (context, child, animation) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        return Scaffold(
+          extendBody: true,
+          body: child,
+          bottomNavigationBar: BottomNavBar(
+            currentIdx: tabsRouter.activeIndex,
+            onTap: (index) => tabsRouter.setActiveIndex(index),
+          ),
+          floatingActionButton: const MainFAB(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+        );
+      },
     );
-
-    // Size _size = MediaQuery.of(context).size;
-
-    // print(_size);
-
-    // return Responsive(
-    //   mobile: Container(
-    //     color: Colors.red,
-    //   ),
-    //   tablet: Row(
-    //     children: [
-    //       Expanded(
-    //         flex: 6,
-    //         child: Container(
-    //           color: Colors.amber,
-    //         ),
-    //       ),
-    //       Expanded(
-    //         flex: 9,
-    //         child: Container(
-    //           color: Colors.green,
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    //   desktop: Row(
-    //     children: [
-    //       Expanded(
-    //         flex: 4,
-    //         child: Container(
-    //           color: Colors.amber,
-    //         ),
-    //       ),
-    //       Expanded(
-    //         flex: 6,
-    //         child: Container(
-    //           color: Colors.amber,
-    //         ),
-    //       ),
-    //       Expanded(
-    //         flex: 9,
-    //         child: Container(
-    //           color: Colors.green,
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }

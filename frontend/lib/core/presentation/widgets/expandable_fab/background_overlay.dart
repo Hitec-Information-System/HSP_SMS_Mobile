@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'global_key_extensions.dart';
+import '../global_key_extensions.dart';
 
 class BackgroundOverlay extends AnimatedWidget {
   final Color color;

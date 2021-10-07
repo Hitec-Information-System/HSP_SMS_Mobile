@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:frontend/auth/domain/user.dart';
 import 'package:frontend/core/domain/fresh.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/menus/monitor/core/domain/check_monitor_failure.dart';
@@ -21,21 +22,21 @@ class CheckMonitorState with _$CheckMonitorState {
 class CheckMonitorStateNotifier extends StateNotifier<CheckMonitorState> {
   CheckMonitorStateNotifier(
     this._repository,
-    this.token,
+    this.user,
     this.objFlag,
   ) : super(const CheckMonitorState.initial());
 
   final CheckMonitorRepository _repository;
-  final String token;
+  final User user;
   final String objFlag;
 
   Future<void> getMonitoringList() async {
     state = const CheckMonitorState.loading();
 
     final params = {
-      "comp-cd": LogicConstants.companyCd,
+      "comp-cd": user.userInfo.compCd,
       "sys-flag": LogicConstants.systemFlag,
-      "user": token,
+      "user": user.key,
       "flag": objFlag,
     };
 

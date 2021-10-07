@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/check/presentation/widgets/check_base_info_column.dart';
-import 'package:frontend/check/presentation/widgets/check_details.dart';
+
+import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/check/presentation/widgets/check_details_section.dart';
+import 'package:frontend/check/presentation/widgets/check_info_section.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 
 class ChecklistTabletPage extends StatelessWidget {
-  const ChecklistTabletPage({Key? key}) : super(key: key);
+  const ChecklistTabletPage({
+    Key? key,
+    required this.info,
+  }) : super(key: key);
+
+  final CheckInfo info;
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +31,31 @@ class ChecklistTabletPage extends StatelessWidget {
                       topRight: Radius.circular(LayoutConstants.radiusM),
                       bottomRight: Radius.circular(LayoutConstants.radiusM),
                     )),
-                child: const SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.all(
-                      LayoutConstants.paddingM,
-                    ),
-                    child: CheckBaseInfoColumn()),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(
+                    LayoutConstants.paddingM,
+                  ),
+                  child: CheckInfoSection(
+                    info: info,
+                  ),
+                ),
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 5,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.symmetric(
-                  horizontal: LayoutConstants.paddingL,
-                  vertical: LayoutConstants.paddingM,
+              child: SizedBox(
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: LayoutConstants.paddingL,
+                    vertical: LayoutConstants.paddingM,
+                  ),
+                  child: CheckListDetailsSection(
+                    info: info,
+                  ),
                 ),
-                child: CheckListDetailsSection(),
               ),
             )
           ],

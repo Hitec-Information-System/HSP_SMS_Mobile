@@ -70,7 +70,7 @@ class AnimatedChild extends AnimatedWidget {
     }
 
     Widget buildLabel() {
-      if (label == null && labelWidget == null) return Container();
+      if (label == null && labelWidget == null) return const SizedBox();
 
       if (labelWidget != null) {
         return GestureDetector(
@@ -181,6 +181,6 @@ class AnimatedChild extends AnimatedWidget {
                   switchLabelPosition ? children.reversed.toList() : children,
             ),
           )
-        : Container();
+        : const SizedBox();
   }
 }

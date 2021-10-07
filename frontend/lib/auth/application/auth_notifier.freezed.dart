@@ -28,9 +28,9 @@ class _$AuthStateTearOff {
     return const _Unauthenticated();
   }
 
-  _Authenticated authenticated(APIKey key) {
+  _Authenticated authenticated(User user) {
     return _Authenticated(
-      key,
+      user,
     );
   }
 
@@ -51,7 +51,7 @@ mixin _$AuthState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() unauthenticated,
-    required TResult Function(APIKey key) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(AuthFailure failure) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -60,7 +60,7 @@ mixin _$AuthState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? unauthenticated,
-    TResult Function(APIKey key)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) =>
@@ -141,7 +141,7 @@ class _$_Initial extends _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() unauthenticated,
-    required TResult Function(APIKey key) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(AuthFailure failure) failure,
   }) {
     return initial();
@@ -153,7 +153,7 @@ class _$_Initial extends _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? unauthenticated,
-    TResult Function(APIKey key)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -237,7 +237,7 @@ class _$_Loading extends _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() unauthenticated,
-    required TResult Function(APIKey key) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(AuthFailure failure) failure,
   }) {
     return loading();
@@ -249,7 +249,7 @@ class _$_Loading extends _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? unauthenticated,
-    TResult Function(APIKey key)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -335,7 +335,7 @@ class _$_Unauthenticated extends _Unauthenticated {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() unauthenticated,
-    required TResult Function(APIKey key) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(AuthFailure failure) failure,
   }) {
     return unauthenticated();
@@ -347,7 +347,7 @@ class _$_Unauthenticated extends _Unauthenticated {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? unauthenticated,
-    TResult Function(APIKey key)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -396,9 +396,9 @@ abstract class _$AuthenticatedCopyWith<$Res> {
   factory _$AuthenticatedCopyWith(
           _Authenticated value, $Res Function(_Authenticated) then) =
       __$AuthenticatedCopyWithImpl<$Res>;
-  $Res call({APIKey key});
+  $Res call({User user});
 
-  $APIKeyCopyWith<$Res> get key;
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -413,20 +413,20 @@ class __$AuthenticatedCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? key = freezed,
+    Object? user = freezed,
   }) {
     return _then(_Authenticated(
-      key == freezed
-          ? _value.key
-          : key // ignore: cast_nullable_to_non_nullable
-              as APIKey,
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
     ));
   }
 
   @override
-  $APIKeyCopyWith<$Res> get key {
-    return $APIKeyCopyWith<$Res>(_value.key, (value) {
-      return _then(_value.copyWith(key: value));
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
     });
   }
 }
@@ -434,27 +434,27 @@ class __$AuthenticatedCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Authenticated extends _Authenticated {
-  const _$_Authenticated(this.key) : super._();
+  const _$_Authenticated(this.user) : super._();
 
   @override
-  final APIKey key;
+  final User user;
 
   @override
   String toString() {
-    return 'AuthState.authenticated(key: $key)';
+    return 'AuthState.authenticated(user: $user)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Authenticated &&
-            (identical(other.key, key) ||
-                const DeepCollectionEquality().equals(other.key, key)));
+            (identical(other.user, user) ||
+                const DeepCollectionEquality().equals(other.user, user)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(key);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(user);
 
   @JsonKey(ignore: true)
   @override
@@ -467,10 +467,10 @@ class _$_Authenticated extends _Authenticated {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() unauthenticated,
-    required TResult Function(APIKey key) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(AuthFailure failure) failure,
   }) {
-    return authenticated(key);
+    return authenticated(user);
   }
 
   @override
@@ -479,12 +479,12 @@ class _$_Authenticated extends _Authenticated {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? unauthenticated,
-    TResult Function(APIKey key)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated(key);
+      return authenticated(user);
     }
     return orElse();
   }
@@ -519,10 +519,10 @@ class _$_Authenticated extends _Authenticated {
 }
 
 abstract class _Authenticated extends AuthState {
-  const factory _Authenticated(APIKey key) = _$_Authenticated;
+  const factory _Authenticated(User user) = _$_Authenticated;
   const _Authenticated._() : super._();
 
-  APIKey get key => throw _privateConstructorUsedError;
+  User get user => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$AuthenticatedCopyWith<_Authenticated> get copyWith =>
       throw _privateConstructorUsedError;
@@ -602,7 +602,7 @@ class _$_Failure extends _Failure {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() unauthenticated,
-    required TResult Function(APIKey key) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(AuthFailure failure) failure,
   }) {
     return failure(this.failure);
@@ -614,7 +614,7 @@ class _$_Failure extends _Failure {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? unauthenticated,
-    TResult Function(APIKey key)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {

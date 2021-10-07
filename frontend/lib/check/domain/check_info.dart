@@ -4,7 +4,8 @@ import 'package:image_picker/image_picker.dart';
 
 part 'check_info.freezed.dart';
 
-const saveDirPath = "./uploads";
+// TODO: temporary path
+const saveDirPath = 'D:\\WebSite\\HSP_SMS\\publish\\wwwroot\\uploads';
 
 @freezed
 class CheckInfo with _$CheckInfo {
@@ -102,15 +103,13 @@ class CheckDetails with _$CheckDetails {
       return "";
     }
 
-    // image name: ./uploads/${images[index].name}
-
     return images
         .mapIndexed(
           (index, element) => '''
     <Table1>
       <CHK_ITEM_CD>$chkItemCd</CHK_ITEM_CD>
       <CHK_IMG_NO>${index + 1}</CHK_IMG_NO>
-      <CHK_IMG_URL>$saveDirPath/${images[index].name}</CHK_IMG_URL>
+      <CHK_IMG_URL>$saveDirPath\\${images[index].name}</CHK_IMG_URL>
       <RMK></RMK>
     </Table1>
   '''

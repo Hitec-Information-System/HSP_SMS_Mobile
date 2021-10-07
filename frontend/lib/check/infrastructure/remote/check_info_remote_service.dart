@@ -17,6 +17,7 @@ class CheckInfoRemoteService {
         "/check",
         queryParameters: params,
       );
+
       if (response.statusCode != 200) {
         throw RestApiException(errorCode: response.statusCode);
       }
@@ -32,7 +33,10 @@ class CheckInfoRemoteService {
       if (e.isNoConnectionError) {
         return const RemoteResponse.noConnection();
       } else if (e.response != null) {
-        throw RestApiException(errorCode: e.response?.statusCode);
+        throw RestApiException(
+          errorCode: e.response?.statusCode,
+          message: e.message,
+        );
       } else {
         rethrow;
       }

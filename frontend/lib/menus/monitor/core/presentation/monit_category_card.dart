@@ -18,14 +18,17 @@ class MonitCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 275,
-      padding: const EdgeInsets.all(LayoutConstants.paddingM),
+      padding: const EdgeInsets.symmetric(
+        horizontal: LayoutConstants.paddingXS,
+        vertical: LayoutConstants.paddingM,
+      ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
           color: Colors.grey.withOpacity(.3)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(objSubNm),
+          SizedBox(height: 20, child: Text(objSubNm)),
           const SizedBox(height: LayoutConstants.spaceM),
           ...spots.map((spot) => SubCategoryCard(spot: spot)).toList()
         ],
@@ -42,7 +45,7 @@ class SubCategoryCard extends StatelessWidget {
     required this.spot,
   }) : super(key: key);
 
-  // TODO : 시간 지는 것을 어떻게 표현할 것인지 의견 구하기
+  // TODO : 시간 지난 것을 어떻게 표현할 것인지 의견 구하기
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +58,14 @@ class SubCategoryCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              spot.objNm,
-              style: Theme.of(context).textTheme.bodyText1,
+            SizedBox(
+              height: 40,
+              child: Text(
+                spot.objNm,
+                style: Theme.of(context).textTheme.bodyText1,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             const SizedBox(height: LayoutConstants.spaceM),
             Container(
@@ -66,7 +74,18 @@ class SubCategoryCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children:
                     List<Widget>.generate(spot.checkedList.length, (index) {
-                  if (spot.checkedList[index].checkedTime == "") {
+                  if (spot.checkedList[index].checkState == "NG") {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: LayoutConstants.paddingXS / 2),
+                      child: Circle(
+                        color: Theme.of(context).errorColor.withOpacity(.85),
+                        radius: LayoutConstants.radiusS,
+                      ),
+                    );
+                  }
+
+                  if (spot.checkedList[index].id == "") {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: LayoutConstants.paddingXS / 2),
@@ -78,16 +97,16 @@ class SubCategoryCard extends StatelessWidget {
                         radius: LayoutConstants.radiusS,
                       ),
                     );
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: LayoutConstants.paddingXS / 2),
-                      child: Circle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        radius: LayoutConstants.radiusS,
-                      ),
-                    );
                   }
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: LayoutConstants.paddingXS / 2),
+                    child: Circle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      radius: LayoutConstants.radiusS,
+                    ),
+                  );
                 }),
               ),
             ),
@@ -96,11 +115,17 @@ class SubCategoryCard extends StatelessWidget {
               children: List.generate(
                 spot.checkedList.length,
                 (index) {
-                  if (spot.checkedList[index].checkedTime == "") {
-                    return const EmptyStampCard();
-                  } else {
-                    return TimeStampCard(item: spot.checkedList[index]);
+                  if (spot.checkedList[index].checkState == "NG") {
+                    return MissedStampCard(
+                      delayedHHmm: spot.checkedList[index].delayedHm,
+                    );
                   }
+
+                  if (spot.checkedList[index].id == "") {
+                    return const EmptyStampCard();
+                  }
+
+                  return TimeStampCard(item: spot.checkedList[index]);
                 },
               ),
             )
@@ -136,8 +161,7 @@ class TimeStampCard extends StatelessWidget {
             ),
             child: Column(
               children: [
-                // TODO : MM:ss 로 FORMATTING 해주기
-                Text(item.session,
+                Text(item.formattedSession,
                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
                         color: Theme.of(context)
                             .textTheme
@@ -196,7 +220,12 @@ class EmptyStampCard extends StatelessWidget {
 }
 
 class MissedStampCard extends StatelessWidget {
-  const MissedStampCard({Key? key}) : super(key: key);
+  const MissedStampCard({
+    Key? key,
+    required this.delayedHHmm,
+  }) : super(key: key);
+
+  final String delayedHHmm;
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +235,7 @@ class MissedStampCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: 50,
+            width: 55,
             height: 45,
             padding: const EdgeInsets.all(LayoutConstants.paddingS),
             decoration: BoxDecoration(
@@ -215,10 +244,12 @@ class MissedStampCard extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                "${DateTime.now().hour}시간\n경과",
+                "$delayedHHmm\n경과",
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    color: Theme.of(context).errorColor, fontSize: 12),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    ?.copyWith(color: Theme.of(context).errorColor),
               ),
             ),
           ),

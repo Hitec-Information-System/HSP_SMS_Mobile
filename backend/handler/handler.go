@@ -66,7 +66,7 @@ func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) 
 	objFlag := queryString.Get("obj-flag")
 
 	if compCd == "" || objFlag == "" {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": "invalid json provided",
 		})
 		return
@@ -82,7 +82,7 @@ func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) 
 
 	sessions, err := a.db.GetSPDataWithCursor(sessionsQuery)
 	if err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
 		return
@@ -98,7 +98,7 @@ func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) 
 
 	intervals, err := a.db.GetSPDataWithCursor(intervalsQuery)
 	if err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
 		return
@@ -121,51 +121,82 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 	checkNo := queryString.Get("check-no")
 	interval := queryString.Get("interval")
 	session := queryString.Get("session")
+	objCd := queryString.Get("obj-cd")
 
 	if compCd == "" || userId == "" || checkNo == "" {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": "invalid json provided",
 		})
 		return
 	}
 
-	// TODO: 점검 주기 인자 넘기기
-
 	headerQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '%s', '%s', '%s',:CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '%s', '%s', '%s', '%s',:CURSOR1);
 	END;
-	`, compCd, systemFlag, userId, checkNo, interval, session)
+	`, compCd, systemFlag, userId, objCd, checkNo, interval, session)
 
 	fmt.Println(headerQuery)
 
 	header, err := a.db.GetSPDataWithCursor(headerQuery)
 	if err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
 		return
 	}
 
+	/// header에서 데이터 추출
+	//  - 추가 데이터 받아오기 위해
+	objGubun := header[0]["OBJ_GUBUN"]
+	checkListNo := header[0]["CHKLIST_NO"]
+	itemCd := ""
+	imgNo := ""
+
 	detailsQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_D('%s', '%s', '%s', '%s', '%s', '%s', :CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_D('%s', '%s', '%s', '%s', '%s', '%s', '%s', :CURSOR1);
 	END;
-	`, compCd, systemFlag, userId, checkNo, interval, session)
+	`, compCd, systemFlag, userId, objCd, checkNo, interval, session)
 
 	fmt.Println(detailsQuery)
 
 	details, err := a.db.GetSPDataWithCursor(detailsQuery)
 	if err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
 		return
 	}
 
-	/// header에서 obj_gubun 뽑아내기
-	//  - 주기 데이터 받아오기 위해
-	objGubun := header[0]["OBJ_GUBUN"]
+	detailsImgQuery := fmt.Sprintf(`
+	BEGIN
+		SMS_PK_5010.P_FIND_CHKLIST_D_IMG('%s', '%s', '%s', '%s', '%s', '%s', :CURSOR1);
+	END;
+	`, compCd, systemFlag, userId, checkListNo, itemCd, imgNo)
+
+	fmt.Println(detailsImgQuery)
+
+	detailsImg, err := a.db.GetSPDataWithCursor(detailsImgQuery)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	for _, img := range detailsImg {
+		for _, detail := range details {
+			if detail["CHK_ITEM_CD"] == img["CHK_ITEM_CD"] {
+				var arr []interface{}
+				if detail["IMGS"] != nil {
+					arr = append(arr, detail["IMGS"])
+				}
+				arr = append(arr, img)
+				detail["IMGS"] = arr
+			}
+		}
+	}
 
 	sessionsQuery := fmt.Sprintf(`
 	BEGIN 
@@ -177,7 +208,7 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	sessions, err := a.db.GetSPDataWithCursor(sessionsQuery)
 	if err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
 		return
@@ -193,7 +224,7 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	intervals, err := a.db.GetSPDataWithCursor(intervalsQuery)
 	if err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
 		return
@@ -213,24 +244,37 @@ func (a *AppHandler) saveCheckList(w http.ResponseWriter, r *http.Request) {
 	var params map[string]interface{}
 
 	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, "Invalid json provided")
+		rd.JSON(w, http.StatusBadRequest, "Invalid json provided")
 	}
 
-	compCd := params["compCd"].(string)
-	systemFlag := params["sysFlag"].(string)
-	userId := params["userId"].(string)
-	xmlH := params["xmlH"].(string)
-	xmlD := params["xmlD"].(string)
-	xmlI := params["xmlI"].(string)
+	compCd := params["comp-cd"].(string)
+	systemFlag := params["sys-flag"].(string)
+	userId := params["user-id"].(string)
+	xmlH := params["xml-h"].(string)
+	xmlD := params["xml-d"].(string)
+	xmlI := params["xml-i"].(string)
 
-	query := fmt.Sprintf(`BEGIN SMS_PK_5010.P_SAVE_CHKLIST('%s','%s','%s','%s','%s','%s',:1); END;`, compCd, systemFlag, userId, xmlH, xmlD, xmlI)
+	query := fmt.Sprintf(`
+	BEGIN 
+		SMS_PK_5010.P_SAVE_CHKLIST('%s','%s','%s','%s','%s','%s',:PO_RST); 
+	END;`, compCd, systemFlag, userId, xmlH, xmlD, xmlI)
 
 	fmt.Println(query)
 
 	results, err := a.db.GetSPDataWithString(query)
 
 	if err != nil {
-		panic(err)
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	if results != "OK" {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": "저장하는 도중 에러가 발생하였습니다",
+		})
+		return
 	}
 
 	rd.JSON(w, http.StatusOK, results)
@@ -254,7 +298,7 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 	xml.NewEncoder(&buf).Encode(&xmlElem)
 
 	if compCd == "" || userId == "" {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": "invalid json provided",
 		})
 		return
@@ -270,7 +314,7 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 
 	results, err := a.db.GetSPDataWithLOB(query)
 	if err != nil {
-		rd.JSON(w, http.StatusUnprocessableEntity, map[string]interface{}{
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
 		return

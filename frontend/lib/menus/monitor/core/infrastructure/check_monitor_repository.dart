@@ -6,6 +6,8 @@ import 'package:frontend/menus/monitor/core/domain/check_spot.dart';
 import 'package:frontend/menus/monitor/core/domain/check_monitor_failure.dart';
 import 'package:frontend/menus/monitor/core/infrastructure/check_spot_dto.dart';
 
+import 'package:frontend/core/infrastructure/dio_extensions.dart';
+
 class CheckMonitorRepository {
   final Dio _dio;
 
@@ -30,6 +32,13 @@ class CheckMonitorRepository {
       } else {
         throw RestApiException(errorCode: response.statusCode);
       }
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return left(
+          const CheckMonitorFailure.noConnection(),
+        );
+      }
+      rethrow;
     } on RestApiException catch (e) {
       return left(
         CheckMonitorFailure.api(e.errorCode),

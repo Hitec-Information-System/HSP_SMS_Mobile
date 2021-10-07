@@ -1,11 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/auth/domain/api_key.dart';
+import 'package:frontend/auth/domain/user.dart';
 import 'package:frontend/auth/domain/auth_failure.dart';
-import 'package:frontend/auth/infrastructure/api_key_dto.dart';
+import 'package:frontend/auth/infrastructure/user_dto.dart';
 import 'package:frontend/auth/infrastructure/credentials_storage/credentials_storage.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
+
+import 'package:frontend/core/infrastructure/dio_extensions.dart';
 
 class Authenticator {
   final Dio _dio;
@@ -16,21 +18,22 @@ class Authenticator {
     this._credentialsStorage,
   );
 
-  Future<APIKey?> getSignedInCredentials() async {
+  Future<User?> getSignedInCredentials() async {
     try {
-      final storedAPIKeyDTO = await _credentialsStorage.read();
-      return storedAPIKeyDTO?.toDomain();
+      final storedUserDTO = await _credentialsStorage.read();
+      return storedUserDTO?.toDomain();
     } on PlatformException {
       return null;
     }
   }
 
-  Future<Either<AuthFailure, APIKey>> handleAuthorizationResponse(
+  Future<Either<AuthFailure, User>> handleAuthorizationResponse(
     Map<String, dynamic> params,
   ) async {
     try {
-      params["compCd"] = LogicConstants.companyCd;
-      params["sysFlag"] = LogicConstants.systemFlag;
+      // TODO: hard-coded Company Code
+      params["comp-cd"] = "3000";
+      params["sys-flag"] = LogicConstants.systemFlag;
 
       final response = await _dio.post("/sign-in", data: params);
 
@@ -39,17 +42,34 @@ class Authenticator {
         return left(const AuthFailure.server());
       }
 
+      if ((response.data as Map<String, dynamic>)["msg"] != null) {
+        return left(AuthFailure.server(response.data["msg"] as String));
+      }
+
       if (response.data != "" && response.data != null) {
-        final apiKey =
-            ApiKeyDTO.fromJson(response.data as Map<String, dynamic>);
+        final apiKey = UserDTO.fromJson(response.data as Map<String, dynamic>);
         await _credentialsStorage.save(apiKey);
         return right(apiKey.toDomain());
       }
 
       // 데이터가 없을 때
       return left(
-        const AuthFailure.server("Invalid combinations of id and password"),
+        const AuthFailure.server("아이디, 비밀번호의 조합이 맞지 않습니다."),
       );
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return left(
+          const AuthFailure.server("인터넷 연결 신호가 약합니다."),
+        );
+      }
+
+      if (e.response?.statusCode == 400) {
+        return left(
+          const AuthFailure.server("아이디, 비밀번호의 조합이 맞지 않습니다."),
+        );
+      }
+
+      rethrow;
     } on FormatException {
       return left(const AuthFailure.server());
     } on PlatformException {

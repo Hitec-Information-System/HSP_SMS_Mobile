@@ -31,7 +31,8 @@ class _$CheckSpotDTOTearOff {
           required String objSubFlag,
       @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "")
           required String objSubFlagNm,
-      required List<CheckedItemDTO> checkedList}) {
+      @JsonKey(name: "CHKLISTS", defaultValue: [])
+          required List<CheckedItemDTO> checkedList}) {
     return _CheckSpotDTO(
       objCd: objCd,
       objNm: objNm,
@@ -62,6 +63,7 @@ mixin _$CheckSpotDTO {
   String get objSubFlag => throw _privateConstructorUsedError;
   @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "")
   String get objSubFlagNm => throw _privateConstructorUsedError;
+  @JsonKey(name: "CHKLISTS", defaultValue: [])
   List<CheckedItemDTO> get checkedList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -76,12 +78,18 @@ abstract class $CheckSpotDTOCopyWith<$Res> {
           CheckSpotDTO value, $Res Function(CheckSpotDTO) then) =
       _$CheckSpotDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "OBJ_CD", defaultValue: "") String objCd,
-      @JsonKey(name: "OBJ_NM", defaultValue: "") String objNm,
-      @JsonKey(name: "OBJ_GUBUN", defaultValue: "") String objFlag,
-      @JsonKey(name: "OBJ_GUBUN_SUB", defaultValue: "") String objSubFlag,
-      @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "") String objSubFlagNm,
-      List<CheckedItemDTO> checkedList});
+      {@JsonKey(name: "OBJ_CD", defaultValue: "")
+          String objCd,
+      @JsonKey(name: "OBJ_NM", defaultValue: "")
+          String objNm,
+      @JsonKey(name: "OBJ_GUBUN", defaultValue: "")
+          String objFlag,
+      @JsonKey(name: "OBJ_GUBUN_SUB", defaultValue: "")
+          String objSubFlag,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "")
+          String objSubFlagNm,
+      @JsonKey(name: "CHKLISTS", defaultValue: [])
+          List<CheckedItemDTO> checkedList});
 }
 
 /// @nodoc
@@ -138,12 +146,18 @@ abstract class _$CheckSpotDTOCopyWith<$Res>
       __$CheckSpotDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "OBJ_CD", defaultValue: "") String objCd,
-      @JsonKey(name: "OBJ_NM", defaultValue: "") String objNm,
-      @JsonKey(name: "OBJ_GUBUN", defaultValue: "") String objFlag,
-      @JsonKey(name: "OBJ_GUBUN_SUB", defaultValue: "") String objSubFlag,
-      @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "") String objSubFlagNm,
-      List<CheckedItemDTO> checkedList});
+      {@JsonKey(name: "OBJ_CD", defaultValue: "")
+          String objCd,
+      @JsonKey(name: "OBJ_NM", defaultValue: "")
+          String objNm,
+      @JsonKey(name: "OBJ_GUBUN", defaultValue: "")
+          String objFlag,
+      @JsonKey(name: "OBJ_GUBUN_SUB", defaultValue: "")
+          String objSubFlag,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "")
+          String objSubFlagNm,
+      @JsonKey(name: "CHKLISTS", defaultValue: [])
+          List<CheckedItemDTO> checkedList});
 }
 
 /// @nodoc
@@ -208,7 +222,8 @@ class _$_CheckSpotDTO extends _CheckSpotDTO {
           required this.objSubFlag,
       @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "")
           required this.objSubFlagNm,
-      required this.checkedList})
+      @JsonKey(name: "CHKLISTS", defaultValue: [])
+          required this.checkedList})
       : super._();
 
   factory _$_CheckSpotDTO.fromJson(Map<String, dynamic> json) =>
@@ -230,6 +245,7 @@ class _$_CheckSpotDTO extends _CheckSpotDTO {
   @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "")
   final String objSubFlagNm;
   @override
+  @JsonKey(name: "CHKLISTS", defaultValue: [])
   final List<CheckedItemDTO> checkedList;
 
   @override
@@ -292,7 +308,8 @@ abstract class _CheckSpotDTO extends CheckSpotDTO {
           required String objSubFlag,
       @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "")
           required String objSubFlagNm,
-      required List<CheckedItemDTO> checkedList}) = _$_CheckSpotDTO;
+      @JsonKey(name: "CHKLISTS", defaultValue: [])
+          required List<CheckedItemDTO> checkedList}) = _$_CheckSpotDTO;
   const _CheckSpotDTO._() : super._();
 
   factory _CheckSpotDTO.fromJson(Map<String, dynamic> json) =
@@ -314,6 +331,7 @@ abstract class _CheckSpotDTO extends CheckSpotDTO {
   @JsonKey(name: "OBJ_GUBUN_SUB_NM", defaultValue: "")
   String get objSubFlagNm => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: "CHKLISTS", defaultValue: [])
   List<CheckedItemDTO> get checkedList => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
@@ -338,14 +356,17 @@ class _$CheckedItemDTOTearOff {
           required String userId,
       @JsonKey(name: "CHK_USER_NM", defaultValue: "")
           required String userNm,
-      @JsonKey(name: "CRT_DT_DISP", defaultValue: "")
-          required String checkedTime}) {
+      @JsonKey(name: "CRT_DT_DISP", fromJson: formatDateTimeStrToTimeStr)
+          required String checkedTime,
+      @JsonKey(name: "CHK_STATE", defaultValue: "")
+          required String checkState}) {
     return _CheckedItemDTO(
       id: id,
       session: session,
       userId: userId,
       userNm: userNm,
       checkedTime: checkedTime,
+      checkState: checkState,
     );
   }
 
@@ -367,8 +388,10 @@ mixin _$CheckedItemDTO {
   String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: "CHK_USER_NM", defaultValue: "")
   String get userNm => throw _privateConstructorUsedError;
-  @JsonKey(name: "CRT_DT_DISP", defaultValue: "")
+  @JsonKey(name: "CRT_DT_DISP", fromJson: formatDateTimeStrToTimeStr)
   String get checkedTime => throw _privateConstructorUsedError;
+  @JsonKey(name: "CHK_STATE", defaultValue: "")
+  String get checkState => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -382,11 +405,18 @@ abstract class $CheckedItemDTOCopyWith<$Res> {
           CheckedItemDTO value, $Res Function(CheckedItemDTO) then) =
       _$CheckedItemDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "CHKLIST_NO", defaultValue: "") String id,
-      @JsonKey(name: "CHK_CHASU", defaultValue: "") dynamic session,
-      @JsonKey(name: "CHK_USER_ID", defaultValue: "") String userId,
-      @JsonKey(name: "CHK_USER_NM", defaultValue: "") String userNm,
-      @JsonKey(name: "CRT_DT_DISP", defaultValue: "") String checkedTime});
+      {@JsonKey(name: "CHKLIST_NO", defaultValue: "")
+          String id,
+      @JsonKey(name: "CHK_CHASU", defaultValue: "")
+          dynamic session,
+      @JsonKey(name: "CHK_USER_ID", defaultValue: "")
+          String userId,
+      @JsonKey(name: "CHK_USER_NM", defaultValue: "")
+          String userNm,
+      @JsonKey(name: "CRT_DT_DISP", fromJson: formatDateTimeStrToTimeStr)
+          String checkedTime,
+      @JsonKey(name: "CHK_STATE", defaultValue: "")
+          String checkState});
 }
 
 /// @nodoc
@@ -405,6 +435,7 @@ class _$CheckedItemDTOCopyWithImpl<$Res>
     Object? userId = freezed,
     Object? userNm = freezed,
     Object? checkedTime = freezed,
+    Object? checkState = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -427,6 +458,10 @@ class _$CheckedItemDTOCopyWithImpl<$Res>
           ? _value.checkedTime
           : checkedTime // ignore: cast_nullable_to_non_nullable
               as String,
+      checkState: checkState == freezed
+          ? _value.checkState
+          : checkState // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -439,11 +474,18 @@ abstract class _$CheckedItemDTOCopyWith<$Res>
       __$CheckedItemDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "CHKLIST_NO", defaultValue: "") String id,
-      @JsonKey(name: "CHK_CHASU", defaultValue: "") dynamic session,
-      @JsonKey(name: "CHK_USER_ID", defaultValue: "") String userId,
-      @JsonKey(name: "CHK_USER_NM", defaultValue: "") String userNm,
-      @JsonKey(name: "CRT_DT_DISP", defaultValue: "") String checkedTime});
+      {@JsonKey(name: "CHKLIST_NO", defaultValue: "")
+          String id,
+      @JsonKey(name: "CHK_CHASU", defaultValue: "")
+          dynamic session,
+      @JsonKey(name: "CHK_USER_ID", defaultValue: "")
+          String userId,
+      @JsonKey(name: "CHK_USER_NM", defaultValue: "")
+          String userNm,
+      @JsonKey(name: "CRT_DT_DISP", fromJson: formatDateTimeStrToTimeStr)
+          String checkedTime,
+      @JsonKey(name: "CHK_STATE", defaultValue: "")
+          String checkState});
 }
 
 /// @nodoc
@@ -464,6 +506,7 @@ class __$CheckedItemDTOCopyWithImpl<$Res>
     Object? userId = freezed,
     Object? userNm = freezed,
     Object? checkedTime = freezed,
+    Object? checkState = freezed,
   }) {
     return _then(_CheckedItemDTO(
       id: id == freezed
@@ -486,6 +529,10 @@ class __$CheckedItemDTOCopyWithImpl<$Res>
           ? _value.checkedTime
           : checkedTime // ignore: cast_nullable_to_non_nullable
               as String,
+      checkState: checkState == freezed
+          ? _value.checkState
+          : checkState // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -502,8 +549,10 @@ class _$_CheckedItemDTO extends _CheckedItemDTO {
           required this.userId,
       @JsonKey(name: "CHK_USER_NM", defaultValue: "")
           required this.userNm,
-      @JsonKey(name: "CRT_DT_DISP", defaultValue: "")
-          required this.checkedTime})
+      @JsonKey(name: "CRT_DT_DISP", fromJson: formatDateTimeStrToTimeStr)
+          required this.checkedTime,
+      @JsonKey(name: "CHK_STATE", defaultValue: "")
+          required this.checkState})
       : super._();
 
   factory _$_CheckedItemDTO.fromJson(Map<String, dynamic> json) =>
@@ -522,12 +571,15 @@ class _$_CheckedItemDTO extends _CheckedItemDTO {
   @JsonKey(name: "CHK_USER_NM", defaultValue: "")
   final String userNm;
   @override
-  @JsonKey(name: "CRT_DT_DISP", defaultValue: "")
+  @JsonKey(name: "CRT_DT_DISP", fromJson: formatDateTimeStrToTimeStr)
   final String checkedTime;
+  @override
+  @JsonKey(name: "CHK_STATE", defaultValue: "")
+  final String checkState;
 
   @override
   String toString() {
-    return 'CheckedItemDTO(id: $id, session: $session, userId: $userId, userNm: $userNm, checkedTime: $checkedTime)';
+    return 'CheckedItemDTO(id: $id, session: $session, userId: $userId, userNm: $userNm, checkedTime: $checkedTime, checkState: $checkState)';
   }
 
   @override
@@ -545,7 +597,10 @@ class _$_CheckedItemDTO extends _CheckedItemDTO {
                 const DeepCollectionEquality().equals(other.userNm, userNm)) &&
             (identical(other.checkedTime, checkedTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.checkedTime, checkedTime)));
+                    .equals(other.checkedTime, checkedTime)) &&
+            (identical(other.checkState, checkState) ||
+                const DeepCollectionEquality()
+                    .equals(other.checkState, checkState)));
   }
 
   @override
@@ -555,7 +610,8 @@ class _$_CheckedItemDTO extends _CheckedItemDTO {
       const DeepCollectionEquality().hash(session) ^
       const DeepCollectionEquality().hash(userId) ^
       const DeepCollectionEquality().hash(userNm) ^
-      const DeepCollectionEquality().hash(checkedTime);
+      const DeepCollectionEquality().hash(checkedTime) ^
+      const DeepCollectionEquality().hash(checkState);
 
   @JsonKey(ignore: true)
   @override
@@ -578,8 +634,10 @@ abstract class _CheckedItemDTO extends CheckedItemDTO {
           required String userId,
       @JsonKey(name: "CHK_USER_NM", defaultValue: "")
           required String userNm,
-      @JsonKey(name: "CRT_DT_DISP", defaultValue: "")
-          required String checkedTime}) = _$_CheckedItemDTO;
+      @JsonKey(name: "CRT_DT_DISP", fromJson: formatDateTimeStrToTimeStr)
+          required String checkedTime,
+      @JsonKey(name: "CHK_STATE", defaultValue: "")
+          required String checkState}) = _$_CheckedItemDTO;
   const _CheckedItemDTO._() : super._();
 
   factory _CheckedItemDTO.fromJson(Map<String, dynamic> json) =
@@ -598,8 +656,11 @@ abstract class _CheckedItemDTO extends CheckedItemDTO {
   @JsonKey(name: "CHK_USER_NM", defaultValue: "")
   String get userNm => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: "CRT_DT_DISP", defaultValue: "")
+  @JsonKey(name: "CRT_DT_DISP", fromJson: formatDateTimeStrToTimeStr)
   String get checkedTime => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: "CHK_STATE", defaultValue: "")
+  String get checkState => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckedItemDTOCopyWith<_CheckedItemDTO> get copyWith =>

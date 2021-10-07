@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend/auth/infrastructure/api_key_dto.dart';
+import 'package:frontend/auth/infrastructure/user_dto.dart';
 import 'package:frontend/auth/infrastructure/credentials_storage/credentials_storage.dart';
 
 class SecureCredentialStorage implements CredentialsStorage {
@@ -11,10 +11,10 @@ class SecureCredentialStorage implements CredentialsStorage {
 
   static const _key = "user_info";
 
-  ApiKeyDTO? _cachedUser;
+  UserDTO? _cachedUser;
 
   @override
-  Future<ApiKeyDTO?> read() async {
+  Future<UserDTO?> read() async {
     if (_cachedUser != null) {
       return _cachedUser;
     }
@@ -25,14 +25,14 @@ class SecureCredentialStorage implements CredentialsStorage {
     }
     try {
       return _cachedUser =
-          ApiKeyDTO.fromJson(jsonDecode(json) as Map<String, dynamic>);
+          UserDTO.fromJson(jsonDecode(json) as Map<String, dynamic>);
     } on FormatException {
       return null;
     }
   }
 
   @override
-  Future<void> save(ApiKeyDTO user) {
+  Future<void> save(UserDTO user) {
     _cachedUser = user;
     return _storage.write(key: _key, value: jsonEncode(user.toJson()));
   }

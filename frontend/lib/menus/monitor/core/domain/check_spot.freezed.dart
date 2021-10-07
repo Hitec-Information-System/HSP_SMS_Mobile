@@ -277,13 +277,15 @@ class _$CheckedItemTearOff {
       required String session,
       required String userId,
       required String userNm,
-      required String checkedTime}) {
+      required String checkedTime,
+      required String checkState}) {
     return _CheckedItem(
       id: id,
       session: session,
       userId: userId,
       userNm: userNm,
       checkedTime: checkedTime,
+      checkState: checkState,
     );
   }
 }
@@ -298,6 +300,7 @@ mixin _$CheckedItem {
   String get userId => throw _privateConstructorUsedError;
   String get userNm => throw _privateConstructorUsedError;
   String get checkedTime => throw _privateConstructorUsedError;
+  String get checkState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckedItemCopyWith<CheckedItem> get copyWith =>
@@ -314,7 +317,8 @@ abstract class $CheckedItemCopyWith<$Res> {
       String session,
       String userId,
       String userNm,
-      String checkedTime});
+      String checkedTime,
+      String checkState});
 }
 
 /// @nodoc
@@ -332,6 +336,7 @@ class _$CheckedItemCopyWithImpl<$Res> implements $CheckedItemCopyWith<$Res> {
     Object? userId = freezed,
     Object? userNm = freezed,
     Object? checkedTime = freezed,
+    Object? checkState = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -354,6 +359,10 @@ class _$CheckedItemCopyWithImpl<$Res> implements $CheckedItemCopyWith<$Res> {
           ? _value.checkedTime
           : checkedTime // ignore: cast_nullable_to_non_nullable
               as String,
+      checkState: checkState == freezed
+          ? _value.checkState
+          : checkState // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -370,7 +379,8 @@ abstract class _$CheckedItemCopyWith<$Res>
       String session,
       String userId,
       String userNm,
-      String checkedTime});
+      String checkedTime,
+      String checkState});
 }
 
 /// @nodoc
@@ -390,6 +400,7 @@ class __$CheckedItemCopyWithImpl<$Res> extends _$CheckedItemCopyWithImpl<$Res>
     Object? userId = freezed,
     Object? userNm = freezed,
     Object? checkedTime = freezed,
+    Object? checkState = freezed,
   }) {
     return _then(_CheckedItem(
       id: id == freezed
@@ -412,6 +423,10 @@ class __$CheckedItemCopyWithImpl<$Res> extends _$CheckedItemCopyWithImpl<$Res>
           ? _value.checkedTime
           : checkedTime // ignore: cast_nullable_to_non_nullable
               as String,
+      checkState: checkState == freezed
+          ? _value.checkState
+          : checkState // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -424,7 +439,8 @@ class _$_CheckedItem extends _CheckedItem {
       required this.session,
       required this.userId,
       required this.userNm,
-      required this.checkedTime})
+      required this.checkedTime,
+      required this.checkState})
       : super._();
 
   @override
@@ -437,10 +453,12 @@ class _$_CheckedItem extends _CheckedItem {
   final String userNm;
   @override
   final String checkedTime;
+  @override
+  final String checkState;
 
   @override
   String toString() {
-    return 'CheckedItem(id: $id, session: $session, userId: $userId, userNm: $userNm, checkedTime: $checkedTime)';
+    return 'CheckedItem(id: $id, session: $session, userId: $userId, userNm: $userNm, checkedTime: $checkedTime, checkState: $checkState)';
   }
 
   @override
@@ -458,7 +476,10 @@ class _$_CheckedItem extends _CheckedItem {
                 const DeepCollectionEquality().equals(other.userNm, userNm)) &&
             (identical(other.checkedTime, checkedTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.checkedTime, checkedTime)));
+                    .equals(other.checkedTime, checkedTime)) &&
+            (identical(other.checkState, checkState) ||
+                const DeepCollectionEquality()
+                    .equals(other.checkState, checkState)));
   }
 
   @override
@@ -468,7 +489,8 @@ class _$_CheckedItem extends _CheckedItem {
       const DeepCollectionEquality().hash(session) ^
       const DeepCollectionEquality().hash(userId) ^
       const DeepCollectionEquality().hash(userNm) ^
-      const DeepCollectionEquality().hash(checkedTime);
+      const DeepCollectionEquality().hash(checkedTime) ^
+      const DeepCollectionEquality().hash(checkState);
 
   @JsonKey(ignore: true)
   @override
@@ -482,7 +504,8 @@ abstract class _CheckedItem extends CheckedItem {
       required String session,
       required String userId,
       required String userNm,
-      required String checkedTime}) = _$_CheckedItem;
+      required String checkedTime,
+      required String checkState}) = _$_CheckedItem;
   const _CheckedItem._() : super._();
 
   @override
@@ -495,6 +518,8 @@ abstract class _CheckedItem extends CheckedItem {
   String get userNm => throw _privateConstructorUsedError;
   @override
   String get checkedTime => throw _privateConstructorUsedError;
+  @override
+  String get checkState => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckedItemCopyWith<_CheckedItem> get copyWith =>
