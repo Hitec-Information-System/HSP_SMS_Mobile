@@ -230,7 +230,7 @@ class MissedStampCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65,
+      height: 75,
       padding: const EdgeInsets.all(LayoutConstants.paddingXS),
       child: Column(
         children: [

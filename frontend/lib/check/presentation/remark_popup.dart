@@ -62,7 +62,7 @@ class RemarkPopupCard extends HookConsumerWidget {
                           onSubmitted: (value) {
                             if (value.isNotEmpty) {
                               ref
-                                  .read(checkDetailsProvider.notifier)
+                                  .read(checkInfoStateNotifierProvider.notifier)
                                   .setCheckRemark(
                                       detail.chkItemCd, _remarkController.text);
                               AutoRouter.of(context).pop();
@@ -108,7 +108,7 @@ class RemarkPopupCard extends HookConsumerWidget {
                           ElevatedButton(
                             onPressed: () {
                               ref
-                                  .read(checkDetailsProvider.notifier)
+                                  .read(checkInfoStateNotifierProvider.notifier)
                                   .setCheckRemark(
                                       detail.chkItemCd, _remarkController.text);
                               AutoRouter.of(context).pop();

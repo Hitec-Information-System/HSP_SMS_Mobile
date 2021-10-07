@@ -37,6 +37,50 @@ class CheckInfo with _$CheckInfo {
         sessions: [],
         details: [],
       );
+
+  String get toResultsXml {
+    final list = details.map((detail) {
+      return detail.toResultXml;
+    }).toList();
+
+    list.insert(0, "<NewDataSet>");
+    list.insert(list.length, "</NewDataSet>");
+
+    return list.join().replaceAll(" ", "");
+  }
+
+  String get toImgsXml {
+    final list = details.map((detail) => detail.toImgXml).toList();
+
+    if (list.join() == "") {
+      return "";
+    }
+
+    list.insert(0, "<NewDataSet>");
+    list.insert(list.length, "</NewDataSet>");
+
+    return list.join().replaceAll(" ", "");
+  }
+
+  // bool get hasChecksBeenDone {
+  //   for (final detail in this) {
+  //     if (detail.result == "") {
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // }
+
+  bool hasNormalChecksBeenDone(String normalCd) {
+    final normals =
+        details.where((detail) => detail.intervalChk == normalCd).toList();
+    for (final detail in normals) {
+      if (detail.result == "") {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 @freezed

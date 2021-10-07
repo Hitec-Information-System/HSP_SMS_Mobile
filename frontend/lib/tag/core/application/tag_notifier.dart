@@ -37,7 +37,7 @@ class TagNotifier extends StateNotifier<TagState> {
 
     _nfcManager.startSession(onDiscovered: (tag) async {
       try {
-        await _nfcManager.stopSession();
+        stopNFCSession();
 
         final failureOrSuccess = await _nfcConverter.convertToDomain(tag);
 

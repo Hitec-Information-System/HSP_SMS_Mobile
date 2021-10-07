@@ -3,6 +3,7 @@ import 'package:frontend/auth/presentation/sign_in_page.dart';
 import 'package:frontend/check/presentation/check_list_page.dart';
 import 'package:frontend/core/presentation/widgets/error/error_page.dart';
 import 'package:frontend/menus/core/presentation/menu_frame_page.dart';
+import 'package:frontend/menus/core/presentation/widgets/bottom_sheet/widgets.dart';
 import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart';
 import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart';
 import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart';
@@ -63,6 +64,14 @@ import 'package:frontend/tag/qr/presentation/qr_scan_page.dart';
       page: CheckListPage,
       path: '/inspection',
       transitionsBuilder: TransitionsBuilders.slideBottom,
+    ),
+    CustomRoute(
+      page: TagBottomSheetPage,
+      path: "/tag",
+      transitionsBuilder: TransitionsBuilders.slideBottom,
+      durationInMilliseconds: 300,
+      reverseDurationInMilliseconds: 300,
+      opaque: false,
     ),
   ],
 )

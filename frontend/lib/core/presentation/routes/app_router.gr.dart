@@ -7,20 +7,22 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 import 'package:frontend/auth/presentation/sign_in_page.dart' as _i4;
-import 'package:frontend/check/domain/check_info.dart' as _i13;
 import 'package:frontend/check/presentation/check_list_page.dart' as _i8;
 import 'package:frontend/core/presentation/widgets/error/error_page.dart'
     as _i5;
 import 'package:frontend/menus/core/presentation/menu_frame_page.dart' as _i6;
-import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart'
+import 'package:frontend/menus/core/presentation/widgets/bottom_sheet/widgets.dart'
     as _i9;
-import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart'
-    as _i11;
-import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart'
+import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart'
     as _i10;
-import 'package:frontend/menus/settings/presentation/menu_settings_page.dart'
+import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart'
     as _i12;
+import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart'
+    as _i11;
+import 'package:frontend/menus/settings/presentation/menu_settings_page.dart'
+    as _i13;
 import 'package:frontend/splash/presentation/splash_page.dart' as _i3;
+import 'package:frontend/tag/core/domain/tag.dart' as _i14;
 import 'package:frontend/tag/qr/presentation/qr_scan_page.dart' as _i7;
 
 class AppRouter extends _i1.RootStackRouter {
@@ -52,20 +54,38 @@ class AppRouter extends _i1.RootStackRouter {
         }),
     QRScanRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
-        builder: (_) {
-          return const _i7.QRScanPage();
+        builder: (data) {
+          final args = data.argsAs<QRScanRouteArgs>(
+              orElse: () => const QRScanRouteArgs());
+          return _i7.QRScanPage(key: args.key, onTagged: args.onTagged);
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         opaque: true,
         barrierDismissible: false),
     CheckListRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
-        builder: (data) {
-          final args = data.argsAs<CheckListRouteArgs>();
-          return _i8.CheckListPage(key: args.key, info: args.info);
+        builder: (_) {
+          return const _i8.CheckListPage();
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         opaque: true,
+        barrierDismissible: false),
+    TagBottomSheetRoute.name: (routeData) => _i1.CustomPage<dynamic>(
+        routeData: routeData,
+        builder: (data) {
+          final args = data.argsAs<TagBottomSheetRouteArgs>(
+              orElse: () => const TagBottomSheetRouteArgs());
+          return _i9.TagBottomSheetPage(
+              key: args.key,
+              onInit: args.onInit,
+              onDispose: args.onDispose,
+              onTagged: args.onTagged,
+              isTagged: args.isTagged);
+        },
+        transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300,
+        reverseDurationInMilliseconds: 300,
+        opaque: false,
         barrierDismissible: false),
     BuildingTab.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
@@ -90,22 +110,22 @@ class AppRouter extends _i1.RootStackRouter {
     MenuBuildingRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i9.MenuBuildingPage();
+          return const _i10.MenuBuildingPage();
         }),
     MenuLineRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i10.MenuLinePage();
+          return const _i11.MenuLinePage();
         }),
     MenuForkLiftRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i11.MenuForkLiftPage();
+          return const _i12.MenuForkLiftPage();
         }),
     MenuSettingsRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i12.MenuSettingsPage();
+          return const _i13.MenuSettingsPage();
         })
   };
 
@@ -129,7 +149,8 @@ class AppRouter extends _i1.RootStackRouter {
               children: [_i1.RouteConfig(MenuSettingsRoute.name, path: '')])
         ]),
         _i1.RouteConfig(QRScanRoute.name, path: '/spot-checker?method=qr'),
-        _i1.RouteConfig(CheckListRoute.name, path: '/inspection')
+        _i1.RouteConfig(CheckListRoute.name, path: '/inspection'),
+        _i1.RouteConfig(TagBottomSheetRoute.name, path: '/tag')
       ];
 }
 
@@ -168,27 +189,61 @@ class MenuFrameRoute extends _i1.PageRouteInfo {
   static const String name = 'MenuFrameRoute';
 }
 
-class QRScanRoute extends _i1.PageRouteInfo {
-  const QRScanRoute() : super(name, path: '/spot-checker?method=qr');
+class QRScanRoute extends _i1.PageRouteInfo<QRScanRouteArgs> {
+  QRScanRoute({_i2.Key? key, void Function(_i14.Tag)? onTagged})
+      : super(name,
+            path: '/spot-checker?method=qr',
+            args: QRScanRouteArgs(key: key, onTagged: onTagged));
 
   static const String name = 'QRScanRoute';
 }
 
-class CheckListRoute extends _i1.PageRouteInfo<CheckListRouteArgs> {
-  CheckListRoute({_i2.Key? key, required _i13.CheckInfo info})
-      : super(name,
-            path: '/inspection',
-            args: CheckListRouteArgs(key: key, info: info));
+class QRScanRouteArgs {
+  const QRScanRouteArgs({this.key, this.onTagged});
+
+  final _i2.Key? key;
+
+  final void Function(_i14.Tag)? onTagged;
+}
+
+class CheckListRoute extends _i1.PageRouteInfo {
+  const CheckListRoute() : super(name, path: '/inspection');
 
   static const String name = 'CheckListRoute';
 }
 
-class CheckListRouteArgs {
-  const CheckListRouteArgs({this.key, required this.info});
+class TagBottomSheetRoute extends _i1.PageRouteInfo<TagBottomSheetRouteArgs> {
+  TagBottomSheetRoute(
+      {_i2.Key? key,
+      void Function()? onInit,
+      void Function()? onDispose,
+      void Function(_i14.Tag)? onTagged,
+      bool? isTagged})
+      : super(name,
+            path: '/tag',
+            args: TagBottomSheetRouteArgs(
+                key: key,
+                onInit: onInit,
+                onDispose: onDispose,
+                onTagged: onTagged,
+                isTagged: isTagged));
+
+  static const String name = 'TagBottomSheetRoute';
+}
+
+class TagBottomSheetRouteArgs {
+  const TagBottomSheetRouteArgs(
+      {this.key, this.onInit, this.onDispose, this.onTagged, this.isTagged});
 
   final _i2.Key? key;
 
-  final _i13.CheckInfo info;
+  final void Function()? onInit;
+
+  final void Function()? onDispose;
+
+  final void Function(_i14.Tag)? onTagged;
+
+  final bool? isTagged;
 }
 
 class BuildingTab extends _i1.PageRouteInfo {

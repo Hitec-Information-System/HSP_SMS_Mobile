@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/custom_toggle_button/widgets.dart';
 
+import 'package:collection/collection.dart';
+
 class CheckToggle extends StatelessWidget {
   const CheckToggle({
     Key? key,
@@ -31,7 +33,11 @@ class CheckToggle extends StatelessWidget {
       borderRadius: LayoutConstants.radiusM,
       isSelected: isSelected,
       onPressed: (index) {
-        onPressed(index);
+        final selecetedIndex = isSelected.indexWhere((isTrue) => isTrue);
+
+        if (selecetedIndex != index) {
+          onPressed(index);
+        }
       },
       children: children.isNotEmpty
           ? children.map((item) => Text(item)).toList()

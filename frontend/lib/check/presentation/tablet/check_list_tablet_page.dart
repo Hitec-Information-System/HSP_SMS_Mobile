@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/presentation/widgets/check_details_section.dart';
 import 'package:frontend/check/presentation/widgets/check_info_section.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
@@ -8,10 +7,7 @@ import 'package:frontend/core/presentation/constants/constants.dart';
 class ChecklistTabletPage extends StatelessWidget {
   const ChecklistTabletPage({
     Key? key,
-    required this.info,
   }) : super(key: key);
-
-  final CheckInfo info;
 
   @override
   Widget build(BuildContext context) {
@@ -31,30 +27,26 @@ class ChecklistTabletPage extends StatelessWidget {
                       topRight: Radius.circular(LayoutConstants.radiusM),
                       bottomRight: Radius.circular(LayoutConstants.radiusM),
                     )),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.all(
+                child: const SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.all(
                     LayoutConstants.paddingM,
                   ),
-                  child: CheckInfoSection(
-                    info: info,
-                  ),
+                  child: CheckInfoSection(),
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               flex: 5,
               child: SizedBox(
                 height: double.infinity,
                 child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(
                     horizontal: LayoutConstants.paddingL,
                     vertical: LayoutConstants.paddingM,
                   ),
-                  child: CheckListDetailsSection(
-                    info: info,
-                  ),
+                  child: CheckListDetailsSection(),
                 ),
               ),
             )

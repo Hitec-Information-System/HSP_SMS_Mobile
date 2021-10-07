@@ -18,25 +18,25 @@ final _currentDetail =
 const _resultOptions = ["양호", "미흡", "불량", "미점검"];
 
 class CheckListDetailsSection extends ConsumerWidget {
-  const CheckListDetailsSection({Key? key, required this.info})
-      : super(key: key);
-
-  final CheckInfo info;
+  const CheckListDetailsSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print("list rebuilt");
 
-    final details = ref.watch(checkDetailsProvider);
+    final details = ref.watch(
+        checkInfoStateNotifierProvider.select((state) => state.info.details));
+    final intervals = ref.watch(
+        checkInfoStateNotifierProvider.select((state) => state.info.intervals));
 
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return CheckListDetailsDirectory(
-          title: info.intervals[index].name,
+          title: intervals[index].name,
           children: details
-              .where((detail) => detail.intervalChk == info.intervals[index].id)
+              .where((detail) => detail.intervalChk == intervals[index].id)
               .toList(),
           isInitiallyExpanded: true,
         );
@@ -44,7 +44,7 @@ class CheckListDetailsSection extends ConsumerWidget {
       separatorBuilder: (context, index) {
         return const SizedBox(height: 15);
       },
-      itemCount: info.intervals.length,
+      itemCount: intervals.length,
     );
   }
 }
@@ -102,8 +102,8 @@ class CheckDetailsCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final detail = ref.watch(_currentDetail);
-    final chkNo =
-        ref.watch(checkHeaderNotifierProvider.select((header) => header.id));
+    final chkNo = ref.watch(
+        checkInfoStateNotifierProvider.select((state) => state.info.header.id));
 
     return Hero(
       tag: detail.chkItemCd,
@@ -154,14 +154,16 @@ class CheckDetailsCard extends ConsumerWidget {
                                       yesTitle: "카메라",
                                       onYesPressed: () {
                                         ref
-                                            .read(checkDetailsProvider.notifier)
+                                            .read(checkInfoStateNotifierProvider
+                                                .notifier)
                                             .pickImageFromCamera(
                                                 detail.chkItemCd, chkNo);
                                       },
                                       noTitle: "앨범",
                                       onNoPressed: () {
                                         ref
-                                            .read(checkDetailsProvider.notifier)
+                                            .read(checkInfoStateNotifierProvider
+                                                .notifier)
                                             .pickImagesFromGallery(
                                                 detail.chkItemCd, chkNo);
                                       },
@@ -220,7 +222,8 @@ class CheckDetailsCard extends ConsumerWidget {
                                       onTap: () async {
                                         // TODO: Cached Image Clear
                                         ref
-                                            .read(checkDetailsProvider.notifier)
+                                            .read(checkInfoStateNotifierProvider
+                                                .notifier)
                                             .clearDetailsImages(
                                                 detail.chkItemCd);
                                       },
@@ -310,7 +313,8 @@ class CheckDetailsCard extends ConsumerWidget {
                                   children: _resultOptions,
                                   onPressed: (clickedIdx) {
                                     ref
-                                        .read(checkDetailsProvider.notifier)
+                                        .read(checkInfoStateNotifierProvider
+                                            .notifier)
                                         .setCheckResult(detail.chkItemCd,
                                             _resultOptions[clickedIdx]);
                                   },

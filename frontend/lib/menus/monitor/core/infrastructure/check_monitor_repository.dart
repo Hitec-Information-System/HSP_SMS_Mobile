@@ -38,6 +38,16 @@ class CheckMonitorRepository {
           const CheckMonitorFailure.noConnection(),
         );
       }
+
+      if (e.response?.statusCode == 400) {
+        return left(
+          CheckMonitorFailure.api(
+            e.response!.statusCode,
+            e.response!.statusMessage,
+          ),
+        );
+      }
+
       rethrow;
     } on RestApiException catch (e) {
       return left(

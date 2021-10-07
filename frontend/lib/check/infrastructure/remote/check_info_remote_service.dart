@@ -19,7 +19,8 @@ class CheckInfoRemoteService {
       );
 
       if (response.statusCode != 200) {
-        throw RestApiException(errorCode: response.statusCode);
+        throw RestApiException(
+            errorCode: response.statusCode, message: response.statusMessage);
       }
 
       final data = response.data as Map<String, dynamic>;
@@ -32,14 +33,20 @@ class CheckInfoRemoteService {
     } on DioError catch (e) {
       if (e.isNoConnectionError) {
         return const RemoteResponse.noConnection();
-      } else if (e.response != null) {
+      }
+
+      if (e.response?.statusCode == 400) {
         throw RestApiException(
           errorCode: e.response?.statusCode,
-          message: e.message,
+          message: e.response?.statusMessage,
         );
-      } else {
-        rethrow;
       }
+
+      if (e.response != null) {
+        throw RestApiException(errorCode: e.response?.statusCode);
+      }
+
+      rethrow;
     }
   }
 
@@ -53,11 +60,20 @@ class CheckInfoRemoteService {
     } on DioError catch (e) {
       if (e.isNoConnectionError) {
         return const RemoteResponse.noConnection();
-      } else if (e.response != null) {
-        throw RestApiException(errorCode: e.response?.statusCode);
-      } else {
-        rethrow;
       }
+
+      if (e.response?.statusCode == 400) {
+        throw RestApiException(
+          errorCode: e.response?.statusCode,
+          message: e.response?.statusMessage,
+        );
+      }
+
+      if (e.response != null) {
+        throw RestApiException(errorCode: e.response?.statusCode);
+      }
+
+      rethrow;
     }
   }
 

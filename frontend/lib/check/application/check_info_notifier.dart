@@ -5,7 +5,6 @@ import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/domain/check_info_failure.dart';
 import 'package:frontend/check/infrastructure/check_info_repository.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
-import 'package:frontend/check/domain/check_details_extension.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -75,24 +74,20 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
     state = CheckInfoState.initial("", CheckInfo.empty());
   }
 
-  Future<void> saveCheckInfo(List<CheckDetails> details) async {
+  Future<void> saveCheckInfo() async {
     state = CheckInfoState.saving(state.tagId, state.info);
 
-    // FIXME : 임시방편이니 반드시 수정하기
     final params = {
       "comp-cd": user.userInfo.compCd,
       "sys-flag": LogicConstants.systemFlag,
       "user-id": user.key,
       "xml-h": state.info.header.toHeaderXml,
-      // "xmlD": state.info.details.toResultsXml,
-      // "xmlI": state.info.details.toImgsXml,
-      "xml-d": details.toResultsXml,
-      "xml-i": details.toImgsXml,
+      "xml-d": state.info.toResultsXml,
+      "xml-i": state.info.toImgsXml,
     };
 
     final images = <CheckImage>[];
-    // for (final detail in state.info.details) {
-    for (final detail in details) {
+    for (final detail in state.info.details) {
       images.addAll(detail.images);
     }
 
@@ -194,109 +189,5 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
         }
       }).toList(),
     );
-  }
-}
-
-class CheckHeaderNotifier extends StateNotifier<CheckHeader> {
-  CheckHeaderNotifier(CheckHeader header) : super(header);
-
-  void setSession(String session) {
-    state = state.copyWith(
-      session: session,
-    );
-  }
-
-  void setInterval(String interval) {
-    state = state.copyWith(
-      interval: interval,
-    );
-  }
-}
-
-class CheckDetailsNotifier extends StateNotifier<List<CheckDetails>> {
-  CheckDetailsNotifier(List<CheckDetails> details, this._picker)
-      : super(details);
-
-  final ImagePicker _picker;
-
-  void setCheckResult(String itemCd, String result) {
-    state = state.map((detail) {
-      if (detail.chkItemCd == itemCd) {
-        return detail.copyWith(
-          result: result,
-        );
-      } else {
-        return detail;
-      }
-    }).toList();
-  }
-
-  void setCheckRemark(String itemCd, String remark) {
-    state = state.map((detail) {
-      if (detail.chkItemCd == itemCd) {
-        return detail.copyWith(
-          remark: remark,
-        );
-      } else {
-        return detail;
-      }
-    }).toList();
-  }
-
-  Future<void> pickImagesFromGallery(String itemCd, String chklistNo) async {
-    final images = await _picker.pickMultiImage();
-    if (images != null) {
-      state = state.map((detail) {
-        if (detail.chkItemCd == itemCd) {
-          return detail.copyWith(
-            images: images.mapIndexed((imageIdx, image) {
-              final chkItemCd = detail.chkItemCd.replaceAll("_", "");
-              final imageNo = imageIdx + 1;
-              final fileNameExt = image.name.split(".").last;
-
-              return CheckImage(
-                name: "$chklistNo-$chkItemCd-$imageNo.$fileNameExt",
-                image: image,
-              );
-            }).toList(),
-          );
-        } else {
-          return detail;
-        }
-      }).toList();
-    }
-  }
-
-  Future<void> pickImageFromCamera(String itemCd, String chklistNo) async {
-    final image = await _picker.pickImage(source: ImageSource.camera);
-    if (image != null) {
-      state = state.map((detail) {
-        if (detail.chkItemCd == itemCd) {
-          final chkItemCd = detail.chkItemCd.replaceAll("_", "");
-
-          final fileNameExt = image.name.split(".").last;
-          return detail.copyWith(
-            images: [
-              CheckImage(
-                name: "$chklistNo-$chkItemCd-1.$fileNameExt",
-                image: image,
-              ),
-            ],
-          );
-        } else {
-          return detail;
-        }
-      }).toList();
-    }
-  }
-
-  void clearDetailsImages(String itemCd) {
-    state = state.map((detail) {
-      if (detail.chkItemCd == itemCd) {
-        return detail..images.clear();
-      } else {
-        return detail;
-      }
-    }).toList();
   }
 }
