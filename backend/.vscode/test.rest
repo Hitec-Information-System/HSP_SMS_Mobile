@@ -38,7 +38,7 @@ content-type: application/json
 GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=6C374C02000104E0&interval=일상&session=20&obj-cd= HTTP/2.0
 content-type: application/json
 ###
-GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=20211007102347912-EQK&interval=일상&session=08&obj-cd= HTTP/2.0
+GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=20211008121506048-XAG&interval=일상&session=20&obj-cd= HTTP/2.0
 content-type: application/json
 ###
 POST http://localhost:9110/check HTTP/2.0

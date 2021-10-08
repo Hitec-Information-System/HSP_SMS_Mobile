@@ -5,6 +5,8 @@ import (
 	"io"
 	"net/http"
 	"os"
+
+	"github.com/spf13/viper"
 )
 
 const MAX_UPLOAD_SIZE = 1024 * 1024 * 20 // 20MB
@@ -65,9 +67,9 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		dirname := "./uploads"
+		dirName := viper.GetString(`img-path`)
 
-		err = os.MkdirAll(dirname, os.ModePerm)
+		err = os.MkdirAll(dirName, os.ModePerm)
 		if err != nil {
 			rd.JSON(w, http.StatusInternalServerError, err.Error())
 			return
@@ -75,7 +77,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Println(fileHeader.Filename)
 
-		f, err := os.Create(fmt.Sprintf("%s/%s", dirname, fileHeader.Filename))
+		f, err := os.Create(fmt.Sprintf("%s/%s", dirName, fileHeader.Filename))
 		if err != nil {
 			rd.JSON(w, http.StatusInternalServerError, err.Error())
 			return
