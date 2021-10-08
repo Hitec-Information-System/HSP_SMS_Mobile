@@ -1,11 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 part 'check_info.freezed.dart';
-
-// TODO: temporary path
-const saveDirPath = 'D:\\WebSite\\HSP_SMS\\publish\\wwwroot\\uploads';
 
 @freezed
 class CheckInfo with _$CheckInfo {
@@ -32,6 +30,7 @@ class CheckInfo with _$CheckInfo {
           plantNm: "",
           userId: "",
           userNm: "",
+          dateCreated: "",
         ),
         intervals: [],
         sessions: [],
@@ -100,6 +99,7 @@ class CheckHeader with _$CheckHeader {
     required String plantNm,
     required String userId,
     required String userNm,
+    required String dateCreated,
   }) = _CheckHeader;
 
   String get toHeaderXml => '''
@@ -114,6 +114,9 @@ class CheckHeader with _$CheckHeader {
   </Table1></NewDataSet>
   '''
       .replaceAll(" ", "");
+
+  String get dateFormatted => DateFormat("yyyy-MM-dd HH:mm")
+      .format(DateTime.parse(dateCreated).toLocal());
 }
 
 @freezed
@@ -153,7 +156,7 @@ class CheckDetails with _$CheckDetails {
     <Table1>
       <CHK_ITEM_CD>$chkItemCd</CHK_ITEM_CD>
       <CHK_IMG_NO>${index + 1}</CHK_IMG_NO>
-      <CHK_IMG_URL>$saveDirPath\\${images[index].name}</CHK_IMG_URL>
+      <CHK_IMG_URL>${images[index].name}</CHK_IMG_URL>
       <RMK></RMK>
     </Table1>
   '''

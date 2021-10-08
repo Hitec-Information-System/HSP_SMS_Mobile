@@ -35,6 +35,7 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
   final CheckInfoRepository _repository;
 
   final User user;
+  final ImagePicker _picker;
 
   CheckInfoStateNotifier(
     this._repository,
@@ -97,8 +98,6 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
       (success) => CheckInfoState.saved(state.tagId, state.info),
     );
   }
-
-  final ImagePicker _picker;
 
   void setCheckResult(String itemCd, String result) {
     state = state.copyWith.info(

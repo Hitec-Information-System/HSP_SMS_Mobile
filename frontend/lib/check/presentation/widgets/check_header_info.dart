@@ -40,7 +40,11 @@ class CheckHeaderInfo extends StatelessWidget {
                 const Divider(thickness: 1),
                 CheckInfoRow(
                   label: "점검시간",
-                  value: DateFormat("yyyy-MM-dd H:mm").format(DateTime.now()),
+                  value: header.dateCreated != ""
+                      ? header.dateFormatted
+                      : DateFormat("yyyy-MM-dd HH:mm").format(
+                          DateTime.now(),
+                        ),
                 ),
               ],
             )),

@@ -35,10 +35,10 @@ class CheckedItem with _$CheckedItem {
         DateTime.parse(DateFormat("yyyy-MM-dd").format(DateTime.now()))
             .add(Duration(hours: int.parse(session)));
     final delayedDuration = DateTime.now().difference(scheduledTime);
-    final delayedHH = delayedDuration.inHours.toString().padLeft(2, "0");
+    final delayedHh = delayedDuration.inHours.toString().padLeft(2, "0");
     final delayedMm =
         delayedDuration.inMinutes.remainder(60).toString().padLeft(2, "0");
 
-    return "$delayedHH:$delayedMm";
+    return "$delayedHh:$delayedMm";
   }
 }

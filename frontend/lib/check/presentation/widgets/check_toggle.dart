@@ -39,11 +39,7 @@ class CheckToggle extends StatelessWidget {
           onPressed(index);
         }
       },
-      children: children.isNotEmpty
-          ? children.map((item) => Text(item)).toList()
-          : const [
-              Text("없음"),
-            ],
+      children: children.map((item) => Text(item)).toList(),
     );
   }
 }

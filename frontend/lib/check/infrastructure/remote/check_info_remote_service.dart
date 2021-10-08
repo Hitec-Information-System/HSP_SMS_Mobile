@@ -38,7 +38,7 @@ class CheckInfoRemoteService {
       if (e.response?.statusCode == 400) {
         throw RestApiException(
           errorCode: e.response?.statusCode,
-          message: e.response?.statusMessage,
+          message: (e.response!.data as Map<String, dynamic>)["msg"] as String,
         );
       }
 

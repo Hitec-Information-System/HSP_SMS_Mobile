@@ -287,7 +287,8 @@ class _$CheckHeaderDTOTearOff {
       @JsonKey(name: "PLANT_CD") required String plantCd,
       @JsonKey(name: "PLANT_NM") required String plantNm,
       @JsonKey(name: "CHK_USER_ID") required String userId,
-      @JsonKey(name: "CHK_USER_NM") required String userNm}) {
+      @JsonKey(name: "CHK_USER_NM") required String userNm,
+      @JsonKey(name: "CRT_DT") required String dateCreated}) {
     return _CheckHeaderDTO(
       id: id,
       session: session,
@@ -302,6 +303,7 @@ class _$CheckHeaderDTOTearOff {
       plantNm: plantNm,
       userId: userId,
       userNm: userNm,
+      dateCreated: dateCreated,
     );
   }
 
@@ -341,6 +343,8 @@ mixin _$CheckHeaderDTO {
   String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: "CHK_USER_NM")
   String get userNm => throw _privateConstructorUsedError;
+  @JsonKey(name: "CRT_DT")
+  String get dateCreated => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -366,7 +370,8 @@ abstract class $CheckHeaderDTOCopyWith<$Res> {
       @JsonKey(name: "PLANT_CD") String plantCd,
       @JsonKey(name: "PLANT_NM") String plantNm,
       @JsonKey(name: "CHK_USER_ID") String userId,
-      @JsonKey(name: "CHK_USER_NM") String userNm});
+      @JsonKey(name: "CHK_USER_NM") String userNm,
+      @JsonKey(name: "CRT_DT") String dateCreated});
 }
 
 /// @nodoc
@@ -393,6 +398,7 @@ class _$CheckHeaderDTOCopyWithImpl<$Res>
     Object? plantNm = freezed,
     Object? userId = freezed,
     Object? userNm = freezed,
+    Object? dateCreated = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -447,6 +453,10 @@ class _$CheckHeaderDTOCopyWithImpl<$Res>
           ? _value.userNm
           : userNm // ignore: cast_nullable_to_non_nullable
               as String,
+      dateCreated: dateCreated == freezed
+          ? _value.dateCreated
+          : dateCreated // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -471,7 +481,8 @@ abstract class _$CheckHeaderDTOCopyWith<$Res>
       @JsonKey(name: "PLANT_CD") String plantCd,
       @JsonKey(name: "PLANT_NM") String plantNm,
       @JsonKey(name: "CHK_USER_ID") String userId,
-      @JsonKey(name: "CHK_USER_NM") String userNm});
+      @JsonKey(name: "CHK_USER_NM") String userNm,
+      @JsonKey(name: "CRT_DT") String dateCreated});
 }
 
 /// @nodoc
@@ -500,6 +511,7 @@ class __$CheckHeaderDTOCopyWithImpl<$Res>
     Object? plantNm = freezed,
     Object? userId = freezed,
     Object? userNm = freezed,
+    Object? dateCreated = freezed,
   }) {
     return _then(_CheckHeaderDTO(
       id: id == freezed
@@ -554,6 +566,10 @@ class __$CheckHeaderDTOCopyWithImpl<$Res>
           ? _value.userNm
           : userNm // ignore: cast_nullable_to_non_nullable
               as String,
+      dateCreated: dateCreated == freezed
+          ? _value.dateCreated
+          : dateCreated // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -574,7 +590,8 @@ class _$_CheckHeaderDTO extends _CheckHeaderDTO {
       @JsonKey(name: "PLANT_CD") required this.plantCd,
       @JsonKey(name: "PLANT_NM") required this.plantNm,
       @JsonKey(name: "CHK_USER_ID") required this.userId,
-      @JsonKey(name: "CHK_USER_NM") required this.userNm})
+      @JsonKey(name: "CHK_USER_NM") required this.userNm,
+      @JsonKey(name: "CRT_DT") required this.dateCreated})
       : super._();
 
   factory _$_CheckHeaderDTO.fromJson(Map<String, dynamic> json) =>
@@ -619,10 +636,13 @@ class _$_CheckHeaderDTO extends _CheckHeaderDTO {
   @override
   @JsonKey(name: "CHK_USER_NM")
   final String userNm;
+  @override
+  @JsonKey(name: "CRT_DT")
+  final String dateCreated;
 
   @override
   String toString() {
-    return 'CheckHeaderDTO(id: $id, session: $session, interval: $interval, chkYmd: $chkYmd, compCd: $compCd, objCd: $objCd, objNm: $objNm, objGubun: $objGubun, objGubunNm: $objGubunNm, plantCd: $plantCd, plantNm: $plantNm, userId: $userId, userNm: $userNm)';
+    return 'CheckHeaderDTO(id: $id, session: $session, interval: $interval, chkYmd: $chkYmd, compCd: $compCd, objCd: $objCd, objNm: $objNm, objGubun: $objGubun, objGubunNm: $objGubunNm, plantCd: $plantCd, plantNm: $plantNm, userId: $userId, userNm: $userNm, dateCreated: $dateCreated)';
   }
 
   @override
@@ -660,7 +680,10 @@ class _$_CheckHeaderDTO extends _CheckHeaderDTO {
             (identical(other.userId, userId) ||
                 const DeepCollectionEquality().equals(other.userId, userId)) &&
             (identical(other.userNm, userNm) ||
-                const DeepCollectionEquality().equals(other.userNm, userNm)));
+                const DeepCollectionEquality().equals(other.userNm, userNm)) &&
+            (identical(other.dateCreated, dateCreated) ||
+                const DeepCollectionEquality()
+                    .equals(other.dateCreated, dateCreated)));
   }
 
   @override
@@ -678,7 +701,8 @@ class _$_CheckHeaderDTO extends _CheckHeaderDTO {
       const DeepCollectionEquality().hash(plantCd) ^
       const DeepCollectionEquality().hash(plantNm) ^
       const DeepCollectionEquality().hash(userId) ^
-      const DeepCollectionEquality().hash(userNm);
+      const DeepCollectionEquality().hash(userNm) ^
+      const DeepCollectionEquality().hash(dateCreated);
 
   @JsonKey(ignore: true)
   @override
@@ -705,7 +729,8 @@ abstract class _CheckHeaderDTO extends CheckHeaderDTO {
           @JsonKey(name: "PLANT_CD") required String plantCd,
           @JsonKey(name: "PLANT_NM") required String plantNm,
           @JsonKey(name: "CHK_USER_ID") required String userId,
-          @JsonKey(name: "CHK_USER_NM") required String userNm}) =
+          @JsonKey(name: "CHK_USER_NM") required String userNm,
+          @JsonKey(name: "CRT_DT") required String dateCreated}) =
       _$_CheckHeaderDTO;
   const _CheckHeaderDTO._() : super._();
 
@@ -751,6 +776,9 @@ abstract class _CheckHeaderDTO extends CheckHeaderDTO {
   @override
   @JsonKey(name: "CHK_USER_NM")
   String get userNm => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: "CRT_DT")
+  String get dateCreated => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckHeaderDTOCopyWith<_CheckHeaderDTO> get copyWith =>

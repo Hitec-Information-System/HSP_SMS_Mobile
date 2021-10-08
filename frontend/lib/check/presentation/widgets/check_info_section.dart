@@ -5,7 +5,6 @@ import 'package:frontend/check/presentation/widgets/check_save_button.dart';
 import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/responsive.dart';
-import 'package:frontend/tag/core/shared/providers.dart';
 
 import '../widgets.dart';
 
@@ -36,15 +35,6 @@ class CheckInfoSection extends ConsumerWidget {
         ),
         const SizedBox(height: LayoutConstants.spaceL),
         Consumer(builder: (context, ref, child) {
-          final tagId = ref.watch(
-            tagNotifierProvider.select(
-              (state) => state.maybeWhen(
-                nfcRead: (tag) => tag.id,
-                qrRead: (tag) => tag.id,
-                orElse: () => "",
-              ),
-            ),
-          );
           return CheckStandardRow(
             label: "회차",
             isSelected:
@@ -54,7 +44,7 @@ class CheckInfoSection extends ConsumerWidget {
 
               ref
                   .read(checkInfoStateNotifierProvider.notifier)
-                  .getCheckInfo(tagId, header.interval, selectedSession);
+                  .getCheckInfo(header.objCd, header.interval, selectedSession);
             },
             children: sessions.map((item) => item.name).toList(),
           );

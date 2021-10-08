@@ -34,7 +34,7 @@ class CheckInfoRepository {
       );
     } on RestApiException catch (e) {
       return left(
-        CheckInfoFailure.api(e.errorCode, e.toString()),
+        CheckInfoFailure.api(e.errorCode, e.message),
       );
     }
   }

@@ -56,6 +56,7 @@ class CheckHeaderDTO with _$CheckHeaderDTO {
     @JsonKey(name: "PLANT_NM") required String plantNm,
     @JsonKey(name: "CHK_USER_ID") required String userId,
     @JsonKey(name: "CHK_USER_NM") required String userNm,
+    @JsonKey(name: "CRT_DT") required String dateCreated,
   }) = _CheckHeaderDTO;
 
   factory CheckHeaderDTO.fromJson(Map<String, dynamic> json) =>
@@ -75,6 +76,7 @@ class CheckHeaderDTO with _$CheckHeaderDTO {
         plantNm: plantNm,
         userId: userId,
         userNm: userNm,
+        dateCreated: dateCreated,
       );
 
   factory CheckHeaderDTO.fromDomain(CheckHeader _) => CheckHeaderDTO(
@@ -91,6 +93,7 @@ class CheckHeaderDTO with _$CheckHeaderDTO {
         plantNm: _.plantNm,
         userId: _.userId,
         userNm: _.userNm,
+        dateCreated: _.dateCreated,
       );
 }
 

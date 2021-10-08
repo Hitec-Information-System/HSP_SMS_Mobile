@@ -247,7 +247,8 @@ class _$CheckHeaderTearOff {
       required String plantCd,
       required String plantNm,
       required String userId,
-      required String userNm}) {
+      required String userNm,
+      required String dateCreated}) {
     return _CheckHeader(
       id: id,
       session: session,
@@ -262,6 +263,7 @@ class _$CheckHeaderTearOff {
       plantNm: plantNm,
       userId: userId,
       userNm: userNm,
+      dateCreated: dateCreated,
     );
   }
 }
@@ -284,6 +286,7 @@ mixin _$CheckHeader {
   String get plantNm => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String get userNm => throw _privateConstructorUsedError;
+  String get dateCreated => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckHeaderCopyWith<CheckHeader> get copyWith =>
@@ -308,7 +311,8 @@ abstract class $CheckHeaderCopyWith<$Res> {
       String plantCd,
       String plantNm,
       String userId,
-      String userNm});
+      String userNm,
+      String dateCreated});
 }
 
 /// @nodoc
@@ -334,6 +338,7 @@ class _$CheckHeaderCopyWithImpl<$Res> implements $CheckHeaderCopyWith<$Res> {
     Object? plantNm = freezed,
     Object? userId = freezed,
     Object? userNm = freezed,
+    Object? dateCreated = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -388,6 +393,10 @@ class _$CheckHeaderCopyWithImpl<$Res> implements $CheckHeaderCopyWith<$Res> {
           ? _value.userNm
           : userNm // ignore: cast_nullable_to_non_nullable
               as String,
+      dateCreated: dateCreated == freezed
+          ? _value.dateCreated
+          : dateCreated // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -412,7 +421,8 @@ abstract class _$CheckHeaderCopyWith<$Res>
       String plantCd,
       String plantNm,
       String userId,
-      String userNm});
+      String userNm,
+      String dateCreated});
 }
 
 /// @nodoc
@@ -440,6 +450,7 @@ class __$CheckHeaderCopyWithImpl<$Res> extends _$CheckHeaderCopyWithImpl<$Res>
     Object? plantNm = freezed,
     Object? userId = freezed,
     Object? userNm = freezed,
+    Object? dateCreated = freezed,
   }) {
     return _then(_CheckHeader(
       id: id == freezed
@@ -494,6 +505,10 @@ class __$CheckHeaderCopyWithImpl<$Res> extends _$CheckHeaderCopyWithImpl<$Res>
           ? _value.userNm
           : userNm // ignore: cast_nullable_to_non_nullable
               as String,
+      dateCreated: dateCreated == freezed
+          ? _value.dateCreated
+          : dateCreated // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -514,7 +529,8 @@ class _$_CheckHeader extends _CheckHeader {
       required this.plantCd,
       required this.plantNm,
       required this.userId,
-      required this.userNm})
+      required this.userNm,
+      required this.dateCreated})
       : super._();
 
   @override
@@ -543,10 +559,12 @@ class _$_CheckHeader extends _CheckHeader {
   final String userId;
   @override
   final String userNm;
+  @override
+  final String dateCreated;
 
   @override
   String toString() {
-    return 'CheckHeader(id: $id, session: $session, interval: $interval, chkYmd: $chkYmd, compCd: $compCd, objCd: $objCd, objNm: $objNm, objGubun: $objGubun, objGubunNm: $objGubunNm, plantCd: $plantCd, plantNm: $plantNm, userId: $userId, userNm: $userNm)';
+    return 'CheckHeader(id: $id, session: $session, interval: $interval, chkYmd: $chkYmd, compCd: $compCd, objCd: $objCd, objNm: $objNm, objGubun: $objGubun, objGubunNm: $objGubunNm, plantCd: $plantCd, plantNm: $plantNm, userId: $userId, userNm: $userNm, dateCreated: $dateCreated)';
   }
 
   @override
@@ -584,7 +602,10 @@ class _$_CheckHeader extends _CheckHeader {
             (identical(other.userId, userId) ||
                 const DeepCollectionEquality().equals(other.userId, userId)) &&
             (identical(other.userNm, userNm) ||
-                const DeepCollectionEquality().equals(other.userNm, userNm)));
+                const DeepCollectionEquality().equals(other.userNm, userNm)) &&
+            (identical(other.dateCreated, dateCreated) ||
+                const DeepCollectionEquality()
+                    .equals(other.dateCreated, dateCreated)));
   }
 
   @override
@@ -602,7 +623,8 @@ class _$_CheckHeader extends _CheckHeader {
       const DeepCollectionEquality().hash(plantCd) ^
       const DeepCollectionEquality().hash(plantNm) ^
       const DeepCollectionEquality().hash(userId) ^
-      const DeepCollectionEquality().hash(userNm);
+      const DeepCollectionEquality().hash(userNm) ^
+      const DeepCollectionEquality().hash(dateCreated);
 
   @JsonKey(ignore: true)
   @override
@@ -624,7 +646,8 @@ abstract class _CheckHeader extends CheckHeader {
       required String plantCd,
       required String plantNm,
       required String userId,
-      required String userNm}) = _$_CheckHeader;
+      required String userNm,
+      required String dateCreated}) = _$_CheckHeader;
   const _CheckHeader._() : super._();
 
   @override
@@ -653,6 +676,8 @@ abstract class _CheckHeader extends CheckHeader {
   String get userId => throw _privateConstructorUsedError;
   @override
   String get userNm => throw _privateConstructorUsedError;
+  @override
+  String get dateCreated => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckHeaderCopyWith<_CheckHeader> get copyWith =>

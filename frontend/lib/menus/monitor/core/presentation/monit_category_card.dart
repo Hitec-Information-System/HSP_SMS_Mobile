@@ -1,8 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/check/shared/providers.dart';
 
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
 import 'package:frontend/menus/monitor/core/domain/check_spot.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MonitCategoryCard extends StatelessWidget {
   const MonitCategoryCard({
@@ -24,14 +30,76 @@ class MonitCategoryCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
-          color: Colors.grey.withOpacity(.3)),
+          color: Theme.of(context).bottomAppBarColor),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 20, child: Text(objSubNm)),
           const SizedBox(height: LayoutConstants.spaceM),
-          ...spots.map((spot) => SubCategoryCard(spot: spot)).toList()
+          if (spots.isEmpty)
+            ...List.generate(4, (index) => const LoadingSubCategoryCard())
+                .toList()
+          else
+            ...spots.map((spot) => SubCategoryCard(spot: spot)).toList()
         ],
+      ),
+    );
+  }
+}
+
+class LoadingSubCategoryCard extends StatelessWidget {
+  const LoadingSubCategoryCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Theme.of(context).cardColor,
+      elevation: 1,
+      child: Padding(
+        padding: const EdgeInsets.all(LayoutConstants.paddingM),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(
+              height: 40,
+            ),
+            const SizedBox(height: LayoutConstants.spaceM),
+            Container(
+              alignment: Alignment.centerRight,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: List<Widget>.generate(8, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: LayoutConstants.paddingXS / 2),
+                    child: Circle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(.3),
+                      radius: LayoutConstants.radiusS,
+                    ),
+                  );
+                }),
+              ),
+            ),
+            const SizedBox(height: LayoutConstants.spaceM),
+            Wrap(
+              children: List.generate(
+                8,
+                (_) {
+                  return Shimmer.fromColors(
+                      baseColor: Colors.grey.shade400,
+                      highlightColor: Colors.grey.shade300,
+                      child: const EmptyStampCard());
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -45,12 +113,10 @@ class SubCategoryCard extends StatelessWidget {
     required this.spot,
   }) : super(key: key);
 
-  // TODO : 시간 지난 것을 어떻게 표현할 것인지 의견 구하기
-
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).scaffoldBackgroundColor,
+      color: Theme.of(context).cardColor,
       elevation: 1,
       child: Padding(
         padding: const EdgeInsets.all(LayoutConstants.paddingM),
@@ -136,7 +202,7 @@ class SubCategoryCard extends StatelessWidget {
   }
 }
 
-class TimeStampCard extends StatelessWidget {
+class TimeStampCard extends ConsumerWidget {
   final CheckedItem item;
 
   const TimeStampCard({
@@ -145,50 +211,60 @@ class TimeStampCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       height: 75,
       padding: const EdgeInsets.all(LayoutConstants.paddingXS),
-      child: Column(
-        children: [
-          Container(
-            width: 55,
-            height: 45,
-            padding: const EdgeInsets.all(LayoutConstants.paddingS),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
-              borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
-            ),
-            child: Column(
-              children: [
-                Text(item.formattedSession,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          // TODO: 화면 이동
+          ref
+              .read(checkInfoStateNotifierProvider.notifier)
+              .getCheckInfo(item.id, "", item.session);
+          AutoRouter.of(context).push(const CheckListRoute());
+        },
+        child: Column(
+          children: [
+            Container(
+              width: 55,
+              height: 45,
+              padding: const EdgeInsets.all(LayoutConstants.paddingS),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
+              ),
+              child: Column(
+                children: [
+                  Text(item.formattedSession,
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              ?.color
+                              ?.withOpacity(.5))),
+                  Text(
+                    item.checkedTime,
                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            ?.color
-                            ?.withOpacity(.5))),
-                Text(
-                  item.checkedTime,
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: LayoutConstants.paddingXS),
-            child: Text(
-              item.userNm,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
+                ],
+              ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: LayoutConstants.paddingXS),
+              child: Text(
+                item.userNm,
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

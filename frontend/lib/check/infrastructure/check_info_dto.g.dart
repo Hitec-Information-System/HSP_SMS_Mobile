@@ -44,6 +44,7 @@ _$_CheckHeaderDTO _$_$_CheckHeaderDTOFromJson(Map<String, dynamic> json) {
     plantNm: json['PLANT_NM'] as String,
     userId: json['CHK_USER_ID'] as String,
     userNm: json['CHK_USER_NM'] as String,
+    dateCreated: json['CRT_DT'] as String,
   );
 }
 
@@ -62,6 +63,7 @@ Map<String, dynamic> _$_$_CheckHeaderDTOToJson(_$_CheckHeaderDTO instance) =>
       'PLANT_NM': instance.plantNm,
       'CHK_USER_ID': instance.userId,
       'CHK_USER_NM': instance.userNm,
+      'CRT_DT': instance.dateCreated,
     };
 
 _$_CheckDetailsDTO _$_$_CheckDetailsDTOFromJson(Map<String, dynamic> json) {
