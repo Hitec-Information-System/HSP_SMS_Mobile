@@ -43,6 +43,9 @@ func MakeHandler() *AppHandler {
 	r.HandleFunc("/check/images", uploadHandler).Methods("POST")
 
 	r.HandleFunc("/monitor", a.fetchCheckStatusTodayByGubun).Methods("GET")
+
+	r.HandleFunc("/nfc", a.saveData).Methods("POST")
+
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
 	r.HandleFunc("/proto", a.getTestData).Methods("POST")
@@ -322,4 +325,45 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 
 	rd.JSON(w, http.StatusOK, results)
 
+}
+
+// REF: 저장을 위한 공통화된 작업임
+func (a *AppHandler) saveData(w http.ResponseWriter, r *http.Request) {
+	var params map[string]interface{}
+
+	fmt.Println("started")
+
+	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
+		rd.JSON(w, http.StatusBadRequest, "Invalid json provided")
+	}
+
+	// params 정의
+	compCd := params["comp-cd"].(string)
+	userId := params["user-id"].(string)
+	transFlag := params["trans-flag"].(string)
+	transData := params["trans-data"].(string)
+
+	query := fmt.Sprintf(`
+	BEGIN 
+		SMS_PK_TRANS.P_SAVE_TRANS('%s','%s','%s','%s',:PO_RST); 
+	END;`, compCd, userId, transFlag, transData)
+
+	fmt.Println(query)
+
+	result, err := a.db.GetSPDataWithString(query)
+
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"MSG":    err.Error(),
+			"RESULT": "",
+		})
+		return
+	}
+
+	results := map[string]interface{}{
+		"MSG":    "",
+		"RESULT": result,
+	}
+
+	rd.JSON(w, http.StatusOK, results)
 }
