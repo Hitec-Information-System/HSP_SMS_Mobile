@@ -53,7 +53,19 @@ class _QRScanPageState extends ConsumerState<QRScanPage> {
         initial: () {},
         qrReading: () {},
         qrRead: (tag) {
-          AutoRouter.of(context).push(TagBottomSheetRoute(isTagged: true));
+          AutoRouter.of(context).push(
+            TagBottomSheetRoute(
+              isTagged: true,
+              switchingChild: const Text(
+                "태그 완료",
+                key: ValueKey<String>("BTM-SH-NFC_READ"),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          );
           widget.onTagged?.call(tag);
         },
         failure: (failure) {

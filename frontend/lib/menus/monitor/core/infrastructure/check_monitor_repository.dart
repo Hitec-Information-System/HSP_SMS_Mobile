@@ -8,6 +8,7 @@ import 'package:frontend/menus/monitor/core/infrastructure/check_spot_dto.dart';
 
 import 'package:frontend/core/infrastructure/dio_extensions.dart';
 
+// TODO: failure 객체가 동일하게 동작한다면 하나로 통합하기
 class CheckMonitorRepository {
   final Dio _dio;
 
@@ -39,6 +40,12 @@ class CheckMonitorRepository {
         );
       }
 
+      if (e.type == DioErrorType.connectTimeout) {
+        return left(
+          CheckMonitorFailure.api(e.response?.statusCode, "서버 응답이 없습니다."),
+        );
+      }
+
       if (e.response?.statusCode == 400) {
         return left(
           CheckMonitorFailure.api(
@@ -53,6 +60,42 @@ class CheckMonitorRepository {
       return left(
         CheckMonitorFailure.api(e.errorCode),
       );
+    }
+  }
+
+  Future<Either<CheckMonitorFailure, Unit>> saveNFCTag(
+      Map<String, dynamic> params) async {
+    try {
+      final response = await _dio.post("/nfc", data: params);
+      if (response.statusCode != 200) {
+        return left(
+          CheckMonitorFailure.api(response.statusCode, response.statusMessage),
+        );
+      }
+
+      final data = response.data as Map<String, dynamic>;
+
+      if (data["RESULT"] == "OK") {
+        return right(unit);
+      }
+
+      return left(
+        CheckMonitorFailure.api(response.statusCode, data["MSG"] as String),
+      );
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return left(const CheckMonitorFailure.noConnection());
+      } else if (e.response != null) {
+        return left(
+          CheckMonitorFailure.api(e.response?.statusCode),
+        );
+      } else if (e.type == DioErrorType.connectTimeout) {
+        return left(
+          CheckMonitorFailure.api(e.response?.statusCode, "서버 응답이 없습니다."),
+        );
+      } else {
+        rethrow;
+      }
     }
   }
 }

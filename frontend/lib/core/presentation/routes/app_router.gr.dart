@@ -73,14 +73,14 @@ class AppRouter extends _i1.RootStackRouter {
     TagBottomSheetRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
         builder: (data) {
-          final args = data.argsAs<TagBottomSheetRouteArgs>(
-              orElse: () => const TagBottomSheetRouteArgs());
+          final args = data.argsAs<TagBottomSheetRouteArgs>();
           return _i9.TagBottomSheetPage(
               key: args.key,
               onInit: args.onInit,
               onDispose: args.onDispose,
               onTagged: args.onTagged,
-              isTagged: args.isTagged);
+              isTagged: args.isTagged,
+              switchingChild: args.switchingChild);
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300,
@@ -218,7 +218,8 @@ class TagBottomSheetRoute extends _i1.PageRouteInfo<TagBottomSheetRouteArgs> {
       void Function()? onInit,
       void Function()? onDispose,
       void Function(_i14.Tag)? onTagged,
-      bool? isTagged})
+      bool? isTagged,
+      required _i2.Widget switchingChild})
       : super(name,
             path: '/tag',
             args: TagBottomSheetRouteArgs(
@@ -226,14 +227,20 @@ class TagBottomSheetRoute extends _i1.PageRouteInfo<TagBottomSheetRouteArgs> {
                 onInit: onInit,
                 onDispose: onDispose,
                 onTagged: onTagged,
-                isTagged: isTagged));
+                isTagged: isTagged,
+                switchingChild: switchingChild));
 
   static const String name = 'TagBottomSheetRoute';
 }
 
 class TagBottomSheetRouteArgs {
   const TagBottomSheetRouteArgs(
-      {this.key, this.onInit, this.onDispose, this.onTagged, this.isTagged});
+      {this.key,
+      this.onInit,
+      this.onDispose,
+      this.onTagged,
+      this.isTagged,
+      required this.switchingChild});
 
   final _i2.Key? key;
 
@@ -244,6 +251,8 @@ class TagBottomSheetRouteArgs {
   final void Function(_i14.Tag)? onTagged;
 
   final bool? isTagged;
+
+  final _i2.Widget switchingChild;
 }
 
 class BuildingTab extends _i1.PageRouteInfo {

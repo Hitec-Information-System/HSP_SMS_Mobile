@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +20,7 @@ class TagBottomSheetPage extends ConsumerStatefulWidget {
     this.onDispose,
     this.onTagged,
     this.isTagged,
+    required this.switchingChild,
   }) : super(key: key);
 
   final void Function()? onInit;
@@ -28,6 +28,8 @@ class TagBottomSheetPage extends ConsumerStatefulWidget {
   final void Function(Tag)? onTagged;
 
   final bool? isTagged;
+
+  final Widget switchingChild;
 
   @override
   _TagBottomSheetPageState createState() => _TagBottomSheetPageState();
@@ -212,61 +214,7 @@ class _TagBottomSheetPageState extends ConsumerState<TagBottomSheetPage>
                                 ),
                               );
                             },
-                            child: Consumer(builder: (context, ref, child) {
-                              final checkInfoState =
-                                  ref.watch(checkInfoStateNotifierProvider);
-
-                              print("bottom sheet built");
-
-                              return checkInfoState.maybeWhen(
-                                initial: (_, info) => Text(
-                                  "태그를 스캔하여 주세요",
-                                  key: const ValueKey<String>("BTM-SH-INIT"),
-                                  style: TextStyle(
-                                    color: Theme.of(context).hintColor,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                loading: (_, info) => Container(
-                                    key: const ValueKey<String>("loading"),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Text("정보를 확인하는 중입니다"),
-                                        AnimatedTextKit(
-                                          animatedTexts: [
-                                            TypewriterAnimatedText("..."),
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                                loaded: (_, data) {
-                                  return Container(
-                                    key: const ValueKey<String>("loaded"),
-                                    // todo: 수정
-                                    child:
-                                        Text.rich(TextSpan(children: <TextSpan>[
-                                      TextSpan(
-                                        text: data.header.objNm,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                      const TextSpan(text: " 검사로 이동합니다"),
-                                    ])),
-                                  );
-                                },
-                                failure: (_, info, failure) => Container(
-                                  key: const ValueKey<String>("failure"),
-                                  child: const Text("정보를 읽어오는데 실패하였습니다."),
-                                ),
-                                orElse: () => const SizedBox(),
-                              );
-                            }),
+                            child: widget.switchingChild,
                           ),
                           const Spacer(),
                           SizedBox(

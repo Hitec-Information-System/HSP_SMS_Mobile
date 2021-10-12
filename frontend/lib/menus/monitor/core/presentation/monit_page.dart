@@ -1,11 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/menus/monitor/core/application/check_monitor_notifier.dart';
+import 'package:frontend/menus/monitor/core/application/nfc_register_notifier.dart';
 import 'package:frontend/menus/monitor/core/domain/check_spot.dart';
 import 'package:frontend/menus/monitor/core/presentation/monit_category_card.dart';
+import 'package:frontend/menus/monitor/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 
 // 문제점: 리턴 받는 리스트가 섞여서 들어오게 된다면 제대로 나누지 못하게 됨
 Map<String, List<CheckSpot>> splitToSubGroup(List<CheckSpot> spots) {
@@ -79,7 +85,7 @@ class _MonitPageState extends ConsumerState<MonitPage> {
         onRefresh: () =>
             ref.read(widget.monitNotifierProvider.notifier).getMonitoringList(),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Stack(
             children: [
               Padding(

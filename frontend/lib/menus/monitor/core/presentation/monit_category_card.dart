@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:frontend/check/shared/providers.dart';
 
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
 import 'package:frontend/menus/monitor/core/domain/check_spot.dart';
+import 'package:frontend/menus/monitor/core/shared/providers.dart';
+import 'package:frontend/tag/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
@@ -194,7 +197,92 @@ class SubCategoryCard extends StatelessWidget {
                   return TimeStampCard(item: spot.checkedList[index]);
                 },
               ),
-            )
+            ),
+            Consumer(
+              builder: (context, ref, child) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: LayoutConstants.paddingS),
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () => AutoRouter.of(context).push(
+                      TagBottomSheetRoute(
+                        onInit: () =>
+                            ref.read(tagNotifierProvider.notifier).readNFCTag(),
+                        onDispose: () => ref
+                            .read(tagNotifierProvider.notifier)
+                            .stopNFCSession(),
+                        onTagged: (tag) {
+                          Dialogs.showTwoAnswersDialog(
+                            context,
+                            color: Theme.of(context).colorScheme.secondary,
+                            icon: Icons.help,
+                            title: "NFC 등록",
+                            message:
+                                "읽은 정보를 \n\n${spot.objNm}\n\n의 태그로 저장하시겠습니까?",
+                            yesTitle: "저장",
+                            onYesPressed: () {
+                              ref
+                                  .read(
+                                      nfcRegisterStateNotifierProvider.notifier)
+                                  .saveNFCTag(
+                                    objCd: spot.objCd,
+                                    nfcId: tag.id,
+                                  );
+                            },
+                            noTitle: "취소",
+                            onNoPressed: () {},
+                            onDismissed: () {
+                              AutoRouter.of(context).pop();
+                            },
+                          );
+                        },
+                        switchingChild:
+                            Consumer(builder: (context, ref, child) {
+                          final tagState = ref.watch(tagNotifierProvider);
+
+                          print("bottom sheet built");
+
+                          return tagState.maybeWhen(
+                            nfcReading: () => Text(
+                              "태그를 스캔하여 주세요",
+                              key: const ValueKey<String>("BTM-SH-INIT"),
+                              style: TextStyle(
+                                color: Theme.of(context).hintColor,
+                                fontSize: 20,
+                              ),
+                            ),
+                            nfcRead: (tag) => const Text(
+                              "태그 완료",
+                              key: ValueKey<String>("BTM-SH-NFC-READ"),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            failure: (failure) => Container(
+                              key: const ValueKey<String>("BTM-FAILURE"),
+                              child: const Text("정보를 읽어오는데 실패하였습니다."),
+                            ),
+                            orElse: () => const SizedBox(),
+                          );
+                        }),
+                      ),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(
+                        LayoutConstants.paddingM,
+                      ),
+                      child: const Icon(
+                        Icons.post_add,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
