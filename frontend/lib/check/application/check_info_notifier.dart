@@ -134,14 +134,16 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
         details: state.info.details.map((detail) {
           if (detail.chkItemCd == itemCd) {
             return detail.copyWith(
-              images: images.mapIndexed((imageIdx, image) {
+              images: images.mapIndexed((imageIdx, file) {
                 final chkItemCd = detail.chkItemCd.replaceAll("_", "");
                 final imageNo = imageIdx + 1;
-                final fileNameExt = image.name.split(".").last;
+                final fileNameExt = file.name.split(".").last;
 
                 return CheckImage(
                   name: "$chklistNo-$chkItemCd-$imageNo.$fileNameExt",
-                  image: image,
+                  url: file.path,
+                  remark: "",
+                  isRemote: false,
                 );
               }).toList(),
             );
@@ -154,19 +156,21 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
   }
 
   Future<void> pickImageFromCamera(String itemCd, String chklistNo) async {
-    final image = await _picker.pickImage(source: ImageSource.camera);
-    if (image != null) {
+    final file = await _picker.pickImage(source: ImageSource.camera);
+    if (file != null) {
       state = state.copyWith.info(
         details: state.info.details.map((detail) {
           if (detail.chkItemCd == itemCd) {
             final chkItemCd = detail.chkItemCd.replaceAll("_", "");
 
-            final fileNameExt = image.name.split(".").last;
+            final fileNameExt = file.name.split(".").last;
             return detail.copyWith(
               images: [
                 CheckImage(
                   name: "$chklistNo-$chkItemCd-1.$fileNameExt",
-                  image: image,
+                  url: file.path,
+                  remark: "",
+                  isRemote: false,
                 ),
               ],
             );

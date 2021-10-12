@@ -98,8 +98,8 @@ class CheckInfoRemoteService {
       final imageParams = <MapEntry<String, MultipartFile>>[];
 
       for (final image in images) {
-        final img =
-            MultipartFile.fromFileSync(image.image.path, filename: image.name);
+        // TODO : cached network image 일때는 어떻게 처리할지 고민
+        final img = MultipartFile.fromFileSync(image.url, filename: image.name);
         imageParams.add(MapEntry("file", img));
       }
 

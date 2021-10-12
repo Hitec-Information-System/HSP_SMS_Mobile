@@ -1172,10 +1172,16 @@ abstract class _CheckStandard extends CheckStandard {
 class _$CheckImageTearOff {
   const _$CheckImageTearOff();
 
-  _CheckImage call({required String name, required XFile image}) {
+  _CheckImage call(
+      {required String name,
+      required String url,
+      required String remark,
+      required bool isRemote}) {
     return _CheckImage(
       name: name,
-      image: image,
+      url: url,
+      remark: remark,
+      isRemote: isRemote,
     );
   }
 }
@@ -1186,7 +1192,9 @@ const $CheckImage = _$CheckImageTearOff();
 /// @nodoc
 mixin _$CheckImage {
   String get name => throw _privateConstructorUsedError;
-  XFile get image => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  String get remark => throw _privateConstructorUsedError;
+  bool get isRemote => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckImageCopyWith<CheckImage> get copyWith =>
@@ -1198,7 +1206,7 @@ abstract class $CheckImageCopyWith<$Res> {
   factory $CheckImageCopyWith(
           CheckImage value, $Res Function(CheckImage) then) =
       _$CheckImageCopyWithImpl<$Res>;
-  $Res call({String name, XFile image});
+  $Res call({String name, String url, String remark, bool isRemote});
 }
 
 /// @nodoc
@@ -1212,17 +1220,27 @@ class _$CheckImageCopyWithImpl<$Res> implements $CheckImageCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
-    Object? image = freezed,
+    Object? url = freezed,
+    Object? remark = freezed,
+    Object? isRemote = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as XFile,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      remark: remark == freezed
+          ? _value.remark
+          : remark // ignore: cast_nullable_to_non_nullable
+              as String,
+      isRemote: isRemote == freezed
+          ? _value.isRemote
+          : isRemote // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -1233,7 +1251,7 @@ abstract class _$CheckImageCopyWith<$Res> implements $CheckImageCopyWith<$Res> {
           _CheckImage value, $Res Function(_CheckImage) then) =
       __$CheckImageCopyWithImpl<$Res>;
   @override
-  $Res call({String name, XFile image});
+  $Res call({String name, String url, String remark, bool isRemote});
 }
 
 /// @nodoc
@@ -1249,17 +1267,27 @@ class __$CheckImageCopyWithImpl<$Res> extends _$CheckImageCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? image = freezed,
+    Object? url = freezed,
+    Object? remark = freezed,
+    Object? isRemote = freezed,
   }) {
     return _then(_CheckImage(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as XFile,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      remark: remark == freezed
+          ? _value.remark
+          : remark // ignore: cast_nullable_to_non_nullable
+              as String,
+      isRemote: isRemote == freezed
+          ? _value.isRemote
+          : isRemote // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -1267,16 +1295,25 @@ class __$CheckImageCopyWithImpl<$Res> extends _$CheckImageCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CheckImage extends _CheckImage {
-  const _$_CheckImage({required this.name, required this.image}) : super._();
+  const _$_CheckImage(
+      {required this.name,
+      required this.url,
+      required this.remark,
+      required this.isRemote})
+      : super._();
 
   @override
   final String name;
   @override
-  final XFile image;
+  final String url;
+  @override
+  final String remark;
+  @override
+  final bool isRemote;
 
   @override
   String toString() {
-    return 'CheckImage(name: $name, image: $image)';
+    return 'CheckImage(name: $name, url: $url, remark: $remark, isRemote: $isRemote)';
   }
 
   @override
@@ -1285,15 +1322,22 @@ class _$_CheckImage extends _CheckImage {
         (other is _CheckImage &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.image, image) ||
-                const DeepCollectionEquality().equals(other.image, image)));
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)) &&
+            (identical(other.remark, remark) ||
+                const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.isRemote, isRemote) ||
+                const DeepCollectionEquality()
+                    .equals(other.isRemote, isRemote)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(image);
+      const DeepCollectionEquality().hash(url) ^
+      const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(isRemote);
 
   @JsonKey(ignore: true)
   @override
@@ -1302,14 +1346,21 @@ class _$_CheckImage extends _CheckImage {
 }
 
 abstract class _CheckImage extends CheckImage {
-  const factory _CheckImage({required String name, required XFile image}) =
-      _$_CheckImage;
+  const factory _CheckImage(
+      {required String name,
+      required String url,
+      required String remark,
+      required bool isRemote}) = _$_CheckImage;
   const _CheckImage._() : super._();
 
   @override
   String get name => throw _privateConstructorUsedError;
   @override
-  XFile get image => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  @override
+  String get remark => throw _privateConstructorUsedError;
+  @override
+  bool get isRemote => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckImageCopyWith<_CheckImage> get copyWith =>

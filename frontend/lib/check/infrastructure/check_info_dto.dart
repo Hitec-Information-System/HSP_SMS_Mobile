@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/check/domain/check_info.dart';
-import 'package:image_picker/image_picker.dart';
 
 part 'check_info_dto.freezed.dart';
 part 'check_info_dto.g.dart';
@@ -170,17 +169,28 @@ class CheckStandardDTO with _$CheckStandardDTO {
 class CheckImageDTO with _$CheckImageDTO {
   const CheckImageDTO._();
   const factory CheckImageDTO({
-    @Default("") @JsonKey(ignore: true) String name,
-    @JsonKey(ignore: true) XFile? image,
+    @JsonKey(name: "CHK_IMG_URL", defaultValue: "") required String name,
+    @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required String url,
+    @JsonKey(name: "RMK", defaultValue: "") required String remark,
+    @JsonKey(defaultValue: true) required bool isRemote,
   }) = _CheckImageDTO;
 
-  factory CheckImageDTO.fromDomain(CheckImage _) =>
-      CheckImageDTO(name: _.name, image: _.image);
+  factory CheckImageDTO.fromJson(Map<String, dynamic> json) =>
+      _$CheckImageDTOFromJson(json);
+
+  factory CheckImageDTO.fromDomain(CheckImage _) => CheckImageDTO(
+        name: _.name,
+        url: _.url,
+        remark: _.remark,
+        isRemote: _.isRemote,
+      );
 
   CheckImage toDomain() {
     return CheckImage(
       name: name,
-      image: image!,
+      url: url,
+      remark: remark,
+      isRemote: isRemote,
     );
   }
 }

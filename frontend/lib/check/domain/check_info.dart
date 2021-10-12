@@ -180,6 +180,8 @@ class CheckImage with _$CheckImage {
   const CheckImage._();
   const factory CheckImage({
     required String name,
-    required XFile image,
+    required String url,
+    required String remark,
+    required bool isRemote,
   }) = _CheckImage;
 }

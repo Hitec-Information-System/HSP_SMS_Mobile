@@ -1355,17 +1355,29 @@ abstract class _CheckStandardDTO extends CheckStandardDTO {
       throw _privateConstructorUsedError;
 }
 
+CheckImageDTO _$CheckImageDTOFromJson(Map<String, dynamic> json) {
+  return _CheckImageDTO.fromJson(json);
+}
+
 /// @nodoc
 class _$CheckImageDTOTearOff {
   const _$CheckImageDTOTearOff();
 
   _CheckImageDTO call(
-      {@JsonKey(ignore: true) String name = "",
-      @JsonKey(ignore: true) XFile? image}) {
+      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") required String name,
+      @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required String url,
+      @JsonKey(name: "RMK", defaultValue: "") required String remark,
+      @JsonKey(defaultValue: true) required bool isRemote}) {
     return _CheckImageDTO(
       name: name,
-      image: image,
+      url: url,
+      remark: remark,
+      isRemote: isRemote,
     );
+  }
+
+  CheckImageDTO fromJson(Map<String, Object> json) {
+    return CheckImageDTO.fromJson(json);
   }
 }
 
@@ -1374,11 +1386,16 @@ const $CheckImageDTO = _$CheckImageDTOTearOff();
 
 /// @nodoc
 mixin _$CheckImageDTO {
-  @JsonKey(ignore: true)
+  @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
   String get name => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  XFile? get image => throw _privateConstructorUsedError;
+  @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "")
+  String get url => throw _privateConstructorUsedError;
+  @JsonKey(name: "RMK", defaultValue: "")
+  String get remark => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: true)
+  bool get isRemote => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CheckImageDTOCopyWith<CheckImageDTO> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1390,8 +1407,10 @@ abstract class $CheckImageDTOCopyWith<$Res> {
           CheckImageDTO value, $Res Function(CheckImageDTO) then) =
       _$CheckImageDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(ignore: true) String name,
-      @JsonKey(ignore: true) XFile? image});
+      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") String name,
+      @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") String url,
+      @JsonKey(name: "RMK", defaultValue: "") String remark,
+      @JsonKey(defaultValue: true) bool isRemote});
 }
 
 /// @nodoc
@@ -1406,17 +1425,27 @@ class _$CheckImageDTOCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? image = freezed,
+    Object? url = freezed,
+    Object? remark = freezed,
+    Object? isRemote = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as XFile?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      remark: remark == freezed
+          ? _value.remark
+          : remark // ignore: cast_nullable_to_non_nullable
+              as String,
+      isRemote: isRemote == freezed
+          ? _value.isRemote
+          : isRemote // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -1429,8 +1458,10 @@ abstract class _$CheckImageDTOCopyWith<$Res>
       __$CheckImageDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(ignore: true) String name,
-      @JsonKey(ignore: true) XFile? image});
+      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") String name,
+      @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") String url,
+      @JsonKey(name: "RMK", defaultValue: "") String remark,
+      @JsonKey(defaultValue: true) bool isRemote});
 }
 
 /// @nodoc
@@ -1447,39 +1478,60 @@ class __$CheckImageDTOCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? image = freezed,
+    Object? url = freezed,
+    Object? remark = freezed,
+    Object? isRemote = freezed,
   }) {
     return _then(_CheckImageDTO(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as XFile?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      remark: remark == freezed
+          ? _value.remark
+          : remark // ignore: cast_nullable_to_non_nullable
+              as String,
+      isRemote: isRemote == freezed
+          ? _value.isRemote
+          : isRemote // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_CheckImageDTO extends _CheckImageDTO {
   const _$_CheckImageDTO(
-      {@JsonKey(ignore: true) this.name = "",
-      @JsonKey(ignore: true) this.image})
+      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") required this.name,
+      @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required this.url,
+      @JsonKey(name: "RMK", defaultValue: "") required this.remark,
+      @JsonKey(defaultValue: true) required this.isRemote})
       : super._();
 
+  factory _$_CheckImageDTO.fromJson(Map<String, dynamic> json) =>
+      _$_$_CheckImageDTOFromJson(json);
+
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
   final String name;
   @override
-  @JsonKey(ignore: true)
-  final XFile? image;
+  @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "")
+  final String url;
+  @override
+  @JsonKey(name: "RMK", defaultValue: "")
+  final String remark;
+  @override
+  @JsonKey(defaultValue: true)
+  final bool isRemote;
 
   @override
   String toString() {
-    return 'CheckImageDTO(name: $name, image: $image)';
+    return 'CheckImageDTO(name: $name, url: $url, remark: $remark, isRemote: $isRemote)';
   }
 
   @override
@@ -1488,34 +1540,57 @@ class _$_CheckImageDTO extends _CheckImageDTO {
         (other is _CheckImageDTO &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.image, image) ||
-                const DeepCollectionEquality().equals(other.image, image)));
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)) &&
+            (identical(other.remark, remark) ||
+                const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.isRemote, isRemote) ||
+                const DeepCollectionEquality()
+                    .equals(other.isRemote, isRemote)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(image);
+      const DeepCollectionEquality().hash(url) ^
+      const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(isRemote);
 
   @JsonKey(ignore: true)
   @override
   _$CheckImageDTOCopyWith<_CheckImageDTO> get copyWith =>
       __$CheckImageDTOCopyWithImpl<_CheckImageDTO>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CheckImageDTOToJson(this);
+  }
 }
 
 abstract class _CheckImageDTO extends CheckImageDTO {
   const factory _CheckImageDTO(
-      {@JsonKey(ignore: true) String name,
-      @JsonKey(ignore: true) XFile? image}) = _$_CheckImageDTO;
+      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") required String name,
+      @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required String url,
+      @JsonKey(name: "RMK", defaultValue: "") required String remark,
+      @JsonKey(defaultValue: true) required bool isRemote}) = _$_CheckImageDTO;
   const _CheckImageDTO._() : super._();
 
+  factory _CheckImageDTO.fromJson(Map<String, dynamic> json) =
+      _$_CheckImageDTO.fromJson;
+
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
   String get name => throw _privateConstructorUsedError;
   @override
-  @JsonKey(ignore: true)
-  XFile? get image => throw _privateConstructorUsedError;
+  @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "")
+  String get url => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: "RMK", defaultValue: "")
+  String get remark => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(defaultValue: true)
+  bool get isRemote => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckImageDTOCopyWith<_CheckImageDTO> get copyWith =>

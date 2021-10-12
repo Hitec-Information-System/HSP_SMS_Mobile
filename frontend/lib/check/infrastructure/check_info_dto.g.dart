@@ -104,3 +104,20 @@ Map<String, dynamic> _$_$_CheckStandardDTOToJson(
       'GUBUN': instance.id,
       'GUBUN_NM': instance.name,
     };
+
+_$_CheckImageDTO _$_$_CheckImageDTOFromJson(Map<String, dynamic> json) {
+  return _$_CheckImageDTO(
+    name: json['CHK_IMG_URL'] as String? ?? '',
+    url: json['CHK_IMG_URL_FULL'] as String? ?? '',
+    remark: json['RMK'] as String? ?? '',
+    isRemote: json['isRemote'] as bool? ?? true,
+  );
+}
+
+Map<String, dynamic> _$_$_CheckImageDTOToJson(_$_CheckImageDTO instance) =>
+    <String, dynamic>{
+      'CHK_IMG_URL': instance.name,
+      'CHK_IMG_URL_FULL': instance.url,
+      'RMK': instance.remark,
+      'isRemote': instance.isRemote,
+    };
