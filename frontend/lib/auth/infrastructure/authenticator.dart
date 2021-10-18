@@ -27,12 +27,62 @@ class Authenticator {
     }
   }
 
+  Future<Either<AuthFailure, Unit>> changePassword(
+    Map<String, dynamic> params,
+  ) async {
+    try {
+      final user = await getSignedInCredentials();
+
+      if (user == null) {
+        return left(
+          const AuthFailure.server("저장된 사용자 정보가 없습니다. 관리자에게 문의하세요."),
+        );
+      }
+
+      params["user-id"] = user.key;
+      params["comp-cd"] = user.userInfo.compCd;
+      params["sys-flag"] = LogicConstants.systemFlag;
+
+      final response = await _dio.post("/pwd", data: params);
+
+      // 응답코드가 200이 아닐 때 오류 처리
+      if (response.statusCode != 200) {
+        return left(const AuthFailure.server());
+      }
+
+      if ((response.data as Map<String, dynamic>)["msg"] != "OK") {
+        return left(AuthFailure.server(response.data["msg"] as String));
+      }
+
+      return right(unit);
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return left(
+          const AuthFailure.server("인터넷 연결 신호가 약합니다."),
+        );
+      }
+
+      if (e.response?.statusCode == 400) {
+        return left(
+          const AuthFailure.server("아이디, 비밀번호의 조합이 맞지 않습니다."),
+        );
+      }
+
+      rethrow;
+    } on FormatException {
+      return left(const AuthFailure.server());
+    } on PlatformException {
+      return left(const AuthFailure.storage());
+    }
+  }
+
   Future<Either<AuthFailure, User>> handleAuthorizationResponse(
     Map<String, dynamic> params,
   ) async {
     try {
-      // TODO: hard-coded Company Code
-      params["comp-cd"] = "3000";
+      // TODO: api key와 함께 company code 를 return 받기 전까지는 빈값일 수 밖에 없어서 임의로 설정함
+      //       수정 요함
+      params["comp-cd"] = LogicConstants.compCd;
       params["sys-flag"] = LogicConstants.systemFlag;
 
       final response = await _dio.post("/sign-in", data: params);

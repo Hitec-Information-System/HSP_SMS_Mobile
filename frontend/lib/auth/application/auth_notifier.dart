@@ -31,6 +31,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
     });
   }
 
+  Future<bool> changePassword(Map<String, dynamic> params) async {
+    final failureOrSuccess = await _authenticator.changePassword(params);
+
+    return failureOrSuccess.fold(
+      (l) => false,
+      (r) => true,
+    );
+  }
+
   Future<void> signIn(Map<String, dynamic> params) async {
     state = const AuthState.loading();
 
@@ -38,12 +47,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
         await _authenticator.handleAuthorizationResponse(params);
 
     state = failureOrSuccess.fold(
-        (l) => AuthState.failure(l), (r) => AuthState.authenticated(r));
+      (l) => AuthState.failure(l),
+      (r) => AuthState.authenticated(r),
+    );
   }
 
   Future<void> signOut() async {
     final failureOrSuccess = await _authenticator.signOut();
     state = failureOrSuccess.fold(
-        (l) => AuthState.failure(l), (r) => const AuthState.unauthenticated());
+      (l) => AuthState.failure(l),
+      (r) => const AuthState.unauthenticated(),
+    );
   }
 }

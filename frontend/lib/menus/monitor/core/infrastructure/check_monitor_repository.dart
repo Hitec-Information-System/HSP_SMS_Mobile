@@ -42,15 +42,18 @@ class CheckMonitorRepository {
 
       if (e.type == DioErrorType.connectTimeout) {
         return left(
-          CheckMonitorFailure.api(e.response?.statusCode, "서버 응답이 없습니다."),
+          CheckMonitorFailure.api(
+            e.response?.statusCode,
+            "서버 응답이 없습니다.",
+          ),
         );
       }
 
       if (e.response?.statusCode == 400) {
         return left(
           CheckMonitorFailure.api(
-            e.response!.statusCode,
-            e.response!.statusMessage,
+            e.response?.statusCode,
+            e.response?.statusMessage,
           ),
         );
       }
@@ -69,7 +72,10 @@ class CheckMonitorRepository {
       final response = await _dio.post("/nfc", data: params);
       if (response.statusCode != 200) {
         return left(
-          CheckMonitorFailure.api(response.statusCode, response.statusMessage),
+          CheckMonitorFailure.api(
+            response.statusCode,
+            response.statusMessage,
+          ),
         );
       }
 
@@ -91,7 +97,10 @@ class CheckMonitorRepository {
         );
       } else if (e.type == DioErrorType.connectTimeout) {
         return left(
-          CheckMonitorFailure.api(e.response?.statusCode, "서버 응답이 없습니다."),
+          CheckMonitorFailure.api(
+            e.response?.statusCode,
+            "서버 응답이 없습니다.",
+          ),
         );
       } else {
         rethrow;

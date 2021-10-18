@@ -51,11 +51,12 @@ class CheckListPage extends StatelessWidget {
                 context,
                 color: Theme.of(context).errorColor,
                 title: "오류",
-                message:
-                    "오류가 발생하였습니다. 관리자에게 문의하여 주세요.\n오류는 다음과 같습니다.\n\n${failure.when(
-                  api: (code, message) => message,
-                  noConnection: () => "인터넷 연결 오류",
-                )}\n",
+                message: failure.when(
+                  api: (code, message) =>
+                      message ?? "데이터 전송 중 에러가 발생하였습니다. 관리자에게 문의하세요.\n",
+                  noConnection: () => "인터넷 연결 오류\n",
+                  internal: (String message) => "$message\n",
+                ),
                 yesTitle: "확인",
                 onYesPressed: () {},
                 onDismissed: () {

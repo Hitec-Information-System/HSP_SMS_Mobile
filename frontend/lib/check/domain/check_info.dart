@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 part 'check_info.freezed.dart';
@@ -45,7 +44,7 @@ class CheckInfo with _$CheckInfo {
     list.insert(0, "<NewDataSet>");
     list.insert(list.length, "</NewDataSet>");
 
-    return list.join().replaceAll(" ", "");
+    return list.join().replaceAll(" ", "").replaceAll("\n", "");
   }
 
   String get toImgsXml {
@@ -58,17 +57,8 @@ class CheckInfo with _$CheckInfo {
     list.insert(0, "<NewDataSet>");
     list.insert(list.length, "</NewDataSet>");
 
-    return list.join().replaceAll(" ", "");
+    return list.join().replaceAll(" ", "").replaceAll("\n", "");
   }
-
-  // bool get hasChecksBeenDone {
-  //   for (final detail in this) {
-  //     if (detail.result == "") {
-  //       return false;
-  //     }
-  //   }
-  //   return true;
-  // }
 
   bool hasNormalChecksBeenDone(String normalCd) {
     final normals =
@@ -79,6 +69,10 @@ class CheckInfo with _$CheckInfo {
       }
     }
     return true;
+  }
+
+  int get totalImageCount {
+    return details.map((detail) => detail.images.length).sum;
   }
 }
 
@@ -113,7 +107,8 @@ class CheckHeader with _$CheckHeader {
     <CHK_USER_ID>$userId</CHK_USER_ID>
   </Table1></NewDataSet>
   '''
-      .replaceAll(" ", "");
+      .replaceAll(" ", "")
+      .replaceAll("\n", "");
 
   String get dateFormatted => DateFormat("yyyy-MM-dd HH:mm")
       .format(DateTime.parse(dateCreated).toLocal());
@@ -143,7 +138,8 @@ class CheckDetails with _$CheckDetails {
     <RMK>$remark</RMK>
   </Table1>
   '''
-      .replaceAll(" ", "");
+      .replaceAll(" ", "")
+      .replaceAll("\n", "");
 
   String get toImgXml {
     if (images.isEmpty) {
@@ -153,14 +149,15 @@ class CheckDetails with _$CheckDetails {
     return images
         .mapIndexed(
           (index, element) => '''
-    <Table1>
-      <CHK_ITEM_CD>$chkItemCd</CHK_ITEM_CD>
-      <CHK_IMG_NO>${index + 1}</CHK_IMG_NO>
-      <CHK_IMG_URL>${images[index].name}</CHK_IMG_URL>
-      <RMK></RMK>
-    </Table1>
-  '''
-              .replaceAll(" ", ""),
+              <Table1>
+                <CHK_ITEM_CD>$chkItemCd</CHK_ITEM_CD>
+                <CHK_IMG_NO>${index + 1}</CHK_IMG_NO>
+                <CHK_IMG_URL>${images[index].name}</CHK_IMG_URL>
+                <RMK></RMK>
+              </Table1>
+          '''
+              .replaceAll(" ", "")
+              .replaceAll("\n", ""),
         )
         .join();
   }

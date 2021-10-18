@@ -1,13 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:frontend/auth/presentation/sign_in_page.dart';
 import 'package:frontend/check/presentation/check_list_page.dart';
+import 'package:frontend/check/presentation/widgets/image_check_page.dart';
 import 'package:frontend/core/presentation/widgets/error/error_page.dart';
 import 'package:frontend/menus/core/presentation/menu_frame_page.dart';
 import 'package:frontend/menus/core/presentation/widgets/bottom_sheet/widgets.dart';
+import 'package:frontend/menus/home/presentation/home_web_view_part.dart';
 import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart';
 import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart';
 import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart';
 import 'package:frontend/menus/settings/presentation/menu_settings_page.dart';
+import 'package:frontend/menus/settings/presentation/password_change_page.dart';
 import 'package:frontend/splash/presentation/splash_page.dart';
 import 'package:frontend/tag/qr/presentation/qr_scan_page.dart';
 
@@ -17,6 +20,13 @@ import 'package:frontend/tag/qr/presentation/qr_scan_page.dart';
     AutoRoute(page: SplashPage, initial: true),
     AutoRoute(page: SignInPage, path: "/sign-in"),
     AutoRoute(page: ErrorPage, path: "/error"),
+    // temporary
+    AutoRoute(page: HomeWebViewPage, path: "/webview"),
+    CustomRoute(
+      page: ImageCheckPage,
+      path: "/img",
+      transitionsBuilder: TransitionsBuilders.slideBottom,
+    ),
     AutoRoute(
       path: "/",
       page: MenuFramePage,
@@ -51,6 +61,7 @@ import 'package:frontend/tag/qr/presentation/qr_scan_page.dart';
           name: "SettingsTab",
           children: [
             AutoRoute(path: "", page: MenuSettingsPage),
+            AutoRoute(path: "pwd", page: PasswordChangePage),
           ],
         ),
       ],

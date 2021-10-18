@@ -1,17 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:frontend/core/presentation/constants/constants.dart';
-import 'package:frontend/core/presentation/widgets/dialogs.dart';
+import 'package:frontend/core/presentation/widgets/no_glow_behavior.dart';
 import 'package:frontend/menus/monitor/core/application/check_monitor_notifier.dart';
-import 'package:frontend/menus/monitor/core/application/nfc_register_notifier.dart';
 import 'package:frontend/menus/monitor/core/domain/check_spot.dart';
 import 'package:frontend/menus/monitor/core/presentation/monit_category_card.dart';
-import 'package:frontend/menus/monitor/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 
 // 문제점: 리턴 받는 리스트가 섞여서 들어오게 된다면 제대로 나누지 못하게 됨
 Map<String, List<CheckSpot>> splitToSubGroup(List<CheckSpot> spots) {
@@ -79,105 +74,162 @@ class _MonitPageState extends ConsumerState<MonitPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       extendBody: true,
-      body: RefreshIndicator(
-        onRefresh: () =>
-            ref.read(widget.monitNotifierProvider.notifier).getMonitoringList(),
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(LayoutConstants.paddingM),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: LayoutConstants.spaceL),
-                    Row(
+      body: Stack(
+        children: [
+          const SizedBox.expand(),
+          RefreshIndicator(
+            onRefresh: () => ref
+                .read(widget.monitNotifierProvider.notifier)
+                .getMonitoringList(),
+            child: SizedBox.expand(
+              child: ScrollConfiguration(
+                behavior: const NoGlowBehavior(),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: LayoutConstants.paddingXS,
+                        vertical: LayoutConstants.paddingM),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "${widget.categoryNm} 점검",
-                          style: Theme.of(context).textTheme.headline4,
+                        const SizedBox(height: LayoutConstants.spaceL),
+                        Row(
+                          children: [
+                            Text(
+                              "${widget.categoryNm} 점검",
+                              style: Theme.of(context).textTheme.headline4,
+                            ),
+                            const Spacer(),
+                            const Text(
+                              "V ${LogicConstants.versionNo}",
+                            ),
+                          ],
                         ),
-                        const Spacer(),
-                        const Text(
-                          "V ${LogicConstants.versionNo}",
+                        const SizedBox(height: LayoutConstants.spaceL),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Consumer(
+                                builder: (context, ref, child) {
+                                  final _ =
+                                      ref.watch(widget.monitNotifierProvider);
+                                  return Text(
+                                    "마지막 조회 : ${DateFormat("HH:mm").format(DateTime.now())}",
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: LayoutConstants.spaceL),
+                            ],
+                          ),
+                        ),
+                        Consumer(
+                          builder: (context, ref, child) {
+                            final state =
+                                ref.watch(widget.monitNotifierProvider);
+
+                            return Align(
+                              alignment: Alignment.topCenter,
+                              child: Wrap(
+                                children: List<Widget>.generate(
+                                  state.maybeWhen(
+                                    initial: () => 0,
+                                    loading: () => 3,
+                                    loaded: (data) =>
+                                        splitToSubGroup(data.entity)
+                                            .values
+                                            .length,
+                                    orElse: () => 0,
+                                  ),
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.all(
+                                      LayoutConstants.paddingXS,
+                                    ),
+                                    child: state.maybeWhen(
+                                      loading: () => const MonitCategoryCard(
+                                        objSubNm: "",
+                                        spots: [],
+                                      ),
+                                      loaded: (data) {
+                                        final groupedList =
+                                            splitToSubGroup(data.entity);
+                                        return MonitCategoryCard(
+                                          objSubNm:
+                                              groupedList.keys.toList()[index],
+                                          spots: groupedList.values
+                                              .toList()[index],
+                                        );
+                                      },
+                                      orElse: () => Container(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: 2 * LayoutConstants.spaceXL,
                         )
                       ],
                     ),
-                    const SizedBox(height: LayoutConstants.spaceL),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "마지막 조회 : ${DateFormat("HH:mm").format(DateTime.now())}",
-                          ),
-                          const SizedBox(height: LayoutConstants.spaceL),
-                        ],
-                      ),
-                    ),
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final state = ref.watch(widget.monitNotifierProvider);
-
-                        return state.maybeWhen(
-                            failure: (_) => const Center(
-                                  child: Text("불러오는 중 에러가 발생했습니다."),
-                                ),
-                            // todo: list의 itemCount는 화면에 보여주는 구색을 맞추기 위해 임의 값을 할당한 것이니 적당한 값을 할당하라
-                            orElse: () => Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Wrap(
-                                    children: List<Widget>.generate(
-                                      state.maybeWhen(
-                                        initial: () => 0,
-                                        loading: () => 3,
-                                        loaded: (data) =>
-                                            splitToSubGroup(data.entity)
-                                                .values
-                                                .length,
-                                        orElse: () => 0,
-                                      ),
-                                      (index) => Padding(
-                                        padding: const EdgeInsets.all(
-                                          LayoutConstants.paddingS,
-                                        ),
-                                        child: state.maybeWhen(
-                                          loading: () =>
-                                              const MonitCategoryCard(
-                                            objSubNm: "",
-                                            spots: [],
-                                          ),
-                                          loaded: (data) {
-                                            final groupedList =
-                                                splitToSubGroup(data.entity);
-                                            return MonitCategoryCard(
-                                              objSubNm: groupedList.keys
-                                                  .toList()[index],
-                                              spots: groupedList.values
-                                                  .toList()[index],
-                                            );
-                                          },
-                                          orElse: () => Container(),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ));
-                      },
-                    ),
-                    const SizedBox(
-                      height: 2 * LayoutConstants.spaceXL,
-                    )
-                  ],
+                  ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          Consumer(builder: (context, ref, child) {
+            final state = ref.watch(widget.monitNotifierProvider);
+
+            return state.maybeWhen(
+              loaded: (data) {
+                if (data.entity.isNotEmpty) {
+                  return const SizedBox();
+                } else {
+                  return Positioned(
+                    top: size.height / 2,
+                    left: size.width / 2,
+                    child: const FractionalTranslation(
+                      translation: Offset(-0.5, -0.5),
+                      child: Text(
+                        "조회할 수 있는 목록이 없습니다.",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              },
+              failure: (failure) => Positioned(
+                top: size.height / 2,
+                left: size.width / 2,
+                child: FractionalTranslation(
+                  translation: const Offset(-0.5, -0.5),
+                  child: Text(
+                    failure.when(
+                      api: (statusCode, statusMsg) =>
+                          statusMsg ?? "데이터를 불러오는 도중 발생하였습니다.\n관리자에게 문의하세요.",
+                      noConnection: () => "인터넷 연결이 약합니다.",
+                    ),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ),
+              orElse: () => const SizedBox(),
+            );
+          })
+        ],
       ),
     );
   }

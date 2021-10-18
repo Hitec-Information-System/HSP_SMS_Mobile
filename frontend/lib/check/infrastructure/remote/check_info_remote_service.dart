@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/infrastructure/check_info_dto.dart';
@@ -25,10 +26,6 @@ class CheckInfoRemoteService {
 
       final data = response.data as Map<String, dynamic>;
 
-      if (data.isEmpty) {
-        // TODO: 없을 때?
-      }
-
       return RemoteResponse.withNewData(CheckInfoDTO.fromJson(data));
     } on DioError catch (e) {
       if (e.isNoConnectionError) {
@@ -38,7 +35,7 @@ class CheckInfoRemoteService {
       if (e.response?.statusCode == 400) {
         throw RestApiException(
           errorCode: e.response?.statusCode,
-          message: (e.response!.data as Map<String, dynamic>)["msg"] as String,
+          message: "등록되지 않은 태그 입니다.",
         );
       }
 
@@ -50,13 +47,13 @@ class CheckInfoRemoteService {
     }
   }
 
-  Future<RemoteResponse<String>> saveCheckResults(
+  Future<RemoteResponse<Unit>> saveCheckResults(
       Map<String, dynamic> params, List<CheckImage> images) async {
     try {
       await _saveCheckInfoResult(params);
       await _saveCheckImages(images);
 
-      return const RemoteResponse.withNewData("OK");
+      return const RemoteResponse.withNewData(unit);
     } on DioError catch (e) {
       if (e.isNoConnectionError) {
         return const RemoteResponse.noConnection();
@@ -65,12 +62,15 @@ class CheckInfoRemoteService {
       if (e.response?.statusCode == 400) {
         throw RestApiException(
           errorCode: e.response?.statusCode,
-          message: e.response?.statusMessage,
+          message: e.response?.data.toString(),
         );
       }
 
       if (e.response != null) {
-        throw RestApiException(errorCode: e.response?.statusCode);
+        throw RestApiException(
+          errorCode: e.response?.statusCode,
+          message: e.response?.data.toString(),
+        );
       }
 
       rethrow;
@@ -86,6 +86,11 @@ class CheckInfoRemoteService {
     } on DioError catch (e) {
       if (e.response != null) {
         throw RestApiException(errorCode: e.response?.statusCode);
+      } else if (e.type == DioErrorType.connectTimeout) {
+        throw RestApiException(
+          errorCode: e.response?.statusCode,
+          message: "서버 응답이 없습니다.",
+        );
       } else {
         rethrow;
       }
@@ -98,7 +103,6 @@ class CheckInfoRemoteService {
       final imageParams = <MapEntry<String, MultipartFile>>[];
 
       for (final image in images) {
-        // TODO : cached network image 일때는 어떻게 처리할지 고민
         final img = MultipartFile.fromFileSync(image.url, filename: image.name);
         imageParams.add(MapEntry("file", img));
       }

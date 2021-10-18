@@ -76,6 +76,10 @@ _$_CheckDetailsDTO _$_$_CheckDetailsDTOFromJson(Map<String, dynamic> json) {
     objGubunSubNm: json['OBJ_GUBUN_SUB_NM'] as String,
     remark: json['D_RMK'] as String? ?? '',
     result: json['CHK_RESULT'] as String? ?? '',
+    images: (json['IMGS'] as List<dynamic>?)
+            ?.map((e) => CheckImageDTO.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [],
   );
 }
 
@@ -89,6 +93,7 @@ Map<String, dynamic> _$_$_CheckDetailsDTOToJson(_$_CheckDetailsDTO instance) =>
       'OBJ_GUBUN_SUB_NM': instance.objGubunSubNm,
       'D_RMK': instance.remark,
       'CHK_RESULT': instance.result,
+      'IMGS': instance.images.map((e) => e.toJson()).toList(),
     };
 
 _$_CheckStandardDTO _$_$_CheckStandardDTOFromJson(Map<String, dynamic> json) {

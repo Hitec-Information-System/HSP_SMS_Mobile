@@ -5,8 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/check/application/check_info_notifier.dart';
 import 'package:frontend/check/shared/providers.dart';
-import 'package:frontend/core/presentation/widgets/dialogs.dart';
-import 'package:frontend/menus/core/presentation/menu_frame_page.dart';
 import 'package:frontend/tag/core/application/tag_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';

@@ -1,18 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/domain/check_info_failure.dart';
-import 'package:frontend/check/infrastructure/local/check_info_local_service.dart';
 import 'package:frontend/check/infrastructure/remote/check_info_remote_service.dart';
 
 import 'package:frontend/core/domain/fresh.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
 
 class CheckInfoRepository {
-  final CheckInfoLocalService _localService;
   final CheckInfoRemoteService _remoteService;
 
   const CheckInfoRepository(
-    this._localService,
     this._remoteService,
   );
 
@@ -21,10 +18,10 @@ class CheckInfoRepository {
     try {
       final remoteFetch = await _remoteService.fetchCheckInfo(params);
       return await remoteFetch.when(
-        noConnection: () async => left(const CheckInfoFailure.noConnection()),
+        noConnection: () async => left(
+          const CheckInfoFailure.noConnection(),
+        ),
         withNewData: (data) async {
-          await _localService.upsertCheckInfo(data.toJson(),
-              "${params["check-no"]}-${params["interval"]}-${params["session"]}");
           return right(
             Fresh.yes(
               data.toDomain(),
@@ -34,12 +31,15 @@ class CheckInfoRepository {
       );
     } on RestApiException catch (e) {
       return left(
-        CheckInfoFailure.api(e.errorCode, e.message),
+        CheckInfoFailure.api(
+          statusCode: e.errorCode,
+          message: e.message,
+        ),
       );
     }
   }
 
-  Future<Either<CheckInfoFailure, Fresh<String>>> saveCheckInfo(
+  Future<Either<CheckInfoFailure, Fresh<Unit>>> saveCheckInfo(
       Map<String, dynamic> params, List<CheckImage> images) async {
     try {
       final remoteFetch = await _remoteService.saveCheckResults(params, images);
@@ -49,12 +49,15 @@ class CheckInfoRepository {
           return left(const CheckInfoFailure.noConnection());
         },
         withNewData: (data) async {
-          return right(Fresh.yes(data));
+          return right(Fresh.yes(unit));
         },
       );
     } on RestApiException catch (e) {
       return left(
-        CheckInfoFailure.api(e.errorCode, e.message),
+        CheckInfoFailure.api(
+          statusCode: e.errorCode,
+          message: e.message,
+        ),
       );
     }
   }

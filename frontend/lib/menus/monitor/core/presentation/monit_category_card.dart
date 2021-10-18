@@ -26,7 +26,7 @@ class MonitCategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 275,
+      width: 290,
       padding: const EdgeInsets.symmetric(
         horizontal: LayoutConstants.paddingXS,
         vertical: LayoutConstants.paddingM,

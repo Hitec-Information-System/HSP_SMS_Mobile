@@ -108,7 +108,8 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
     @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
     @JsonKey(name: "D_RMK", defaultValue: "") required String remark,
     @JsonKey(name: "CHK_RESULT", defaultValue: "") required String result,
-    @Default([]) @JsonKey(ignore: true) List<CheckImageDTO> images,
+    @JsonKey(name: "IMGS", defaultValue: [])
+        required List<CheckImageDTO> images,
   }) = _CheckDetailsDTO;
 
   factory CheckDetailsDTO.fromJson(Map<String, dynamic> json) =>

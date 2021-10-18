@@ -24,7 +24,6 @@ final checkInfoRemoteServiceProvider =
 
 final checkInfoRepositoryProvider = Provider.autoDispose<CheckInfoRepository>(
   (ref) => CheckInfoRepository(
-    ref.watch(checkInfoLocalServiceProvider),
     ref.watch(checkInfoRemoteServiceProvider),
   ),
 );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:frontend/auth/shared/providers.dart';
+import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SignInPage extends HookConsumerWidget {
@@ -16,7 +17,8 @@ class SignInPage extends HookConsumerWidget {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 48),
+        padding:
+            const EdgeInsets.symmetric(horizontal: LayoutConstants.paddingXL),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -46,7 +48,7 @@ class SignInPage extends HookConsumerWidget {
                         autocorrect: false,
                         validator: formValidator,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: LayoutConstants.spaceM),
                       TextFormField(
                         controller: pwController,
                         decoration: const InputDecoration(
@@ -60,7 +62,7 @@ class SignInPage extends HookConsumerWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: LayoutConstants.spaceM),
                 ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState?.validate() == true) {

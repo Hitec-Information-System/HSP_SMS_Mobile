@@ -15,8 +15,8 @@ final checkMonitRepositoryProvider = Provider(
   ),
 );
 
-final nfcRegisterStateNotifierProvider =
-    StateNotifierProvider<NfcRegisterStateNotifier, NfcRegisterState>(
+final nfcRegisterStateNotifierProvider = StateNotifierProvider.autoDispose<
+    NfcRegisterStateNotifier, NfcRegisterState>(
   (ref) => NfcRegisterStateNotifier(
     ref.watch(checkMonitRepositoryProvider),
     ref.watch(

@@ -3,6 +3,8 @@ import 'package:sembast/sembast.dart';
 
 import '../check_info_dto.dart';
 
+/// Deprecated
+///  - 로컬에 저장하는 방식은 잠정 폐기된 아이디어
 class CheckInfoLocalService {
   final SembastDatabase _sembastDatabase;
   final _store = stringMapStoreFactory.store("checkInfo");

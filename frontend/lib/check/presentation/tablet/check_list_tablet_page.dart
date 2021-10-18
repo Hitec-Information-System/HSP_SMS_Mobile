@@ -40,14 +40,7 @@ class ChecklistTabletPage extends StatelessWidget {
               flex: 5,
               child: SizedBox(
                 height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: LayoutConstants.paddingL,
-                    vertical: LayoutConstants.paddingM,
-                  ),
-                  child: CheckListDetailsSection(),
-                ),
+                child: CheckListDetailsSection(),
               ),
             )
           ],

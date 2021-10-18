@@ -5,6 +5,8 @@ import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
+
 class MenuSettingsPage extends ConsumerWidget {
   const MenuSettingsPage({Key? key}) : super(key: key);
 
@@ -62,6 +64,21 @@ class MenuSettingsPage extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
               ),
               child: ListTile(
+                onTap: () => const PasswordChangeRoute().show(context),
+                title: const Text(
+                  "비밀번호 변경",
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios),
+              ),
+            ),
+            const SizedBox(height: LayoutConstants.spaceXS),
+            Card(
+              color: Theme.of(context).bottomAppBarColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
+              ),
+              child: ListTile(
                 onTap: () => Dialogs.showTwoAnswersDialog(
                   context,
                   color: Theme.of(context).colorScheme.secondary,
@@ -83,7 +100,7 @@ class MenuSettingsPage extends ConsumerWidget {
                 ),
                 trailing: const Icon(Icons.arrow_forward_ios),
               ),
-            )
+            ),
           ],
         ),
       ),

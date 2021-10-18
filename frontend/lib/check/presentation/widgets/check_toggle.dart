@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/custom_toggle_button/widgets.dart';
 
-import 'package:collection/collection.dart';
-
 class CheckToggle extends StatelessWidget {
   const CheckToggle({
     Key? key,

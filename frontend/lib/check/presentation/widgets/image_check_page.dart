@@ -47,49 +47,56 @@ class _ImageCheckPageState extends State<ImageCheckPage>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        PageView.builder(
-          itemBuilder: (context, index) {
-            return InteractiveViewer(
-              onInteractionStart: (_) {
-                _animationController.forward();
-              },
-              onInteractionEnd: (_) {
-                _animationController.reverse();
-              },
-              child: Container(
-                alignment: Alignment.center,
-                child: Image.file(File(widget.images[index].url)),
-              ),
-            );
-          },
-          itemCount: widget.images.length,
-        ),
-        Positioned(
-          top: 30,
-          right: 30,
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              return FadeTransition(
-                opacity: _fadeAnimation,
-                child: SlideTransition(
-                  position: _translationAnimation,
-                  child: child,
+    return Dismissible(
+      key: UniqueKey(),
+      direction: DismissDirection.down,
+      onDismissed: (_) => AutoRouter.of(context).pop(),
+      child: Stack(
+        children: [
+          PageView.builder(
+            itemBuilder: (context, index) {
+              return InteractiveViewer(
+                onInteractionStart: (_) {
+                  _animationController.forward();
+                },
+                onInteractionEnd: (_) {
+                  _animationController.reverse();
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  child: widget.images[index].isRemote
+                      ? Image.network(widget.images[index].url)
+                      : Image.file(File(widget.images[index].url)),
                 ),
               );
             },
-            child: GestureDetector(
-              onTap: () => AutoRouter.of(context).pop(),
-              child: const Icon(
-                Icons.close,
-                color: Colors.white,
+            itemCount: widget.images.length,
+          ),
+          Positioned(
+            top: 30,
+            right: 30,
+            child: AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: SlideTransition(
+                    position: _translationAnimation,
+                    child: child,
+                  ),
+                );
+              },
+              child: GestureDetector(
+                onTap: () => AutoRouter.of(context).pop(),
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

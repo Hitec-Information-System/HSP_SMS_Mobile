@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/check/application/check_info_notifier.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:frontend/check/domain/check_info.dart';
@@ -8,117 +10,80 @@ import 'package:frontend/check/presentation/remark_popup.dart';
 import 'package:frontend/check/presentation/widgets.dart';
 import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/presentation/routes/hero_dialog_router.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
-
-import 'package:collection/collection.dart';
-
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 
 final _currentDetail =
     Provider<CheckDetails>((ref) => throw UnimplementedError());
 
 const _resultOptions = ["양호", "미흡", "불량", "미점검"];
 
-class CheckListDetailsSection extends ConsumerWidget {
+class CheckListDetailsSection extends HookConsumerWidget {
   const CheckListDetailsSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print("list rebuilt");
 
-    // ref.listen<CheckInfoState>(
-    //   checkInfoStateNotifierProvider,
-    //   (state) {
-    //     state.maybeWhen(
-    //       loading: (_, __) {
-    //         Dialogs.showLoadingDialog(context);
-    //       },
-    //       saving: (_, __) {
-    //         Dialogs.showLoadingDialog(context);
-    //       },
-    //       saved: (_, __) {
-    //         AutoRouter.of(context).popUntilRouteWithName(CheckListRoute.name);
-    //         Dialogs.showOneAnswerDialog(
-    //           context,
-    //           color: Theme.of(context).colorScheme.secondary,
-    //           icon: Icons.check_circle,
-    //           title: "저장 완료",
-    //           message: "저장을 완료하였습니다",
-    //           yesTitle: "확인",
-    //           onYesPressed: () {},
-    //           onDismissed: () {
-    //             AutoRouter.of(context)
-    //                 .popUntilRouteWithName(MenuFrameRoute.name);
-    //           },
-    //         );
-    //       },
-    //       failure: (_, __, failure) {
-    //         AutoRouter.of(context).popUntilRouteWithName(CheckListRoute.name);
-    //         Dialogs.showOneAnswerDialog(
-    //           context,
-    //           color: Theme.of(context).errorColor,
-    //           title: "오류",
-    //           message:
-    //               "오류가 발생하였습니다. 관리자에게 문의하여 주세요.\n오류는 다음과 같습니다.\n\n${failure.when(
-    //             api: (code, message) => message,
-    //             noConnection: () => "인터넷 연결 오류",
-    //           )}\n",
-    //           yesTitle: "확인",
-    //           onYesPressed: () {},
-    //           onDismissed: () {
-    //             AutoRouter.of(context)
-    //                 .popUntilRouteWithName(CheckListRoute.name);
-    //           },
-    //         );
-    //       },
-    //       orElse: () {
-    //         AutoRouter.of(context).popUntilRouteWithName(CheckListRoute.name);
-    //       },
-    //     );
-    //   },
-    // );
+    final scrollController = useScrollController();
 
-    final details = ref.watch(
-        checkInfoStateNotifierProvider.select((state) => state.info.details));
     final intervals = ref.watch(
         checkInfoStateNotifierProvider.select((state) => state.info.intervals));
 
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return CheckListDetailsDirectory(
-          title: intervals[index].name,
-          children: details
-              .where((detail) => detail.intervalChk == intervals[index].id)
-              .toList(),
-          isInitiallyExpanded: true,
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const SizedBox(height: 15);
-      },
-      itemCount: intervals.length,
+    SchedulerBinding.instance?.addPostFrameCallback((_) {
+      scrollController.animateTo(scrollController.position.minScrollExtent,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.fastOutSlowIn);
+    });
+
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      controller: scrollController,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: LayoutConstants.paddingL,
+          vertical: LayoutConstants.paddingM,
+        ),
+        child: ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return CheckListDetailsDirectory(
+              id: intervals[index].id,
+              title: intervals[index].name,
+            );
+          },
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: LayoutConstants.spaceL);
+          },
+          itemCount: intervals.length,
+        ),
+      ),
     );
   }
 }
 
-class CheckListDetailsDirectory extends StatelessWidget {
+class CheckListDetailsDirectory extends ConsumerWidget {
   const CheckListDetailsDirectory({
     Key? key,
+    required this.id,
     required this.title,
-    required this.children,
-    this.isInitiallyExpanded = false,
   }) : super(key: key);
 
+  final String id;
   final String title;
-  final bool isInitiallyExpanded;
-  final List<CheckDetails> children;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    print("directory items built");
+
+    final directoryItems = ref.watch(checkInfoStateNotifierProvider.select(
+        (state) => state.info.details
+            .where((detail) => detail.intervalChk == id)
+            .toList()));
+
     return Theme(
       data: Theme.of(context).copyWith(
         dividerColor: Colors.transparent,
@@ -131,11 +96,13 @@ class CheckListDetailsDirectory extends StatelessWidget {
             fontSize: 25,
           ),
         ),
-        initiallyExpanded: isInitiallyExpanded,
-        children: children
+        initiallyExpanded: true,
+        children: directoryItems
             .mapIndexed(
               (index, _) => ProviderScope(
-                overrides: [_currentDetail.overrideWithValue(children[index])],
+                overrides: [
+                  _currentDetail.overrideWithValue(directoryItems[index])
+                ],
                 child: CheckDetailsCard(
                   index: index,
                 ),
@@ -197,34 +164,14 @@ class CheckDetailsCard extends ConsumerWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () async {
-                                    // TODO: Image picking
-
-                                    Dialogs.showTwoAnswersDialog(
-                                      context,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      icon: Icons.help,
-                                      title: "이미지 추가",
-                                      message: "사진을 추가할 방법을 선택해주세요",
-                                      yesTitle: "카메라",
-                                      onYesPressed: () {
-                                        ref
-                                            .read(checkInfoStateNotifierProvider
-                                                .notifier)
-                                            .pickImageFromCamera(
-                                                detail.chkItemCd, chkNo);
-                                      },
-                                      noTitle: "앨범",
-                                      onNoPressed: () {
-                                        ref
-                                            .read(checkInfoStateNotifierProvider
-                                                .notifier)
-                                            .pickImagesFromGallery(
-                                                detail.chkItemCd, chkNo);
-                                      },
-                                      onDismissed: () {},
-                                    );
+                                    // TODO: Image page
+                                    if (detail.images.isNotEmpty) {
+                                      AutoRouter.of(context).push(
+                                        ImageCheckRoute(
+                                          images: detail.images,
+                                        ),
+                                      );
+                                    }
                                   },
                                   child: Stack(
                                     children: [
@@ -233,10 +180,9 @@ class CheckDetailsCard extends ConsumerWidget {
                                           horizontal: LayoutConstants.paddingS,
                                         ),
                                         child: Icon(
-                                          Icons.add_a_photo,
+                                          Icons.collections,
                                         ),
                                       ),
-                                      // TODO: add logic for showing image counts if images are taken
                                       if (detail.images.isEmpty)
                                         const SizedBox()
                                       else
@@ -272,27 +218,62 @@ class CheckDetailsCard extends ConsumerWidget {
                                     ],
                                   ),
                                 ),
-                                Consumer(
-                                  builder: (context, ref, child) {
-                                    return GestureDetector(
-                                      onTap: () async {
-                                        // TODO: Cached Image Clear
+                                GestureDetector(
+                                  onTap: () async {
+                                    // TODO: Image picking
+
+                                    Dialogs.showTwoAnswersDialog(
+                                      context,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      icon: Icons.help,
+                                      title: "이미지 추가",
+                                      message: "사진을 추가할 방법을 선택해주세요",
+                                      yesTitle: "카메라",
+                                      onYesPressed: () {
                                         ref
                                             .read(checkInfoStateNotifierProvider
                                                 .notifier)
-                                            .clearDetailsImages(
-                                                detail.chkItemCd);
+                                            .pickImageFromCamera(
+                                                detail.chkItemCd, chkNo);
                                       },
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: LayoutConstants.paddingS,
-                                        ),
-                                        child: Icon(
-                                          Icons.refresh,
-                                        ),
-                                      ),
+                                      noTitle: "앨범",
+                                      onNoPressed: () {
+                                        ref
+                                            .read(checkInfoStateNotifierProvider
+                                                .notifier)
+                                            .pickImagesFromGallery(
+                                                detail.chkItemCd, chkNo);
+                                      },
+                                      onDismissed: () {},
                                     );
                                   },
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: LayoutConstants.paddingS,
+                                    ),
+                                    child: Icon(
+                                      Icons.add_a_photo,
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () async {
+                                    // TODO: Cached Image Clear
+                                    ref
+                                        .read(checkInfoStateNotifierProvider
+                                            .notifier)
+                                        .clearDetailsImages(detail.chkItemCd);
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: LayoutConstants.paddingS,
+                                    ),
+                                    child: Icon(
+                                      Icons.refresh,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -334,15 +315,21 @@ class CheckDetailsCard extends ConsumerWidget {
                               alignment: Alignment.centerLeft,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: LayoutConstants.paddingM),
-                              child: Text(detail.remark,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                        color: Theme.of(context).hintColor,
-                                      )),
+                              child: Text(
+                                detail.remark == ""
+                                    ? "특이사항 기재란"
+                                    : detail.remark,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: detail.remark == ""
+                                      ? Theme.of(context).hintColor
+                                      : Theme.of(context)
+                                          .textTheme
+                                          .bodyText2
+                                          ?.color,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(height: LayoutConstants.spaceM),

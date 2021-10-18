@@ -794,15 +794,24 @@ class _$CheckDetailsDTOTearOff {
   const _$CheckDetailsDTOTearOff();
 
   _CheckDetailsDTO call(
-      {@JsonKey(name: "CHK_ITEM_CD") required String chkItemCd,
-      @JsonKey(name: "CHK_ITEM_NM") required String chkItemNm,
-      @JsonKey(name: "INTERVAL_CHECK") required String intervalChk,
-      @JsonKey(name: "METHOD_CHECK") required String methodChk,
-      @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
-      @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
-      @JsonKey(name: "D_RMK", defaultValue: "") required String remark,
-      @JsonKey(name: "CHK_RESULT", defaultValue: "") required String result,
-      @JsonKey(ignore: true) List<CheckImageDTO> images = const []}) {
+      {@JsonKey(name: "CHK_ITEM_CD")
+          required String chkItemCd,
+      @JsonKey(name: "CHK_ITEM_NM")
+          required String chkItemNm,
+      @JsonKey(name: "INTERVAL_CHECK")
+          required String intervalChk,
+      @JsonKey(name: "METHOD_CHECK")
+          required String methodChk,
+      @JsonKey(name: "OBJ_GUBUN_SUB")
+          required String objGubunSub,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM")
+          required String objGubunSubNm,
+      @JsonKey(name: "D_RMK", defaultValue: "")
+          required String remark,
+      @JsonKey(name: "CHK_RESULT", defaultValue: "")
+          required String result,
+      @JsonKey(name: "IMGS", defaultValue: [])
+          required List<CheckImageDTO> images}) {
     return _CheckDetailsDTO(
       chkItemCd: chkItemCd,
       chkItemNm: chkItemNm,
@@ -842,7 +851,7 @@ mixin _$CheckDetailsDTO {
   String get remark => throw _privateConstructorUsedError;
   @JsonKey(name: "CHK_RESULT", defaultValue: "")
   String get result => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  @JsonKey(name: "IMGS", defaultValue: [])
   List<CheckImageDTO> get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -865,7 +874,7 @@ abstract class $CheckDetailsDTOCopyWith<$Res> {
       @JsonKey(name: "OBJ_GUBUN_SUB_NM") String objGubunSubNm,
       @JsonKey(name: "D_RMK", defaultValue: "") String remark,
       @JsonKey(name: "CHK_RESULT", defaultValue: "") String result,
-      @JsonKey(ignore: true) List<CheckImageDTO> images});
+      @JsonKey(name: "IMGS", defaultValue: []) List<CheckImageDTO> images});
 }
 
 /// @nodoc
@@ -946,7 +955,7 @@ abstract class _$CheckDetailsDTOCopyWith<$Res>
       @JsonKey(name: "OBJ_GUBUN_SUB_NM") String objGubunSubNm,
       @JsonKey(name: "D_RMK", defaultValue: "") String remark,
       @JsonKey(name: "CHK_RESULT", defaultValue: "") String result,
-      @JsonKey(ignore: true) List<CheckImageDTO> images});
+      @JsonKey(name: "IMGS", defaultValue: []) List<CheckImageDTO> images});
 }
 
 /// @nodoc
@@ -1025,7 +1034,7 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
       @JsonKey(name: "OBJ_GUBUN_SUB_NM") required this.objGubunSubNm,
       @JsonKey(name: "D_RMK", defaultValue: "") required this.remark,
       @JsonKey(name: "CHK_RESULT", defaultValue: "") required this.result,
-      @JsonKey(ignore: true) this.images = const []})
+      @JsonKey(name: "IMGS", defaultValue: []) required this.images})
       : super._();
 
   factory _$_CheckDetailsDTO.fromJson(Map<String, dynamic> json) =>
@@ -1056,7 +1065,7 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
   @JsonKey(name: "CHK_RESULT", defaultValue: "")
   final String result;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: "IMGS", defaultValue: [])
   final List<CheckImageDTO> images;
 
   @override
@@ -1120,15 +1129,24 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
 
 abstract class _CheckDetailsDTO extends CheckDetailsDTO {
   const factory _CheckDetailsDTO(
-      {@JsonKey(name: "CHK_ITEM_CD") required String chkItemCd,
-      @JsonKey(name: "CHK_ITEM_NM") required String chkItemNm,
-      @JsonKey(name: "INTERVAL_CHECK") required String intervalChk,
-      @JsonKey(name: "METHOD_CHECK") required String methodChk,
-      @JsonKey(name: "OBJ_GUBUN_SUB") required String objGubunSub,
-      @JsonKey(name: "OBJ_GUBUN_SUB_NM") required String objGubunSubNm,
-      @JsonKey(name: "D_RMK", defaultValue: "") required String remark,
-      @JsonKey(name: "CHK_RESULT", defaultValue: "") required String result,
-      @JsonKey(ignore: true) List<CheckImageDTO> images}) = _$_CheckDetailsDTO;
+      {@JsonKey(name: "CHK_ITEM_CD")
+          required String chkItemCd,
+      @JsonKey(name: "CHK_ITEM_NM")
+          required String chkItemNm,
+      @JsonKey(name: "INTERVAL_CHECK")
+          required String intervalChk,
+      @JsonKey(name: "METHOD_CHECK")
+          required String methodChk,
+      @JsonKey(name: "OBJ_GUBUN_SUB")
+          required String objGubunSub,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM")
+          required String objGubunSubNm,
+      @JsonKey(name: "D_RMK", defaultValue: "")
+          required String remark,
+      @JsonKey(name: "CHK_RESULT", defaultValue: "")
+          required String result,
+      @JsonKey(name: "IMGS", defaultValue: [])
+          required List<CheckImageDTO> images}) = _$_CheckDetailsDTO;
   const _CheckDetailsDTO._() : super._();
 
   factory _CheckDetailsDTO.fromJson(Map<String, dynamic> json) =
@@ -1159,7 +1177,7 @@ abstract class _CheckDetailsDTO extends CheckDetailsDTO {
   @JsonKey(name: "CHK_RESULT", defaultValue: "")
   String get result => throw _privateConstructorUsedError;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: "IMGS", defaultValue: [])
   List<CheckImageDTO> get images => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

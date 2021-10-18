@@ -56,7 +56,7 @@ class RemarkPopupCard extends HookConsumerWidget {
                         ),
                         child: TextField(
                           controller: _remarkController,
-                          autofocus: true,
+                          // autofocus: true,
                           keyboardType: TextInputType.multiline,
                           textInputAction: TextInputAction.done,
                           onSubmitted: (value) {
@@ -65,7 +65,6 @@ class RemarkPopupCard extends HookConsumerWidget {
                                   .read(checkInfoStateNotifierProvider.notifier)
                                   .setCheckRemark(
                                       detail.chkItemCd, _remarkController.text);
-                              AutoRouter.of(context).pop();
                             }
                           },
                           maxLines: null,
@@ -111,7 +110,6 @@ class RemarkPopupCard extends HookConsumerWidget {
                                   .read(checkInfoStateNotifierProvider.notifier)
                                   .setCheckRemark(
                                       detail.chkItemCd, _remarkController.text);
-                              AutoRouter.of(context).pop();
                             },
                             child: const Text(
                               "확인",

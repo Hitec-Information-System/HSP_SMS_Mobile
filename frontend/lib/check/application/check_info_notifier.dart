@@ -11,7 +11,8 @@ import 'package:image_picker/image_picker.dart';
 
 part 'check_info_notifier.freezed.dart';
 
-// TODO : 이미지 사진 찍는지 혹은 사진 목록에서 고르기 두 개 모두 선택하기
+// TODO : 한번에 첨부할 수 있는 이미지 수량 정하기
+const IMG_ALLOWED_COUNT = 10;
 
 @freezed
 class CheckInfoState with _$CheckInfoState {
@@ -89,7 +90,10 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
 
     final images = <CheckImage>[];
     for (final detail in state.info.details) {
-      images.addAll(detail.images);
+      final unsavedImgs =
+          detail.images.where((image) => !image.isRemote).toList();
+
+      images.addAll(unsavedImgs);
     }
 
     final failureOrSuccess = await _repository.saveCheckInfo(params, images);
@@ -100,97 +104,153 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
   }
 
   void setCheckResult(String itemCd, String result) {
-    state = state.copyWith.info(
-      details: state.info.details.map((detail) {
-        if (detail.chkItemCd == itemCd) {
-          return detail.copyWith(
-            result: result,
-          );
-        } else {
-          return detail;
-        }
-      }).toList(),
-    );
-  }
-
-  void setCheckRemark(String itemCd, String remark) {
-    state = state.copyWith.info(
-      details: state.info.details.map((detail) {
-        if (detail.chkItemCd == itemCd) {
-          return detail.copyWith(
-            remark: remark,
-          );
-        } else {
-          return detail;
-        }
-      }).toList(),
-    );
-  }
-
-  Future<void> pickImagesFromGallery(String itemCd, String chklistNo) async {
-    final images = await _picker.pickMultiImage();
-    if (images != null) {
-      state = state.copyWith.info(
+    state = CheckInfoState.loaded(
+      state.tagId,
+      state.info.copyWith(
         details: state.info.details.map((detail) {
           if (detail.chkItemCd == itemCd) {
             return detail.copyWith(
-              images: images.mapIndexed((imageIdx, file) {
-                final chkItemCd = detail.chkItemCd.replaceAll("_", "");
-                final imageNo = imageIdx + 1;
-                final fileNameExt = file.name.split(".").last;
-
-                return CheckImage(
-                  name: "$chklistNo-$chkItemCd-$imageNo.$fileNameExt",
-                  url: file.path,
-                  remark: "",
-                  isRemote: false,
-                );
-              }).toList(),
+              result: result,
             );
           } else {
             return detail;
           }
         }).toList(),
+      ),
+    );
+  }
+
+  void setCheckRemark(String itemCd, String remark) {
+    state = CheckInfoState.loaded(
+      state.tagId,
+      state.info.copyWith(
+        details: state.info.details.map((detail) {
+          if (detail.chkItemCd == itemCd) {
+            return detail.copyWith(
+              remark: remark,
+            );
+          } else {
+            return detail;
+          }
+        }).toList(),
+      ),
+    );
+  }
+
+  Future<void> pickImagesFromGallery(String itemCd, String chklistNo) async {
+    if (isOverImgCnt(
+        currentCnt: state.info.totalImageCount, interpolatedCnt: 1)) {
+      evokeInternalFailure();
+      return;
+    }
+
+    final images = await _picker.pickMultiImage();
+    if (images != null) {
+      if (isOverImgCnt(
+          currentCnt: state.info.totalImageCount + images.length)) {
+        evokeInternalFailure();
+        return;
+      }
+
+      state = CheckInfoState.loaded(
+        state.tagId,
+        state.info.copyWith(
+          details: state.info.details.map((detail) {
+            if (detail.chkItemCd == itemCd) {
+              return detail.copyWith(
+                  images: detail.images
+                    ..addAll(
+                      images.mapIndexed((imageIdx, file) {
+                        final chkItemCd = detail.chkItemCd.replaceAll("_", "");
+                        final imageNo = imageIdx + 1;
+                        final fileNameExt = file.name.split(".").last;
+
+                        return CheckImage(
+                          name: "$chklistNo-$chkItemCd-$imageNo.$fileNameExt",
+                          url: file.path,
+                          remark: "",
+                          isRemote: false,
+                        );
+                      }).toList(),
+                    ));
+            } else {
+              return detail;
+            }
+          }).toList(),
+        ),
       );
     }
   }
 
   Future<void> pickImageFromCamera(String itemCd, String chklistNo) async {
+    if (isOverImgCnt(
+        currentCnt: state.info.totalImageCount, interpolatedCnt: 1)) {
+      evokeInternalFailure();
+      return;
+    }
+
     final file = await _picker.pickImage(source: ImageSource.camera);
     if (file != null) {
-      state = state.copyWith.info(
-        details: state.info.details.map((detail) {
-          if (detail.chkItemCd == itemCd) {
-            final chkItemCd = detail.chkItemCd.replaceAll("_", "");
+      if (isOverImgCnt(currentCnt: state.info.totalImageCount + 1)) {
+        evokeInternalFailure();
+        return;
+      }
 
-            final fileNameExt = file.name.split(".").last;
-            return detail.copyWith(
-              images: [
-                CheckImage(
-                  name: "$chklistNo-$chkItemCd-1.$fileNameExt",
-                  url: file.path,
-                  remark: "",
-                  isRemote: false,
-                ),
-              ],
-            );
-          } else {
-            return detail;
-          }
-        }).toList(),
+      state = CheckInfoState.loaded(
+        state.tagId,
+        state.info.copyWith(
+          details: state.info.details.map((detail) {
+            if (detail.chkItemCd == itemCd) {
+              final chkItemCd = detail.chkItemCd.replaceAll("_", "");
+
+              final fileNameExt = file.name.split(".").last;
+              return detail.copyWith(
+                  images: detail.images
+                    ..add(
+                      CheckImage(
+                        name: "$chklistNo-$chkItemCd-1.$fileNameExt",
+                        url: file.path,
+                        remark: "",
+                        isRemote: false,
+                      ),
+                    ));
+            } else {
+              return detail;
+            }
+          }).toList(),
+        ),
       );
     }
   }
 
+  void evokeInternalFailure() {
+    state = CheckInfoState.failure(
+      state.tagId,
+      state.info,
+      const CheckInfoFailure.internal(
+          message: "한번에 이미지를 $IMG_ALLOWED_COUNT 개 이상 첨부할 수 없습니다."),
+    );
+  }
+
+  bool isOverImgCnt({required int currentCnt, int interpolatedCnt = 0}) {
+    if (currentCnt + interpolatedCnt > IMG_ALLOWED_COUNT) {
+      return true;
+    }
+    return false;
+  }
+
   void clearDetailsImages(String itemCd) {
-    state = state.copyWith.info(
-      details: state.info.details.map((detail) {
-        if (detail.chkItemCd == itemCd) {
-          return detail..images.clear();
-        } else {
-          return detail;
-        }
-      }).toList(),
+    state = CheckInfoState.loaded(
+      state.tagId,
+      state.info.copyWith(
+        details: state.info.details.map((detail) {
+          if (detail.chkItemCd == itemCd) {
+            return detail..images.clear();
+          } else {
+            return detail;
+          }
+        }).toList(),
+      ),
     );
   }
 }
