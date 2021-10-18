@@ -7,7 +7,7 @@ content-type: application/json
 
 {
 	"user-id": "dev",
-	"pwd": "dev",
+	"pwd": "1",
   "comp-cd":"3000",
   "sys-flag":"MOBILE"
 }
@@ -31,135 +31,15 @@ GET http://localhost:9110/norm?comp-cd=3000&obj-flag=FORKLIFT HTTP/2.0
 content-type: application/json 
 
 ###
-GET http://localhost:9110/monitor?comp-cd=3000&sys-flag=MOBILE&user=7VwiSJXNUnsSm6MxD20LgA==&flag=LINE HTTP/2.0
+GET http://localhost:9110/monitor?comp-cd=3000&sys-flag=MOBILE&user=7VwiSJXNUnsSm6MxD20LgA==&flag=BUILDING HTTP/2.0
 content-type: application/json
 
 ###
-GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=20211012091856612-X1H&interval=일상&session=09&obj-cd= HTTP/2.0
+GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=33F1CC18&interval=일상&session=09&obj-cd= HTTP/2.0
 content-type: application/json
 ###
-GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=20211008121506048-XAG&interval=일상&session=20&obj-cd= HTTP/2.0
+GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=22508B3E&interval=일상&session=20&obj-cd= HTTP/2.0
 content-type: application/json
-###
-POST http://localhost:9110/check HTTP/2.0
-content-type: application/json
-
-{
-"comp-cd":"3000",
-"sys-flag":"MOBILE",
-"user-id":"dev",
-"xml-h":"
-<NewDataSet><Table1>
-<CHKLIST_NO>20211007170208584-U9D</CHKLIST_NO>
-<CHK_YMD>20211007</CHK_YMD>
-<CHK_INTERVAL>일상</CHK_INTERVAL>
-<CHK_CHASU>11</CHK_CHASU>
-<OBJ_CD>LN-0001</OBJ_CD>
-<OBJ_GUBUN>LINE</OBJ_GUBUN>
-<CHK_USER_ID>dev</CHK_USER_ID>
-</Table1></NewDataSet>",
-"xml-d":"
-<NewDataSet><Table1>
-<CHK_ITEM_CD>CHK_LN_0001</CHK_ITEM_CD>
-<CHK_RESULT>양호</CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0002</CHK_ITEM_CD>
-<CHK_RESULT>양호</CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0003</CHK_ITEM_CD>
-<CHK_RESULT>양호</CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0004</CHK_ITEM_CD>
-<CHK_RESULT>양호</CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0005</CHK_ITEM_CD>
-<CHK_RESULT>양호</CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0006</CHK_ITEM_CD>
-<CHK_RESULT>양호</CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0007</CHK_ITEM_CD>
-<CHK_RESULT>양호</CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0008</CHK_ITEM_CD>
-<CHK_RESULT>양호</CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0009</CHK_ITEM_CD>
-<CHK_RESULT>양호</CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0010</CHK_ITEM_CD>
-<CHK_RESULT></CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0011</CHK_ITEM_CD>
-<CHK_RESULT></CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0012</CHK_ITEM_CD>
-<CHK_RESULT></CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0013</CHK_ITEM_CD>
-<CHK_RESULT></CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-<Table1>
-<CHK_ITEM_CD>CHK_LN_0014</CHK_ITEM_CD>
-<CHK_RESULT></CHK_RESULT>
-<DFCT_ITEM_CD></DFCT_ITEM_CD>
-<DFCT_RMK></DFCT_RMK>
-<RMK></RMK>
-</Table1>
-</NewDataSet>",
-"xml-i":""
-}
 ###
 
 POST http://localhost:9110/nfc HTTP/2.0
@@ -170,5 +50,15 @@ content-type: application/json
 "user-id":"dev",
 "trans-flag":"RF_REG",
 "trans-data":"<NewDataSet><Table1><NFC_ID>33F1CC18</NFC_ID><OBJ_CD>BD-0007</OBJ_CD></Table1></NewDataSet>"
+}
+###
+POST http://localhost:9110/pwd HTTP/2.0
+content-type: application/json
+
+{
+	"user-id": "WVE+WneTrBWB/QD3YMblpw==",
+	"pwd": "dev",
+  "comp-cd":"3000",
+  "sys-flag":"MOBILE"
 }
 ###

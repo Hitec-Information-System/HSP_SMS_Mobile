@@ -63,6 +63,52 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func (a *AppHandler) updatePassword(w http.ResponseWriter, r *http.Request) {
+	var user model.User
+
+	var results map[string]interface{}
+
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		rd.JSON(w, http.StatusBadRequest, "Invalid json provided")
+	}
+
+	if user.Id == "" || user.Password == "" || user.CompanyCd == "" || user.SystemFlag == "" {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": "invalid json provided",
+		})
+		return
+	}
+
+	query := fmt.Sprintf(`
+	BEGIN
+		SMS_PK_AUTH.P_PWD_CHG('%s', '%s', '%s', '%s', :PO_RST);
+	END;
+	`, user.CompanyCd, user.SystemFlag, user.Id, user.Password)
+
+	fmt.Println(query)
+
+	result, err := a.db.GetSPDataWithString(query)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	if result != "OK" {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": "오류가 발생하였습니다",
+		})
+		return
+	}
+
+	results = map[string]interface{}{}
+	results["msg"] = result
+
+	rd.JSON(w, http.StatusOK, results)
+
+}
+
 // ---- deprecated ----
 /// lines below are deprecated with the reasons of business characteristics
 var ACCESS_SECRET = viper.GetString(`token.ACCESS_SECRET`)

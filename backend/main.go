@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"runtime"
 
 	"github.com/spf13/viper"
 	"hitecis.co.kr/hwashin_nfc/core"
@@ -16,6 +17,10 @@ func main() {
 
 	// 포트 지정
 	port := viper.GetString(`server.port`)
+
+	runtime.GOMAXPROCS(runtime.NumCPU()) // 설정
+
+	fmt.Println("count", runtime.GOMAXPROCS(0)) // 설정값 출력
 
 	m := handler.MakeHandler()
 	defer m.Close()

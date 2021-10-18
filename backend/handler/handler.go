@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/spf13/viper"
 	"github.com/unrolled/render"
 	"github.com/urfave/negroni"
 	"hitecis.co.kr/hwashin_nfc/model"
@@ -33,8 +34,13 @@ func MakeHandler() *AppHandler {
 		db:      repository.NewDBRepository(),
 	}
 
+	apkDir := viper.GetString(`apk-path`)
+
+	fs := http.FileServer(http.Dir(apkDir))
+
 	r.HandleFunc("/", indexHandler)
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
+	r.HandleFunc("/pwd", a.updatePassword).Methods("POST")
 
 	r.HandleFunc("/norm", a.fetchCheckStandard).Methods("GET")
 
@@ -45,6 +51,8 @@ func MakeHandler() *AppHandler {
 	r.HandleFunc("/monitor", a.fetchCheckStatusTodayByGubun).Methods("GET")
 
 	r.HandleFunc("/nfc", a.saveData).Methods("POST")
+
+	r.Handle("/apks/", http.StripPrefix("/apks", fs))
 
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
@@ -313,6 +321,7 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 	fmt.Println(query)
 
 	results, err := a.db.GetSPDataWithLOB(query)
+
 	if err != nil {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
