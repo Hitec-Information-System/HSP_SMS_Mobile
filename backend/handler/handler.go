@@ -188,17 +188,14 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _, img := range detailsImg {
-		for _, detail := range details {
+	for _, detail := range details {
+		arr := []interface{}{}
+		for _, img := range detailsImg {
 			if detail["CHK_ITEM_CD"] == img["CHK_ITEM_CD"] {
-				var arr []interface{}
-				if detail["IMGS"] != nil {
-					arr = append(arr, detail["IMGS"])
-				}
 				arr = append(arr, img)
-				detail["IMGS"] = arr
 			}
 		}
+		detail["IMGS"] = arr
 	}
 
 	sessionsQuery := fmt.Sprintf(`
