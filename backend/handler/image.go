@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const MAX_UPLOAD_SIZE = 1024 * 1024 * 20 // 20MB
+const MAX_UPLOAD_SIZE = 1024 * 1024 * 5 // 5MB
 
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	// 32 MB is the default used by FormFile()
