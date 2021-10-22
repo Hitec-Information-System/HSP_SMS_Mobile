@@ -21,26 +21,26 @@ class BottomNavBar extends StatelessWidget {
         children: [
           BottomNavBarItem(
             currentIdx: currentIdx,
-            icon: Icons.gite,
+            icon: Icons.bar_chart,
             index: 0,
             onTap: onTap,
           ),
           BottomNavBarItem(
             currentIdx: currentIdx,
-            icon: Icons.precision_manufacturing,
+            icon: Icons.gite,
             index: 1,
             onTap: onTap,
           ),
           BottomNavBarItem(currentIdx: currentIdx),
           BottomNavBarItem(
             currentIdx: currentIdx,
-            icon: MdiIcons.forklift,
+            icon: Icons.precision_manufacturing,
             index: 2,
             onTap: onTap,
           ),
           BottomNavBarItem(
             currentIdx: currentIdx,
-            icon: Icons.settings,
+            icon: MdiIcons.forklift,
             index: 3,
             onTap: onTap,
           ),

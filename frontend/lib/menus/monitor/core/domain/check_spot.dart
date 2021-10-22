@@ -14,6 +14,17 @@ class CheckSpot with _$CheckSpot {
     required String objSubFlagNm,
     required List<CheckedItem> checkedList,
   }) = _CheckSpot;
+
+  int get lastCheckedIndex {
+    int index = -1;
+    for (final item in checkedList) {
+      if (item.id == "") {
+        break;
+      }
+      index++;
+    }
+    return index;
+  }
 }
 
 @freezed

@@ -86,7 +86,7 @@ class CheckMonitorRepository {
       }
 
       return left(
-        CheckMonitorFailure.api(response.statusCode, data["MSG"] as String),
+        CheckMonitorFailure.api(response.statusCode, data["RESULT"] as String),
       );
     } on DioError catch (e) {
       if (e.isNoConnectionError) {

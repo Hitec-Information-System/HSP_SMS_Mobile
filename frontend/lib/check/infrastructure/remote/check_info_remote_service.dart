@@ -39,6 +39,13 @@ class CheckInfoRemoteService {
         );
       }
 
+      if (e.type == DioErrorType.connectTimeout) {
+        throw RestApiException(
+          errorCode: e.response?.statusCode,
+          message: "서버 응답이 없습니다.",
+        );
+      }
+
       if (e.response != null) {
         throw RestApiException(errorCode: e.response?.statusCode);
       }
@@ -62,7 +69,14 @@ class CheckInfoRemoteService {
       if (e.response?.statusCode == 400) {
         throw RestApiException(
           errorCode: e.response?.statusCode,
-          message: e.response?.data.toString(),
+          message: e.response?.data["MSG"] as String,
+        );
+      }
+
+      if (e.type == DioErrorType.connectTimeout) {
+        throw RestApiException(
+          errorCode: e.response?.statusCode,
+          message: "서버 응답이 없습니다.",
         );
       }
 
@@ -84,8 +98,11 @@ class CheckInfoRemoteService {
         throw RestApiException(errorCode: response.statusCode);
       }
     } on DioError catch (e) {
-      if (e.response != null) {
-        throw RestApiException(errorCode: e.response?.statusCode);
+      if (e.response?.statusCode == 400) {
+        throw RestApiException(
+          errorCode: e.response?.statusCode,
+          message: e.response?.data["MSG"] as String,
+        );
       } else if (e.type == DioErrorType.connectTimeout) {
         throw RestApiException(
           errorCode: e.response?.statusCode,
@@ -114,8 +131,11 @@ class CheckInfoRemoteService {
         throw RestApiException(errorCode: response.statusCode);
       }
     } on DioError catch (e) {
-      if (e.response != null) {
-        throw RestApiException(errorCode: e.response?.statusCode);
+      if (e.response?.statusCode == 400) {
+        throw RestApiException(
+          errorCode: e.response?.statusCode,
+          message: e.response?.data["MSG"] as String,
+        );
       } else {
         rethrow;
       }

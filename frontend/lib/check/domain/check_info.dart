@@ -8,6 +8,7 @@ part 'check_info.freezed.dart';
 class CheckInfo with _$CheckInfo {
   const CheckInfo._();
   const factory CheckInfo({
+    required int lastIndex,
     required CheckHeader header,
     required List<CheckStandard> intervals,
     required List<CheckStandard> sessions,
@@ -15,6 +16,7 @@ class CheckInfo with _$CheckInfo {
   }) = _CheckInfo;
 
   factory CheckInfo.empty() => const CheckInfo(
+        lastIndex: -1,
         header: CheckHeader(
           id: "",
           session: "",

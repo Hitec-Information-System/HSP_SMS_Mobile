@@ -15,6 +15,10 @@ Map<String, List<CheckSpot>> splitToSubGroup(List<CheckSpot> spots) {
   for (var i = 0; i < spots.length; i++) {
     if (i <= 0) {
       subGroup.add(spots[i]);
+      if (spots.length == 1) {
+        mainGroup[spots[i].objSubFlagNm] =
+            subGroup.map((e) => e.copyWith()).toList();
+      }
       continue;
     }
 

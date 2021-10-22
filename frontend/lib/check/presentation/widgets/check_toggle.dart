@@ -31,9 +31,9 @@ class CheckToggle extends StatelessWidget {
       borderRadius: LayoutConstants.radiusM,
       isSelected: isSelected,
       onPressed: (index) {
-        final selecetedIndex = isSelected.indexWhere((isTrue) => isTrue);
+        final previousIndex = isSelected.indexWhere((isTrue) => isTrue);
 
-        if (selecetedIndex != index) {
+        if (previousIndex != index) {
           onPressed(index);
         }
       },

@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:frontend/auth/application/auth_notifier.dart';
 import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
@@ -16,6 +18,37 @@ class PasswordChangePage extends HookConsumerWidget {
 
     final pwController = useTextEditingController();
     final pwConfirmController = useTextEditingController();
+
+    ref.listen<AuthState>(authNotifierProvider, (state) {
+      state.maybeWhen(
+        loading: () => Dialogs.showLoadingDialog(context),
+        pwdChanged: () => Dialogs.showOneAnswerDialog(
+          context,
+          color: Theme.of(context).colorScheme.secondary,
+          title: "완료",
+          message: "변경이 완료되었습니다.\n",
+          yesTitle: "확인",
+          onYesPressed: () {},
+          onDismissed: () {
+            Navigator.pop(context);
+          },
+        ),
+        failure: (failure) => Dialogs.showOneAnswerDialog(context,
+            color: Theme.of(context).errorColor,
+            title: "오류",
+            message: failure.when(
+              server: (String? message) =>
+                  message ?? "알 수 없는 에러\n\n관리자에게 문의하세요.",
+              storage: () => "기기에서 사용자 정보를 불러오는 중 에러가 발생하였습니다. 관리자에게 문의하세요.",
+            ),
+            yesTitle: "확인",
+            onYesPressed: () {}, onDismissed: () {
+          AutoRouter.of(context)
+              .popUntilRouteWithName(PasswordChangeRoute.name);
+        }),
+        orElse: () {},
+      );
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -86,42 +119,13 @@ class PasswordChangePage extends HookConsumerWidget {
                 ElevatedButton(
                   onPressed: () async {
                     if (formKey.currentState?.validate() == true) {
-                      
                       final params = {
                         "pwd": pwController.text,
                       };
 
-                      final isSaved = await ref
-                              .read(authNotifierProvider.notifier)
-                              .changePassword(params)
-                              ;
-
-                      
-
-
-                      if (isSaved) {
-                        Dialogs.showOneAnswerDialog(
-                          context,
-                          color: Theme.of(context).colorScheme.secondary,
-                          title: "완료",
-                          message: "변경이 완료되었습니다.\n",
-                          yesTitle: "확인",
-                          onYesPressed: () {},
-                          onDismissed: () {
-                            Navigator.pop(context);
-                          },
-                        );
-                      } else {
-                        Dialogs.showOneAnswerDialog(
-                          context,
-                          color: Theme.of(context).errorColor,
-                          title: "오류",
-                          message: "변경 도중 에러가 발생하였습니다. 관리자에게 문의하여 주세요.\n",
-                          yesTitle: "확인",
-                          onYesPressed: () {},
-                          onDismissed: () {},
-                        );
-                      }
+                      ref
+                          .read(authNotifierProvider.notifier)
+                          .changePassword(params);
                     }
                   },
                   child: const Text("변경"),

@@ -5,7 +5,7 @@ import 'package:frontend/check/presentation/widgets/image_check_page.dart';
 import 'package:frontend/core/presentation/widgets/error/error_page.dart';
 import 'package:frontend/menus/core/presentation/menu_frame_page.dart';
 import 'package:frontend/menus/core/presentation/widgets/bottom_sheet/widgets.dart';
-import 'package:frontend/menus/home/presentation/home_web_view_part.dart';
+import 'package:frontend/menus/home/presentation/menu_home_page.dart';
 import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart';
 import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart';
 import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart';
@@ -20,8 +20,8 @@ import 'package:frontend/tag/qr/presentation/qr_scan_page.dart';
     AutoRoute(page: SplashPage, initial: true),
     AutoRoute(page: SignInPage, path: "/sign-in"),
     AutoRoute(page: ErrorPage, path: "/error"),
-    // temporary
-    AutoRoute(page: HomeWebViewPage, path: "/webview"),
+    AutoRoute(path: "/settings", page: MenuSettingsPage),
+    AutoRoute(path: "/settings/pwd", page: PasswordChangePage),
     CustomRoute(
       page: ImageCheckPage,
       path: "/img",
@@ -31,6 +31,14 @@ import 'package:frontend/tag/qr/presentation/qr_scan_page.dart';
       path: "/",
       page: MenuFramePage,
       children: [
+        AutoRoute(
+          path: "home",
+          page: EmptyRouterPage,
+          name: "HomeTab",
+          children: [
+            AutoRoute(path: "", page: MenuHomePage),
+          ],
+        ),
         AutoRoute(
           path: "building",
           page: EmptyRouterPage,
@@ -55,15 +63,15 @@ import 'package:frontend/tag/qr/presentation/qr_scan_page.dart';
             AutoRoute(path: "", page: MenuForkLiftPage),
           ],
         ),
-        AutoRoute(
-          path: "settings",
-          page: EmptyRouterPage,
-          name: "SettingsTab",
-          children: [
-            AutoRoute(path: "", page: MenuSettingsPage),
-            AutoRoute(path: "pwd", page: PasswordChangePage),
-          ],
-        ),
+        // AutoRoute(
+        //   path: "settings",
+        //   page: EmptyRouterPage,
+        //   name: "SettingsTab",
+        //   children: [
+        //     AutoRoute(path: "", page: MenuSettingsPage),
+        //     AutoRoute(path: "pwd", page: PasswordChangePage),
+        //   ],
+        // ),
       ],
     ),
     CustomRoute(

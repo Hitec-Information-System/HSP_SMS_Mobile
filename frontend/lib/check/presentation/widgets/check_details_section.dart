@@ -43,7 +43,7 @@ class CheckListDetailsSection extends HookConsumerWidget {
       controller: scrollController,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: LayoutConstants.paddingL,
+          horizontal: LayoutConstants.paddingS,
           vertical: LayoutConstants.paddingM,
         ),
         child: ListView.separated(
@@ -278,9 +278,7 @@ class CheckDetailsCard extends ConsumerWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            height: 50,
-                            alignment: Alignment.centerLeft,
+                          Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: LayoutConstants.paddingM),
                             child: Text(
@@ -354,12 +352,12 @@ class CheckDetailsCard extends ConsumerWidget {
                                           _resultOptions[optionsIdx] ==
                                           detail.result),
                                   children: _resultOptions,
-                                  onPressed: (clickedIdx) {
+                                  onPressed: (int index) {
                                     ref
                                         .read(checkInfoStateNotifierProvider
                                             .notifier)
                                         .setCheckResult(detail.chkItemCd,
-                                            _resultOptions[clickedIdx]);
+                                            _resultOptions[index]);
                                   },
                                 ),
                               ),

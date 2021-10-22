@@ -13,6 +13,7 @@ class AuthState with _$AuthState {
   const factory AuthState.loading() = _Loading;
   const factory AuthState.unauthenticated() = _Unauthenticated;
   const factory AuthState.authenticated(User user) = _Authenticated;
+  const factory AuthState.pwdChanged() = _PwdChanged;
   const factory AuthState.failure(AuthFailure failure) = _Failure;
 }
 
@@ -31,12 +32,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
     });
   }
 
-  Future<bool> changePassword(Map<String, dynamic> params) async {
+  Future<void> changePassword(Map<String, dynamic> params) async {
+    state = const AuthState.loading();
     final failureOrSuccess = await _authenticator.changePassword(params);
 
-    return failureOrSuccess.fold(
-      (l) => false,
-      (r) => true,
+    state = failureOrSuccess.fold(
+      (l) => AuthState.failure(l),
+      (r) => const AuthState.pwdChanged(),
     );
   }
 

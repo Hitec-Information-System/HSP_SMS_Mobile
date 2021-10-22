@@ -17,11 +17,13 @@ class _$CheckInfoTearOff {
   const _$CheckInfoTearOff();
 
   _CheckInfo call(
-      {required CheckHeader header,
+      {required int lastIndex,
+      required CheckHeader header,
       required List<CheckStandard> intervals,
       required List<CheckStandard> sessions,
       required List<CheckDetails> details}) {
     return _CheckInfo(
+      lastIndex: lastIndex,
       header: header,
       intervals: intervals,
       sessions: sessions,
@@ -35,6 +37,7 @@ const $CheckInfo = _$CheckInfoTearOff();
 
 /// @nodoc
 mixin _$CheckInfo {
+  int get lastIndex => throw _privateConstructorUsedError;
   CheckHeader get header => throw _privateConstructorUsedError;
   List<CheckStandard> get intervals => throw _privateConstructorUsedError;
   List<CheckStandard> get sessions => throw _privateConstructorUsedError;
@@ -50,7 +53,8 @@ abstract class $CheckInfoCopyWith<$Res> {
   factory $CheckInfoCopyWith(CheckInfo value, $Res Function(CheckInfo) then) =
       _$CheckInfoCopyWithImpl<$Res>;
   $Res call(
-      {CheckHeader header,
+      {int lastIndex,
+      CheckHeader header,
       List<CheckStandard> intervals,
       List<CheckStandard> sessions,
       List<CheckDetails> details});
@@ -68,12 +72,17 @@ class _$CheckInfoCopyWithImpl<$Res> implements $CheckInfoCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? lastIndex = freezed,
     Object? header = freezed,
     Object? intervals = freezed,
     Object? sessions = freezed,
     Object? details = freezed,
   }) {
     return _then(_value.copyWith(
+      lastIndex: lastIndex == freezed
+          ? _value.lastIndex
+          : lastIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       header: header == freezed
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
@@ -108,7 +117,8 @@ abstract class _$CheckInfoCopyWith<$Res> implements $CheckInfoCopyWith<$Res> {
       __$CheckInfoCopyWithImpl<$Res>;
   @override
   $Res call(
-      {CheckHeader header,
+      {int lastIndex,
+      CheckHeader header,
       List<CheckStandard> intervals,
       List<CheckStandard> sessions,
       List<CheckDetails> details});
@@ -128,12 +138,17 @@ class __$CheckInfoCopyWithImpl<$Res> extends _$CheckInfoCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? lastIndex = freezed,
     Object? header = freezed,
     Object? intervals = freezed,
     Object? sessions = freezed,
     Object? details = freezed,
   }) {
     return _then(_CheckInfo(
+      lastIndex: lastIndex == freezed
+          ? _value.lastIndex
+          : lastIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       header: header == freezed
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
@@ -158,12 +173,15 @@ class __$CheckInfoCopyWithImpl<$Res> extends _$CheckInfoCopyWithImpl<$Res>
 
 class _$_CheckInfo extends _CheckInfo {
   const _$_CheckInfo(
-      {required this.header,
+      {required this.lastIndex,
+      required this.header,
       required this.intervals,
       required this.sessions,
       required this.details})
       : super._();
 
+  @override
+  final int lastIndex;
   @override
   final CheckHeader header;
   @override
@@ -175,13 +193,16 @@ class _$_CheckInfo extends _CheckInfo {
 
   @override
   String toString() {
-    return 'CheckInfo(header: $header, intervals: $intervals, sessions: $sessions, details: $details)';
+    return 'CheckInfo(lastIndex: $lastIndex, header: $header, intervals: $intervals, sessions: $sessions, details: $details)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _CheckInfo &&
+            (identical(other.lastIndex, lastIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastIndex, lastIndex)) &&
             (identical(other.header, header) ||
                 const DeepCollectionEquality().equals(other.header, header)) &&
             (identical(other.intervals, intervals) ||
@@ -197,6 +218,7 @@ class _$_CheckInfo extends _CheckInfo {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(lastIndex) ^
       const DeepCollectionEquality().hash(header) ^
       const DeepCollectionEquality().hash(intervals) ^
       const DeepCollectionEquality().hash(sessions) ^
@@ -210,12 +232,15 @@ class _$_CheckInfo extends _CheckInfo {
 
 abstract class _CheckInfo extends CheckInfo {
   const factory _CheckInfo(
-      {required CheckHeader header,
+      {required int lastIndex,
+      required CheckHeader header,
       required List<CheckStandard> intervals,
       required List<CheckStandard> sessions,
       required List<CheckDetails> details}) = _$_CheckInfo;
   const _CheckInfo._() : super._();
 
+  @override
+  int get lastIndex => throw _privateConstructorUsedError;
   @override
   CheckHeader get header => throw _privateConstructorUsedError;
   @override

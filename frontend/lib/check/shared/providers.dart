@@ -1,6 +1,5 @@
 import 'package:frontend/auth/domain/user.dart';
 import 'package:frontend/check/application/check_info_notifier.dart';
-// import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/infrastructure/check_info_repository.dart';
 import 'package:frontend/check/infrastructure/local/check_info_local_service.dart';
 import 'package:frontend/check/infrastructure/remote/check_info_remote_service.dart';
@@ -42,22 +41,3 @@ final checkInfoStateNotifierProvider =
     ),
   ),
 );
-
-// final checkHeaderNotifierProvider =
-//     StateNotifierProvider.autoDispose<CheckHeaderNotifier, CheckHeader>(
-//   (ref) => CheckHeaderNotifier(
-//     ref.watch(
-//       checkInfoStateNotifierProvider.select((state) => state.info.header),
-//     ),
-//   ),
-// );
-
-// final checkDetailsProvider =
-//     StateNotifierProvider.autoDispose<CheckDetailsNotifier, List<CheckDetails>>(
-//   (ref) => CheckDetailsNotifier(
-//     ref.watch(
-//       checkInfoStateNotifierProvider.select((state) => state.info.details),
-//     ),
-//     ref.watch(imagePickerProvider),
-//   ),
-// );

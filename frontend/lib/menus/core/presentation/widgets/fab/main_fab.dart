@@ -40,7 +40,9 @@ class MainFAB extends HookConsumerWidget {
             QRScanRoute(
               onTagged: (tag) => ref
                   .read(checkInfoStateNotifierProvider.notifier)
-                  .getCheckInfo(tag.id, "", ""),
+                  .getCheckInfo(
+                    tagId: tag.id,
+                  ),
             ),
           ),
         ),
@@ -54,7 +56,7 @@ class MainFAB extends HookConsumerWidget {
                   ref.read(tagNotifierProvider.notifier).stopNFCSession(),
               onTagged: (tag) => ref
                   .read(checkInfoStateNotifierProvider.notifier)
-                  .getCheckInfo(tag.id, "", ""),
+                  .getCheckInfo(tagId: tag.id),
               switchingChild: Consumer(builder: (context, ref, child) {
                 final checkInfoState =
                     ref.watch(checkInfoStateNotifierProvider);

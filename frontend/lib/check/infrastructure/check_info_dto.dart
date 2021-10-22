@@ -8,6 +8,7 @@ part 'check_info_dto.g.dart';
 class CheckInfoDTO with _$CheckInfoDTO {
   const CheckInfoDTO._();
   const factory CheckInfoDTO({
+    @Default(-1) @JsonKey(ignore: true) int lastIndex,
     @JsonKey(name: "header") required CheckHeaderDTO header,
     @JsonKey(name: "intervals") required List<CheckStandardDTO> intervals,
     @JsonKey(name: "sessions") required List<CheckStandardDTO> sessions,
@@ -31,6 +32,7 @@ class CheckInfoDTO with _$CheckInfoDTO {
       );
 
   CheckInfo toDomain() => CheckInfo(
+        lastIndex: lastIndex,
         header: header.toDomain(),
         intervals: intervals.map((interval) => interval.toDomain()).toList(),
         sessions: sessions.map((session) => session.toDomain()).toList(),

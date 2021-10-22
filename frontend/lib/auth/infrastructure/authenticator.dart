@@ -35,7 +35,7 @@ class Authenticator {
 
       if (user == null) {
         return left(
-          const AuthFailure.server("저장된 사용자 정보가 없습니다. 관리자에게 문의하세요."),
+          const AuthFailure.server("저장된 사용자 정보가 없습니다."),
         );
       }
 
@@ -62,9 +62,9 @@ class Authenticator {
         );
       }
 
-      if (e.response?.statusCode == 400) {
+      if (e.type == DioErrorType.connectTimeout) {
         return left(
-          const AuthFailure.server("아이디, 비밀번호의 조합이 맞지 않습니다."),
+          const AuthFailure.server("서버 응답이 없습니다."),
         );
       }
 
@@ -80,8 +80,8 @@ class Authenticator {
     Map<String, dynamic> params,
   ) async {
     try {
-      // TODO: api key와 함께 company code 를 return 받기 전까지는 빈값일 수 밖에 없어서 임의로 설정함
-      //       수정 요함
+      // TODO: 수정 필요. api key와 함께 company code 를 return 받기 전까지는 빈값일 수 밖에 없어서 임의로 설정함.
+
       params["comp-cd"] = LogicConstants.compCd;
       params["sys-flag"] = LogicConstants.systemFlag;
 
@@ -116,6 +116,12 @@ class Authenticator {
       if (e.response?.statusCode == 400) {
         return left(
           const AuthFailure.server("아이디, 비밀번호의 조합이 맞지 않습니다."),
+        );
+      }
+
+      if (e.type == DioErrorType.connectTimeout) {
+        return left(
+          const AuthFailure.server("서버 응답이 없습니다. 관리자에게 문의해주세요."),
         );
       }
 

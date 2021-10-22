@@ -21,11 +21,13 @@ class _$CheckInfoDTOTearOff {
   const _$CheckInfoDTOTearOff();
 
   _CheckInfoDTO call(
-      {@JsonKey(name: "header") required CheckHeaderDTO header,
+      {@JsonKey(ignore: true) int lastIndex = -1,
+      @JsonKey(name: "header") required CheckHeaderDTO header,
       @JsonKey(name: "intervals") required List<CheckStandardDTO> intervals,
       @JsonKey(name: "sessions") required List<CheckStandardDTO> sessions,
       @JsonKey(name: "details") required List<CheckDetailsDTO> details}) {
     return _CheckInfoDTO(
+      lastIndex: lastIndex,
       header: header,
       intervals: intervals,
       sessions: sessions,
@@ -43,6 +45,8 @@ const $CheckInfoDTO = _$CheckInfoDTOTearOff();
 
 /// @nodoc
 mixin _$CheckInfoDTO {
+  @JsonKey(ignore: true)
+  int get lastIndex => throw _privateConstructorUsedError;
   @JsonKey(name: "header")
   CheckHeaderDTO get header => throw _privateConstructorUsedError;
   @JsonKey(name: "intervals")
@@ -64,7 +68,8 @@ abstract class $CheckInfoDTOCopyWith<$Res> {
           CheckInfoDTO value, $Res Function(CheckInfoDTO) then) =
       _$CheckInfoDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "header") CheckHeaderDTO header,
+      {@JsonKey(ignore: true) int lastIndex,
+      @JsonKey(name: "header") CheckHeaderDTO header,
       @JsonKey(name: "intervals") List<CheckStandardDTO> intervals,
       @JsonKey(name: "sessions") List<CheckStandardDTO> sessions,
       @JsonKey(name: "details") List<CheckDetailsDTO> details});
@@ -82,12 +87,17 @@ class _$CheckInfoDTOCopyWithImpl<$Res> implements $CheckInfoDTOCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? lastIndex = freezed,
     Object? header = freezed,
     Object? intervals = freezed,
     Object? sessions = freezed,
     Object? details = freezed,
   }) {
     return _then(_value.copyWith(
+      lastIndex: lastIndex == freezed
+          ? _value.lastIndex
+          : lastIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       header: header == freezed
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
@@ -123,7 +133,8 @@ abstract class _$CheckInfoDTOCopyWith<$Res>
       __$CheckInfoDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "header") CheckHeaderDTO header,
+      {@JsonKey(ignore: true) int lastIndex,
+      @JsonKey(name: "header") CheckHeaderDTO header,
       @JsonKey(name: "intervals") List<CheckStandardDTO> intervals,
       @JsonKey(name: "sessions") List<CheckStandardDTO> sessions,
       @JsonKey(name: "details") List<CheckDetailsDTO> details});
@@ -144,12 +155,17 @@ class __$CheckInfoDTOCopyWithImpl<$Res> extends _$CheckInfoDTOCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? lastIndex = freezed,
     Object? header = freezed,
     Object? intervals = freezed,
     Object? sessions = freezed,
     Object? details = freezed,
   }) {
     return _then(_CheckInfoDTO(
+      lastIndex: lastIndex == freezed
+          ? _value.lastIndex
+          : lastIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       header: header == freezed
           ? _value.header
           : header // ignore: cast_nullable_to_non_nullable
@@ -174,7 +190,8 @@ class __$CheckInfoDTOCopyWithImpl<$Res> extends _$CheckInfoDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CheckInfoDTO extends _CheckInfoDTO {
   const _$_CheckInfoDTO(
-      {@JsonKey(name: "header") required this.header,
+      {@JsonKey(ignore: true) this.lastIndex = -1,
+      @JsonKey(name: "header") required this.header,
       @JsonKey(name: "intervals") required this.intervals,
       @JsonKey(name: "sessions") required this.sessions,
       @JsonKey(name: "details") required this.details})
@@ -183,6 +200,9 @@ class _$_CheckInfoDTO extends _CheckInfoDTO {
   factory _$_CheckInfoDTO.fromJson(Map<String, dynamic> json) =>
       _$_$_CheckInfoDTOFromJson(json);
 
+  @override
+  @JsonKey(ignore: true)
+  final int lastIndex;
   @override
   @JsonKey(name: "header")
   final CheckHeaderDTO header;
@@ -198,13 +218,16 @@ class _$_CheckInfoDTO extends _CheckInfoDTO {
 
   @override
   String toString() {
-    return 'CheckInfoDTO(header: $header, intervals: $intervals, sessions: $sessions, details: $details)';
+    return 'CheckInfoDTO(lastIndex: $lastIndex, header: $header, intervals: $intervals, sessions: $sessions, details: $details)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _CheckInfoDTO &&
+            (identical(other.lastIndex, lastIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastIndex, lastIndex)) &&
             (identical(other.header, header) ||
                 const DeepCollectionEquality().equals(other.header, header)) &&
             (identical(other.intervals, intervals) ||
@@ -220,6 +243,7 @@ class _$_CheckInfoDTO extends _CheckInfoDTO {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(lastIndex) ^
       const DeepCollectionEquality().hash(header) ^
       const DeepCollectionEquality().hash(intervals) ^
       const DeepCollectionEquality().hash(sessions) ^
@@ -238,7 +262,8 @@ class _$_CheckInfoDTO extends _CheckInfoDTO {
 
 abstract class _CheckInfoDTO extends CheckInfoDTO {
   const factory _CheckInfoDTO(
-          {@JsonKey(name: "header") required CheckHeaderDTO header,
+          {@JsonKey(ignore: true) int lastIndex,
+          @JsonKey(name: "header") required CheckHeaderDTO header,
           @JsonKey(name: "intervals") required List<CheckStandardDTO> intervals,
           @JsonKey(name: "sessions") required List<CheckStandardDTO> sessions,
           @JsonKey(name: "details") required List<CheckDetailsDTO> details}) =
@@ -248,6 +273,9 @@ abstract class _CheckInfoDTO extends CheckInfoDTO {
   factory _CheckInfoDTO.fromJson(Map<String, dynamic> json) =
       _$_CheckInfoDTO.fromJson;
 
+  @override
+  @JsonKey(ignore: true)
+  int get lastIndex => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "header")
   CheckHeaderDTO get header => throw _privateConstructorUsedError;

@@ -132,7 +132,7 @@ class _TagBottomSheetPageState extends ConsumerState<TagBottomSheetPage>
             context,
             color: Theme.of(context).errorColor,
             title: "오류",
-            message: "오류가 발생하였습니다.\n\n${failure.maybeWhen(
+            message: "${failure.maybeWhen(
               api: (code, message) => message,
               noConnection: () => "인터넷 연결 오류.",
               orElse: () => "",

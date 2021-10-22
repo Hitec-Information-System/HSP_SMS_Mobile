@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
@@ -47,11 +48,12 @@ class MenuSettingsPage extends ConsumerWidget {
                         ),
                       );
 
-                      return Text(user?.userNm ?? "",
-                          style:
-                              Theme.of(context).textTheme.headline6?.copyWith(
-                                    fontWeight: FontWeight.w800,
-                                  ));
+                      return Text(
+                        user?.userNm ?? "",
+                        style: Theme.of(context).textTheme.headline6?.copyWith(
+                              fontWeight: FontWeight.w800,
+                            ),
+                      );
                     },
                   ),
                 ],
@@ -64,7 +66,9 @@ class MenuSettingsPage extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
               ),
               child: ListTile(
-                onTap: () => const PasswordChangeRoute().show(context),
+                onTap: () => AutoRouter.of(context).push(
+                  const PasswordChangeRoute(),
+                ),
                 title: const Text(
                   "비밀번호 변경",
                   style: TextStyle(fontWeight: FontWeight.w500),
@@ -87,7 +91,6 @@ class MenuSettingsPage extends ConsumerWidget {
                   message: "로그아웃 하시겠습니까?",
                   yesTitle: "확인",
                   onYesPressed: () async {
-                    await Future.delayed(const Duration(milliseconds: 200));
                     ref.read(authNotifierProvider.notifier).signOut();
                   },
                   noTitle: "취소",

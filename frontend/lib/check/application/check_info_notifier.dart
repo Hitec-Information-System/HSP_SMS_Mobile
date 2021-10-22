@@ -11,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 
 part 'check_info_notifier.freezed.dart';
 
-// TODO : 한번에 첨부할 수 있는 이미지 수량 정하기
+// REF : 한번에 첨부할 수 있는 이미지 수량 정하기
 const IMG_ALLOWED_COUNT = 10;
 
 @freezed
@@ -44,14 +44,19 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
     this.user,
   ) : super(CheckInfoState.initial("", CheckInfo.empty()));
 
-  Future<void> getCheckInfo(
-      String tagId, String interval, String session) async {
+  Future<void> getCheckInfo({
+    required String tagId,
+    String interval = "",
+    String session = "",
+    int lastIndex = -1,
+  }) async {
     state = CheckInfoState.loading(
-        tagId,
-        state.info.copyWith.header(
-          interval: interval,
-          session: session,
-        ));
+      tagId,
+      state.info.copyWith.header(
+        interval: interval,
+        session: session,
+      ),
+    );
 
     final params = {
       "check-no": tagId,
@@ -68,7 +73,11 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
 
     state = failureOrSuccess.fold(
       (failure) => CheckInfoState.failure(tagId, state.info, failure),
-      (success) => CheckInfoState.loaded(tagId, success.entity),
+      (success) => CheckInfoState.loaded(
+          tagId,
+          success.entity.copyWith(
+            lastIndex: lastIndex,
+          )),
     );
   }
 

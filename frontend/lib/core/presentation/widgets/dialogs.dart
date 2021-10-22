@@ -29,9 +29,7 @@ class Dialogs {
         );
       },
     ).then((_) {
-      if (onDismissed != null) {
-        onDismissed();
-      }
+      onDismissed?.call();
     });
   }
 
@@ -62,9 +60,7 @@ class Dialogs {
         );
       },
     ).then((_) {
-      if (onDismissed != null) {
-        onDismissed();
-      }
+      onDismissed?.call();
     });
   }
 
@@ -134,6 +130,7 @@ class NormalDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.transparent,
+      contentPadding: const EdgeInsets.all(0),
       content: SingleChildScrollView(
         child: Container(
           width: 300,

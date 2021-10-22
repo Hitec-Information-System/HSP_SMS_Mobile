@@ -46,16 +46,6 @@ class _AppWidgetState extends ConsumerState<AppWidget> {
           const SignInRoute(),
           predicate: (route) => false,
         ),
-        // TODO: 임시 처리
-        failure: (failure) => _appRouter.push(
-          ErrorRoute(
-            message: failure.when(
-              server: (String? message) =>
-                  "에러가 발생하였습니다. 에러의 내용은 다음과 같습니다.\n\n${message ?? "알 수 없는 에러"}\n\n관리자에게 문의하세요.",
-              storage: () => "기기에서 사용자 정보를 불러오는 중 에러가 발생하였습니다. 관리자에게 문의하세요.",
-            ),
-          ),
-        ),
         orElse: () {},
       );
     });

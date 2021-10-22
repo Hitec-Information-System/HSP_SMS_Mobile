@@ -1,17 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/check/shared/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
+import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
 import 'package:frontend/menus/monitor/core/domain/check_spot.dart';
 import 'package:frontend/menus/monitor/core/shared/providers.dart';
 import 'package:frontend/tag/core/shared/providers.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MonitCategoryCard extends StatelessWidget {
   const MonitCategoryCard({
@@ -26,7 +25,7 @@ class MonitCategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 290,
+      width: Responsive.isMobile(context) ? null : 290,
       padding: const EdgeInsets.symmetric(
         horizontal: LayoutConstants.paddingXS,
         vertical: LayoutConstants.paddingM,
@@ -37,7 +36,7 @@ class MonitCategoryCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 20, child: Text(objSubNm)),
+          SizedBox(height: 30, child: Text(objSubNm)),
           const SizedBox(height: LayoutConstants.spaceM),
           if (spots.isEmpty)
             ...List.generate(4, (index) => const LoadingSubCategoryCard())
@@ -128,7 +127,7 @@ class SubCategoryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(
-              height: 40,
+              height: 65,
               child: Text(
                 spot.objNm,
                 style: Theme.of(context).textTheme.bodyText1,
@@ -194,7 +193,10 @@ class SubCategoryCard extends StatelessWidget {
                     return const EmptyStampCard();
                   }
 
-                  return TimeStampCard(item: spot.checkedList[index]);
+                  return TimeStampCard(
+                    item: spot.checkedList[index],
+                    lastIndex: spot.lastCheckedIndex,
+                  );
                 },
               ),
             ),
@@ -292,39 +294,45 @@ class SubCategoryCard extends StatelessWidget {
 
 class TimeStampCard extends ConsumerWidget {
   final CheckedItem item;
+  final int lastIndex;
 
   const TimeStampCard({
     Key? key,
     required this.item,
+    required this.lastIndex,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      height: 75,
+      height: 85,
       padding: const EdgeInsets.all(LayoutConstants.paddingXS),
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          // TODO: 화면 이동
-          ref
-              .read(checkInfoStateNotifierProvider.notifier)
-              .getCheckInfo(item.id, "", item.session);
+          ref.read(checkInfoStateNotifierProvider.notifier).getCheckInfo(
+                tagId: item.id,
+                session: item.session,
+                lastIndex: lastIndex,
+              );
           AutoRouter.of(context).push(const CheckListRoute());
         },
         child: Column(
           children: [
             Container(
-              width: 55,
-              height: 45,
+              width: 65,
+              height: 55,
               padding: const EdgeInsets.all(LayoutConstants.paddingS),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(LayoutConstants.radiusM),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(item.formattedSession,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText1?.copyWith(
                           color: Theme.of(context)
                               .textTheme
@@ -333,6 +341,8 @@ class TimeStampCard extends ConsumerWidget {
                               ?.withOpacity(.5))),
                   Text(
                     item.checkedTime,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -345,6 +355,8 @@ class TimeStampCard extends ConsumerWidget {
                   vertical: LayoutConstants.paddingXS),
               child: Text(
                 item.userNm,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyText1?.copyWith(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -364,13 +376,13 @@ class EmptyStampCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 75,
+      height: 85,
       padding: const EdgeInsets.all(LayoutConstants.paddingXS),
       child: Column(
         children: [
           Container(
-            width: 55,
-            height: 45,
+            width: 65,
+            height: 55,
             padding: const EdgeInsets.all(LayoutConstants.paddingS),
             decoration: BoxDecoration(
               color: Theme.of(context).hintColor.withOpacity(.1),
@@ -394,13 +406,13 @@ class MissedStampCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 75,
+      height: 85,
       padding: const EdgeInsets.all(LayoutConstants.paddingXS),
       child: Column(
         children: [
           Container(
-            width: 55,
-            height: 45,
+            width: 65,
+            height: 55,
             padding: const EdgeInsets.all(LayoutConstants.paddingS),
             decoration: BoxDecoration(
               color: Theme.of(context).errorColor.withOpacity(.5),

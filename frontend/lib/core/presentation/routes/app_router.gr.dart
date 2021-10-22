@@ -8,29 +8,28 @@ import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 import 'package:frontend/auth/presentation/sign_in_page.dart' as _i4;
 import 'package:frontend/check/domain/check_info.dart' as _i17;
-import 'package:frontend/check/presentation/check_list_page.dart' as _i10;
+import 'package:frontend/check/presentation/check_list_page.dart' as _i11;
 import 'package:frontend/check/presentation/widgets/image_check_page.dart'
-    as _i7;
+    as _i8;
 import 'package:frontend/core/presentation/widgets/error/error_page.dart'
     as _i5;
-import 'package:frontend/menus/core/presentation/menu_frame_page.dart' as _i8;
+import 'package:frontend/menus/core/presentation/menu_frame_page.dart' as _i9;
 import 'package:frontend/menus/core/presentation/widgets/bottom_sheet/widgets.dart'
-    as _i11;
-import 'package:frontend/menus/home/presentation/home_web_view_part.dart'
-    as _i6;
-import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart'
     as _i12;
-import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart'
+import 'package:frontend/menus/home/presentation/menu_home_page.dart' as _i13;
+import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart'
     as _i14;
-import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart'
-    as _i13;
-import 'package:frontend/menus/settings/presentation/menu_settings_page.dart'
-    as _i15;
-import 'package:frontend/menus/settings/presentation/password_change_page.dart'
+import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart'
     as _i16;
+import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart'
+    as _i15;
+import 'package:frontend/menus/settings/presentation/menu_settings_page.dart'
+    as _i6;
+import 'package:frontend/menus/settings/presentation/password_change_page.dart'
+    as _i7;
 import 'package:frontend/splash/presentation/splash_page.dart' as _i3;
 import 'package:frontend/tag/core/domain/tag.dart' as _i18;
-import 'package:frontend/tag/qr/presentation/qr_scan_page.dart' as _i9;
+import 'package:frontend/tag/qr/presentation/qr_scan_page.dart' as _i10;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])
@@ -54,16 +53,21 @@ class AppRouter extends _i1.RootStackRouter {
           final args = data.argsAs<ErrorRouteArgs>();
           return _i5.ErrorPage(key: args.key, message: args.message);
         }),
-    HomeWebViewRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
+    MenuSettingsRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i6.HomeWebViewPage();
+          return const _i6.MenuSettingsPage();
+        }),
+    PasswordChangeRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return const _i7.PasswordChangePage();
         }),
     ImageCheckRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
         builder: (data) {
           final args = data.argsAs<ImageCheckRouteArgs>();
-          return _i7.ImageCheckPage(key: args.key, images: args.images);
+          return _i8.ImageCheckPage(key: args.key, images: args.images);
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         opaque: true,
@@ -71,14 +75,14 @@ class AppRouter extends _i1.RootStackRouter {
     MenuFrameRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i8.MenuFramePage();
+          return const _i9.MenuFramePage();
         }),
     QRScanRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
         builder: (data) {
           final args = data.argsAs<QRScanRouteArgs>(
               orElse: () => const QRScanRouteArgs());
-          return _i9.QRScanPage(key: args.key, onTagged: args.onTagged);
+          return _i10.QRScanPage(key: args.key, onTagged: args.onTagged);
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         opaque: true,
@@ -86,7 +90,7 @@ class AppRouter extends _i1.RootStackRouter {
     CheckListRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i10.CheckListPage();
+          return const _i11.CheckListPage();
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         opaque: true,
@@ -95,7 +99,7 @@ class AppRouter extends _i1.RootStackRouter {
         routeData: routeData,
         builder: (data) {
           final args = data.argsAs<TagBottomSheetRouteArgs>();
-          return _i11.TagBottomSheetPage(
+          return _i12.TagBottomSheetPage(
               key: args.key,
               onInit: args.onInit,
               onDispose: args.onDispose,
@@ -108,6 +112,11 @@ class AppRouter extends _i1.RootStackRouter {
         reverseDurationInMilliseconds: 300,
         opaque: false,
         barrierDismissible: false),
+    HomeTab.name: (routeData) => _i1.AdaptivePage<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return const _i1.EmptyRouterPage();
+        }),
     BuildingTab.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
@@ -123,35 +132,25 @@ class AppRouter extends _i1.RootStackRouter {
         builder: (_) {
           return const _i1.EmptyRouterPage();
         }),
-    SettingsTab.name: (routeData) => _i1.AdaptivePage<dynamic>(
+    MenuHomeRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i1.EmptyRouterPage();
+          return const _i13.MenuHomePage();
         }),
     MenuBuildingRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i12.MenuBuildingPage();
+          return const _i14.MenuBuildingPage();
         }),
     MenuLineRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i13.MenuLinePage();
+          return const _i15.MenuLinePage();
         }),
     MenuForkLiftRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i14.MenuForkLiftPage();
-        }),
-    MenuSettingsRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
-        routeData: routeData,
-        builder: (_) {
-          return const _i15.MenuSettingsPage();
-        }),
-    PasswordChangeRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
-        routeData: routeData,
-        builder: (_) {
-          return const _i16.PasswordChangePage();
+          return const _i16.MenuForkLiftPage();
         })
   };
 
@@ -160,9 +159,13 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(SplashRoute.name, path: '/'),
         _i1.RouteConfig(SignInRoute.name, path: '/sign-in'),
         _i1.RouteConfig(ErrorRoute.name, path: '/error'),
-        _i1.RouteConfig(HomeWebViewRoute.name, path: '/webview'),
+        _i1.RouteConfig(MenuSettingsRoute.name, path: '/settings'),
+        _i1.RouteConfig(PasswordChangeRoute.name, path: '/settings/pwd'),
         _i1.RouteConfig(ImageCheckRoute.name, path: '/img'),
         _i1.RouteConfig(MenuFrameRoute.name, path: '/', children: [
+          _i1.RouteConfig(HomeTab.name,
+              path: 'home',
+              children: [_i1.RouteConfig(MenuHomeRoute.name, path: '')]),
           _i1.RouteConfig(BuildingTab.name,
               path: 'building',
               children: [_i1.RouteConfig(MenuBuildingRoute.name, path: '')]),
@@ -171,11 +174,7 @@ class AppRouter extends _i1.RootStackRouter {
               children: [_i1.RouteConfig(MenuLineRoute.name, path: '')]),
           _i1.RouteConfig(ForkliftTab.name,
               path: 'forklift',
-              children: [_i1.RouteConfig(MenuForkLiftRoute.name, path: '')]),
-          _i1.RouteConfig(SettingsTab.name, path: 'settings', children: [
-            _i1.RouteConfig(MenuSettingsRoute.name, path: ''),
-            _i1.RouteConfig(PasswordChangeRoute.name, path: 'pwd')
-          ])
+              children: [_i1.RouteConfig(MenuForkLiftRoute.name, path: '')])
         ]),
         _i1.RouteConfig(QRScanRoute.name, path: '/spot-checker?method=qr'),
         _i1.RouteConfig(CheckListRoute.name, path: '/inspection'),
@@ -211,10 +210,16 @@ class ErrorRouteArgs {
   final String message;
 }
 
-class HomeWebViewRoute extends _i1.PageRouteInfo {
-  const HomeWebViewRoute() : super(name, path: '/webview');
+class MenuSettingsRoute extends _i1.PageRouteInfo {
+  const MenuSettingsRoute() : super(name, path: '/settings');
 
-  static const String name = 'HomeWebViewRoute';
+  static const String name = 'MenuSettingsRoute';
+}
+
+class PasswordChangeRoute extends _i1.PageRouteInfo {
+  const PasswordChangeRoute() : super(name, path: '/settings/pwd');
+
+  static const String name = 'PasswordChangeRoute';
 }
 
 class ImageCheckRoute extends _i1.PageRouteInfo<ImageCheckRouteArgs> {
@@ -306,6 +311,13 @@ class TagBottomSheetRouteArgs {
   final _i2.Widget switchingChild;
 }
 
+class HomeTab extends _i1.PageRouteInfo {
+  const HomeTab({List<_i1.PageRouteInfo>? children})
+      : super(name, path: 'home', initialChildren: children);
+
+  static const String name = 'HomeTab';
+}
+
 class BuildingTab extends _i1.PageRouteInfo {
   const BuildingTab({List<_i1.PageRouteInfo>? children})
       : super(name, path: 'building', initialChildren: children);
@@ -327,11 +339,10 @@ class ForkliftTab extends _i1.PageRouteInfo {
   static const String name = 'ForkliftTab';
 }
 
-class SettingsTab extends _i1.PageRouteInfo {
-  const SettingsTab({List<_i1.PageRouteInfo>? children})
-      : super(name, path: 'settings', initialChildren: children);
+class MenuHomeRoute extends _i1.PageRouteInfo {
+  const MenuHomeRoute() : super(name, path: '');
 
-  static const String name = 'SettingsTab';
+  static const String name = 'MenuHomeRoute';
 }
 
 class MenuBuildingRoute extends _i1.PageRouteInfo {
@@ -350,16 +361,4 @@ class MenuForkLiftRoute extends _i1.PageRouteInfo {
   const MenuForkLiftRoute() : super(name, path: '');
 
   static const String name = 'MenuForkLiftRoute';
-}
-
-class MenuSettingsRoute extends _i1.PageRouteInfo {
-  const MenuSettingsRoute() : super(name, path: '');
-
-  static const String name = 'MenuSettingsRoute';
-}
-
-class PasswordChangeRoute extends _i1.PageRouteInfo {
-  const PasswordChangeRoute() : super(name, path: 'pwd');
-
-  static const String name = 'PasswordChangeRoute';
 }

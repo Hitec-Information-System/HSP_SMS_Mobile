@@ -34,6 +34,10 @@ class _$AuthStateTearOff {
     );
   }
 
+  _PwdChanged pwdChanged() {
+    return const _PwdChanged();
+  }
+
   _Failure failure(AuthFailure failure) {
     return _Failure(
       failure,
@@ -52,6 +56,7 @@ mixin _$AuthState {
     required TResult Function() loading,
     required TResult Function() unauthenticated,
     required TResult Function(User user) authenticated,
+    required TResult Function() pwdChanged,
     required TResult Function(AuthFailure failure) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -61,6 +66,7 @@ mixin _$AuthState {
     TResult Function()? loading,
     TResult Function()? unauthenticated,
     TResult Function(User user)? authenticated,
+    TResult Function()? pwdChanged,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) =>
@@ -71,6 +77,7 @@ mixin _$AuthState {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_PwdChanged value) pwdChanged,
     required TResult Function(_Failure value) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -80,6 +87,7 @@ mixin _$AuthState {
     TResult Function(_Loading value)? loading,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_PwdChanged value)? pwdChanged,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) =>
@@ -142,6 +150,7 @@ class _$_Initial extends _Initial {
     required TResult Function() loading,
     required TResult Function() unauthenticated,
     required TResult Function(User user) authenticated,
+    required TResult Function() pwdChanged,
     required TResult Function(AuthFailure failure) failure,
   }) {
     return initial();
@@ -154,6 +163,7 @@ class _$_Initial extends _Initial {
     TResult Function()? loading,
     TResult Function()? unauthenticated,
     TResult Function(User user)? authenticated,
+    TResult Function()? pwdChanged,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -170,6 +180,7 @@ class _$_Initial extends _Initial {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_PwdChanged value) pwdChanged,
     required TResult Function(_Failure value) failure,
   }) {
     return initial(this);
@@ -182,6 +193,7 @@ class _$_Initial extends _Initial {
     TResult Function(_Loading value)? loading,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_PwdChanged value)? pwdChanged,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -238,6 +250,7 @@ class _$_Loading extends _Loading {
     required TResult Function() loading,
     required TResult Function() unauthenticated,
     required TResult Function(User user) authenticated,
+    required TResult Function() pwdChanged,
     required TResult Function(AuthFailure failure) failure,
   }) {
     return loading();
@@ -250,6 +263,7 @@ class _$_Loading extends _Loading {
     TResult Function()? loading,
     TResult Function()? unauthenticated,
     TResult Function(User user)? authenticated,
+    TResult Function()? pwdChanged,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -266,6 +280,7 @@ class _$_Loading extends _Loading {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_PwdChanged value) pwdChanged,
     required TResult Function(_Failure value) failure,
   }) {
     return loading(this);
@@ -278,6 +293,7 @@ class _$_Loading extends _Loading {
     TResult Function(_Loading value)? loading,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_PwdChanged value)? pwdChanged,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -336,6 +352,7 @@ class _$_Unauthenticated extends _Unauthenticated {
     required TResult Function() loading,
     required TResult Function() unauthenticated,
     required TResult Function(User user) authenticated,
+    required TResult Function() pwdChanged,
     required TResult Function(AuthFailure failure) failure,
   }) {
     return unauthenticated();
@@ -348,6 +365,7 @@ class _$_Unauthenticated extends _Unauthenticated {
     TResult Function()? loading,
     TResult Function()? unauthenticated,
     TResult Function(User user)? authenticated,
+    TResult Function()? pwdChanged,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -364,6 +382,7 @@ class _$_Unauthenticated extends _Unauthenticated {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_PwdChanged value) pwdChanged,
     required TResult Function(_Failure value) failure,
   }) {
     return unauthenticated(this);
@@ -376,6 +395,7 @@ class _$_Unauthenticated extends _Unauthenticated {
     TResult Function(_Loading value)? loading,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_PwdChanged value)? pwdChanged,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -468,6 +488,7 @@ class _$_Authenticated extends _Authenticated {
     required TResult Function() loading,
     required TResult Function() unauthenticated,
     required TResult Function(User user) authenticated,
+    required TResult Function() pwdChanged,
     required TResult Function(AuthFailure failure) failure,
   }) {
     return authenticated(user);
@@ -480,6 +501,7 @@ class _$_Authenticated extends _Authenticated {
     TResult Function()? loading,
     TResult Function()? unauthenticated,
     TResult Function(User user)? authenticated,
+    TResult Function()? pwdChanged,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -496,6 +518,7 @@ class _$_Authenticated extends _Authenticated {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_PwdChanged value) pwdChanged,
     required TResult Function(_Failure value) failure,
   }) {
     return authenticated(this);
@@ -508,6 +531,7 @@ class _$_Authenticated extends _Authenticated {
     TResult Function(_Loading value)? loading,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_PwdChanged value)? pwdChanged,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -526,6 +550,108 @@ abstract class _Authenticated extends AuthState {
   @JsonKey(ignore: true)
   _$AuthenticatedCopyWith<_Authenticated> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$PwdChangedCopyWith<$Res> {
+  factory _$PwdChangedCopyWith(
+          _PwdChanged value, $Res Function(_PwdChanged) then) =
+      __$PwdChangedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PwdChangedCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
+    implements _$PwdChangedCopyWith<$Res> {
+  __$PwdChangedCopyWithImpl(
+      _PwdChanged _value, $Res Function(_PwdChanged) _then)
+      : super(_value, (v) => _then(v as _PwdChanged));
+
+  @override
+  _PwdChanged get _value => super._value as _PwdChanged;
+}
+
+/// @nodoc
+
+class _$_PwdChanged extends _PwdChanged {
+  const _$_PwdChanged() : super._();
+
+  @override
+  String toString() {
+    return 'AuthState.pwdChanged()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PwdChanged);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() unauthenticated,
+    required TResult Function(User user) authenticated,
+    required TResult Function() pwdChanged,
+    required TResult Function(AuthFailure failure) failure,
+  }) {
+    return pwdChanged();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? unauthenticated,
+    TResult Function(User user)? authenticated,
+    TResult Function()? pwdChanged,
+    TResult Function(AuthFailure failure)? failure,
+    required TResult orElse(),
+  }) {
+    if (pwdChanged != null) {
+      return pwdChanged();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_PwdChanged value) pwdChanged,
+    required TResult Function(_Failure value) failure,
+  }) {
+    return pwdChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_PwdChanged value)? pwdChanged,
+    TResult Function(_Failure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (pwdChanged != null) {
+      return pwdChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PwdChanged extends AuthState {
+  const factory _PwdChanged() = _$_PwdChanged;
+  const _PwdChanged._() : super._();
 }
 
 /// @nodoc
@@ -603,6 +729,7 @@ class _$_Failure extends _Failure {
     required TResult Function() loading,
     required TResult Function() unauthenticated,
     required TResult Function(User user) authenticated,
+    required TResult Function() pwdChanged,
     required TResult Function(AuthFailure failure) failure,
   }) {
     return failure(this.failure);
@@ -615,6 +742,7 @@ class _$_Failure extends _Failure {
     TResult Function()? loading,
     TResult Function()? unauthenticated,
     TResult Function(User user)? authenticated,
+    TResult Function()? pwdChanged,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
@@ -631,6 +759,7 @@ class _$_Failure extends _Failure {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_PwdChanged value) pwdChanged,
     required TResult Function(_Failure value) failure,
   }) {
     return failure(this);
@@ -643,6 +772,7 @@ class _$_Failure extends _Failure {
     TResult Function(_Loading value)? loading,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_PwdChanged value)? pwdChanged,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
