@@ -7,7 +7,7 @@ content-type: application/json
 
 {
 	"user-id": "dev",
-	"pwd": "1",
+	"pwd": "dev",
   "comp-cd":"3000",
   "sys-flag":"MOBILE"
 }
@@ -31,7 +31,7 @@ GET http://localhost:9110/norm?comp-cd=3000&obj-flag=FORKLIFT HTTP/2.0
 content-type: application/json 
 
 ###
-GET http://localhost:9110/monitor?comp-cd=3000&sys-flag=MOBILE&user=7VwiSJXNUnsSm6MxD20LgA==&flag=BUILDING HTTP/2.0
+GET http://localhost:9110/monitor?comp-cd=3000&sys-flag=MOBILE&user=test&flag=BUILDING HTTP/2.0
 content-type: application/json
 
 ###
@@ -47,9 +47,9 @@ content-type: application/json
 
 {
 "comp-cd":"3000",
-"user-id":"dev",
+"user-id":"NLmYLSg0lISzs59jrw5CRw==",
 "trans-flag":"RF_REG",
-"trans-data":"<NewDataSet><Table1><NFC_ID>33F1CC18</NFC_ID><OBJ_CD>BD-0007</OBJ_CD></Table1></NewDataSet>"
+"trans-data":"<NewDataSet><Table1><NFC_ID>EC9A5D0B</NFC_ID><OBJ_CD>BD-0006</OBJ_CD></Table1></NewDataSet>"
 }
 ###
 POST http://localhost:9110/pwd HTTP/2.0

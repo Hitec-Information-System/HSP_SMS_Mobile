@@ -273,14 +273,14 @@ func (a *AppHandler) saveCheckList(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
-			"msg": err.Error(),
+			"MSG": err.Error(),
 		})
 		return
 	}
 
 	if results != "OK" {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
-			"msg": "저장하는 도중 에러가 발생하였습니다",
+			"MSG": "저장하는 도중 에러가 발생하였습니다",
 		})
 		return
 	}
@@ -360,14 +360,14 @@ func (a *AppHandler) saveData(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
-			"MSG":    err.Error(),
-			"RESULT": "",
+			"MSG":    "NG",
+			"RESULT": err.Error(),
 		})
 		return
 	}
 
 	results := map[string]interface{}{
-		"MSG":    "",
+		"MSG":    "OK",
 		"RESULT": result,
 	}
 
