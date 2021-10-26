@@ -27,11 +27,11 @@ content-type: application/json
 }
 ###
 
-GET http://localhost:9110/norm?comp-cd=3000&obj-flag=FORKLIFT HTTP/2.0
+GET http://ss.hitecis.co.kr:9110/norm?comp-cd=3000&obj-flag=FORKLIFT HTTP/2.0
 content-type: application/json 
 
 ###
-GET http://localhost:9110/monitor?comp-cd=3000&sys-flag=MOBILE&user=test&flag=BUILDING HTTP/2.0
+GET http://localhost:9110/monitor?comp-cd=3000&sys-flag=MOBILE&user=dev&flag=BUILDING HTTP/2.0
 content-type: application/json
 
 ###
@@ -60,5 +60,11 @@ content-type: application/json
 	"pwd": "dev",
   "comp-cd":"3000",
   "sys-flag":"MOBILE"
+}
+###
+GET http://localhost:9110/apk HTTP/2.0
+content-type: application/json
+
+{
 }
 ###

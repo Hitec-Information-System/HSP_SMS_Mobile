@@ -5,10 +5,13 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
-	"github.com/spf13/viper"
 	"github.com/unrolled/render"
 	"github.com/urfave/negroni"
 	"hitecis.co.kr/hwashin_nfc/model"
@@ -34,10 +37,6 @@ func MakeHandler() *AppHandler {
 		db:      repository.NewDBRepository(),
 	}
 
-	apkDir := viper.GetString(`apk-path`)
-
-	fs := http.FileServer(http.Dir(apkDir))
-
 	r.HandleFunc("/", indexHandler)
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
 	r.HandleFunc("/pwd", a.updatePassword).Methods("POST")
@@ -52,7 +51,7 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/nfc", a.saveData).Methods("POST")
 
-	r.Handle("/apks/", http.StripPrefix("/apks", fs))
+	r.HandleFunc("/apk", a.downloadApk).Methods("GET")
 
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
@@ -67,6 +66,42 @@ func (a *AppHandler) Close() {
 
 func indexHandler(w http.ResponseWriter, _ *http.Request) {
 	fmt.Fprint(w, "Hello world")
+}
+
+func (a *AppHandler) downloadApk(w http.ResponseWriter, r *http.Request) {
+
+	// TODO: change hard-coded value
+	filePath := "D://Project/2021_05_hwashin_nfc/backend/apks/app-release.apk"
+	fileNameSplits := strings.Split(filePath, "/")
+	filename := fileNameSplits[len(fileNameSplits)-1]
+
+	Openfile, err := os.Open(filePath) //Open the file to be downloaded later
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	defer Openfile.Close() //Close after function return
+
+	if err != nil {
+		http.Error(w, "File not found.", http.StatusNotFound) //return 404 if file is not found
+		return
+	}
+
+	tempBuffer := make([]byte, 512) //Create a byte array to read the file later
+	Openfile.Read(tempBuffer)       //Read the file into  byte
+	// FileContentType := http.DetectContentType(tempBuffer) //Get file header
+
+	FileStat, _ := Openfile.Stat()                     //Get info from file
+	FileSize := strconv.FormatInt(FileStat.Size(), 10) //Get file size as a string
+
+	//Set the headers
+	w.Header().Set("Content-Disposition", "attachment; filename="+strconv.Quote(filename))
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Header().Set("Content-Length", FileSize)
+
+	Openfile.Seek(0, 0)  //We read 512 bytes from the file already so we reset the offset back to 0
+	io.Copy(w, Openfile) //'Copy' the file to the client
 }
 
 // 점검 기준(회차,일상/주간 여부)
