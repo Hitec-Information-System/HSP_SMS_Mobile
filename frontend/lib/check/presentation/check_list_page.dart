@@ -76,11 +76,33 @@ class _CheckListPageState extends ConsumerState<CheckListPage> {
       },
     );
 
-    return const Responsive(
-      mobile: ChecklistMobilePage(),
-      tablet: ChecklistTabletPage(),
-      // desktop: ChecklistDesktopPage(),
-      desktop: ChecklistTabletPage(),
+    return WillPopScope(
+      onWillPop: () async {
+        bool willPop = false;
+        await Dialogs.showTwoAnswersDialog(
+          context,
+          color: Theme.of(context).colorScheme.secondary,
+          icon: Icons.help,
+          title: "점검 취소",
+          message: "점검 내용을 저장하지 않았습니다.\n점검을 저장하지 않고 뒤로 가시겠습니까?",
+          yesTitle: "Yes",
+          onYesPressed: () {
+            willPop = true;
+          },
+          noTitle: "No",
+          onNoPressed: () {
+            willPop = false;
+          },
+          onDismissed: () {},
+        );
+        return willPop;
+      },
+      child: const Responsive(
+        mobile: ChecklistMobilePage(),
+        tablet: ChecklistTabletPage(),
+        // desktop: ChecklistDesktopPage(),
+        desktop: ChecklistTabletPage(),
+      ),
     );
   }
 }

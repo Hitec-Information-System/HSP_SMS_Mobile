@@ -1,4 +1,3 @@
-import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 
 import 'package:frontend/core/presentation/constants/constants.dart';
@@ -6,7 +5,7 @@ import 'package:frontend/core/presentation/constants/constants.dart';
 class Dialogs {
   const Dialogs._();
 
-  static void showOneAnswerDialog(
+  static Future<void> showOneAnswerDialog(
     BuildContext context, {
     String title = "Error",
     String message = "error occured!",
@@ -15,7 +14,7 @@ class Dialogs {
     String? yesTitle,
     void Function()? onYesPressed,
     void Function()? onDismissed,
-  }) {
+  }) async {
     showDialog(
       context: context,
       builder: (context) {
@@ -33,7 +32,7 @@ class Dialogs {
     });
   }
 
-  static void showTwoAnswersDialog(
+  static Future<void> showTwoAnswersDialog(
     BuildContext context, {
     String title = "Error",
     String message = "error occured!",
@@ -44,8 +43,8 @@ class Dialogs {
     String? noTitle,
     void Function()? onNoPressed,
     void Function()? onDismissed,
-  }) {
-    showDialog(
+  }) async {
+    await showDialog(
       context: context,
       builder: (context) {
         return NormalDialog(
@@ -87,6 +86,7 @@ class LoadingDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(LayoutConstants.radiusL),
       ),
       backgroundColor: Theme.of(context).backgroundColor.withOpacity(.7),
+      contentPadding: const EdgeInsets.all(0),
       content: Container(
         width: 150,
         height: 150,
