@@ -35,7 +35,7 @@ GET http://localhost:9110/monitor?comp-cd=3000&sys-flag=MOBILE&user=dev&flag=BUI
 content-type: application/json
 
 ###
-GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=33F1CC18&interval=일상&session=09&obj-cd= HTTP/2.0
+GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=04B7A5DAC64880&interval=일상&session=&obj-cd= HTTP/2.0
 content-type: application/json
 ###
 GET http://localhost:9110/check?comp-cd=3000&sys-flag=MOBILE&user=dev&check-no=22508B3E&interval=일상&session=20&obj-cd= HTTP/2.0

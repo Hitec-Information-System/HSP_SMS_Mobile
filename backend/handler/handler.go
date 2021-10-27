@@ -199,11 +199,28 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 	itemCd := ""
 	imgNo := ""
 
+	// TODO: 추후 DB로직에서 적합하다 판단되면 반영
+	// TODO:
+	// objCdHeader := header[0]["OBJ_CD"]
+	// TODO:
+	// sessionHeader := header[0]["CHK_CHASU"]
+
 	detailsQuery := fmt.Sprintf(`
 	BEGIN
 		SMS_PK_5010.P_FIND_CHKLIST_D('%s', '%s', '%s', '%s', '%s', '%s', '%s', :CURSOR1);
 	END;
-	`, compCd, systemFlag, userId, objCd, checkNo, interval, session)
+	`, compCd,
+		systemFlag,
+		userId,
+		// TODO:
+		// objCdHeader,
+		objCd,
+		checkListNo,
+		interval,
+		// TODO:
+		// sessionHeader,
+		session,
+	)
 
 	fmt.Println(detailsQuery)
 
