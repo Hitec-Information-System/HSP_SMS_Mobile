@@ -324,6 +324,13 @@ func getDbConnString() (dbConnString string) {
 	dbPass := viper.GetString(`database.pass`)
 	dbName := viper.GetString(`database.name`)
 
-	dbConnString = fmt.Sprintf(`user="%s" password="%s" connectString="%s:%s/%s" poolSessionTimeout=42s heterogeneousPool=false standaloneConnection=false noTimezoneCheck=true`, dbUser, dbPass, dbHost, dbPort, dbName)
+	dbConnString = fmt.Sprintf(`
+	user="%s"
+	password="%s"
+	connectString="%s:%s/%s"
+	poolSessionTimeout=42s
+	heterogeneousPool=false
+	standaloneConnection=false
+	noTimezoneCheck=true`, dbUser, dbPass, dbHost, dbPort, dbName)
 	return
 }

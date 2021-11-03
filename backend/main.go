@@ -18,9 +18,11 @@ func main() {
 	// 포트 지정
 	port := viper.GetString(`server.port`)
 
-	runtime.GOMAXPROCS(runtime.NumCPU()) // 설정
+	// 코어 설정
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	fmt.Println("count", runtime.GOMAXPROCS(0)) // 설정값 출력
+	// 코어 설정 확인
+	fmt.Println("core count", runtime.GOMAXPROCS(0))
 
 	m := handler.MakeHandler()
 	defer m.Close()

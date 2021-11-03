@@ -32,9 +32,14 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// XXX: 원래 쿼리로 변경경
+	// BEGIN
+	// 	SMS_PK_AUTH.LOGIN2('%s', '%s', '%s','%s',:PO_RST, :PO_APIKEY, :PO_CUR);
+	// END;
+
 	query := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_AUTH.LOGIN2('%s', '%s', '%s','%s',:PO_RST, :PO_APIKEY, :PO_CUR);
+		SMS_PK_AUTH_KWON.LOGIN2('%s', '%s', '%s','%s',:PO_RST, :PO_APIKEY, :PO_CUR);
 	END;
 	`, user.CompanyCd, user.Id, user.Password, user.SystemFlag)
 

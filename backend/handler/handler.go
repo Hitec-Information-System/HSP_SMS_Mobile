@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
@@ -70,12 +71,23 @@ func indexHandler(w http.ResponseWriter, _ *http.Request) {
 
 func (a *AppHandler) downloadApk(w http.ResponseWriter, r *http.Request) {
 
-	// TODO: change hard-coded value
-	filePath := "D://Project/2021_05_hwashin_nfc/backend/apks/app-release.apk"
-	fileNameSplits := strings.Split(filePath, "/")
-	filename := fileNameSplits[len(fileNameSplits)-1]
+	// TODO: request params에서 버전 정보 받아오기
 
-	Openfile, err := os.Open(filePath) //Open the file to be downloaded later
+	filePath := "D://Project/2021_05_hwashin_nfc/backend/apks/"
+
+	files, err := ioutil.ReadDir(filePath)
+	if err != nil {
+		http.Error(w, "Path not found.", http.StatusNotFound)
+	}
+
+	// 혼동이 없도록 apk 혹은 appbundle 파일은 무조건 1개만 존재해야함
+	if len(files) != 1 {
+		http.Error(w, "file count should be only one", http.StatusBadRequest)
+	}
+
+	fileName := files[0].Name()
+
+	Openfile, err := os.Open(fmt.Sprintf("%s%s", filePath, fileName)) //Open the file to be downloaded later
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
@@ -96,7 +108,7 @@ func (a *AppHandler) downloadApk(w http.ResponseWriter, r *http.Request) {
 	FileSize := strconv.FormatInt(FileStat.Size(), 10) //Get file size as a string
 
 	//Set the headers
-	w.Header().Set("Content-Disposition", "attachment; filename="+strconv.Quote(filename))
+	w.Header().Set("Content-Disposition", "attachment; filename="+strconv.Quote(fileName))
 	w.Header().Set("Content-Type", "application/octet-stream")
 	w.Header().Set("Content-Length", FileSize)
 
@@ -199,11 +211,8 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 	itemCd := ""
 	imgNo := ""
 
-	// TODO: 추후 DB로직에서 적합하다 판단되면 반영
-	// TODO:
-	// objCdHeader := header[0]["OBJ_CD"]
-	// TODO:
-	// sessionHeader := header[0]["CHK_CHASU"]
+	objCdHeader := header[0]["OBJ_CD"]
+	sessionHeader := header[0]["CHK_CHASU"]
 
 	detailsQuery := fmt.Sprintf(`
 	BEGIN
@@ -212,14 +221,10 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 	`, compCd,
 		systemFlag,
 		userId,
-		// TODO:
-		// objCdHeader,
-		objCd,
+		objCdHeader,
 		checkListNo,
 		interval,
-		// TODO:
-		// sessionHeader,
-		session,
+		sessionHeader,
 	)
 
 	fmt.Println(detailsQuery)
@@ -364,9 +369,13 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 		return
 	}
 
+	// XXX: 원본 쿼리로 수정
+	// BEGIN
+	// SMS_PK_5010.P_FIND_OBJ_CHKLIST_TODAY_JSON('%s', '%s', '%s', '%s',:CURSOR1);
+	// END;
 	query := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_OBJ_CHKLIST_TODAY_JSON('%s', '%s', '%s', '%s',:CURSOR1);
+		SMS_PK_5010_KWON.P_FIND_OBJ_CHKLIST_TODAY_JSON('%s', '%s', '%s', '%s',:CURSOR1);
 	END;
 	`, compCd, systemFlag, userId, buf.String())
 
@@ -375,10 +384,41 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 	results, err := a.db.GetSPDataWithLOB(query)
 
 	if err != nil {
-		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
-			"msg": err.Error(),
-		})
-		return
+
+		fmt.Println(err.Error())
+
+		if strings.Contains(err.Error(), "호출 중인 프로그램 단위를 찾을 수 없습니다") {
+			var resultsRe []map[string]interface{}
+			var errRe error
+
+			// 요구사항: 실패시 최대 5번 더 시도 하여 보기
+			// TODO: 확인하고 로직 삭제
+			for i := 0; i < 5; i++ {
+				fmt.Println(i)
+				resultsRe, errRe = a.db.GetSPDataWithLOB(query)
+				if errRe == nil {
+					results = resultsRe
+					break
+				}
+			}
+
+			if errRe != nil {
+				fmt.Println(errRe.Error())
+				rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+					"msg": errRe.Error(),
+				},
+				)
+				return
+			}
+
+		} else {
+			rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+				"msg": err.Error(),
+			},
+			)
+			return
+		}
+
 	}
 
 	rd.JSON(w, http.StatusOK, results)
