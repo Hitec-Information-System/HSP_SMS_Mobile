@@ -6,6 +6,7 @@ import 'package:frontend/core/presentation/widgets/error/error_page.dart';
 import 'package:frontend/menus/core/presentation/menu_frame_page.dart';
 import 'package:frontend/menus/core/presentation/widgets/bottom_sheet/widgets.dart';
 import 'package:frontend/menus/home/presentation/menu_home_page.dart';
+import 'package:frontend/menus/home/presentation/safety_report_page.dart';
 import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart';
 import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart';
 import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart';
@@ -20,8 +21,9 @@ import 'package:frontend/tag/qr/presentation/qr_scan_page.dart';
     AutoRoute(page: SplashPage, initial: true),
     AutoRoute(page: SignInPage, path: "/sign-in"),
     AutoRoute(page: ErrorPage, path: "/error"),
-    AutoRoute(path: "/settings", page: MenuSettingsPage),
-    AutoRoute(path: "/settings/pwd", page: PasswordChangePage),
+    AutoRoute(page: MenuSettingsPage, path: "/settings"),
+    AutoRoute(page: PasswordChangePage, path: "/settings/pwd"),
+    AutoRoute(page: SafetyReportPage, path: "/safety"),
     CustomRoute(
       page: ImageCheckPage,
       path: "/img",

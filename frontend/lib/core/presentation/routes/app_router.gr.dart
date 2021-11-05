@@ -7,29 +7,31 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 import 'package:frontend/auth/presentation/sign_in_page.dart' as _i4;
-import 'package:frontend/check/domain/check_info.dart' as _i17;
-import 'package:frontend/check/presentation/check_list_page.dart' as _i11;
+import 'package:frontend/check/domain/check_info.dart' as _i18;
+import 'package:frontend/check/presentation/check_list_page.dart' as _i12;
 import 'package:frontend/check/presentation/widgets/image_check_page.dart'
-    as _i8;
+    as _i9;
 import 'package:frontend/core/presentation/widgets/error/error_page.dart'
     as _i5;
-import 'package:frontend/menus/core/presentation/menu_frame_page.dart' as _i9;
+import 'package:frontend/menus/core/presentation/menu_frame_page.dart' as _i10;
 import 'package:frontend/menus/core/presentation/widgets/bottom_sheet/widgets.dart'
-    as _i12;
-import 'package:frontend/menus/home/presentation/menu_home_page.dart' as _i13;
+    as _i13;
+import 'package:frontend/menus/home/presentation/menu_home_page.dart' as _i14;
+import 'package:frontend/menus/home/presentation/safety_report_page.dart'
+    as _i8;
 import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart'
-    as _i14;
-import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart'
-    as _i16;
-import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart'
     as _i15;
+import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart'
+    as _i17;
+import 'package:frontend/menus/monitor/line/presentation/menu_line_page.dart'
+    as _i16;
 import 'package:frontend/menus/settings/presentation/menu_settings_page.dart'
     as _i6;
 import 'package:frontend/menus/settings/presentation/password_change_page.dart'
     as _i7;
 import 'package:frontend/splash/presentation/splash_page.dart' as _i3;
-import 'package:frontend/tag/core/domain/tag.dart' as _i18;
-import 'package:frontend/tag/qr/presentation/qr_scan_page.dart' as _i10;
+import 'package:frontend/tag/core/domain/tag.dart' as _i19;
+import 'package:frontend/tag/qr/presentation/qr_scan_page.dart' as _i11;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])
@@ -63,11 +65,16 @@ class AppRouter extends _i1.RootStackRouter {
         builder: (_) {
           return const _i7.PasswordChangePage();
         }),
+    SafetyReportRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return const _i8.SafetyReportPage();
+        }),
     ImageCheckRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
         builder: (data) {
           final args = data.argsAs<ImageCheckRouteArgs>();
-          return _i8.ImageCheckPage(key: args.key, images: args.images);
+          return _i9.ImageCheckPage(key: args.key, images: args.images);
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         opaque: true,
@@ -75,14 +82,14 @@ class AppRouter extends _i1.RootStackRouter {
     MenuFrameRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i9.MenuFramePage();
+          return const _i10.MenuFramePage();
         }),
     QRScanRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
         builder: (data) {
           final args = data.argsAs<QRScanRouteArgs>(
               orElse: () => const QRScanRouteArgs());
-          return _i10.QRScanPage(key: args.key, onTagged: args.onTagged);
+          return _i11.QRScanPage(key: args.key, onTagged: args.onTagged);
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         opaque: true,
@@ -90,7 +97,7 @@ class AppRouter extends _i1.RootStackRouter {
     CheckListRoute.name: (routeData) => _i1.CustomPage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i11.CheckListPage();
+          return const _i12.CheckListPage();
         },
         transitionsBuilder: _i1.TransitionsBuilders.slideBottom,
         opaque: true,
@@ -99,7 +106,7 @@ class AppRouter extends _i1.RootStackRouter {
         routeData: routeData,
         builder: (data) {
           final args = data.argsAs<TagBottomSheetRouteArgs>();
-          return _i12.TagBottomSheetPage(
+          return _i13.TagBottomSheetPage(
               key: args.key,
               onInit: args.onInit,
               onDispose: args.onDispose,
@@ -135,22 +142,22 @@ class AppRouter extends _i1.RootStackRouter {
     MenuHomeRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i13.MenuHomePage();
+          return const _i14.MenuHomePage();
         }),
     MenuBuildingRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i14.MenuBuildingPage();
+          return const _i15.MenuBuildingPage();
         }),
     MenuLineRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i15.MenuLinePage();
+          return const _i16.MenuLinePage();
         }),
     MenuForkLiftRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i16.MenuForkLiftPage();
+          return const _i17.MenuForkLiftPage();
         })
   };
 
@@ -161,6 +168,7 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(ErrorRoute.name, path: '/error'),
         _i1.RouteConfig(MenuSettingsRoute.name, path: '/settings'),
         _i1.RouteConfig(PasswordChangeRoute.name, path: '/settings/pwd'),
+        _i1.RouteConfig(SafetyReportRoute.name, path: '/safety'),
         _i1.RouteConfig(ImageCheckRoute.name, path: '/img'),
         _i1.RouteConfig(MenuFrameRoute.name, path: '/', children: [
           _i1.RouteConfig(HomeTab.name,
@@ -222,8 +230,14 @@ class PasswordChangeRoute extends _i1.PageRouteInfo {
   static const String name = 'PasswordChangeRoute';
 }
 
+class SafetyReportRoute extends _i1.PageRouteInfo {
+  const SafetyReportRoute() : super(name, path: '/safety');
+
+  static const String name = 'SafetyReportRoute';
+}
+
 class ImageCheckRoute extends _i1.PageRouteInfo<ImageCheckRouteArgs> {
-  ImageCheckRoute({_i2.Key? key, required List<_i17.CheckImage> images})
+  ImageCheckRoute({_i2.Key? key, required List<_i18.CheckImage> images})
       : super(name,
             path: '/img', args: ImageCheckRouteArgs(key: key, images: images));
 
@@ -235,7 +249,7 @@ class ImageCheckRouteArgs {
 
   final _i2.Key? key;
 
-  final List<_i17.CheckImage> images;
+  final List<_i18.CheckImage> images;
 }
 
 class MenuFrameRoute extends _i1.PageRouteInfo {
@@ -246,7 +260,7 @@ class MenuFrameRoute extends _i1.PageRouteInfo {
 }
 
 class QRScanRoute extends _i1.PageRouteInfo<QRScanRouteArgs> {
-  QRScanRoute({_i2.Key? key, void Function(_i18.Tag)? onTagged})
+  QRScanRoute({_i2.Key? key, void Function(_i19.Tag)? onTagged})
       : super(name,
             path: '/spot-checker?method=qr',
             args: QRScanRouteArgs(key: key, onTagged: onTagged));
@@ -259,7 +273,7 @@ class QRScanRouteArgs {
 
   final _i2.Key? key;
 
-  final void Function(_i18.Tag)? onTagged;
+  final void Function(_i19.Tag)? onTagged;
 }
 
 class CheckListRoute extends _i1.PageRouteInfo {
@@ -273,7 +287,7 @@ class TagBottomSheetRoute extends _i1.PageRouteInfo<TagBottomSheetRouteArgs> {
       {_i2.Key? key,
       void Function()? onInit,
       void Function()? onDispose,
-      void Function(_i18.Tag)? onTagged,
+      void Function(_i19.Tag)? onTagged,
       bool? isTagged,
       required _i2.Widget switchingChild})
       : super(name,
@@ -304,7 +318,7 @@ class TagBottomSheetRouteArgs {
 
   final void Function()? onDispose;
 
-  final void Function(_i18.Tag)? onTagged;
+  final void Function(_i19.Tag)? onTagged;
 
   final bool? isTagged;
 
