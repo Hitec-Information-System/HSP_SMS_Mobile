@@ -331,6 +331,10 @@ func getDbConnString() (dbConnString string) {
 	poolSessionTimeout=42s
 	heterogeneousPool=false
 	standaloneConnection=false
-	noTimezoneCheck=true`, dbUser, dbPass, dbHost, dbPort, dbName)
+	noTimezoneCheck=true`,
+		dbUser,
+		dbPass,
+		dbHost, dbPort, dbName,
+	)
 	return
 }

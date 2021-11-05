@@ -52,6 +52,9 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/nfc", a.saveData).Methods("POST")
 
+	r.HandleFunc("/board", a.fetchBoardList).Methods("GET")
+	r.HandleFunc("/board/{boardKey}", a.fetchBoardDetails).Methods("GET")
+
 	r.HandleFunc("/apk", a.downloadApk).Methods("GET")
 
 	// for test
@@ -132,7 +135,11 @@ func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) 
 
 	sessionsQuery := fmt.Sprintf(`
 	BEGIN 
-		SMS_PK_CM.GET_CHK_CHASU_LIST('%s', '%s',:CURSOR1); 
+		SMS_PK_CM.GET_CHK_CHASU_LIST(
+			'%s', 
+			'%s',
+			:CURSOR1
+			); 
 	END;
 	`, compCd, objFlag)
 
@@ -148,9 +155,16 @@ func (a *AppHandler) fetchCheckStandard(w http.ResponseWriter, r *http.Request) 
 
 	intervalsQuery := fmt.Sprintf(`
 	BEGIN 
-		SMS_PK_CM.GET_CHK_INTERVAL_LIST('%s', '%s',:CURSOR1); 
+		SMS_PK_CM.GET_CHK_INTERVAL_LIST(
+			'%s', 
+			'%s',
+			:CURSOR1
+			); 
 	END;
-	`, compCd, objFlag)
+	`,
+		compCd,
+		objFlag,
+	)
 
 	fmt.Println(intervalsQuery)
 
@@ -190,9 +204,26 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	headerQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_H('%s', '%s', '%s', '%s', '%s', '%s', '%s',:CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_H(
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s',
+			:CURSOR1
+			);
 	END;
-	`, compCd, systemFlag, userId, objCd, checkNo, interval, session)
+	`,
+		compCd,
+		systemFlag,
+		userId,
+		objCd,
+		checkNo,
+		interval,
+		session,
+	)
 
 	fmt.Println(headerQuery)
 
@@ -216,7 +247,16 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	detailsQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_D('%s', '%s', '%s', '%s', '%s', '%s', '%s', :CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_D(
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			:CURSOR1
+			);
 	END;
 	`, compCd,
 		systemFlag,
@@ -239,9 +279,23 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	detailsImgQuery := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010.P_FIND_CHKLIST_D_IMG('%s', '%s', '%s', '%s', '%s', '%s', :CURSOR1);
+		SMS_PK_5010.P_FIND_CHKLIST_D_IMG(
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s', 
+			:CURSOR1
+			);
 	END;
-	`, compCd, systemFlag, userId, checkListNo, itemCd, imgNo)
+	`, compCd,
+		systemFlag,
+		userId,
+		checkListNo,
+		itemCd,
+		imgNo,
+	)
 
 	fmt.Println(detailsImgQuery)
 
@@ -265,9 +319,16 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	sessionsQuery := fmt.Sprintf(`
 	BEGIN 
-		SMS_PK_CM.GET_CHK_CHASU_LIST('%s', '%s',:CURSOR1); 
+		SMS_PK_CM.GET_CHK_CHASU_LIST(
+			'%s', 
+			'%s',
+			:CURSOR1
+			); 
 	END;
-	`, compCd, objGubun)
+	`,
+		compCd,
+		objGubun,
+	)
 
 	fmt.Println(sessionsQuery)
 
@@ -281,9 +342,16 @@ func (a *AppHandler) fetchCheckList(w http.ResponseWriter, r *http.Request) {
 
 	intervalsQuery := fmt.Sprintf(`
 	BEGIN 
-		SMS_PK_CM.GET_CHK_INTERVAL_LIST('%s', '%s',:CURSOR1); 
+		SMS_PK_CM.GET_CHK_INTERVAL_LIST(
+			'%s', 
+			'%s',
+			:CURSOR1
+			); 
 	END;
-	`, compCd, objGubun)
+	`,
+		compCd,
+		objGubun,
+	)
 
 	fmt.Println(intervalsQuery)
 
@@ -321,8 +389,23 @@ func (a *AppHandler) saveCheckList(w http.ResponseWriter, r *http.Request) {
 
 	query := fmt.Sprintf(`
 	BEGIN 
-		SMS_PK_5010.P_SAVE_CHKLIST('%s','%s','%s','%s','%s','%s',:PO_RST); 
-	END;`, compCd, systemFlag, userId, xmlH, xmlD, xmlI)
+		SMS_PK_5010.P_SAVE_CHKLIST(
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			:PO_RST
+			); 
+	END;`,
+		compCd,
+		systemFlag,
+		userId,
+		xmlH,
+		xmlD,
+		xmlI,
+	)
 
 	fmt.Println(query)
 
@@ -375,9 +458,20 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 	// END;
 	query := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010_KWON.P_FIND_OBJ_CHKLIST_TODAY_JSON('%s', '%s', '%s', '%s',:CURSOR1);
+		SMS_PK_5010_KWON.P_FIND_OBJ_CHKLIST_TODAY_JSON(
+			'%s', 
+			'%s', 
+			'%s', 
+			'%s',
+			:CURSOR1
+			);
 	END;
-	`, compCd, systemFlag, userId, buf.String())
+	`,
+		compCd,
+		systemFlag,
+		userId,
+		buf.String(),
+	)
 
 	fmt.Println(query)
 
@@ -443,8 +537,19 @@ func (a *AppHandler) saveData(w http.ResponseWriter, r *http.Request) {
 
 	query := fmt.Sprintf(`
 	BEGIN 
-		SMS_PK_TRANS.P_SAVE_TRANS('%s','%s','%s','%s',:PO_RST); 
-	END;`, compCd, userId, transFlag, transData)
+		SMS_PK_TRANS.P_SAVE_TRANS(
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			:PO_RST
+			); 
+	END;`,
+		compCd,
+		userId,
+		transFlag,
+		transData,
+	)
 
 	fmt.Println(query)
 
@@ -464,4 +569,120 @@ func (a *AppHandler) saveData(w http.ResponseWriter, r *http.Request) {
 	}
 
 	rd.JSON(w, http.StatusOK, results)
+}
+
+// TODO: 게시판 목록 조회, 상세 내용 조회
+/// 1. package name: SMS_PK_9010
+/// 2. function name: P_FIND_BOARD_TOP, P_FIND_BOARD
+/// 3. columns remark
+/// 	- PI_TOP_ROWS : 5로 설정
+/// 	- PI_BOARD_ID
+/// 			SAFETY_OFFER : 안전점검
+/// 			NOTICE : 공지사항
+func (a *AppHandler) fetchBoardList(w http.ResponseWriter, r *http.Request) {
+
+	queryString := r.URL.Query()
+	compCd := queryString.Get("comp-cd")
+	systemFlag := queryString.Get("sys-flag")
+	userId := queryString.Get("user")
+	board := queryString.Get("board")
+	rowsCount := queryString.Get("count")
+
+	if compCd == "" || userId == "" || systemFlag == "" || board == "" {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": "invalid json provided",
+		})
+		return
+	}
+
+	query := fmt.Sprintf(`
+	BEGIN
+		SMS_PK_9010.P_FIND_BOARD_TOP(  
+			'%s',  
+			'%s',   
+			'%s',  
+			'%s', 
+			'%s', 
+			:CURSOR1
+			);
+	END;
+	`, compCd,
+		systemFlag,
+		userId,
+		board,
+		rowsCount,
+	)
+
+	fmt.Println(query)
+
+	results, err := a.db.GetSPDataWithCursor(query)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	rd.JSON(w, http.StatusOK, results)
+
+}
+
+func (a *AppHandler) fetchBoardDetails(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	boardKey, ok := vars["boardKey"]
+	if !ok {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": "boardKey is invalid",
+		})
+		return
+	}
+
+	queryString := r.URL.Query()
+	compCd := queryString.Get("comp-cd")
+	systemFlag := queryString.Get("sys-flag")
+	userId := queryString.Get("user")
+	board := queryString.Get("board")
+
+	if compCd == "" || userId == "" || systemFlag == "" || board == "" || boardKey == "" {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": "invalid json provided",
+		})
+		return
+	}
+
+	query := fmt.Sprintf(`
+	BEGIN
+		SMS_PK_9010.P_FIND_BOARD(  
+			'%s',  
+			'%s',   
+			'%s',  
+			'%s', 
+			'%s', 
+			:CURSOR1,
+			:CURSOR2
+			);
+	END;
+	`, compCd,
+		systemFlag,
+		userId,
+		board,
+		boardKey,
+	)
+
+	fmt.Println(query)
+
+	results, err := a.db.GetSPDataWith2Cursor(query)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	details := results["cursor1"].([]map[string]interface{})[0]
+	results["cursor1"] = details
+
+	rd.JSON(w, http.StatusOK, results)
+
 }
