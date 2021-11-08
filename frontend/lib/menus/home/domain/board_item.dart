@@ -3,14 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'board_item.freezed.dart';
 
 @freezed
-class BoardItemsList with _$BoardItemsList {
-  const BoardItemsList._();
-  const factory BoardItemsList({
-    required List<BoardItem> items,
-  }) = _BoardItemsList;
-}
-
-@freezed
 class BoardItem with _$BoardItem {
   const BoardItem._();
   const factory BoardItem({

@@ -4,13 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/presentation/widgets/no_glow_behavior.dart';
+import 'package:frontend/menus/home/application/board_items_notifier.dart';
 import 'package:frontend/menus/home/presentation/pie_painter.dart';
+import 'package:frontend/menus/home/shared/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MenuHomePage extends StatelessWidget {
+class MenuHomePage extends ConsumerStatefulWidget {
   const MenuHomePage({Key? key}) : super(key: key);
 
   @override
+  _MenuHomePageState createState() => _MenuHomePageState();
+}
+
+class _MenuHomePageState extends ConsumerState<MenuHomePage> {
+  Future<void> fetchSafetyAndNoticeBoard() async {
+    ref.read(noticeBoardItemsStateNotifierProvider.notifier).getBoardList();
+    ref.read(safetyBoardItemsStateNotifierProvider.notifier).getBoardList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      fetchSafetyAndNoticeBoard();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final safetyBoard = ref.watch(safetyBoardItemsStateNotifierProvider);
+    final noticeBoard = ref.watch(noticeBoardItemsStateNotifierProvider);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -32,7 +56,9 @@ class MenuHomePage extends StatelessWidget {
         children: [
           const SizedBox.expand(),
           RefreshIndicator(
-            onRefresh: () => Future.delayed(const Duration(milliseconds: 0)),
+            onRefresh: () {
+              return fetchSafetyAndNoticeBoard();
+            },
             child: ScrollConfiguration(
               behavior: const NoGlowBehavior(),
               child: SingleChildScrollView(
@@ -82,60 +108,92 @@ class MenuHomePage extends StatelessWidget {
                       moreInfoName: "더보기",
                       onMoreInfoTapped: () {},
                     ),
-                    _SectionCard(
-                      child: Column(
-                        children: List.generate(
-                          5,
-                          (index) => Material(
-                            child: ListTile(
-                              onTap: () {
-                                print(index);
-                              },
-                              title: Text(
-                                "게시물 $index",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    _BoardPanel(board: noticeBoard),
                     const SizedBox(height: LayoutConstants.spaceXL),
                     _HomeSectionTitle(
                       title: "안전신고",
                       moreInfoName: "추가",
                       icon: Icons.add,
                       onMoreInfoTapped: () {
-                        AutoRouter.of(context).push(const SafetyReportRoute());
+                        const BoardDetailsRoute().show(context);
                       },
                     ),
-                    _SectionCard(
-                      child: Column(
-                        children: List.generate(
-                          5,
-                          (index) => Material(
-                            child: ListTile(
-                              onTap: () {
-                                print(index);
-                              },
-                              title: Text(
-                                "안전신고 $index",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                    _BoardPanel(board: safetyBoard),
+                    const SizedBox(
+                      height: 2 * LayoutConstants.spaceXL,
                     ),
-                    const SizedBox(height: 2 * LayoutConstants.spaceXL),
                   ],
                 ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _BoardPanel extends StatelessWidget {
+  const _BoardPanel({
+    Key? key,
+    required this.board,
+  }) : super(key: key);
+
+  final BoardItemsState board;
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      child: board.when(
+        initial: () => const SizedBox(
+          height: 300,
+          child: Center(
+            child: Text("조회되지 않음"),
+          ),
+        ),
+        loading: () => const SizedBox(
+          height: 300,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+        loaded: (items) => items.isNotEmpty
+            ? Column(
+                children: List.generate(
+                  items.length,
+                  (index) => Material(
+                    child: ListTile(
+                      onTap: () {
+                        const BoardDetailsRoute().show(context);
+                      },
+                      leading: Text("${index + 1}"),
+                      title: Text(
+                        items[index].title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox(
+                height: 300,
+                child: Center(
+                  child: Text("등록된 항목이 없습니다."),
+                ),
+              ),
+        failure: (failure) => SizedBox(
+          height: 300,
+          child: Center(
+            child: Text(
+              failure.when(
+                api: (statusCode, msg) =>
+                    msg ?? "알 수 없는 오류가 발생하였습니다. 관리자에게 문의하세요.",
+                noConnection: () => "인터넷 연결이 약합니다.",
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

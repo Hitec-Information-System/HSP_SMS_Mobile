@@ -68,6 +68,9 @@ content-type: application/json
 GET http://localhost:9110/board?comp-cd=3000&sys-flag=MOBILE&user=dev&board=NOTICE&count=5 HTTP/2.0
 content-type: application/json
 ###
+GET http://localhost:9110/board?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER&count=5 HTTP/2.0
+content-type: application/json
+###
 GET http://localhost:9110/board/20211105130520790?comp-cd=3000&sys-flag=MOBILE&user=dev&board=NOTICE HTTP/2.0
 content-type: application/json
 ###

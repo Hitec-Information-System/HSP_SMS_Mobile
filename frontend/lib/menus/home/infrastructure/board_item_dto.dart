@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/menus/home/domain/board_item.dart';
-import 'package:intl/intl.dart';
 
 part 'board_item_dto.freezed.dart';
 part 'board_item_dto.g.dart';
@@ -10,7 +9,7 @@ int _rowNoStingToInt(String rowNo) {
 }
 
 DateTime _dateStringsToDateTime(String dateString) {
-  return DateFormat("yyyy/MM/dd HH:mm:ss").parse(dateString);
+  return DateTime.parse(dateString);
 }
 
 bool _useYnToBool(String useYnString) {
@@ -18,27 +17,6 @@ bool _useYnToBool(String useYnString) {
     return true;
   }
   return false;
-}
-
-@freezed
-class BoardItemsListDTO with _$BoardItemsListDTO {
-  const BoardItemsListDTO._();
-  const factory BoardItemsListDTO({
-    required List<BoardItemDTO> items,
-  }) = _BoardItemsListDTO;
-
-  factory BoardItemsListDTO.fromJson(Map<String, dynamic> json) =>
-      _$BoardItemsListDTOFromJson(json);
-
-  factory BoardItemsListDTO.fromDomain(BoardItemsList _) => BoardItemsListDTO(
-        items: _.items.map((e) => BoardItemDTO.fromDomain(e)).toList(),
-      );
-
-  BoardItemsList toDomain() {
-    return BoardItemsList(
-      items: items.map((e) => e.toDomain()).toList(),
-    );
-  }
 }
 
 @freezed

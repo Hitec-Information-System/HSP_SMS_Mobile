@@ -623,6 +623,10 @@ func (a *AppHandler) fetchBoardList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if results == nil {
+		results = []map[string]interface{}{}
+	}
+
 	rd.JSON(w, http.StatusOK, results)
 
 }
@@ -679,9 +683,6 @@ func (a *AppHandler) fetchBoardDetails(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-
-	details := results["cursor1"].([]map[string]interface{})[0]
-	results["cursor1"] = details
 
 	rd.JSON(w, http.StatusOK, results)
 

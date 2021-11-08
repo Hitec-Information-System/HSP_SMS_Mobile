@@ -6,20 +6,6 @@ part of 'board_item_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_BoardItemsListDTO _$_$_BoardItemsListDTOFromJson(Map<String, dynamic> json) {
-  return _$_BoardItemsListDTO(
-    items: (json['items'] as List<dynamic>)
-        .map((e) => BoardItemDTO.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
-
-Map<String, dynamic> _$_$_BoardItemsListDTOToJson(
-        _$_BoardItemsListDTO instance) =>
-    <String, dynamic>{
-      'items': instance.items.map((e) => e.toJson()).toList(),
-    };
-
 _$_BoardItemDTO _$_$_BoardItemDTOFromJson(Map<String, dynamic> json) {
   return _$_BoardItemDTO(
     id: json['B_PK'] as String,
