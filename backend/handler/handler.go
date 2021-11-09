@@ -523,8 +523,6 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 func (a *AppHandler) saveData(w http.ResponseWriter, r *http.Request) {
 	var params map[string]interface{}
 
-	fmt.Println("started")
-
 	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
 		rd.JSON(w, http.StatusBadRequest, "Invalid json provided")
 	}
@@ -682,6 +680,86 @@ func (a *AppHandler) fetchBoardDetails(w http.ResponseWriter, r *http.Request) {
 			"msg": err.Error(),
 		})
 		return
+	}
+
+	rd.JSON(w, http.StatusOK, results)
+
+}
+
+func (a *AppHandler) saveBoardDetails(w http.ResponseWriter, r *http.Request) {
+	var params map[string]interface{}
+
+	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
+		rd.JSON(w, http.StatusBadRequest, "Invalid json provided")
+	}
+
+	// params 정의
+	compCd := params["comp-cd"].(string)
+	systemFlag := params["sys-flag"].(string)
+	userId := params["user"].(string)
+	boardId := params["board"].(string)
+	boardPk := params["board-pk"].(string)
+	boardTitle := params["title"].(string)
+	isTopFixed := params["is-top-fixed"].(string)
+	xmlTxt := params["xml-txt"].(string)
+	xmlRmk := params["xml-rmk"].(string)
+	xmlAtt := params["xml-att"].(string)
+
+	// P_SAVE_BOARD (
+	// 	PI_COMP_CD  IN VARCHAR2,
+	// 	PI_SYS_GB   IN VARCHAR2 DEFAULT 'WEB',  --시스템구분(WEB/MOBILE)
+	// 	PI_USER_ID  IN VARCHAR2,
+	// 	PI_BOARD_ID IN VARCHAR2,    --게시판ID
+	// 	PI_B_PK     IN VARCHAR2,    --게시글PK
+	// 	PI_B_TITLE  IN VARCHAR2,    --제목
+	// 	PI_B_TOP_FIX_YN  IN VARCHAR2 DEFAULT 'N',
+	// 	PI_B_TXT    IN CLOB,        --내용
+	// 	PI_B_RMK    IN CLOB,        --비고
+	// 	PI_XML_ATT  IN CLOB,        --첨부
+	// 	PO_RST      OUT VARCHAR2
+	// 	 )
+
+	query := fmt.Sprintf(`
+	BEGIN 
+		SMS_PK_9010.P_SAVE_BOARD(
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			'%s',
+			:PO_RST
+			); 
+	END;`,
+		compCd,
+		systemFlag,
+		userId,
+		boardId,
+		boardPk,
+		boardTitle,
+		isTopFixed,
+		xmlTxt,
+		xmlRmk,
+		xmlAtt,
+	)
+
+	fmt.Println(query)
+
+	results, err := a.db.GetSPDataWithCursor(query)
+
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	if results == nil {
+		results = []map[string]interface{}{}
 	}
 
 	rd.JSON(w, http.StatusOK, results)
