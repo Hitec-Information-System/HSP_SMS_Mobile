@@ -8,9 +8,9 @@ part of 'board_item_dto.dart';
 
 _$_BoardItemDTO _$_$_BoardItemDTOFromJson(Map<String, dynamic> json) {
   return _$_BoardItemDTO(
-    id: json['B_PK'] as String,
+    board: json['BOARD_ID'] as String,
+    key: json['B_PK'] as String,
     compCd: json['COMP_CD'] as String,
-    rowNo: _rowNoStingToInt(json['ROW_NO'] as String),
     topFixYn: json['TOP_FIX_YN'] as String,
     title: json['TITLE'] as String,
     contents: json['TXT'] as String,
@@ -24,9 +24,9 @@ _$_BoardItemDTO _$_$_BoardItemDTOFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_BoardItemDTOToJson(_$_BoardItemDTO instance) =>
     <String, dynamic>{
-      'B_PK': instance.id,
+      'BOARD_ID': instance.board,
+      'B_PK': instance.key,
       'COMP_CD': instance.compCd,
-      'ROW_NO': instance.rowNo,
       'TOP_FIX_YN': instance.topFixYn,
       'TITLE': instance.title,
       'TXT': instance.contents,

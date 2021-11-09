@@ -6,9 +6,9 @@ part 'board_item.freezed.dart';
 class BoardItem with _$BoardItem {
   const BoardItem._();
   const factory BoardItem({
-    required String id,
+    required String board,
+    required String key,
     required String compCd,
-    required int rowNo,
     required String topFixYn,
     required String createdBy,
     required DateTime createdDate,

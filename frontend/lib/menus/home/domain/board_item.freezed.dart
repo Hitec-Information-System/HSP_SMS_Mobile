@@ -17,9 +17,9 @@ class _$BoardItemTearOff {
   const _$BoardItemTearOff();
 
   _BoardItem call(
-      {required String id,
+      {required String board,
+      required String key,
       required String compCd,
-      required int rowNo,
       required String topFixYn,
       required String createdBy,
       required DateTime createdDate,
@@ -29,9 +29,9 @@ class _$BoardItemTearOff {
       required DateTime updatedDate,
       required bool isInUse}) {
     return _BoardItem(
-      id: id,
+      board: board,
+      key: key,
       compCd: compCd,
-      rowNo: rowNo,
       topFixYn: topFixYn,
       createdBy: createdBy,
       createdDate: createdDate,
@@ -49,9 +49,9 @@ const $BoardItem = _$BoardItemTearOff();
 
 /// @nodoc
 mixin _$BoardItem {
-  String get id => throw _privateConstructorUsedError;
+  String get board => throw _privateConstructorUsedError;
+  String get key => throw _privateConstructorUsedError;
   String get compCd => throw _privateConstructorUsedError;
-  int get rowNo => throw _privateConstructorUsedError;
   String get topFixYn => throw _privateConstructorUsedError;
   String get createdBy => throw _privateConstructorUsedError;
   DateTime get createdDate => throw _privateConstructorUsedError;
@@ -71,9 +71,9 @@ abstract class $BoardItemCopyWith<$Res> {
   factory $BoardItemCopyWith(BoardItem value, $Res Function(BoardItem) then) =
       _$BoardItemCopyWithImpl<$Res>;
   $Res call(
-      {String id,
+      {String board,
+      String key,
       String compCd,
-      int rowNo,
       String topFixYn,
       String createdBy,
       DateTime createdDate,
@@ -94,9 +94,9 @@ class _$BoardItemCopyWithImpl<$Res> implements $BoardItemCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? board = freezed,
+    Object? key = freezed,
     Object? compCd = freezed,
-    Object? rowNo = freezed,
     Object? topFixYn = freezed,
     Object? createdBy = freezed,
     Object? createdDate = freezed,
@@ -107,18 +107,18 @@ class _$BoardItemCopyWithImpl<$Res> implements $BoardItemCopyWith<$Res> {
     Object? isInUse = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      board: board == freezed
+          ? _value.board
+          : board // ignore: cast_nullable_to_non_nullable
+              as String,
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
               as String,
       compCd: compCd == freezed
           ? _value.compCd
           : compCd // ignore: cast_nullable_to_non_nullable
               as String,
-      rowNo: rowNo == freezed
-          ? _value.rowNo
-          : rowNo // ignore: cast_nullable_to_non_nullable
-              as int,
       topFixYn: topFixYn == freezed
           ? _value.topFixYn
           : topFixYn // ignore: cast_nullable_to_non_nullable
@@ -162,9 +162,9 @@ abstract class _$BoardItemCopyWith<$Res> implements $BoardItemCopyWith<$Res> {
       __$BoardItemCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
+      {String board,
+      String key,
       String compCd,
-      int rowNo,
       String topFixYn,
       String createdBy,
       DateTime createdDate,
@@ -186,9 +186,9 @@ class __$BoardItemCopyWithImpl<$Res> extends _$BoardItemCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? board = freezed,
+    Object? key = freezed,
     Object? compCd = freezed,
-    Object? rowNo = freezed,
     Object? topFixYn = freezed,
     Object? createdBy = freezed,
     Object? createdDate = freezed,
@@ -199,18 +199,18 @@ class __$BoardItemCopyWithImpl<$Res> extends _$BoardItemCopyWithImpl<$Res>
     Object? isInUse = freezed,
   }) {
     return _then(_BoardItem(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      board: board == freezed
+          ? _value.board
+          : board // ignore: cast_nullable_to_non_nullable
+              as String,
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
               as String,
       compCd: compCd == freezed
           ? _value.compCd
           : compCd // ignore: cast_nullable_to_non_nullable
               as String,
-      rowNo: rowNo == freezed
-          ? _value.rowNo
-          : rowNo // ignore: cast_nullable_to_non_nullable
-              as int,
       topFixYn: topFixYn == freezed
           ? _value.topFixYn
           : topFixYn // ignore: cast_nullable_to_non_nullable
@@ -251,9 +251,9 @@ class __$BoardItemCopyWithImpl<$Res> extends _$BoardItemCopyWithImpl<$Res>
 
 class _$_BoardItem extends _BoardItem {
   const _$_BoardItem(
-      {required this.id,
+      {required this.board,
+      required this.key,
       required this.compCd,
-      required this.rowNo,
       required this.topFixYn,
       required this.createdBy,
       required this.createdDate,
@@ -265,11 +265,11 @@ class _$_BoardItem extends _BoardItem {
       : super._();
 
   @override
-  final String id;
+  final String board;
+  @override
+  final String key;
   @override
   final String compCd;
-  @override
-  final int rowNo;
   @override
   final String topFixYn;
   @override
@@ -289,19 +289,19 @@ class _$_BoardItem extends _BoardItem {
 
   @override
   String toString() {
-    return 'BoardItem(id: $id, compCd: $compCd, rowNo: $rowNo, topFixYn: $topFixYn, createdBy: $createdBy, createdDate: $createdDate, title: $title, contents: $contents, updatedBy: $updatedBy, updatedDate: $updatedDate, isInUse: $isInUse)';
+    return 'BoardItem(board: $board, key: $key, compCd: $compCd, topFixYn: $topFixYn, createdBy: $createdBy, createdDate: $createdDate, title: $title, contents: $contents, updatedBy: $updatedBy, updatedDate: $updatedDate, isInUse: $isInUse)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _BoardItem &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.board, board) ||
+                const DeepCollectionEquality().equals(other.board, board)) &&
+            (identical(other.key, key) ||
+                const DeepCollectionEquality().equals(other.key, key)) &&
             (identical(other.compCd, compCd) ||
                 const DeepCollectionEquality().equals(other.compCd, compCd)) &&
-            (identical(other.rowNo, rowNo) ||
-                const DeepCollectionEquality().equals(other.rowNo, rowNo)) &&
             (identical(other.topFixYn, topFixYn) ||
                 const DeepCollectionEquality()
                     .equals(other.topFixYn, topFixYn)) &&
@@ -329,9 +329,9 @@ class _$_BoardItem extends _BoardItem {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(board) ^
+      const DeepCollectionEquality().hash(key) ^
       const DeepCollectionEquality().hash(compCd) ^
-      const DeepCollectionEquality().hash(rowNo) ^
       const DeepCollectionEquality().hash(topFixYn) ^
       const DeepCollectionEquality().hash(createdBy) ^
       const DeepCollectionEquality().hash(createdDate) ^
@@ -349,9 +349,9 @@ class _$_BoardItem extends _BoardItem {
 
 abstract class _BoardItem extends BoardItem {
   const factory _BoardItem(
-      {required String id,
+      {required String board,
+      required String key,
       required String compCd,
-      required int rowNo,
       required String topFixYn,
       required String createdBy,
       required DateTime createdDate,
@@ -363,11 +363,11 @@ abstract class _BoardItem extends BoardItem {
   const _BoardItem._() : super._();
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get board => throw _privateConstructorUsedError;
+  @override
+  String get key => throw _privateConstructorUsedError;
   @override
   String get compCd => throw _privateConstructorUsedError;
-  @override
-  int get rowNo => throw _privateConstructorUsedError;
   @override
   String get topFixYn => throw _privateConstructorUsedError;
   @override

@@ -21,12 +21,12 @@ class _$BoardItemDTOTearOff {
   const _$BoardItemDTOTearOff();
 
   _BoardItemDTO call(
-      {@JsonKey(name: "B_PK")
-          required String id,
+      {@JsonKey(name: "BOARD_ID")
+          required String board,
+      @JsonKey(name: "B_PK")
+          required String key,
       @JsonKey(name: "COMP_CD")
           required String compCd,
-      @JsonKey(name: "ROW_NO", fromJson: _rowNoStingToInt)
-          required int rowNo,
       @JsonKey(name: "TOP_FIX_YN")
           required String topFixYn,
       @JsonKey(name: "TITLE")
@@ -44,9 +44,9 @@ class _$BoardItemDTOTearOff {
       @JsonKey(name: "USE_YN", fromJson: _useYnToBool)
           required bool isInUse}) {
     return _BoardItemDTO(
-      id: id,
+      board: board,
+      key: key,
       compCd: compCd,
-      rowNo: rowNo,
       topFixYn: topFixYn,
       title: title,
       contents: contents,
@@ -68,12 +68,12 @@ const $BoardItemDTO = _$BoardItemDTOTearOff();
 
 /// @nodoc
 mixin _$BoardItemDTO {
+  @JsonKey(name: "BOARD_ID")
+  String get board => throw _privateConstructorUsedError;
   @JsonKey(name: "B_PK")
-  String get id => throw _privateConstructorUsedError;
+  String get key => throw _privateConstructorUsedError;
   @JsonKey(name: "COMP_CD")
   String get compCd => throw _privateConstructorUsedError;
-  @JsonKey(name: "ROW_NO", fromJson: _rowNoStingToInt)
-  int get rowNo => throw _privateConstructorUsedError;
   @JsonKey(name: "TOP_FIX_YN")
   String get topFixYn => throw _privateConstructorUsedError;
   @JsonKey(name: "TITLE")
@@ -103,12 +103,12 @@ abstract class $BoardItemDTOCopyWith<$Res> {
           BoardItemDTO value, $Res Function(BoardItemDTO) then) =
       _$BoardItemDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "B_PK")
-          String id,
+      {@JsonKey(name: "BOARD_ID")
+          String board,
+      @JsonKey(name: "B_PK")
+          String key,
       @JsonKey(name: "COMP_CD")
           String compCd,
-      @JsonKey(name: "ROW_NO", fromJson: _rowNoStingToInt)
-          int rowNo,
       @JsonKey(name: "TOP_FIX_YN")
           String topFixYn,
       @JsonKey(name: "TITLE")
@@ -137,9 +137,9 @@ class _$BoardItemDTOCopyWithImpl<$Res> implements $BoardItemDTOCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? board = freezed,
+    Object? key = freezed,
     Object? compCd = freezed,
-    Object? rowNo = freezed,
     Object? topFixYn = freezed,
     Object? title = freezed,
     Object? contents = freezed,
@@ -150,18 +150,18 @@ class _$BoardItemDTOCopyWithImpl<$Res> implements $BoardItemDTOCopyWith<$Res> {
     Object? isInUse = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      board: board == freezed
+          ? _value.board
+          : board // ignore: cast_nullable_to_non_nullable
+              as String,
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
               as String,
       compCd: compCd == freezed
           ? _value.compCd
           : compCd // ignore: cast_nullable_to_non_nullable
               as String,
-      rowNo: rowNo == freezed
-          ? _value.rowNo
-          : rowNo // ignore: cast_nullable_to_non_nullable
-              as int,
       topFixYn: topFixYn == freezed
           ? _value.topFixYn
           : topFixYn // ignore: cast_nullable_to_non_nullable
@@ -206,12 +206,12 @@ abstract class _$BoardItemDTOCopyWith<$Res>
       __$BoardItemDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "B_PK")
-          String id,
+      {@JsonKey(name: "BOARD_ID")
+          String board,
+      @JsonKey(name: "B_PK")
+          String key,
       @JsonKey(name: "COMP_CD")
           String compCd,
-      @JsonKey(name: "ROW_NO", fromJson: _rowNoStingToInt)
-          int rowNo,
       @JsonKey(name: "TOP_FIX_YN")
           String topFixYn,
       @JsonKey(name: "TITLE")
@@ -242,9 +242,9 @@ class __$BoardItemDTOCopyWithImpl<$Res> extends _$BoardItemDTOCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? board = freezed,
+    Object? key = freezed,
     Object? compCd = freezed,
-    Object? rowNo = freezed,
     Object? topFixYn = freezed,
     Object? title = freezed,
     Object? contents = freezed,
@@ -255,18 +255,18 @@ class __$BoardItemDTOCopyWithImpl<$Res> extends _$BoardItemDTOCopyWithImpl<$Res>
     Object? isInUse = freezed,
   }) {
     return _then(_BoardItemDTO(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      board: board == freezed
+          ? _value.board
+          : board // ignore: cast_nullable_to_non_nullable
+              as String,
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
               as String,
       compCd: compCd == freezed
           ? _value.compCd
           : compCd // ignore: cast_nullable_to_non_nullable
               as String,
-      rowNo: rowNo == freezed
-          ? _value.rowNo
-          : rowNo // ignore: cast_nullable_to_non_nullable
-              as int,
       topFixYn: topFixYn == freezed
           ? _value.topFixYn
           : topFixYn // ignore: cast_nullable_to_non_nullable
@@ -307,12 +307,12 @@ class __$BoardItemDTOCopyWithImpl<$Res> extends _$BoardItemDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_BoardItemDTO extends _BoardItemDTO {
   const _$_BoardItemDTO(
-      {@JsonKey(name: "B_PK")
-          required this.id,
+      {@JsonKey(name: "BOARD_ID")
+          required this.board,
+      @JsonKey(name: "B_PK")
+          required this.key,
       @JsonKey(name: "COMP_CD")
           required this.compCd,
-      @JsonKey(name: "ROW_NO", fromJson: _rowNoStingToInt)
-          required this.rowNo,
       @JsonKey(name: "TOP_FIX_YN")
           required this.topFixYn,
       @JsonKey(name: "TITLE")
@@ -335,14 +335,14 @@ class _$_BoardItemDTO extends _BoardItemDTO {
       _$_$_BoardItemDTOFromJson(json);
 
   @override
+  @JsonKey(name: "BOARD_ID")
+  final String board;
+  @override
   @JsonKey(name: "B_PK")
-  final String id;
+  final String key;
   @override
   @JsonKey(name: "COMP_CD")
   final String compCd;
-  @override
-  @JsonKey(name: "ROW_NO", fromJson: _rowNoStingToInt)
-  final int rowNo;
   @override
   @JsonKey(name: "TOP_FIX_YN")
   final String topFixYn;
@@ -370,19 +370,19 @@ class _$_BoardItemDTO extends _BoardItemDTO {
 
   @override
   String toString() {
-    return 'BoardItemDTO(id: $id, compCd: $compCd, rowNo: $rowNo, topFixYn: $topFixYn, title: $title, contents: $contents, createdBy: $createdBy, createdDate: $createdDate, updatedBy: $updatedBy, updatedDate: $updatedDate, isInUse: $isInUse)';
+    return 'BoardItemDTO(board: $board, key: $key, compCd: $compCd, topFixYn: $topFixYn, title: $title, contents: $contents, createdBy: $createdBy, createdDate: $createdDate, updatedBy: $updatedBy, updatedDate: $updatedDate, isInUse: $isInUse)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _BoardItemDTO &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.board, board) ||
+                const DeepCollectionEquality().equals(other.board, board)) &&
+            (identical(other.key, key) ||
+                const DeepCollectionEquality().equals(other.key, key)) &&
             (identical(other.compCd, compCd) ||
                 const DeepCollectionEquality().equals(other.compCd, compCd)) &&
-            (identical(other.rowNo, rowNo) ||
-                const DeepCollectionEquality().equals(other.rowNo, rowNo)) &&
             (identical(other.topFixYn, topFixYn) ||
                 const DeepCollectionEquality()
                     .equals(other.topFixYn, topFixYn)) &&
@@ -410,9 +410,9 @@ class _$_BoardItemDTO extends _BoardItemDTO {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(board) ^
+      const DeepCollectionEquality().hash(key) ^
       const DeepCollectionEquality().hash(compCd) ^
-      const DeepCollectionEquality().hash(rowNo) ^
       const DeepCollectionEquality().hash(topFixYn) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(contents) ^
@@ -435,12 +435,12 @@ class _$_BoardItemDTO extends _BoardItemDTO {
 
 abstract class _BoardItemDTO extends BoardItemDTO {
   const factory _BoardItemDTO(
-      {@JsonKey(name: "B_PK")
-          required String id,
+      {@JsonKey(name: "BOARD_ID")
+          required String board,
+      @JsonKey(name: "B_PK")
+          required String key,
       @JsonKey(name: "COMP_CD")
           required String compCd,
-      @JsonKey(name: "ROW_NO", fromJson: _rowNoStingToInt)
-          required int rowNo,
       @JsonKey(name: "TOP_FIX_YN")
           required String topFixYn,
       @JsonKey(name: "TITLE")
@@ -463,14 +463,14 @@ abstract class _BoardItemDTO extends BoardItemDTO {
       _$_BoardItemDTO.fromJson;
 
   @override
+  @JsonKey(name: "BOARD_ID")
+  String get board => throw _privateConstructorUsedError;
+  @override
   @JsonKey(name: "B_PK")
-  String get id => throw _privateConstructorUsedError;
+  String get key => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "COMP_CD")
   String get compCd => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: "ROW_NO", fromJson: _rowNoStingToInt)
-  int get rowNo => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "TOP_FIX_YN")
   String get topFixYn => throw _privateConstructorUsedError;

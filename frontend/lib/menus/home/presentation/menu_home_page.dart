@@ -164,7 +164,8 @@ class _BoardPanel extends StatelessWidget {
                   (index) => Material(
                     child: ListTile(
                       onTap: () {
-                        const BoardDetailsRoute().show(context);
+                        // TODO: 내용 가져가는 것 다 적용된 이후에 열기
+                        // const BoardDetailsRoute().show(context);
                       },
                       leading: Text("${index + 1}"),
                       title: Text(

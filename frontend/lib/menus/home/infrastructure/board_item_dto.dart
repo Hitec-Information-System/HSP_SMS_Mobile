@@ -4,10 +4,6 @@ import 'package:frontend/menus/home/domain/board_item.dart';
 part 'board_item_dto.freezed.dart';
 part 'board_item_dto.g.dart';
 
-int _rowNoStingToInt(String rowNo) {
-  return int.tryParse(rowNo) ?? -1;
-}
-
 DateTime _dateStringsToDateTime(String dateString) {
   return DateTime.parse(dateString);
 }
@@ -23,9 +19,9 @@ bool _useYnToBool(String useYnString) {
 class BoardItemDTO with _$BoardItemDTO {
   const BoardItemDTO._();
   const factory BoardItemDTO({
-    @JsonKey(name: "B_PK") required String id,
+    @JsonKey(name: "BOARD_ID") required String board,
+    @JsonKey(name: "B_PK") required String key,
     @JsonKey(name: "COMP_CD") required String compCd,
-    @JsonKey(name: "ROW_NO", fromJson: _rowNoStingToInt) required int rowNo,
     @JsonKey(name: "TOP_FIX_YN") required String topFixYn,
     @JsonKey(name: "TITLE") required String title,
     @JsonKey(name: "TXT") required String contents,
@@ -42,9 +38,9 @@ class BoardItemDTO with _$BoardItemDTO {
       _$BoardItemDTOFromJson(json);
 
   factory BoardItemDTO.fromDomain(BoardItem _) => BoardItemDTO(
-        id: _.id,
+        board: _.board,
+        key: _.key,
         compCd: _.compCd,
-        rowNo: _.rowNo,
         topFixYn: _.topFixYn,
         title: _.title,
         contents: _.contents,
@@ -57,9 +53,9 @@ class BoardItemDTO with _$BoardItemDTO {
 
   BoardItem toDomain() {
     return BoardItem(
-      id: id,
+      board: board,
+      key: key,
       compCd: compCd,
-      rowNo: rowNo,
       topFixYn: topFixYn,
       createdBy: createdBy,
       createdDate: createdDate,

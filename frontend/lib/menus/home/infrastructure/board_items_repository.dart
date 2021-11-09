@@ -63,4 +63,39 @@ class BoardItemRepository {
       );
     }
   }
+
+  // TODO: 적용하기
+  Future<Either<CheckMonitorFailure, Unit>> saveBoardDetails(
+    Map<String, dynamic> params,
+  ) async {
+    try {
+      final response = await _dio.post("/board", data: params);
+
+      // 응답코드가 200이 아닐 때 오류 처리
+      if (response.statusCode != 200) {
+        return left(CheckMonitorFailure.api(
+            response.statusCode, response.data["msg"] as String));
+      }
+
+      if ((response.data as Map<String, dynamic>)["msg"] != "OK") {
+        return left(CheckMonitorFailure.api(
+            response.statusCode, response.data["msg"] as String));
+      }
+
+      return right(unit);
+    } on DioError catch (e) {
+      if (e.isNoConnectionError) {
+        return left(
+          const CheckMonitorFailure.noConnection(),
+        );
+      }
+
+      if (e.type == DioErrorType.connectTimeout) {
+        return left(
+            CheckMonitorFailure.api(e.response?.statusCode, "서버 응답이 없습니다."));
+      }
+
+      rethrow;
+    }
+  }
 }
