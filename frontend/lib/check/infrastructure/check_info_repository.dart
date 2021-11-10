@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/domain/check_info_failure.dart';
 import 'package:frontend/check/infrastructure/remote/check_info_remote_service.dart';
+import 'package:frontend/core/domain/added_image.dart';
 
 import 'package:frontend/core/domain/fresh.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
@@ -40,7 +41,7 @@ class CheckInfoRepository {
   }
 
   Future<Either<CheckInfoFailure, Fresh<Unit>>> saveCheckInfo(
-      Map<String, dynamic> params, List<CheckImage> images) async {
+      Map<String, dynamic> params, List<AddedImage> images) async {
     try {
       final remoteFetch = await _remoteService.saveCheckResults(params, images);
       return await remoteFetch.when(

@@ -4,6 +4,7 @@ import 'package:frontend/auth/domain/user.dart';
 import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/domain/check_info_failure.dart';
 import 'package:frontend/check/infrastructure/check_info_repository.dart';
+import 'package:frontend/core/domain/added_image.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -97,7 +98,7 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
       "xml-i": state.info.toImgsXml,
     };
 
-    final images = <CheckImage>[];
+    final images = <AddedImage>[];
     for (final detail in state.info.details) {
       final unsavedImgs =
           detail.images.where((image) => !image.isRemote).toList();
@@ -174,7 +175,7 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
                         final imageNo = imageIdx + 1;
                         final fileNameExt = file.name.split(".").last;
 
-                        return CheckImage(
+                        return AddedImage(
                           name: "$chklistNo-$chkItemCd-$imageNo.$fileNameExt",
                           url: file.path,
                           remark: "",
@@ -216,7 +217,7 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
               return detail.copyWith(
                   images: detail.images
                     ..add(
-                      CheckImage(
+                      AddedImage(
                         name: "$chklistNo-$chkItemCd-1.$fileNameExt",
                         url: file.path,
                         remark: "",

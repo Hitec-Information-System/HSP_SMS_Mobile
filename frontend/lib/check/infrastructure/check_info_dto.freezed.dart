@@ -839,7 +839,7 @@ class _$CheckDetailsDTOTearOff {
       @JsonKey(name: "CHK_RESULT", defaultValue: "")
           required String result,
       @JsonKey(name: "IMGS", defaultValue: [])
-          required List<CheckImageDTO> images}) {
+          required List<AddedImageCheckDTO> images}) {
     return _CheckDetailsDTO(
       chkItemCd: chkItemCd,
       chkItemNm: chkItemNm,
@@ -880,7 +880,7 @@ mixin _$CheckDetailsDTO {
   @JsonKey(name: "CHK_RESULT", defaultValue: "")
   String get result => throw _privateConstructorUsedError;
   @JsonKey(name: "IMGS", defaultValue: [])
-  List<CheckImageDTO> get images => throw _privateConstructorUsedError;
+  List<AddedImageCheckDTO> get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -894,15 +894,24 @@ abstract class $CheckDetailsDTOCopyWith<$Res> {
           CheckDetailsDTO value, $Res Function(CheckDetailsDTO) then) =
       _$CheckDetailsDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "CHK_ITEM_CD") String chkItemCd,
-      @JsonKey(name: "CHK_ITEM_NM") String chkItemNm,
-      @JsonKey(name: "INTERVAL_CHECK") String intervalChk,
-      @JsonKey(name: "METHOD_CHECK") String methodChk,
-      @JsonKey(name: "OBJ_GUBUN_SUB") String objGubunSub,
-      @JsonKey(name: "OBJ_GUBUN_SUB_NM") String objGubunSubNm,
-      @JsonKey(name: "D_RMK", defaultValue: "") String remark,
-      @JsonKey(name: "CHK_RESULT", defaultValue: "") String result,
-      @JsonKey(name: "IMGS", defaultValue: []) List<CheckImageDTO> images});
+      {@JsonKey(name: "CHK_ITEM_CD")
+          String chkItemCd,
+      @JsonKey(name: "CHK_ITEM_NM")
+          String chkItemNm,
+      @JsonKey(name: "INTERVAL_CHECK")
+          String intervalChk,
+      @JsonKey(name: "METHOD_CHECK")
+          String methodChk,
+      @JsonKey(name: "OBJ_GUBUN_SUB")
+          String objGubunSub,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM")
+          String objGubunSubNm,
+      @JsonKey(name: "D_RMK", defaultValue: "")
+          String remark,
+      @JsonKey(name: "CHK_RESULT", defaultValue: "")
+          String result,
+      @JsonKey(name: "IMGS", defaultValue: [])
+          List<AddedImageCheckDTO> images});
 }
 
 /// @nodoc
@@ -962,7 +971,7 @@ class _$CheckDetailsDTOCopyWithImpl<$Res>
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<CheckImageDTO>,
+              as List<AddedImageCheckDTO>,
     ));
   }
 }
@@ -975,15 +984,24 @@ abstract class _$CheckDetailsDTOCopyWith<$Res>
       __$CheckDetailsDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "CHK_ITEM_CD") String chkItemCd,
-      @JsonKey(name: "CHK_ITEM_NM") String chkItemNm,
-      @JsonKey(name: "INTERVAL_CHECK") String intervalChk,
-      @JsonKey(name: "METHOD_CHECK") String methodChk,
-      @JsonKey(name: "OBJ_GUBUN_SUB") String objGubunSub,
-      @JsonKey(name: "OBJ_GUBUN_SUB_NM") String objGubunSubNm,
-      @JsonKey(name: "D_RMK", defaultValue: "") String remark,
-      @JsonKey(name: "CHK_RESULT", defaultValue: "") String result,
-      @JsonKey(name: "IMGS", defaultValue: []) List<CheckImageDTO> images});
+      {@JsonKey(name: "CHK_ITEM_CD")
+          String chkItemCd,
+      @JsonKey(name: "CHK_ITEM_NM")
+          String chkItemNm,
+      @JsonKey(name: "INTERVAL_CHECK")
+          String intervalChk,
+      @JsonKey(name: "METHOD_CHECK")
+          String methodChk,
+      @JsonKey(name: "OBJ_GUBUN_SUB")
+          String objGubunSub,
+      @JsonKey(name: "OBJ_GUBUN_SUB_NM")
+          String objGubunSubNm,
+      @JsonKey(name: "D_RMK", defaultValue: "")
+          String remark,
+      @JsonKey(name: "CHK_RESULT", defaultValue: "")
+          String result,
+      @JsonKey(name: "IMGS", defaultValue: [])
+          List<AddedImageCheckDTO> images});
 }
 
 /// @nodoc
@@ -1045,7 +1063,7 @@ class __$CheckDetailsDTOCopyWithImpl<$Res>
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<CheckImageDTO>,
+              as List<AddedImageCheckDTO>,
     ));
   }
 }
@@ -1094,7 +1112,7 @@ class _$_CheckDetailsDTO extends _CheckDetailsDTO {
   final String result;
   @override
   @JsonKey(name: "IMGS", defaultValue: [])
-  final List<CheckImageDTO> images;
+  final List<AddedImageCheckDTO> images;
 
   @override
   String toString() {
@@ -1174,7 +1192,7 @@ abstract class _CheckDetailsDTO extends CheckDetailsDTO {
       @JsonKey(name: "CHK_RESULT", defaultValue: "")
           required String result,
       @JsonKey(name: "IMGS", defaultValue: [])
-          required List<CheckImageDTO> images}) = _$_CheckDetailsDTO;
+          required List<AddedImageCheckDTO> images}) = _$_CheckDetailsDTO;
   const _CheckDetailsDTO._() : super._();
 
   factory _CheckDetailsDTO.fromJson(Map<String, dynamic> json) =
@@ -1206,7 +1224,7 @@ abstract class _CheckDetailsDTO extends CheckDetailsDTO {
   String get result => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "IMGS", defaultValue: [])
-  List<CheckImageDTO> get images => throw _privateConstructorUsedError;
+  List<AddedImageCheckDTO> get images => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckDetailsDTOCopyWith<_CheckDetailsDTO> get copyWith =>
@@ -1401,20 +1419,20 @@ abstract class _CheckStandardDTO extends CheckStandardDTO {
       throw _privateConstructorUsedError;
 }
 
-CheckImageDTO _$CheckImageDTOFromJson(Map<String, dynamic> json) {
-  return _CheckImageDTO.fromJson(json);
+AddedImageCheckDTO _$AddedImageCheckDTOFromJson(Map<String, dynamic> json) {
+  return _AddedImageCheckDTO.fromJson(json);
 }
 
 /// @nodoc
-class _$CheckImageDTOTearOff {
-  const _$CheckImageDTOTearOff();
+class _$AddedImageCheckDTOTearOff {
+  const _$AddedImageCheckDTOTearOff();
 
-  _CheckImageDTO call(
+  _AddedImageCheckDTO call(
       {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") required String name,
       @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required String url,
       @JsonKey(name: "RMK", defaultValue: "") required String remark,
       @JsonKey(defaultValue: true) required bool isRemote}) {
-    return _CheckImageDTO(
+    return _AddedImageCheckDTO(
       name: name,
       url: url,
       remark: remark,
@@ -1422,16 +1440,16 @@ class _$CheckImageDTOTearOff {
     );
   }
 
-  CheckImageDTO fromJson(Map<String, Object> json) {
-    return CheckImageDTO.fromJson(json);
+  AddedImageCheckDTO fromJson(Map<String, Object> json) {
+    return AddedImageCheckDTO.fromJson(json);
   }
 }
 
 /// @nodoc
-const $CheckImageDTO = _$CheckImageDTOTearOff();
+const $AddedImageCheckDTO = _$AddedImageCheckDTOTearOff();
 
 /// @nodoc
-mixin _$CheckImageDTO {
+mixin _$AddedImageCheckDTO {
   @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "")
@@ -1443,15 +1461,15 @@ mixin _$CheckImageDTO {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CheckImageDTOCopyWith<CheckImageDTO> get copyWith =>
+  $AddedImageCheckDTOCopyWith<AddedImageCheckDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CheckImageDTOCopyWith<$Res> {
-  factory $CheckImageDTOCopyWith(
-          CheckImageDTO value, $Res Function(CheckImageDTO) then) =
-      _$CheckImageDTOCopyWithImpl<$Res>;
+abstract class $AddedImageCheckDTOCopyWith<$Res> {
+  factory $AddedImageCheckDTOCopyWith(
+          AddedImageCheckDTO value, $Res Function(AddedImageCheckDTO) then) =
+      _$AddedImageCheckDTOCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") String name,
       @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") String url,
@@ -1460,13 +1478,13 @@ abstract class $CheckImageDTOCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CheckImageDTOCopyWithImpl<$Res>
-    implements $CheckImageDTOCopyWith<$Res> {
-  _$CheckImageDTOCopyWithImpl(this._value, this._then);
+class _$AddedImageCheckDTOCopyWithImpl<$Res>
+    implements $AddedImageCheckDTOCopyWith<$Res> {
+  _$AddedImageCheckDTOCopyWithImpl(this._value, this._then);
 
-  final CheckImageDTO _value;
+  final AddedImageCheckDTO _value;
   // ignore: unused_field
-  final $Res Function(CheckImageDTO) _then;
+  final $Res Function(AddedImageCheckDTO) _then;
 
   @override
   $Res call({
@@ -1497,11 +1515,11 @@ class _$CheckImageDTOCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$CheckImageDTOCopyWith<$Res>
-    implements $CheckImageDTOCopyWith<$Res> {
-  factory _$CheckImageDTOCopyWith(
-          _CheckImageDTO value, $Res Function(_CheckImageDTO) then) =
-      __$CheckImageDTOCopyWithImpl<$Res>;
+abstract class _$AddedImageCheckDTOCopyWith<$Res>
+    implements $AddedImageCheckDTOCopyWith<$Res> {
+  factory _$AddedImageCheckDTOCopyWith(
+          _AddedImageCheckDTO value, $Res Function(_AddedImageCheckDTO) then) =
+      __$AddedImageCheckDTOCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") String name,
@@ -1511,15 +1529,15 @@ abstract class _$CheckImageDTOCopyWith<$Res>
 }
 
 /// @nodoc
-class __$CheckImageDTOCopyWithImpl<$Res>
-    extends _$CheckImageDTOCopyWithImpl<$Res>
-    implements _$CheckImageDTOCopyWith<$Res> {
-  __$CheckImageDTOCopyWithImpl(
-      _CheckImageDTO _value, $Res Function(_CheckImageDTO) _then)
-      : super(_value, (v) => _then(v as _CheckImageDTO));
+class __$AddedImageCheckDTOCopyWithImpl<$Res>
+    extends _$AddedImageCheckDTOCopyWithImpl<$Res>
+    implements _$AddedImageCheckDTOCopyWith<$Res> {
+  __$AddedImageCheckDTOCopyWithImpl(
+      _AddedImageCheckDTO _value, $Res Function(_AddedImageCheckDTO) _then)
+      : super(_value, (v) => _then(v as _AddedImageCheckDTO));
 
   @override
-  _CheckImageDTO get _value => super._value as _CheckImageDTO;
+  _AddedImageCheckDTO get _value => super._value as _AddedImageCheckDTO;
 
   @override
   $Res call({
@@ -1528,7 +1546,7 @@ class __$CheckImageDTOCopyWithImpl<$Res>
     Object? remark = freezed,
     Object? isRemote = freezed,
   }) {
-    return _then(_CheckImageDTO(
+    return _then(_AddedImageCheckDTO(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1551,16 +1569,16 @@ class __$CheckImageDTOCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CheckImageDTO extends _CheckImageDTO {
-  const _$_CheckImageDTO(
+class _$_AddedImageCheckDTO extends _AddedImageCheckDTO {
+  const _$_AddedImageCheckDTO(
       {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") required this.name,
       @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required this.url,
       @JsonKey(name: "RMK", defaultValue: "") required this.remark,
       @JsonKey(defaultValue: true) required this.isRemote})
       : super._();
 
-  factory _$_CheckImageDTO.fromJson(Map<String, dynamic> json) =>
-      _$_$_CheckImageDTOFromJson(json);
+  factory _$_AddedImageCheckDTO.fromJson(Map<String, dynamic> json) =>
+      _$_$_AddedImageCheckDTOFromJson(json);
 
   @override
   @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
@@ -1577,13 +1595,13 @@ class _$_CheckImageDTO extends _CheckImageDTO {
 
   @override
   String toString() {
-    return 'CheckImageDTO(name: $name, url: $url, remark: $remark, isRemote: $isRemote)';
+    return 'AddedImageCheckDTO(name: $name, url: $url, remark: $remark, isRemote: $isRemote)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _CheckImageDTO &&
+        (other is _AddedImageCheckDTO &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.url, url) ||
@@ -1605,25 +1623,29 @@ class _$_CheckImageDTO extends _CheckImageDTO {
 
   @JsonKey(ignore: true)
   @override
-  _$CheckImageDTOCopyWith<_CheckImageDTO> get copyWith =>
-      __$CheckImageDTOCopyWithImpl<_CheckImageDTO>(this, _$identity);
+  _$AddedImageCheckDTOCopyWith<_AddedImageCheckDTO> get copyWith =>
+      __$AddedImageCheckDTOCopyWithImpl<_AddedImageCheckDTO>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_CheckImageDTOToJson(this);
+    return _$_$_AddedImageCheckDTOToJson(this);
   }
 }
 
-abstract class _CheckImageDTO extends CheckImageDTO {
-  const factory _CheckImageDTO(
-      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") required String name,
-      @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required String url,
-      @JsonKey(name: "RMK", defaultValue: "") required String remark,
-      @JsonKey(defaultValue: true) required bool isRemote}) = _$_CheckImageDTO;
-  const _CheckImageDTO._() : super._();
+abstract class _AddedImageCheckDTO extends AddedImageCheckDTO {
+  const factory _AddedImageCheckDTO(
+      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "")
+          required String name,
+      @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "")
+          required String url,
+      @JsonKey(name: "RMK", defaultValue: "")
+          required String remark,
+      @JsonKey(defaultValue: true)
+          required bool isRemote}) = _$_AddedImageCheckDTO;
+  const _AddedImageCheckDTO._() : super._();
 
-  factory _CheckImageDTO.fromJson(Map<String, dynamic> json) =
-      _$_CheckImageDTO.fromJson;
+  factory _AddedImageCheckDTO.fromJson(Map<String, dynamic> json) =
+      _$_AddedImageCheckDTO.fromJson;
 
   @override
   @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
@@ -1639,6 +1661,6 @@ abstract class _CheckImageDTO extends CheckImageDTO {
   bool get isRemote => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CheckImageDTOCopyWith<_CheckImageDTO> get copyWith =>
+  _$AddedImageCheckDTOCopyWith<_AddedImageCheckDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }

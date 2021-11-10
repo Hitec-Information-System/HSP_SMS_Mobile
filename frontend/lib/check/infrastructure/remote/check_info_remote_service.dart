@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/infrastructure/check_info_dto.dart';
+import 'package:frontend/core/domain/added_image.dart';
 import 'package:frontend/core/infrastructure/dio_extensions.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
 import 'package:frontend/core/infrastructure/remote_response.dart';
@@ -55,7 +55,7 @@ class CheckInfoRemoteService {
   }
 
   Future<RemoteResponse<Unit>> saveCheckResults(
-      Map<String, dynamic> params, List<CheckImage> images) async {
+      Map<String, dynamic> params, List<AddedImage> images) async {
     try {
       await _saveCheckInfoResult(params);
       await _saveCheckImages(images);
@@ -114,7 +114,7 @@ class CheckInfoRemoteService {
     }
   }
 
-  Future<void> _saveCheckImages(List<CheckImage> images) async {
+  Future<void> _saveCheckImages(List<AddedImage> images) async {
     try {
       final formData = FormData();
       final imageParams = <MapEntry<String, MultipartFile>>[];

@@ -7,10 +7,10 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 import 'package:frontend/auth/presentation/sign_in_page.dart' as _i4;
-import 'package:frontend/check/domain/check_info.dart' as _i18;
 import 'package:frontend/check/presentation/check_list_page.dart' as _i11;
 import 'package:frontend/check/presentation/widgets/image_check_page.dart'
     as _i8;
+import 'package:frontend/core/domain/added_image.dart' as _i18;
 import 'package:frontend/core/presentation/widgets/error/error_page.dart'
     as _i5;
 import 'package:frontend/menus/core/presentation/menu_frame_page.dart' as _i9;
@@ -231,7 +231,7 @@ class PasswordChangeRoute extends _i1.PageRouteInfo {
 }
 
 class ImageCheckRoute extends _i1.PageRouteInfo<ImageCheckRouteArgs> {
-  ImageCheckRoute({_i2.Key? key, required List<_i18.CheckImage> images})
+  ImageCheckRoute({_i2.Key? key, required List<_i18.AddedImage> images})
       : super(name,
             path: '/img', args: ImageCheckRouteArgs(key: key, images: images));
 
@@ -243,7 +243,7 @@ class ImageCheckRouteArgs {
 
   final _i2.Key? key;
 
-  final List<_i18.CheckImage> images;
+  final List<_i18.AddedImage> images;
 }
 
 class MenuFrameRoute extends _i1.PageRouteInfo {
