@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:frontend/core/domain/added_image.dart';
 import 'package:intl/intl.dart';
 
 part 'check_info.freezed.dart';
@@ -56,8 +57,8 @@ class CheckInfo with _$CheckInfo {
       return "";
     }
 
-    list.insert(0, "<NewDataSet>");
     list.insert(list.length, "</NewDataSet>");
+    list.insert(0, "<NewDataSet>");
 
     return list.join().replaceAll(" ", "").replaceAll("\n", "");
   }
@@ -128,7 +129,7 @@ class CheckDetails with _$CheckDetails {
     required String objGubunSubNm,
     required String remark,
     required String result,
-    required List<CheckImage> images,
+    required List<AddedImage> images,
   }) = _CheckDetails;
 
   String get toResultXml => '''
@@ -172,15 +173,4 @@ class CheckStandard with _$CheckStandard {
     required String id,
     required String name,
   }) = _CheckStandard;
-}
-
-@freezed
-class CheckImage with _$CheckImage {
-  const CheckImage._();
-  const factory CheckImage({
-    required String name,
-    required String url,
-    required String remark,
-    required bool isRemote,
-  }) = _CheckImage;
 }

@@ -164,7 +164,7 @@ class CheckDetailsCard extends ConsumerWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () async {
-                                    // TODO: Image page
+                                    // Route to Image page
                                     if (detail.images.isNotEmpty) {
                                       AutoRouter.of(context).push(
                                         ImageCheckRoute(
@@ -220,8 +220,7 @@ class CheckDetailsCard extends ConsumerWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () async {
-                                    // TODO: Image picking
-
+                                    // Image picking
                                     Dialogs.showTwoAnswersDialog(
                                       context,
                                       color: Theme.of(context)
@@ -260,7 +259,7 @@ class CheckDetailsCard extends ConsumerWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () async {
-                                    // TODO: Cached Image Clear
+                                    // Cached Image Clear
                                     ref
                                         .read(checkInfoStateNotifierProvider
                                             .notifier)

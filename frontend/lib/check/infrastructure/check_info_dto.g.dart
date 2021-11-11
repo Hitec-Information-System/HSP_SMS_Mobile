@@ -77,7 +77,7 @@ _$_CheckDetailsDTO _$_$_CheckDetailsDTOFromJson(Map<String, dynamic> json) {
     remark: json['D_RMK'] as String? ?? '',
     result: json['CHK_RESULT'] as String? ?? '',
     images: (json['IMGS'] as List<dynamic>?)
-            ?.map((e) => CheckImageDTO.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => AddedImageCheckDTO.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [],
   );
@@ -110,8 +110,11 @@ Map<String, dynamic> _$_$_CheckStandardDTOToJson(
       'GUBUN_NM': instance.name,
     };
 
-_$_CheckImageDTO _$_$_CheckImageDTOFromJson(Map<String, dynamic> json) {
-  return _$_CheckImageDTO(
+_$_AddedImageCheckDTO _$_$_AddedImageCheckDTOFromJson(
+    Map<String, dynamic> json) {
+  return _$_AddedImageCheckDTO(
+    key: json['KEY'] as String? ?? '',
+    no: json['NO'] as String? ?? '',
     name: json['CHK_IMG_URL'] as String? ?? '',
     url: json['CHK_IMG_URL_FULL'] as String? ?? '',
     remark: json['RMK'] as String? ?? '',
@@ -119,8 +122,11 @@ _$_CheckImageDTO _$_$_CheckImageDTOFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_CheckImageDTOToJson(_$_CheckImageDTO instance) =>
+Map<String, dynamic> _$_$_AddedImageCheckDTOToJson(
+        _$_AddedImageCheckDTO instance) =>
     <String, dynamic>{
+      'KEY': instance.key,
+      'NO': instance.no,
       'CHK_IMG_URL': instance.name,
       'CHK_IMG_URL_FULL': instance.url,
       'RMK': instance.remark,

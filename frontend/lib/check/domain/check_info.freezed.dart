@@ -722,7 +722,7 @@ class _$CheckDetailsTearOff {
       required String objGubunSubNm,
       required String remark,
       required String result,
-      required List<CheckImage> images}) {
+      required List<AddedImage> images}) {
     return _CheckDetails(
       chkItemCd: chkItemCd,
       chkItemNm: chkItemNm,
@@ -750,7 +750,7 @@ mixin _$CheckDetails {
   String get objGubunSubNm => throw _privateConstructorUsedError;
   String get remark => throw _privateConstructorUsedError;
   String get result => throw _privateConstructorUsedError;
-  List<CheckImage> get images => throw _privateConstructorUsedError;
+  List<AddedImage> get images => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckDetailsCopyWith<CheckDetails> get copyWith =>
@@ -771,7 +771,7 @@ abstract class $CheckDetailsCopyWith<$Res> {
       String objGubunSubNm,
       String remark,
       String result,
-      List<CheckImage> images});
+      List<AddedImage> images});
 }
 
 /// @nodoc
@@ -830,7 +830,7 @@ class _$CheckDetailsCopyWithImpl<$Res> implements $CheckDetailsCopyWith<$Res> {
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<CheckImage>,
+              as List<AddedImage>,
     ));
   }
 }
@@ -851,7 +851,7 @@ abstract class _$CheckDetailsCopyWith<$Res>
       String objGubunSubNm,
       String remark,
       String result,
-      List<CheckImage> images});
+      List<AddedImage> images});
 }
 
 /// @nodoc
@@ -912,7 +912,7 @@ class __$CheckDetailsCopyWithImpl<$Res> extends _$CheckDetailsCopyWithImpl<$Res>
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<CheckImage>,
+              as List<AddedImage>,
     ));
   }
 }
@@ -949,7 +949,7 @@ class _$_CheckDetails extends _CheckDetails {
   @override
   final String result;
   @override
-  final List<CheckImage> images;
+  final List<AddedImage> images;
 
   @override
   String toString() {
@@ -1015,7 +1015,7 @@ abstract class _CheckDetails extends CheckDetails {
       required String objGubunSubNm,
       required String remark,
       required String result,
-      required List<CheckImage> images}) = _$_CheckDetails;
+      required List<AddedImage> images}) = _$_CheckDetails;
   const _CheckDetails._() : super._();
 
   @override
@@ -1035,7 +1035,7 @@ abstract class _CheckDetails extends CheckDetails {
   @override
   String get result => throw _privateConstructorUsedError;
   @override
-  List<CheckImage> get images => throw _privateConstructorUsedError;
+  List<AddedImage> get images => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CheckDetailsCopyWith<_CheckDetails> get copyWith =>
@@ -1190,204 +1190,5 @@ abstract class _CheckStandard extends CheckStandard {
   @override
   @JsonKey(ignore: true)
   _$CheckStandardCopyWith<_CheckStandard> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-class _$CheckImageTearOff {
-  const _$CheckImageTearOff();
-
-  _CheckImage call(
-      {required String name,
-      required String url,
-      required String remark,
-      required bool isRemote}) {
-    return _CheckImage(
-      name: name,
-      url: url,
-      remark: remark,
-      isRemote: isRemote,
-    );
-  }
-}
-
-/// @nodoc
-const $CheckImage = _$CheckImageTearOff();
-
-/// @nodoc
-mixin _$CheckImage {
-  String get name => throw _privateConstructorUsedError;
-  String get url => throw _privateConstructorUsedError;
-  String get remark => throw _privateConstructorUsedError;
-  bool get isRemote => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $CheckImageCopyWith<CheckImage> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CheckImageCopyWith<$Res> {
-  factory $CheckImageCopyWith(
-          CheckImage value, $Res Function(CheckImage) then) =
-      _$CheckImageCopyWithImpl<$Res>;
-  $Res call({String name, String url, String remark, bool isRemote});
-}
-
-/// @nodoc
-class _$CheckImageCopyWithImpl<$Res> implements $CheckImageCopyWith<$Res> {
-  _$CheckImageCopyWithImpl(this._value, this._then);
-
-  final CheckImage _value;
-  // ignore: unused_field
-  final $Res Function(CheckImage) _then;
-
-  @override
-  $Res call({
-    Object? name = freezed,
-    Object? url = freezed,
-    Object? remark = freezed,
-    Object? isRemote = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      url: url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      remark: remark == freezed
-          ? _value.remark
-          : remark // ignore: cast_nullable_to_non_nullable
-              as String,
-      isRemote: isRemote == freezed
-          ? _value.isRemote
-          : isRemote // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$CheckImageCopyWith<$Res> implements $CheckImageCopyWith<$Res> {
-  factory _$CheckImageCopyWith(
-          _CheckImage value, $Res Function(_CheckImage) then) =
-      __$CheckImageCopyWithImpl<$Res>;
-  @override
-  $Res call({String name, String url, String remark, bool isRemote});
-}
-
-/// @nodoc
-class __$CheckImageCopyWithImpl<$Res> extends _$CheckImageCopyWithImpl<$Res>
-    implements _$CheckImageCopyWith<$Res> {
-  __$CheckImageCopyWithImpl(
-      _CheckImage _value, $Res Function(_CheckImage) _then)
-      : super(_value, (v) => _then(v as _CheckImage));
-
-  @override
-  _CheckImage get _value => super._value as _CheckImage;
-
-  @override
-  $Res call({
-    Object? name = freezed,
-    Object? url = freezed,
-    Object? remark = freezed,
-    Object? isRemote = freezed,
-  }) {
-    return _then(_CheckImage(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      url: url == freezed
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      remark: remark == freezed
-          ? _value.remark
-          : remark // ignore: cast_nullable_to_non_nullable
-              as String,
-      isRemote: isRemote == freezed
-          ? _value.isRemote
-          : isRemote // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_CheckImage extends _CheckImage {
-  const _$_CheckImage(
-      {required this.name,
-      required this.url,
-      required this.remark,
-      required this.isRemote})
-      : super._();
-
-  @override
-  final String name;
-  @override
-  final String url;
-  @override
-  final String remark;
-  @override
-  final bool isRemote;
-
-  @override
-  String toString() {
-    return 'CheckImage(name: $name, url: $url, remark: $remark, isRemote: $isRemote)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _CheckImage &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.url, url) ||
-                const DeepCollectionEquality().equals(other.url, url)) &&
-            (identical(other.remark, remark) ||
-                const DeepCollectionEquality().equals(other.remark, remark)) &&
-            (identical(other.isRemote, isRemote) ||
-                const DeepCollectionEquality()
-                    .equals(other.isRemote, isRemote)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(url) ^
-      const DeepCollectionEquality().hash(remark) ^
-      const DeepCollectionEquality().hash(isRemote);
-
-  @JsonKey(ignore: true)
-  @override
-  _$CheckImageCopyWith<_CheckImage> get copyWith =>
-      __$CheckImageCopyWithImpl<_CheckImage>(this, _$identity);
-}
-
-abstract class _CheckImage extends CheckImage {
-  const factory _CheckImage(
-      {required String name,
-      required String url,
-      required String remark,
-      required bool isRemote}) = _$_CheckImage;
-  const _CheckImage._() : super._();
-
-  @override
-  String get name => throw _privateConstructorUsedError;
-  @override
-  String get url => throw _privateConstructorUsedError;
-  @override
-  String get remark => throw _privateConstructorUsedError;
-  @override
-  bool get isRemote => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  _$CheckImageCopyWith<_CheckImage> get copyWith =>
       throw _privateConstructorUsedError;
 }

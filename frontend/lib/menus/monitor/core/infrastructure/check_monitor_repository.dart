@@ -53,7 +53,7 @@ class CheckMonitorRepository {
         return left(
           CheckMonitorFailure.api(
             e.response?.statusCode,
-            e.response?.statusMessage,
+            e.response?.data["msg"] as String?,
           ),
         );
       }

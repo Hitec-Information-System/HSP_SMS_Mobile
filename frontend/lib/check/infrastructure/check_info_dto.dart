@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/core/domain/added_image.dart';
 
 part 'check_info_dto.freezed.dart';
 part 'check_info_dto.g.dart';
@@ -111,7 +112,7 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
     @JsonKey(name: "D_RMK", defaultValue: "") required String remark,
     @JsonKey(name: "CHK_RESULT", defaultValue: "") required String result,
     @JsonKey(name: "IMGS", defaultValue: [])
-        required List<CheckImageDTO> images,
+        required List<AddedImageCheckDTO> images,
   }) = _CheckDetailsDTO;
 
   factory CheckDetailsDTO.fromJson(Map<String, dynamic> json) =>
@@ -139,7 +140,7 @@ class CheckDetailsDTO with _$CheckDetailsDTO {
         result: _.result,
         remark: _.remark,
         images: _.images
-            .map((checkImage) => CheckImageDTO.fromDomain(checkImage))
+            .map((checkImage) => AddedImageCheckDTO.fromDomain(checkImage))
             .toList(),
       );
 }
@@ -169,27 +170,35 @@ class CheckStandardDTO with _$CheckStandardDTO {
 }
 
 @freezed
-class CheckImageDTO with _$CheckImageDTO {
-  const CheckImageDTO._();
-  const factory CheckImageDTO({
+class AddedImageCheckDTO with _$AddedImageCheckDTO {
+  const AddedImageCheckDTO._();
+  const factory AddedImageCheckDTO({
+    @JsonKey(name: "KEY", defaultValue: "")
+        required String key, // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
+    @JsonKey(name: "NO", defaultValue: "")
+        required String no, // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
     @JsonKey(name: "CHK_IMG_URL", defaultValue: "") required String name,
     @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required String url,
     @JsonKey(name: "RMK", defaultValue: "") required String remark,
     @JsonKey(defaultValue: true) required bool isRemote,
-  }) = _CheckImageDTO;
+  }) = _AddedImageCheckDTO;
 
-  factory CheckImageDTO.fromJson(Map<String, dynamic> json) =>
-      _$CheckImageDTOFromJson(json);
+  factory AddedImageCheckDTO.fromJson(Map<String, dynamic> json) =>
+      _$AddedImageCheckDTOFromJson(json);
 
-  factory CheckImageDTO.fromDomain(CheckImage _) => CheckImageDTO(
+  factory AddedImageCheckDTO.fromDomain(AddedImage _) => AddedImageCheckDTO(
+        key: _.key,
+        no: _.no,
         name: _.name,
         url: _.url,
         remark: _.remark,
         isRemote: _.isRemote,
       );
 
-  CheckImage toDomain() {
-    return CheckImage(
+  AddedImage toDomain() {
+    return AddedImage(
+      key: key,
+      no: no,
       name: name,
       url: url,
       remark: remark,

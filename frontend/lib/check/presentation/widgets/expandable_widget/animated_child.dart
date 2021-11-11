@@ -75,7 +75,6 @@ class AnimatedChild extends AnimatedWidget {
           decoration: BoxDecoration(
             color: labelBackgroundColor ??
                 (dark ? Colors.grey[800] : Colors.grey[50]),
-            // TODO: CHECK
             borderRadius: const BorderRadius.all(Radius.circular(6.0)),
           ),
           child: Text(label!, style: labelStyle),

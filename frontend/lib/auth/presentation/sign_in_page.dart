@@ -91,6 +91,7 @@ class SignInPage extends HookConsumerWidget {
                 const SizedBox(height: LayoutConstants.spaceM),
                 ElevatedButton(
                   onPressed: () {
+                    // TODO: 로직 위치 application 으로 가져다놓기
                     if (formKey.currentState?.validate() == true) {
                       final params = {
                         "user-id": idController.text,

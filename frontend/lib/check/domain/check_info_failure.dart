@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'check_info_failure.freezed.dart';
 
+// TODO: failure 공통으로 만들기
 @freezed
 class CheckInfoFailure with _$CheckInfoFailure {
   const CheckInfoFailure._();

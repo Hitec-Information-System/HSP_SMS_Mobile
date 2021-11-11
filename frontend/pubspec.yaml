@@ -75,7 +75,6 @@ flutter:
   assets:
     - lang/en.json
     - lang/ko.json
-    - assets/image/
     - assets/splash/
     - assets/animation/
   # example:

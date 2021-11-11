@@ -4,6 +4,7 @@ import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/infrastructure/sembast_database.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 final dioProvider = Provider<Dio>(
   (ref) => Dio(
@@ -24,4 +25,8 @@ final userProvider = Provider<User?>(
         authenticated: (user) => user,
         orElse: () => null,
       ),
+);
+
+final imagePickerProvider = Provider.autoDispose<ImagePicker>(
+  (ref) => ImagePicker(),
 );

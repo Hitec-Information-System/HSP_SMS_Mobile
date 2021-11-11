@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import 'package:frontend/check/domain/check_info.dart';
+import 'package:frontend/core/domain/added_image.dart';
 
 class ImageCheckPage extends StatefulWidget {
   const ImageCheckPage({
@@ -11,7 +11,7 @@ class ImageCheckPage extends StatefulWidget {
     required this.images,
   }) : super(key: key);
 
-  final List<CheckImage> images;
+  final List<AddedImage> images;
 
   @override
   _ImageCheckPageState createState() => _ImageCheckPageState();
