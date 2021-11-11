@@ -68,9 +68,31 @@ content-type: application/json
 GET http://localhost:9110/board?comp-cd=3000&sys-flag=MOBILE&user=dev&board=NOTICE&count=5 HTTP/2.0
 content-type: application/json
 ###
-GET http://localhost:9110/board?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER&count=5 HTTP/2.0
+GET http://localhost:9110/board?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER&count=20 HTTP/2.0
 content-type: application/json
 ###
-GET http://localhost:9110/board/20211026135210182?comp-cd=3000&sys-flag=MOBILE&user=dev&board=NOTICE HTTP/2.0
+GET http://localhost:9110/board/20211111173035097?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER HTTP/2.0
 content-type: application/json
+###
+GET http://localhost:9110/progress?comp-cd=3000&sys-flag=MOBILE&user=dev&obj=BUILDING HTTP/2.0
+content-type: application/json
+###
+GET http://localhost:9110/board-all?comp-cd=3000&sys-flag=MOBILE&user=dev HTTP/2.0
+content-type: application/json
+###
+POST http://localhost:9110/board HTTP/2.0
+content-type: application/json
+
+{
+  "comp-cd":"3000",
+  "sys-flag":"MOBILE",
+  "user":"NLmYLSg0lISzs59jrw5CRw==",
+  "board":"SAFETY_OFFER",
+  "board-pk":"",
+  "board-title":"텟,ㅌ,",
+  "is-top-fixed":"N",
+  "contents":"체5,ㅇ,",
+  "remark":"",
+  "xml-att":"<NewDataSet><Table1><B_PK></B_PK><ATT_NO></ATT_NO><ATT_URL>image_picker1423838974532411166.jpg</ATT_URL><RMK>RMK</RMK></Table1></NewDataSet>"
+}
 ###

@@ -21,6 +21,13 @@ import (
 
 var rd *render.Render = render.New()
 
+const buildingFlag = "BUILDING"
+const lineFlag = "LINE"
+const forkliftFlag = "FORKLIFT"
+const noticeFlag = "NOTICE"
+const safetyFlag = "SAFETY_OFFER"
+const statusFlag = "STATUS"
+
 type AppHandler struct {
 	http.Handler
 	db repository.DBRepository
@@ -52,8 +59,15 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/nfc", a.saveData).Methods("POST")
 
-	r.HandleFunc("/board", a.fetchBoardList).Methods("GET")
-	r.HandleFunc("/board/{boardKey}", a.fetchBoardDetails).Methods("GET")
+	r.HandleFunc("/board", a.fetchBoard).Methods("GET")
+	r.HandleFunc("/board/{boardKey}", a.fetchBoardItem).Methods("GET")
+
+	r.HandleFunc("/board-all", a.fetchBoardAll).Methods("GET")
+
+	r.HandleFunc("/board/images", boardUploadHandler).Methods("POST")
+	r.HandleFunc("/board", a.saveBoardItem).Methods("POST")
+
+	r.HandleFunc("/progress", a.fetchCurrentProgress).Methods("GET")
 
 	r.HandleFunc("/apk", a.downloadApk).Methods("GET")
 
@@ -452,13 +466,9 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 		return
 	}
 
-	// XXX: 원본 쿼리로 수정
-	// BEGIN
-	// SMS_PK_5010.P_FIND_OBJ_CHKLIST_TODAY_JSON('%s', '%s', '%s', '%s',:CURSOR1);
-	// END;
 	query := fmt.Sprintf(`
 	BEGIN
-		SMS_PK_5010_KWON.P_FIND_OBJ_CHKLIST_TODAY_JSON(
+		SMS_PK_5010.P_FIND_OBJ_CHKLIST_TODAY_JSON(
 			'%s', 
 			'%s', 
 			'%s', 
@@ -569,67 +579,79 @@ func (a *AppHandler) saveData(w http.ResponseWriter, r *http.Request) {
 	rd.JSON(w, http.StatusOK, results)
 }
 
-// TODO: 게시판 목록 조회, 상세 내용 조회
-/// 1. package name: SMS_PK_9010
-/// 2. function name: P_FIND_BOARD_TOP, P_FIND_BOARD
-/// 3. columns remark
-/// 	- PI_TOP_ROWS : 5로 설정
-/// 	- PI_BOARD_ID
-/// 			SAFETY_OFFER : 안전점검
-/// 			NOTICE : 공지사항
-func (a *AppHandler) fetchBoardList(w http.ResponseWriter, r *http.Request) {
+func (a *AppHandler) fetchBoard(w http.ResponseWriter, r *http.Request) {
 
 	queryString := r.URL.Query()
-	compCd := queryString.Get("comp-cd")
-	systemFlag := queryString.Get("sys-flag")
-	userId := queryString.Get("user")
 	board := queryString.Get("board")
-	rowsCount := queryString.Get("count")
 
-	if compCd == "" || userId == "" || systemFlag == "" || board == "" {
-		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
-			"msg": "invalid json provided",
-		})
-		return
-	}
-
-	query := fmt.Sprintf(`
-	BEGIN
-		SMS_PK_9010.P_FIND_BOARD_TOP(  
-			'%s',  
-			'%s',   
-			'%s',  
-			'%s', 
-			'%s', 
-			:CURSOR1
-			);
-	END;
-	`, compCd,
-		systemFlag,
-		userId,
-		board,
-		rowsCount,
-	)
-
-	fmt.Println(query)
-
-	results, err := a.db.GetSPDataWithCursor(query)
+	results, err := a.fetchBoardList(r, board)
 	if err != nil {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
-		return
-	}
-
-	if results == nil {
-		results = []map[string]interface{}{}
 	}
 
 	rd.JSON(w, http.StatusOK, results)
 
 }
 
-func (a *AppHandler) fetchBoardDetails(w http.ResponseWriter, r *http.Request) {
+func (a *AppHandler) fetchBoardAll(w http.ResponseWriter, r *http.Request) {
+
+	building, err := a.fetchProgress(r, buildingFlag)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"MSG": err.Error(),
+		})
+		return
+	}
+
+	line, err := a.fetchProgress(r, lineFlag)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"MSG": err.Error(),
+		})
+		return
+	}
+
+	forklift, err := a.fetchProgress(r, forkliftFlag)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"MSG": err.Error(),
+		})
+		return
+	}
+
+	status := map[string]interface{}{
+		buildingFlag: building,
+		lineFlag:     line,
+		forkliftFlag: forklift,
+	}
+
+	notice, err := a.fetchBoardList(r, "NOTICE")
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+	}
+
+	safety, err := a.fetchBoardList(r, "SAFETY_OFFER")
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+	}
+
+	results := map[string]interface{}{
+		statusFlag: status,
+		noticeFlag: notice,
+		safetyFlag: safety,
+	}
+
+	rd.JSON(w, http.StatusOK, results)
+
+}
+
+func (a *AppHandler) fetchBoardItem(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	boardKey, ok := vars["boardKey"]
@@ -674,7 +696,7 @@ func (a *AppHandler) fetchBoardDetails(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(query)
 
-	results, err := a.db.GetSPDataWith2Cursor(query)
+	queryResults, err := a.db.GetSPDataWith2Cursor(query)
 	if err != nil {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
@@ -682,11 +704,14 @@ func (a *AppHandler) fetchBoardDetails(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	results := queryResults["cursor1"].([]map[string]interface{})[0]
+	results["IMGS"] = queryResults["cursor2"]
+
 	rd.JSON(w, http.StatusOK, results)
 
 }
 
-func (a *AppHandler) saveBoardDetails(w http.ResponseWriter, r *http.Request) {
+func (a *AppHandler) saveBoardItem(w http.ResponseWriter, r *http.Request) {
 	var params map[string]interface{}
 
 	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
@@ -699,25 +724,11 @@ func (a *AppHandler) saveBoardDetails(w http.ResponseWriter, r *http.Request) {
 	userId := params["user"].(string)
 	boardId := params["board"].(string)
 	boardPk := params["board-pk"].(string)
-	boardTitle := params["title"].(string)
+	boardTitle := params["board-title"].(string)
 	isTopFixed := params["is-top-fixed"].(string)
-	xmlTxt := params["xml-txt"].(string)
-	xmlRmk := params["xml-rmk"].(string)
+	contents := params["contents"].(string)
+	remark := params["remark"].(string)
 	xmlAtt := params["xml-att"].(string)
-
-	// P_SAVE_BOARD (
-	// 	PI_COMP_CD  IN VARCHAR2,
-	// 	PI_SYS_GB   IN VARCHAR2 DEFAULT 'WEB',  --시스템구분(WEB/MOBILE)
-	// 	PI_USER_ID  IN VARCHAR2,
-	// 	PI_BOARD_ID IN VARCHAR2,    --게시판ID
-	// 	PI_B_PK     IN VARCHAR2,    --게시글PK
-	// 	PI_B_TITLE  IN VARCHAR2,    --제목
-	// 	PI_B_TOP_FIX_YN  IN VARCHAR2 DEFAULT 'N',
-	// 	PI_B_TXT    IN CLOB,        --내용
-	// 	PI_B_RMK    IN CLOB,        --비고
-	// 	PI_XML_ATT  IN CLOB,        --첨부
-	// 	PO_RST      OUT VARCHAR2
-	// 	 )
 
 	query := fmt.Sprintf(`
 	BEGIN 
@@ -742,14 +753,14 @@ func (a *AppHandler) saveBoardDetails(w http.ResponseWriter, r *http.Request) {
 		boardPk,
 		boardTitle,
 		isTopFixed,
-		xmlTxt,
-		xmlRmk,
+		contents,
+		remark,
 		xmlAtt,
 	)
 
 	fmt.Println(query)
 
-	results, err := a.db.GetSPDataWithCursor(query)
+	resultsMsg, err := a.db.GetSPDataWithString(query)
 
 	if err != nil {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
@@ -758,8 +769,25 @@ func (a *AppHandler) saveBoardDetails(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if results == nil {
-		results = []map[string]interface{}{}
+	results := map[string]interface{}{
+		"msg": resultsMsg,
+	}
+
+	rd.JSON(w, http.StatusOK, results)
+
+}
+
+func (a *AppHandler) fetchCurrentProgress(w http.ResponseWriter, r *http.Request) {
+
+	queryString := r.URL.Query()
+	objGubun := queryString.Get("obj")
+
+	results, err := a.fetchProgress(r, objGubun)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
 	}
 
 	rd.JSON(w, http.StatusOK, results)
