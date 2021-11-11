@@ -62,8 +62,9 @@ class MenuFramePage extends ConsumerWidget {
               color: Theme.of(context).errorColor,
               title: "오류",
               message: "${failure.when(
-                api: (code, message) => message,
+                api: (int? code, String? message) => message,
                 noConnection: () => "인터넷 연결 오류",
+                internal: (String message) => "애플리케이션 내 오류",
               )}\n",
               yesTitle: "확인",
               onYesPressed: () {},

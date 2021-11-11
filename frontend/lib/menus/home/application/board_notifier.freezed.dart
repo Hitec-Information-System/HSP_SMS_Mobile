@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'board_items_notifier.dart';
+part of 'board_notifier.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,8 +13,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$BoardItemsStateTearOff {
-  const _$BoardItemsStateTearOff();
+class _$BoardStateTearOff {
+  const _$BoardStateTearOff();
 
   _Initial initial() {
     return const _Initial();
@@ -24,7 +24,7 @@ class _$BoardItemsStateTearOff {
     return const _Loading();
   }
 
-  _Loaded loaded(List<BoardItem> data) {
+  _Loaded loaded(Board data) {
     return _Loaded(
       data,
     );
@@ -35,27 +35,33 @@ class _$BoardItemsStateTearOff {
       failure,
     );
   }
+
+  _Edited edited() {
+    return const _Edited();
+  }
 }
 
 /// @nodoc
-const $BoardItemsState = _$BoardItemsStateTearOff();
+const $BoardState = _$BoardStateTearOff();
 
 /// @nodoc
-mixin _$BoardItemsState {
+mixin _$BoardState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<BoardItem> data) loaded,
+    required TResult Function(Board data) loaded,
     required TResult Function(CheckMonitorFailure failure) failure,
+    required TResult Function() edited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<BoardItem> data)? loaded,
+    TResult Function(Board data)? loaded,
     TResult Function(CheckMonitorFailure failure)? failure,
+    TResult Function()? edited,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -65,6 +71,7 @@ mixin _$BoardItemsState {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Edited value) edited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -73,26 +80,26 @@ mixin _$BoardItemsState {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Edited value)? edited,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BoardItemsStateCopyWith<$Res> {
-  factory $BoardItemsStateCopyWith(
-          BoardItemsState value, $Res Function(BoardItemsState) then) =
-      _$BoardItemsStateCopyWithImpl<$Res>;
+abstract class $BoardStateCopyWith<$Res> {
+  factory $BoardStateCopyWith(
+          BoardState value, $Res Function(BoardState) then) =
+      _$BoardStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BoardItemsStateCopyWithImpl<$Res>
-    implements $BoardItemsStateCopyWith<$Res> {
-  _$BoardItemsStateCopyWithImpl(this._value, this._then);
+class _$BoardStateCopyWithImpl<$Res> implements $BoardStateCopyWith<$Res> {
+  _$BoardStateCopyWithImpl(this._value, this._then);
 
-  final BoardItemsState _value;
+  final BoardState _value;
   // ignore: unused_field
-  final $Res Function(BoardItemsState) _then;
+  final $Res Function(BoardState) _then;
 }
 
 /// @nodoc
@@ -102,7 +109,7 @@ abstract class _$InitialCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$InitialCopyWithImpl<$Res> extends _$BoardItemsStateCopyWithImpl<$Res>
+class __$InitialCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
     implements _$InitialCopyWith<$Res> {
   __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
       : super(_value, (v) => _then(v as _Initial));
@@ -118,7 +125,7 @@ class _$_Initial extends _Initial {
 
   @override
   String toString() {
-    return 'BoardItemsState.initial()';
+    return 'BoardState.initial()';
   }
 
   @override
@@ -134,8 +141,9 @@ class _$_Initial extends _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<BoardItem> data) loaded,
+    required TResult Function(Board data) loaded,
     required TResult Function(CheckMonitorFailure failure) failure,
+    required TResult Function() edited,
   }) {
     return initial();
   }
@@ -145,8 +153,9 @@ class _$_Initial extends _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<BoardItem> data)? loaded,
+    TResult Function(Board data)? loaded,
     TResult Function(CheckMonitorFailure failure)? failure,
+    TResult Function()? edited,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -162,6 +171,7 @@ class _$_Initial extends _Initial {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Edited value) edited,
   }) {
     return initial(this);
   }
@@ -173,6 +183,7 @@ class _$_Initial extends _Initial {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Edited value)? edited,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -182,7 +193,7 @@ class _$_Initial extends _Initial {
   }
 }
 
-abstract class _Initial extends BoardItemsState {
+abstract class _Initial extends BoardState {
   const factory _Initial() = _$_Initial;
   const _Initial._() : super._();
 }
@@ -194,7 +205,7 @@ abstract class _$LoadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$LoadingCopyWithImpl<$Res> extends _$BoardItemsStateCopyWithImpl<$Res>
+class __$LoadingCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
     implements _$LoadingCopyWith<$Res> {
   __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
       : super(_value, (v) => _then(v as _Loading));
@@ -210,7 +221,7 @@ class _$_Loading extends _Loading {
 
   @override
   String toString() {
-    return 'BoardItemsState.loading()';
+    return 'BoardState.loading()';
   }
 
   @override
@@ -226,8 +237,9 @@ class _$_Loading extends _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<BoardItem> data) loaded,
+    required TResult Function(Board data) loaded,
     required TResult Function(CheckMonitorFailure failure) failure,
+    required TResult Function() edited,
   }) {
     return loading();
   }
@@ -237,8 +249,9 @@ class _$_Loading extends _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<BoardItem> data)? loaded,
+    TResult Function(Board data)? loaded,
     TResult Function(CheckMonitorFailure failure)? failure,
+    TResult Function()? edited,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -254,6 +267,7 @@ class _$_Loading extends _Loading {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Edited value) edited,
   }) {
     return loading(this);
   }
@@ -265,6 +279,7 @@ class _$_Loading extends _Loading {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Edited value)? edited,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -274,7 +289,7 @@ class _$_Loading extends _Loading {
   }
 }
 
-abstract class _Loading extends BoardItemsState {
+abstract class _Loading extends BoardState {
   const factory _Loading() = _$_Loading;
   const _Loading._() : super._();
 }
@@ -283,11 +298,13 @@ abstract class _Loading extends BoardItemsState {
 abstract class _$LoadedCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
       __$LoadedCopyWithImpl<$Res>;
-  $Res call({List<BoardItem> data});
+  $Res call({Board data});
+
+  $BoardCopyWith<$Res> get data;
 }
 
 /// @nodoc
-class __$LoadedCopyWithImpl<$Res> extends _$BoardItemsStateCopyWithImpl<$Res>
+class __$LoadedCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
     implements _$LoadedCopyWith<$Res> {
   __$LoadedCopyWithImpl(_Loaded _value, $Res Function(_Loaded) _then)
       : super(_value, (v) => _then(v as _Loaded));
@@ -303,8 +320,15 @@ class __$LoadedCopyWithImpl<$Res> extends _$BoardItemsStateCopyWithImpl<$Res>
       data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<BoardItem>,
+              as Board,
     ));
+  }
+
+  @override
+  $BoardCopyWith<$Res> get data {
+    return $BoardCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
   }
 }
 
@@ -314,11 +338,11 @@ class _$_Loaded extends _Loaded {
   const _$_Loaded(this.data) : super._();
 
   @override
-  final List<BoardItem> data;
+  final Board data;
 
   @override
   String toString() {
-    return 'BoardItemsState.loaded(data: $data)';
+    return 'BoardState.loaded(data: $data)';
   }
 
   @override
@@ -343,8 +367,9 @@ class _$_Loaded extends _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<BoardItem> data) loaded,
+    required TResult Function(Board data) loaded,
     required TResult Function(CheckMonitorFailure failure) failure,
+    required TResult Function() edited,
   }) {
     return loaded(data);
   }
@@ -354,8 +379,9 @@ class _$_Loaded extends _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<BoardItem> data)? loaded,
+    TResult Function(Board data)? loaded,
     TResult Function(CheckMonitorFailure failure)? failure,
+    TResult Function()? edited,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -371,6 +397,7 @@ class _$_Loaded extends _Loaded {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Edited value) edited,
   }) {
     return loaded(this);
   }
@@ -382,6 +409,7 @@ class _$_Loaded extends _Loaded {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Edited value)? edited,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -391,11 +419,11 @@ class _$_Loaded extends _Loaded {
   }
 }
 
-abstract class _Loaded extends BoardItemsState {
-  const factory _Loaded(List<BoardItem> data) = _$_Loaded;
+abstract class _Loaded extends BoardState {
+  const factory _Loaded(Board data) = _$_Loaded;
   const _Loaded._() : super._();
 
-  List<BoardItem> get data => throw _privateConstructorUsedError;
+  Board get data => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
@@ -410,7 +438,7 @@ abstract class _$FailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$FailureCopyWithImpl<$Res> extends _$BoardItemsStateCopyWithImpl<$Res>
+class __$FailureCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
     implements _$FailureCopyWith<$Res> {
   __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
       : super(_value, (v) => _then(v as _Failure));
@@ -448,7 +476,7 @@ class _$_Failure extends _Failure {
 
   @override
   String toString() {
-    return 'BoardItemsState.failure(failure: $failure)';
+    return 'BoardState.failure(failure: $failure)';
   }
 
   @override
@@ -473,8 +501,9 @@ class _$_Failure extends _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<BoardItem> data) loaded,
+    required TResult Function(Board data) loaded,
     required TResult Function(CheckMonitorFailure failure) failure,
+    required TResult Function() edited,
   }) {
     return failure(this.failure);
   }
@@ -484,8 +513,9 @@ class _$_Failure extends _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<BoardItem> data)? loaded,
+    TResult Function(Board data)? loaded,
     TResult Function(CheckMonitorFailure failure)? failure,
+    TResult Function()? edited,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -501,6 +531,7 @@ class _$_Failure extends _Failure {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Edited value) edited,
   }) {
     return failure(this);
   }
@@ -512,6 +543,7 @@ class _$_Failure extends _Failure {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Edited value)? edited,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -521,7 +553,7 @@ class _$_Failure extends _Failure {
   }
 }
 
-abstract class _Failure extends BoardItemsState {
+abstract class _Failure extends BoardState {
   const factory _Failure(CheckMonitorFailure failure) = _$_Failure;
   const _Failure._() : super._();
 
@@ -529,4 +561,100 @@ abstract class _Failure extends BoardItemsState {
   @JsonKey(ignore: true)
   _$FailureCopyWith<_Failure> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$EditedCopyWith<$Res> {
+  factory _$EditedCopyWith(_Edited value, $Res Function(_Edited) then) =
+      __$EditedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$EditedCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+    implements _$EditedCopyWith<$Res> {
+  __$EditedCopyWithImpl(_Edited _value, $Res Function(_Edited) _then)
+      : super(_value, (v) => _then(v as _Edited));
+
+  @override
+  _Edited get _value => super._value as _Edited;
+}
+
+/// @nodoc
+
+class _$_Edited extends _Edited {
+  const _$_Edited() : super._();
+
+  @override
+  String toString() {
+    return 'BoardState.edited()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Edited);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(Board data) loaded,
+    required TResult Function(CheckMonitorFailure failure) failure,
+    required TResult Function() edited,
+  }) {
+    return edited();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(Board data)? loaded,
+    TResult Function(CheckMonitorFailure failure)? failure,
+    TResult Function()? edited,
+    required TResult orElse(),
+  }) {
+    if (edited != null) {
+      return edited();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_Edited value) edited,
+  }) {
+    return edited(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_Edited value)? edited,
+    required TResult orElse(),
+  }) {
+    if (edited != null) {
+      return edited(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Edited extends BoardState {
+  const factory _Edited() = _$_Edited;
+  const _Edited._() : super._();
 }

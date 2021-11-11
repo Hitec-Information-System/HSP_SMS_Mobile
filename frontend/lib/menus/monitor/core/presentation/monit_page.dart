@@ -219,9 +219,10 @@ class _MonitPageState extends ConsumerState<MonitPage> {
                   translation: const Offset(-0.5, -0.5),
                   child: Text(
                     failure.when(
-                      api: (statusCode, statusMsg) =>
+                      api: (int? statusCode, String? statusMsg) =>
                           statusMsg ?? "데이터를 불러오는 도중 발생하였습니다.\n관리자에게 문의하세요.",
                       noConnection: () => "인터넷 연결이 약합니다.",
+                      internal: (String message) => message,
                     ),
                     style: const TextStyle(
                       fontSize: 22,

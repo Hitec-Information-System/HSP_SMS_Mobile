@@ -17,11 +17,15 @@ class _$AddedImageTearOff {
   const _$AddedImageTearOff();
 
   _AddedImage call(
-      {required String name,
+      {required String key,
+      required String no,
+      required String name,
       required String url,
       required String remark,
       required bool isRemote}) {
     return _AddedImage(
+      key: key,
+      no: no,
       name: name,
       url: url,
       remark: remark,
@@ -35,6 +39,8 @@ const $AddedImage = _$AddedImageTearOff();
 
 /// @nodoc
 mixin _$AddedImage {
+  String get key => throw _privateConstructorUsedError;
+  String get no => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
   String get remark => throw _privateConstructorUsedError;
@@ -50,7 +56,13 @@ abstract class $AddedImageCopyWith<$Res> {
   factory $AddedImageCopyWith(
           AddedImage value, $Res Function(AddedImage) then) =
       _$AddedImageCopyWithImpl<$Res>;
-  $Res call({String name, String url, String remark, bool isRemote});
+  $Res call(
+      {String key,
+      String no,
+      String name,
+      String url,
+      String remark,
+      bool isRemote});
 }
 
 /// @nodoc
@@ -63,12 +75,22 @@ class _$AddedImageCopyWithImpl<$Res> implements $AddedImageCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? key = freezed,
+    Object? no = freezed,
     Object? name = freezed,
     Object? url = freezed,
     Object? remark = freezed,
     Object? isRemote = freezed,
   }) {
     return _then(_value.copyWith(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
+      no: no == freezed
+          ? _value.no
+          : no // ignore: cast_nullable_to_non_nullable
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -95,7 +117,13 @@ abstract class _$AddedImageCopyWith<$Res> implements $AddedImageCopyWith<$Res> {
           _AddedImage value, $Res Function(_AddedImage) then) =
       __$AddedImageCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String url, String remark, bool isRemote});
+  $Res call(
+      {String key,
+      String no,
+      String name,
+      String url,
+      String remark,
+      bool isRemote});
 }
 
 /// @nodoc
@@ -110,12 +138,22 @@ class __$AddedImageCopyWithImpl<$Res> extends _$AddedImageCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? key = freezed,
+    Object? no = freezed,
     Object? name = freezed,
     Object? url = freezed,
     Object? remark = freezed,
     Object? isRemote = freezed,
   }) {
     return _then(_AddedImage(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
+      no: no == freezed
+          ? _value.no
+          : no // ignore: cast_nullable_to_non_nullable
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -140,12 +178,18 @@ class __$AddedImageCopyWithImpl<$Res> extends _$AddedImageCopyWithImpl<$Res>
 
 class _$_AddedImage extends _AddedImage {
   const _$_AddedImage(
-      {required this.name,
+      {required this.key,
+      required this.no,
+      required this.name,
       required this.url,
       required this.remark,
       required this.isRemote})
       : super._();
 
+  @override
+  final String key;
+  @override
+  final String no;
   @override
   final String name;
   @override
@@ -157,13 +201,17 @@ class _$_AddedImage extends _AddedImage {
 
   @override
   String toString() {
-    return 'AddedImage(name: $name, url: $url, remark: $remark, isRemote: $isRemote)';
+    return 'AddedImage(key: $key, no: $no, name: $name, url: $url, remark: $remark, isRemote: $isRemote)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _AddedImage &&
+            (identical(other.key, key) ||
+                const DeepCollectionEquality().equals(other.key, key)) &&
+            (identical(other.no, no) ||
+                const DeepCollectionEquality().equals(other.no, no)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.url, url) ||
@@ -178,6 +226,8 @@ class _$_AddedImage extends _AddedImage {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(key) ^
+      const DeepCollectionEquality().hash(no) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(url) ^
       const DeepCollectionEquality().hash(remark) ^
@@ -191,12 +241,18 @@ class _$_AddedImage extends _AddedImage {
 
 abstract class _AddedImage extends AddedImage {
   const factory _AddedImage(
-      {required String name,
+      {required String key,
+      required String no,
+      required String name,
       required String url,
       required String remark,
       required bool isRemote}) = _$_AddedImage;
   const _AddedImage._() : super._();
 
+  @override
+  String get key => throw _privateConstructorUsedError;
+  @override
+  String get no => throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
   @override

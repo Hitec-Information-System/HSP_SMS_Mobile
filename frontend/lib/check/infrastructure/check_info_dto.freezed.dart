@@ -1428,11 +1428,15 @@ class _$AddedImageCheckDTOTearOff {
   const _$AddedImageCheckDTOTearOff();
 
   _AddedImageCheckDTO call(
-      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") required String name,
+      {@JsonKey(name: "KEY", defaultValue: "") required String key,
+      @JsonKey(name: "NO", defaultValue: "") required String no,
+      @JsonKey(name: "CHK_IMG_URL", defaultValue: "") required String name,
       @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required String url,
       @JsonKey(name: "RMK", defaultValue: "") required String remark,
       @JsonKey(defaultValue: true) required bool isRemote}) {
     return _AddedImageCheckDTO(
+      key: key,
+      no: no,
       name: name,
       url: url,
       remark: remark,
@@ -1450,6 +1454,12 @@ const $AddedImageCheckDTO = _$AddedImageCheckDTOTearOff();
 
 /// @nodoc
 mixin _$AddedImageCheckDTO {
+  @JsonKey(name: "KEY", defaultValue: "")
+  String get key =>
+      throw _privateConstructorUsedError; // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
+  @JsonKey(name: "NO", defaultValue: "")
+  String get no =>
+      throw _privateConstructorUsedError; // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
   @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "")
@@ -1471,7 +1481,9 @@ abstract class $AddedImageCheckDTOCopyWith<$Res> {
           AddedImageCheckDTO value, $Res Function(AddedImageCheckDTO) then) =
       _$AddedImageCheckDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") String name,
+      {@JsonKey(name: "KEY", defaultValue: "") String key,
+      @JsonKey(name: "NO", defaultValue: "") String no,
+      @JsonKey(name: "CHK_IMG_URL", defaultValue: "") String name,
       @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") String url,
       @JsonKey(name: "RMK", defaultValue: "") String remark,
       @JsonKey(defaultValue: true) bool isRemote});
@@ -1488,12 +1500,22 @@ class _$AddedImageCheckDTOCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? key = freezed,
+    Object? no = freezed,
     Object? name = freezed,
     Object? url = freezed,
     Object? remark = freezed,
     Object? isRemote = freezed,
   }) {
     return _then(_value.copyWith(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
+      no: no == freezed
+          ? _value.no
+          : no // ignore: cast_nullable_to_non_nullable
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1522,7 +1544,9 @@ abstract class _$AddedImageCheckDTOCopyWith<$Res>
       __$AddedImageCheckDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") String name,
+      {@JsonKey(name: "KEY", defaultValue: "") String key,
+      @JsonKey(name: "NO", defaultValue: "") String no,
+      @JsonKey(name: "CHK_IMG_URL", defaultValue: "") String name,
       @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") String url,
       @JsonKey(name: "RMK", defaultValue: "") String remark,
       @JsonKey(defaultValue: true) bool isRemote});
@@ -1541,12 +1565,22 @@ class __$AddedImageCheckDTOCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? key = freezed,
+    Object? no = freezed,
     Object? name = freezed,
     Object? url = freezed,
     Object? remark = freezed,
     Object? isRemote = freezed,
   }) {
     return _then(_AddedImageCheckDTO(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
+      no: no == freezed
+          ? _value.no
+          : no // ignore: cast_nullable_to_non_nullable
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1571,7 +1605,9 @@ class __$AddedImageCheckDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AddedImageCheckDTO extends _AddedImageCheckDTO {
   const _$_AddedImageCheckDTO(
-      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "") required this.name,
+      {@JsonKey(name: "KEY", defaultValue: "") required this.key,
+      @JsonKey(name: "NO", defaultValue: "") required this.no,
+      @JsonKey(name: "CHK_IMG_URL", defaultValue: "") required this.name,
       @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required this.url,
       @JsonKey(name: "RMK", defaultValue: "") required this.remark,
       @JsonKey(defaultValue: true) required this.isRemote})
@@ -1581,6 +1617,12 @@ class _$_AddedImageCheckDTO extends _AddedImageCheckDTO {
       _$_$_AddedImageCheckDTOFromJson(json);
 
   @override
+  @JsonKey(name: "KEY", defaultValue: "")
+  final String key;
+  @override // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
+  @JsonKey(name: "NO", defaultValue: "")
+  final String no;
+  @override // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
   @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
   final String name;
   @override
@@ -1595,13 +1637,17 @@ class _$_AddedImageCheckDTO extends _AddedImageCheckDTO {
 
   @override
   String toString() {
-    return 'AddedImageCheckDTO(name: $name, url: $url, remark: $remark, isRemote: $isRemote)';
+    return 'AddedImageCheckDTO(key: $key, no: $no, name: $name, url: $url, remark: $remark, isRemote: $isRemote)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _AddedImageCheckDTO &&
+            (identical(other.key, key) ||
+                const DeepCollectionEquality().equals(other.key, key)) &&
+            (identical(other.no, no) ||
+                const DeepCollectionEquality().equals(other.no, no)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.url, url) ||
@@ -1616,6 +1662,8 @@ class _$_AddedImageCheckDTO extends _AddedImageCheckDTO {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(key) ^
+      const DeepCollectionEquality().hash(no) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(url) ^
       const DeepCollectionEquality().hash(remark) ^
@@ -1634,7 +1682,11 @@ class _$_AddedImageCheckDTO extends _AddedImageCheckDTO {
 
 abstract class _AddedImageCheckDTO extends AddedImageCheckDTO {
   const factory _AddedImageCheckDTO(
-      {@JsonKey(name: "CHK_IMG_URL", defaultValue: "")
+      {@JsonKey(name: "KEY", defaultValue: "")
+          required String key,
+      @JsonKey(name: "NO", defaultValue: "")
+          required String no,
+      @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
           required String name,
       @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "")
           required String url,
@@ -1648,6 +1700,12 @@ abstract class _AddedImageCheckDTO extends AddedImageCheckDTO {
       _$_AddedImageCheckDTO.fromJson;
 
   @override
+  @JsonKey(name: "KEY", defaultValue: "")
+  String get key => throw _privateConstructorUsedError;
+  @override // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
+  @JsonKey(name: "NO", defaultValue: "")
+  String get no => throw _privateConstructorUsedError;
+  @override // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
   @JsonKey(name: "CHK_IMG_URL", defaultValue: "")
   String get name => throw _privateConstructorUsedError;
   @override

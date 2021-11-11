@@ -173,6 +173,10 @@ class CheckStandardDTO with _$CheckStandardDTO {
 class AddedImageCheckDTO with _$AddedImageCheckDTO {
   const AddedImageCheckDTO._();
   const factory AddedImageCheckDTO({
+    @JsonKey(name: "KEY", defaultValue: "")
+        required String key, // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
+    @JsonKey(name: "NO", defaultValue: "")
+        required String no, // 공통 사용하는 값의 형식을 맞춰주기 위해 넣은 것임
     @JsonKey(name: "CHK_IMG_URL", defaultValue: "") required String name,
     @JsonKey(name: "CHK_IMG_URL_FULL", defaultValue: "") required String url,
     @JsonKey(name: "RMK", defaultValue: "") required String remark,
@@ -183,6 +187,8 @@ class AddedImageCheckDTO with _$AddedImageCheckDTO {
       _$AddedImageCheckDTOFromJson(json);
 
   factory AddedImageCheckDTO.fromDomain(AddedImage _) => AddedImageCheckDTO(
+        key: _.key,
+        no: _.no,
         name: _.name,
         url: _.url,
         remark: _.remark,
@@ -191,6 +197,8 @@ class AddedImageCheckDTO with _$AddedImageCheckDTO {
 
   AddedImage toDomain() {
     return AddedImage(
+      key: key,
+      no: no,
       name: name,
       url: url,
       remark: remark,

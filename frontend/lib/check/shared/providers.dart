@@ -5,7 +5,6 @@ import 'package:frontend/check/infrastructure/local/check_info_local_service.dar
 import 'package:frontend/check/infrastructure/remote/check_info_remote_service.dart';
 import 'package:frontend/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 
 final checkInfoLocalServiceProvider =
     Provider.autoDispose<CheckInfoLocalService>(
@@ -25,10 +24,6 @@ final checkInfoRepositoryProvider = Provider.autoDispose<CheckInfoRepository>(
   (ref) => CheckInfoRepository(
     ref.watch(checkInfoRemoteServiceProvider),
   ),
-);
-
-final imagePickerProvider = Provider.autoDispose<ImagePicker>(
-  (ref) => ImagePicker(),
 );
 
 final checkInfoStateNotifierProvider =

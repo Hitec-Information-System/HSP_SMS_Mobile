@@ -67,7 +67,7 @@ class _QRScanPageState extends ConsumerState<QRScanPage> {
           widget.onTagged?.call(tag);
         },
         failure: (failure) {
-          // TODO: 에러 발생시
+          // TODO: 에러 발생시 작성하기
         },
         orElse: () {
           print("tagState orElse invoked!!!");

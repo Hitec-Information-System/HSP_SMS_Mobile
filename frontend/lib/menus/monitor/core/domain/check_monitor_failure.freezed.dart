@@ -23,6 +23,12 @@ class _$CheckMonitorFailureTearOff {
     );
   }
 
+  _Internal internal({required String message}) {
+    return _Internal(
+      message: message,
+    );
+  }
+
   _NoConnection noConnection() {
     return const _NoConnection();
   }
@@ -36,12 +42,14 @@ mixin _$CheckMonitorFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int? statusCode, String? message) api,
+    required TResult Function(String message) internal,
     required TResult Function() noConnection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int? statusCode, String? message)? api,
+    TResult Function(String message)? internal,
     TResult Function()? noConnection,
     required TResult orElse(),
   }) =>
@@ -49,12 +57,14 @@ mixin _$CheckMonitorFailure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Api value) api,
+    required TResult Function(_Internal value) internal,
     required TResult Function(_NoConnection value) noConnection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Api value)? api,
+    TResult Function(_Internal value)? internal,
     TResult Function(_NoConnection value)? noConnection,
     required TResult orElse(),
   }) =>
@@ -153,6 +163,7 @@ class _$_Api extends _Api {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int? statusCode, String? message) api,
+    required TResult Function(String message) internal,
     required TResult Function() noConnection,
   }) {
     return api(statusCode, message);
@@ -162,6 +173,7 @@ class _$_Api extends _Api {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int? statusCode, String? message)? api,
+    TResult Function(String message)? internal,
     TResult Function()? noConnection,
     required TResult orElse(),
   }) {
@@ -175,6 +187,7 @@ class _$_Api extends _Api {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Api value) api,
+    required TResult Function(_Internal value) internal,
     required TResult Function(_NoConnection value) noConnection,
   }) {
     return api(this);
@@ -184,6 +197,7 @@ class _$_Api extends _Api {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Api value)? api,
+    TResult Function(_Internal value)? internal,
     TResult Function(_NoConnection value)? noConnection,
     required TResult orElse(),
   }) {
@@ -202,6 +216,125 @@ abstract class _Api extends CheckMonitorFailure {
   String? get message => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ApiCopyWith<_Api> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$InternalCopyWith<$Res> {
+  factory _$InternalCopyWith(_Internal value, $Res Function(_Internal) then) =
+      __$InternalCopyWithImpl<$Res>;
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$InternalCopyWithImpl<$Res>
+    extends _$CheckMonitorFailureCopyWithImpl<$Res>
+    implements _$InternalCopyWith<$Res> {
+  __$InternalCopyWithImpl(_Internal _value, $Res Function(_Internal) _then)
+      : super(_value, (v) => _then(v as _Internal));
+
+  @override
+  _Internal get _value => super._value as _Internal;
+
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(_Internal(
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Internal extends _Internal {
+  const _$_Internal({required this.message}) : super._();
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'CheckMonitorFailure.internal(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Internal &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+
+  @JsonKey(ignore: true)
+  @override
+  _$InternalCopyWith<_Internal> get copyWith =>
+      __$InternalCopyWithImpl<_Internal>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int? statusCode, String? message) api,
+    required TResult Function(String message) internal,
+    required TResult Function() noConnection,
+  }) {
+    return internal(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int? statusCode, String? message)? api,
+    TResult Function(String message)? internal,
+    TResult Function()? noConnection,
+    required TResult orElse(),
+  }) {
+    if (internal != null) {
+      return internal(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Api value) api,
+    required TResult Function(_Internal value) internal,
+    required TResult Function(_NoConnection value) noConnection,
+  }) {
+    return internal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Api value)? api,
+    TResult Function(_Internal value)? internal,
+    TResult Function(_NoConnection value)? noConnection,
+    required TResult orElse(),
+  }) {
+    if (internal != null) {
+      return internal(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Internal extends CheckMonitorFailure {
+  const factory _Internal({required String message}) = _$_Internal;
+  const _Internal._() : super._();
+
+  String get message => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$InternalCopyWith<_Internal> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -245,6 +378,7 @@ class _$_NoConnection extends _NoConnection {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int? statusCode, String? message) api,
+    required TResult Function(String message) internal,
     required TResult Function() noConnection,
   }) {
     return noConnection();
@@ -254,6 +388,7 @@ class _$_NoConnection extends _NoConnection {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int? statusCode, String? message)? api,
+    TResult Function(String message)? internal,
     TResult Function()? noConnection,
     required TResult orElse(),
   }) {
@@ -267,6 +402,7 @@ class _$_NoConnection extends _NoConnection {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Api value) api,
+    required TResult Function(_Internal value) internal,
     required TResult Function(_NoConnection value) noConnection,
   }) {
     return noConnection(this);
@@ -276,6 +412,7 @@ class _$_NoConnection extends _NoConnection {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Api value)? api,
+    TResult Function(_Internal value)? internal,
     TResult Function(_NoConnection value)? noConnection,
     required TResult orElse(),
   }) {

@@ -113,6 +113,8 @@ Map<String, dynamic> _$_$_CheckStandardDTOToJson(
 _$_AddedImageCheckDTO _$_$_AddedImageCheckDTOFromJson(
     Map<String, dynamic> json) {
   return _$_AddedImageCheckDTO(
+    key: json['KEY'] as String? ?? '',
+    no: json['NO'] as String? ?? '',
     name: json['CHK_IMG_URL'] as String? ?? '',
     url: json['CHK_IMG_URL_FULL'] as String? ?? '',
     remark: json['RMK'] as String? ?? '',
@@ -123,6 +125,8 @@ _$_AddedImageCheckDTO _$_$_AddedImageCheckDTOFromJson(
 Map<String, dynamic> _$_$_AddedImageCheckDTOToJson(
         _$_AddedImageCheckDTO instance) =>
     <String, dynamic>{
+      'KEY': instance.key,
+      'NO': instance.no,
       'CHK_IMG_URL': instance.name,
       'CHK_IMG_URL_FULL': instance.url,
       'RMK': instance.remark,

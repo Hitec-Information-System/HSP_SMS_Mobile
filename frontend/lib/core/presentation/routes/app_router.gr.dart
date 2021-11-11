@@ -16,8 +16,7 @@ import 'package:frontend/core/presentation/widgets/error/error_page.dart'
 import 'package:frontend/menus/core/presentation/menu_frame_page.dart' as _i9;
 import 'package:frontend/menus/core/presentation/widgets/bottom_sheet/widgets.dart'
     as _i12;
-import 'package:frontend/menus/home/presentation/board_details_page.dart'
-    as _i14;
+import 'package:frontend/menus/home/presentation/board_item_page.dart' as _i14;
 import 'package:frontend/menus/home/presentation/menu_home_page.dart' as _i13;
 import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart'
     as _i15;
@@ -139,10 +138,13 @@ class AppRouter extends _i1.RootStackRouter {
         builder: (_) {
           return const _i13.MenuHomePage();
         }),
-    BoardDetailsRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
+    BoardItemRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
-        builder: (_) {
-          return const _i14.BoardDetailsPage();
+        builder: (data) {
+          final args = data.argsAs<BoardItemRouteArgs>(
+              orElse: () => const BoardItemRouteArgs());
+          return _i14.BoardItemPage(
+              key: args.key, enabled: args.enabled, path: args.path);
         }),
     MenuBuildingRoute.name: (routeData) => _i1.AdaptivePage<dynamic>(
         routeData: routeData,
@@ -172,7 +174,7 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(MenuFrameRoute.name, path: '/', children: [
           _i1.RouteConfig(HomeTab.name, path: 'home', children: [
             _i1.RouteConfig(MenuHomeRoute.name, path: ''),
-            _i1.RouteConfig(BoardDetailsRoute.name, path: 'details')
+            _i1.RouteConfig(BoardItemRoute.name, path: 'details')
           ]),
           _i1.RouteConfig(BuildingTab.name,
               path: 'building',
@@ -353,10 +355,23 @@ class MenuHomeRoute extends _i1.PageRouteInfo {
   static const String name = 'MenuHomeRoute';
 }
 
-class BoardDetailsRoute extends _i1.PageRouteInfo {
-  const BoardDetailsRoute() : super(name, path: 'details');
+class BoardItemRoute extends _i1.PageRouteInfo<BoardItemRouteArgs> {
+  BoardItemRoute({_i2.Key? key, bool enabled = true, String path = ""})
+      : super(name,
+            path: 'details',
+            args: BoardItemRouteArgs(key: key, enabled: enabled, path: path));
 
-  static const String name = 'BoardDetailsRoute';
+  static const String name = 'BoardItemRoute';
+}
+
+class BoardItemRouteArgs {
+  const BoardItemRouteArgs({this.key, this.enabled = true, this.path = ""});
+
+  final _i2.Key? key;
+
+  final bool enabled;
+
+  final String path;
 }
 
 class MenuBuildingRoute extends _i1.PageRouteInfo {

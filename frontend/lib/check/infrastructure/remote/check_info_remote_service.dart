@@ -136,6 +136,11 @@ class CheckInfoRemoteService {
           errorCode: e.response?.statusCode,
           message: e.response?.data["MSG"] as String,
         );
+      } else if (e.type == DioErrorType.connectTimeout) {
+        throw RestApiException(
+          errorCode: e.response?.statusCode,
+          message: "서버 응답이 없습니다.",
+        );
       } else {
         rethrow;
       }

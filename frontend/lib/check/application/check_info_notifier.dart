@@ -12,9 +12,6 @@ import 'package:image_picker/image_picker.dart';
 
 part 'check_info_notifier.freezed.dart';
 
-// REF : 한번에 첨부할 수 있는 이미지 수량 정하기
-const IMG_ALLOWED_COUNT = 10;
-
 @freezed
 class CheckInfoState with _$CheckInfoState {
   const CheckInfoState._();
@@ -176,6 +173,8 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
                         final fileNameExt = file.name.split(".").last;
 
                         return AddedImage(
+                          key: "",
+                          no: "",
                           name: "$chklistNo-$chkItemCd-$imageNo.$fileNameExt",
                           url: file.path,
                           remark: "",
@@ -218,6 +217,8 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
                   images: detail.images
                     ..add(
                       AddedImage(
+                        key: "",
+                        no: "",
                         name: "$chklistNo-$chkItemCd-1.$fileNameExt",
                         url: file.path,
                         remark: "",
@@ -238,12 +239,12 @@ class CheckInfoStateNotifier extends StateNotifier<CheckInfoState> {
       state.tagId,
       state.info,
       const CheckInfoFailure.internal(
-          message: "한번에 이미지를 $IMG_ALLOWED_COUNT 개 이상 첨부할 수 없습니다."),
+          message: "한번에 이미지를 ${LogicConstants.maxImageCount} 개 이상 첨부할 수 없습니다."),
     );
   }
 
   bool isOverImgCnt({required int currentCnt, int interpolatedCnt = 0}) {
-    if (currentCnt + interpolatedCnt > IMG_ALLOWED_COUNT) {
+    if (currentCnt + interpolatedCnt > LogicConstants.maxImageCount) {
       return true;
     }
     return false;

@@ -28,6 +28,11 @@ class PiePainter extends CustomPainter {
       colors: colors,
     );
 
+    final skeletonPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..color = Colors.grey.withOpacity(.4)
+      ..strokeWidth = 3;
+
     final paint = Paint()
       ..shader = gradient.createShader(
         Rect.fromLTWH(
@@ -40,6 +45,12 @@ class PiePainter extends CustomPainter {
       ..strokeCap = StrokeCap.round // StrokeCap.round is not recommended.
       ..style = PaintingStyle.stroke
       ..strokeWidth = pieWidth * 2;
+
+    canvas.drawCircle(
+      center,
+      circleRadius,
+      skeletonPaint,
+    );
 
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: circleRadius),

@@ -7,6 +7,8 @@ part 'added_image.freezed.dart';
 class AddedImage with _$AddedImage {
   const AddedImage._();
   const factory AddedImage({
+    required String key,
+    required String no,
     required String name,
     required String url,
     required String remark,

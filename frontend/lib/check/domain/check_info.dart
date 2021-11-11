@@ -57,8 +57,8 @@ class CheckInfo with _$CheckInfo {
       return "";
     }
 
-    list.insert(0, "<NewDataSet>");
     list.insert(list.length, "</NewDataSet>");
+    list.insert(0, "<NewDataSet>");
 
     return list.join().replaceAll(" ", "").replaceAll("\n", "");
   }
