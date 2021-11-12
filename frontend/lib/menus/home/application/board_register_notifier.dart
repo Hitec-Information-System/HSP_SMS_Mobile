@@ -76,10 +76,6 @@ class BoardRegisterStateNotifier extends StateNotifier<BoardRegisterState> {
   }
 
   Future<void> pickImagesFromGallery() async {
-    state.maybeWhen(
-      orElse: () {},
-    );
-
     if (isOverImgCnt(
         currentCnt: state.item.images.length, interpolatedCnt: 1)) {
       evokeInternalFailure();
@@ -89,8 +85,7 @@ class BoardRegisterStateNotifier extends StateNotifier<BoardRegisterState> {
     final images = await _picker.pickMultiImage();
     if (images != null) {
       if (isOverImgCnt(currentCnt: state.item.images.length + images.length)) {
-        evokeInternalFailure();
-        return;
+        return evokeInternalFailure();
       }
 
       state = state.copyWith.item(
@@ -116,15 +111,13 @@ class BoardRegisterStateNotifier extends StateNotifier<BoardRegisterState> {
   Future<void> pickImageFromCamera() async {
     if (isOverImgCnt(
         currentCnt: state.item.images.length, interpolatedCnt: 1)) {
-      evokeInternalFailure();
-      return;
+      return evokeInternalFailure();
     }
 
     final file = await _picker.pickImage(source: ImageSource.camera);
     if (file != null) {
       if (isOverImgCnt(currentCnt: state.item.images.length + 1)) {
-        evokeInternalFailure();
-        return;
+        return evokeInternalFailure();
       }
 
       state = state.copyWith.item(
@@ -161,6 +154,13 @@ class BoardRegisterStateNotifier extends StateNotifier<BoardRegisterState> {
   void clearImages() {
     state = state.copyWith.item(
       images: [],
+    );
+  }
+
+  void setTextToState(String title, String contents) {
+    state = state.copyWith.item(
+      title: title,
+      contents: contents,
     );
   }
 }
