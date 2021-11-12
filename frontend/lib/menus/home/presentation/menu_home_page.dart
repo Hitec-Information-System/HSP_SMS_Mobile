@@ -151,17 +151,22 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
                           ),
                         ),
                         loaded: (board) => board.notice.isNotEmpty
-                            ? Column(
-                                children: List.generate(
-                                  board.notice.length,
-                                  (index) => Material(
-                                    child: ListTile(
-                                      onTap: () {},
-                                      leading: Text("${index + 1}"),
-                                      title: Text(
-                                        board.notice[index].title,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
+                            ? ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minHeight: 300,
+                                ),
+                                child: Column(
+                                  children: List.generate(
+                                    board.notice.length,
+                                    (index) => Material(
+                                      child: ListTile(
+                                        onTap: () {},
+                                        leading: Text("${index + 1}"),
+                                        title: Text(
+                                          board.notice[index].title,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -215,22 +220,27 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
                           ),
                         ),
                         loaded: (board) => board.safety.isNotEmpty
-                            ? Column(
-                                children: List.generate(
-                                  board.safety.length,
-                                  (index) => Material(
-                                    child: ListTile(
-                                      onTap: () {
-                                        BoardItemRoute(
-                                          enabled: false,
-                                          path: board.safety[index].key,
-                                        ).show(context);
-                                      },
-                                      leading: Text("${index + 1}"),
-                                      title: Text(
-                                        board.safety[index].title,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
+                            ? ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minHeight: 300,
+                                ),
+                                child: Column(
+                                  children: List.generate(
+                                    board.safety.length,
+                                    (index) => Material(
+                                      child: ListTile(
+                                        onTap: () {
+                                          BoardItemRoute(
+                                            enabled: false,
+                                            path: board.safety[index].key,
+                                          ).show(context);
+                                        },
+                                        leading: Text("${index + 1}"),
+                                        title: Text(
+                                          board.safety[index].title,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ),
                                   ),
