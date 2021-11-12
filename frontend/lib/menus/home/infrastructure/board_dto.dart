@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/core/domain/added_image.dart';
 import 'package:frontend/core/infrastructure/utility.dart';
+import 'package:frontend/menus/core/domain/progress_status.dart';
 import 'package:frontend/menus/core/infrastructure/progress_status_dto.dart';
 import 'package:frontend/menus/home/domain/board.dart';
 
@@ -39,9 +40,9 @@ class BoardDTO with _$BoardDTO {
 class BoardProgressStatusDTO with _$BoardProgressStatusDTO {
   const BoardProgressStatusDTO._();
   const factory BoardProgressStatusDTO({
-    @JsonKey(name: "BUILDING") required ProgressStatusDTO building,
-    @JsonKey(name: "LINE") required ProgressStatusDTO line,
-    @JsonKey(name: "FORKLIFT") required ProgressStatusDTO forklift,
+    @JsonKey(name: "BUILDING") required ProgressStatusDTO? building,
+    @JsonKey(name: "LINE") required ProgressStatusDTO? line,
+    @JsonKey(name: "FORKLIFT") required ProgressStatusDTO? forklift,
   }) = _BoardProgressStatusDTO;
 
   factory BoardProgressStatusDTO.fromJson(Map<String, dynamic> json) =>
@@ -56,9 +57,9 @@ class BoardProgressStatusDTO with _$BoardProgressStatusDTO {
 
   BoardProgressStatus toDomain() {
     return BoardProgressStatus(
-      building: building.toDomain(),
-      line: line.toDomain(),
-      forklift: forklift.toDomain(),
+      building: building?.toDomain() ?? ProgressStatus.noValue(),
+      line: line?.toDomain() ?? ProgressStatus.noValue(),
+      forklift: forklift?.toDomain() ?? ProgressStatus.noValue(),
     );
   }
 }

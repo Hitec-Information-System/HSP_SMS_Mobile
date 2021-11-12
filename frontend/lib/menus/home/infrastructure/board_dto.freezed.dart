@@ -242,9 +242,9 @@ class _$BoardProgressStatusDTOTearOff {
   const _$BoardProgressStatusDTOTearOff();
 
   _BoardProgressStatusDTO call(
-      {@JsonKey(name: "BUILDING") required ProgressStatusDTO building,
-      @JsonKey(name: "LINE") required ProgressStatusDTO line,
-      @JsonKey(name: "FORKLIFT") required ProgressStatusDTO forklift}) {
+      {@JsonKey(name: "BUILDING") required ProgressStatusDTO? building,
+      @JsonKey(name: "LINE") required ProgressStatusDTO? line,
+      @JsonKey(name: "FORKLIFT") required ProgressStatusDTO? forklift}) {
     return _BoardProgressStatusDTO(
       building: building,
       line: line,
@@ -263,11 +263,11 @@ const $BoardProgressStatusDTO = _$BoardProgressStatusDTOTearOff();
 /// @nodoc
 mixin _$BoardProgressStatusDTO {
   @JsonKey(name: "BUILDING")
-  ProgressStatusDTO get building => throw _privateConstructorUsedError;
+  ProgressStatusDTO? get building => throw _privateConstructorUsedError;
   @JsonKey(name: "LINE")
-  ProgressStatusDTO get line => throw _privateConstructorUsedError;
+  ProgressStatusDTO? get line => throw _privateConstructorUsedError;
   @JsonKey(name: "FORKLIFT")
-  ProgressStatusDTO get forklift => throw _privateConstructorUsedError;
+  ProgressStatusDTO? get forklift => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -281,13 +281,13 @@ abstract class $BoardProgressStatusDTOCopyWith<$Res> {
           $Res Function(BoardProgressStatusDTO) then) =
       _$BoardProgressStatusDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: "BUILDING") ProgressStatusDTO building,
-      @JsonKey(name: "LINE") ProgressStatusDTO line,
-      @JsonKey(name: "FORKLIFT") ProgressStatusDTO forklift});
+      {@JsonKey(name: "BUILDING") ProgressStatusDTO? building,
+      @JsonKey(name: "LINE") ProgressStatusDTO? line,
+      @JsonKey(name: "FORKLIFT") ProgressStatusDTO? forklift});
 
-  $ProgressStatusDTOCopyWith<$Res> get building;
-  $ProgressStatusDTOCopyWith<$Res> get line;
-  $ProgressStatusDTOCopyWith<$Res> get forklift;
+  $ProgressStatusDTOCopyWith<$Res>? get building;
+  $ProgressStatusDTOCopyWith<$Res>? get line;
+  $ProgressStatusDTOCopyWith<$Res>? get forklift;
 }
 
 /// @nodoc
@@ -309,35 +309,47 @@ class _$BoardProgressStatusDTOCopyWithImpl<$Res>
       building: building == freezed
           ? _value.building
           : building // ignore: cast_nullable_to_non_nullable
-              as ProgressStatusDTO,
+              as ProgressStatusDTO?,
       line: line == freezed
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
-              as ProgressStatusDTO,
+              as ProgressStatusDTO?,
       forklift: forklift == freezed
           ? _value.forklift
           : forklift // ignore: cast_nullable_to_non_nullable
-              as ProgressStatusDTO,
+              as ProgressStatusDTO?,
     ));
   }
 
   @override
-  $ProgressStatusDTOCopyWith<$Res> get building {
-    return $ProgressStatusDTOCopyWith<$Res>(_value.building, (value) {
+  $ProgressStatusDTOCopyWith<$Res>? get building {
+    if (_value.building == null) {
+      return null;
+    }
+
+    return $ProgressStatusDTOCopyWith<$Res>(_value.building!, (value) {
       return _then(_value.copyWith(building: value));
     });
   }
 
   @override
-  $ProgressStatusDTOCopyWith<$Res> get line {
-    return $ProgressStatusDTOCopyWith<$Res>(_value.line, (value) {
+  $ProgressStatusDTOCopyWith<$Res>? get line {
+    if (_value.line == null) {
+      return null;
+    }
+
+    return $ProgressStatusDTOCopyWith<$Res>(_value.line!, (value) {
       return _then(_value.copyWith(line: value));
     });
   }
 
   @override
-  $ProgressStatusDTOCopyWith<$Res> get forklift {
-    return $ProgressStatusDTOCopyWith<$Res>(_value.forklift, (value) {
+  $ProgressStatusDTOCopyWith<$Res>? get forklift {
+    if (_value.forklift == null) {
+      return null;
+    }
+
+    return $ProgressStatusDTOCopyWith<$Res>(_value.forklift!, (value) {
       return _then(_value.copyWith(forklift: value));
     });
   }
@@ -351,16 +363,16 @@ abstract class _$BoardProgressStatusDTOCopyWith<$Res>
       __$BoardProgressStatusDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: "BUILDING") ProgressStatusDTO building,
-      @JsonKey(name: "LINE") ProgressStatusDTO line,
-      @JsonKey(name: "FORKLIFT") ProgressStatusDTO forklift});
+      {@JsonKey(name: "BUILDING") ProgressStatusDTO? building,
+      @JsonKey(name: "LINE") ProgressStatusDTO? line,
+      @JsonKey(name: "FORKLIFT") ProgressStatusDTO? forklift});
 
   @override
-  $ProgressStatusDTOCopyWith<$Res> get building;
+  $ProgressStatusDTOCopyWith<$Res>? get building;
   @override
-  $ProgressStatusDTOCopyWith<$Res> get line;
+  $ProgressStatusDTOCopyWith<$Res>? get line;
   @override
-  $ProgressStatusDTOCopyWith<$Res> get forklift;
+  $ProgressStatusDTOCopyWith<$Res>? get forklift;
 }
 
 /// @nodoc
@@ -384,15 +396,15 @@ class __$BoardProgressStatusDTOCopyWithImpl<$Res>
       building: building == freezed
           ? _value.building
           : building // ignore: cast_nullable_to_non_nullable
-              as ProgressStatusDTO,
+              as ProgressStatusDTO?,
       line: line == freezed
           ? _value.line
           : line // ignore: cast_nullable_to_non_nullable
-              as ProgressStatusDTO,
+              as ProgressStatusDTO?,
       forklift: forklift == freezed
           ? _value.forklift
           : forklift // ignore: cast_nullable_to_non_nullable
-              as ProgressStatusDTO,
+              as ProgressStatusDTO?,
     ));
   }
 }
@@ -411,13 +423,13 @@ class _$_BoardProgressStatusDTO extends _BoardProgressStatusDTO {
 
   @override
   @JsonKey(name: "BUILDING")
-  final ProgressStatusDTO building;
+  final ProgressStatusDTO? building;
   @override
   @JsonKey(name: "LINE")
-  final ProgressStatusDTO line;
+  final ProgressStatusDTO? line;
   @override
   @JsonKey(name: "FORKLIFT")
-  final ProgressStatusDTO forklift;
+  final ProgressStatusDTO? forklift;
 
   @override
   String toString() {
@@ -459,9 +471,9 @@ class _$_BoardProgressStatusDTO extends _BoardProgressStatusDTO {
 
 abstract class _BoardProgressStatusDTO extends BoardProgressStatusDTO {
   const factory _BoardProgressStatusDTO(
-          {@JsonKey(name: "BUILDING") required ProgressStatusDTO building,
-          @JsonKey(name: "LINE") required ProgressStatusDTO line,
-          @JsonKey(name: "FORKLIFT") required ProgressStatusDTO forklift}) =
+          {@JsonKey(name: "BUILDING") required ProgressStatusDTO? building,
+          @JsonKey(name: "LINE") required ProgressStatusDTO? line,
+          @JsonKey(name: "FORKLIFT") required ProgressStatusDTO? forklift}) =
       _$_BoardProgressStatusDTO;
   const _BoardProgressStatusDTO._() : super._();
 
@@ -470,13 +482,13 @@ abstract class _BoardProgressStatusDTO extends BoardProgressStatusDTO {
 
   @override
   @JsonKey(name: "BUILDING")
-  ProgressStatusDTO get building => throw _privateConstructorUsedError;
+  ProgressStatusDTO? get building => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "LINE")
-  ProgressStatusDTO get line => throw _privateConstructorUsedError;
+  ProgressStatusDTO? get line => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "FORKLIFT")
-  ProgressStatusDTO get forklift => throw _privateConstructorUsedError;
+  ProgressStatusDTO? get forklift => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$BoardProgressStatusDTOCopyWith<_BoardProgressStatusDTO> get copyWith =>

@@ -198,7 +198,7 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
                     ),
                     const SizedBox(height: LayoutConstants.spaceXL),
                     _HomeSectionTitle(
-                      title: "안전신고",
+                      title: "안전재고",
                       moreInfoName: "추가",
                       icon: Icons.add,
                       onMoreInfoTapped: () {

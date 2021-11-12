@@ -29,20 +29,24 @@ Map<String, dynamic> _$_$_BoardDTOToJson(_$_BoardDTO instance) =>
 _$_BoardProgressStatusDTO _$_$_BoardProgressStatusDTOFromJson(
     Map<String, dynamic> json) {
   return _$_BoardProgressStatusDTO(
-    building:
-        ProgressStatusDTO.fromJson(json['BUILDING'] as Map<String, dynamic>),
-    line: ProgressStatusDTO.fromJson(json['LINE'] as Map<String, dynamic>),
-    forklift:
-        ProgressStatusDTO.fromJson(json['FORKLIFT'] as Map<String, dynamic>),
+    building: json['BUILDING'] == null
+        ? null
+        : ProgressStatusDTO.fromJson(json['BUILDING'] as Map<String, dynamic>),
+    line: json['LINE'] == null
+        ? null
+        : ProgressStatusDTO.fromJson(json['LINE'] as Map<String, dynamic>),
+    forklift: json['FORKLIFT'] == null
+        ? null
+        : ProgressStatusDTO.fromJson(json['FORKLIFT'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$_$_BoardProgressStatusDTOToJson(
         _$_BoardProgressStatusDTO instance) =>
     <String, dynamic>{
-      'BUILDING': instance.building.toJson(),
-      'LINE': instance.line.toJson(),
-      'FORKLIFT': instance.forklift.toJson(),
+      'BUILDING': instance.building?.toJson(),
+      'LINE': instance.line?.toJson(),
+      'FORKLIFT': instance.forklift?.toJson(),
     };
 
 _$_BoardItemDTO _$_$_BoardItemDTOFromJson(Map<String, dynamic> json) {
