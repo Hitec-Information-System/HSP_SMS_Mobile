@@ -71,13 +71,13 @@ content-type: application/json
 GET http://localhost:9110/board?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER&count=20 HTTP/2.0
 content-type: application/json
 ###
-GET http://localhost:9110/board/20211111091440982?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER HTTP/2.0
+GET http://localhost:9110/board/20211112113346911?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER HTTP/2.0
 content-type: application/json
 ###
 GET http://localhost:9110/progress?comp-cd=3000&sys-flag=MOBILE&user=dev&obj=BUILDING HTTP/2.0
 content-type: application/json
 ###
-GET http://localhost:9110/board-all?comp-cd=3000&sys-flag=MOBILE&user=dev HTTP/2.0
+GET http://localhost:9110/board-all?comp-cd=3000&sys-flag=MOBILE&user=prod01 HTTP/2.0
 content-type: application/json
 ###
 POST http://localhost:9110/board HTTP/2.0

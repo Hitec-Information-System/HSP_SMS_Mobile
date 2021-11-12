@@ -15,10 +15,15 @@ class ProgressStatus with _$ProgressStatus {
     required String objCd,
   }) = _ProgressStatus;
 
-  double get completedRate {
-    if (notCompletedCount == 0.0) {
-      return 0.0;
-    }
-    return completedCount / (completedCount + notCompletedCount) * 100;
+  factory ProgressStatus.noValue() {
+    return const ProgressStatus(
+      completedCount: 0,
+      notCompletedCount: 0,
+      session: "",
+      sessionName: "",
+      totalCount: 0,
+      companyCd: "",
+      objCd: "",
+    );
   }
 }
