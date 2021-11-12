@@ -114,7 +114,7 @@ class _BoardItemPageState extends ConsumerState<BoardItemPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text("안전제고"),
+        title: const Text("안전제보"),
       ),
       body: Padding(
         padding:
