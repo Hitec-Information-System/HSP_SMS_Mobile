@@ -45,7 +45,6 @@ func (a *AppHandler) fetchProgress(r *http.Request, flag string) (map[string]int
 	}
 
 	if queryResults == nil {
-		results = map[string]interface{}{}
 		return results, err
 	}
 
