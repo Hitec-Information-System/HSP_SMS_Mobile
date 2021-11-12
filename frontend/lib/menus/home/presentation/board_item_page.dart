@@ -114,7 +114,7 @@ class _BoardItemPageState extends ConsumerState<BoardItemPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text("안전신고"),
+        title: const Text("안전제고"),
       ),
       body: Padding(
         padding:
@@ -124,71 +124,84 @@ class _BoardItemPageState extends ConsumerState<BoardItemPage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Form(
-                key: formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextFormField(
-                      enabled: widget.enabled,
-                      controller: titleController,
-                      decoration: InputDecoration(
-                        labelText: "제목 기재란",
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(LayoutConstants.radiusM),
+              FocusScope(
+                child: Focus(
+                  onFocusChange: (focus) {
+                    if (!focus) {
+                      ref
+                          .read(safetyBoardItemRegisterStateNotifierProvider
+                              .notifier)
+                          .setTextToState(
+                              titleController.text, contentsController.text);
+                    }
+                  },
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                          enabled: widget.enabled,
+                          controller: titleController,
+                          decoration: InputDecoration(
+                            labelText: "제목 기재란",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  LayoutConstants.radiusM),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  LayoutConstants.radiusM),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  LayoutConstants.radiusM),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: LayoutConstants.paddingL,
+                              vertical: LayoutConstants.paddingM,
+                            ),
+                          ),
+                          autocorrect: false,
+                          validator: formValidator,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(LayoutConstants.radiusM),
+                        const SizedBox(height: LayoutConstants.spaceL),
+                        SizedBox(
+                          height: 300,
+                          child: TextFormField(
+                            enabled: widget.enabled,
+                            controller: contentsController,
+                            maxLines: null,
+                            expands: true,
+                            textAlignVertical: TextAlignVertical.top,
+                            decoration: InputDecoration(
+                              labelText: "내용 기재란",
+                              alignLabelWithHint: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                    LayoutConstants.radiusM),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                    LayoutConstants.radiusM),
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                    LayoutConstants.radiusM),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: LayoutConstants.paddingL,
+                                vertical: LayoutConstants.paddingM,
+                              ),
+                            ),
+                            autocorrect: false,
+                            validator: formValidator,
+                          ),
                         ),
-                        disabledBorder: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(LayoutConstants.radiusM),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: LayoutConstants.paddingL,
-                          vertical: LayoutConstants.paddingM,
-                        ),
-                      ),
-                      autocorrect: false,
-                      validator: formValidator,
+                      ],
                     ),
-                    const SizedBox(height: LayoutConstants.spaceL),
-                    SizedBox(
-                      height: 300,
-                      child: TextFormField(
-                        enabled: widget.enabled,
-                        controller: contentsController,
-                        maxLines: null,
-                        expands: true,
-                        textAlignVertical: TextAlignVertical.top,
-                        decoration: InputDecoration(
-                          labelText: "내용 기재란",
-                          alignLabelWithHint: true,
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(LayoutConstants.radiusM),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(LayoutConstants.radiusM),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(LayoutConstants.radiusM),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: LayoutConstants.paddingL,
-                            vertical: LayoutConstants.paddingM,
-                          ),
-                        ),
-                        autocorrect: false,
-                        validator: formValidator,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               const SizedBox(height: LayoutConstants.spaceM),
