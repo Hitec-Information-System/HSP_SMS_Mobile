@@ -4,7 +4,7 @@ class LogicConstants {
 
   static const String systemFlag = "MOBILE";
   static const String versionNo =
-      "0.1.8"; // 0.1.8 last updated: 2021-11-12 14:22
+      "0.1.9"; // 0.1.9 last updated: 2021-11-15 10:29
   // static const String baseApiUrl = "http://192.168.0.117:9110";
   static const baseApiUrl = "http://ss.hitecis.co.kr:9110";
   // TODO: api key와 함께 company code 를 return 받기 전까지는 빈값일 수 밖에 없어서 임의로 설정함

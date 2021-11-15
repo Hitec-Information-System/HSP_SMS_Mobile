@@ -332,7 +332,7 @@ class _PieChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final percent =
-        notCompleted == 0 ? 0.0 : completed / (completed + notCompleted) * 100;
+        notCompleted == 0 && completed==0 ? 0.0 : completed / (completed + notCompleted) * 100;
 
     return SizedBox(
       height: 110,
