@@ -27,11 +27,11 @@ content-type: application/json
 }
 ###
 
-GET http://ss.hitecis.co.kr:9110/norm?comp-cd=3000&obj-flag=FORKLIFT HTTP/2.0
+GET http://ss.hitecis.co.kr:9110/norm?comp-cd=3000&obj-flag=BUILDING HTTP/2.0
 content-type: application/json 
 
 ###
-GET http://localhost:9110/monitor?comp-cd=3000&sys-flag=MOBILE&user=dev&flag=BUILDING HTTP/2.0
+GET http://localhost:9110/monitor?comp-cd=3000&sys-flag=MOBILE&user=dev&flag=FORKLIFT HTTP/2.0
 content-type: application/json
 
 ###
@@ -62,8 +62,6 @@ content-type: application/json
 GET http://localhost:9110/apk HTTP/2.0
 content-type: application/json
 
-{
-}
 ###
 GET http://localhost:9110/board?comp-cd=3000&sys-flag=MOBILE&user=dev&board=NOTICE&count=5 HTTP/2.0
 content-type: application/json
@@ -71,7 +69,7 @@ content-type: application/json
 GET http://localhost:9110/board?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER&count=20 HTTP/2.0
 content-type: application/json
 ###
-GET http://localhost:9110/board/20211026122500248?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER HTTP/2.0
+GET http://localhost:9110/board/20211026112800512?comp-cd=3000&sys-flag=MOBILE&user=dev&board=SAFETY_OFFER HTTP/2.0
 content-type: application/json
 ###
 GET http://localhost:9110/progress?comp-cd=3000&sys-flag=MOBILE&user=dev&obj=BUILDING HTTP/2.0
