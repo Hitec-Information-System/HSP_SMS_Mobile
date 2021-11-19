@@ -81,7 +81,20 @@ class _MonitPageState extends ConsumerState<MonitPage> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      extendBody: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Text(
+          "${widget.categoryNm} 점검",
+        ),
+        actions: const [
+          Center(
+            child: Text(
+              "V ${LogicConstants.versionNo}",
+            ),
+          ),
+        ],
+      ),
       body: Stack(
         children: [
           const SizedBox.expand(),
@@ -101,20 +114,6 @@ class _MonitPageState extends ConsumerState<MonitPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: LayoutConstants.spaceL),
-                        Row(
-                          children: [
-                            Text(
-                              "${widget.categoryNm} 점검",
-                              style: Theme.of(context).textTheme.headline4,
-                            ),
-                            const Spacer(),
-                            const Text(
-                              "V ${LogicConstants.versionNo}",
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: LayoutConstants.spaceL),
                         Container(
                           alignment: Alignment.centerRight,
                           child: Row(

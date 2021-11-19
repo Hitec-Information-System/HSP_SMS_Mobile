@@ -50,7 +50,7 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
               Icons.settings,
               color: Theme.of(context).iconTheme.color,
             ),
-          )
+          ),
         ],
       ),
       body: Stack(
@@ -72,60 +72,76 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
                       child: Row(
                         children: [
                           const Spacer(),
-                          _PieChart(
-                            title: "시설물",
-                            completed: board.maybeWhen(
-                              loaded: (data) =>
-                                  data.status.building.completedCount,
-                              orElse: () => 0,
+                          GestureDetector(
+                            onTap: () {
+                              BoardWebViewRoute(path: "SMS6110").show(context);
+                            },
+                            child: _PieChart(
+                              title: "시설물",
+                              completed: board.maybeWhen(
+                                loaded: (data) =>
+                                    data.status.building.completedCount,
+                                orElse: () => 0,
+                              ),
+                              notCompleted: board.maybeWhen(
+                                loaded: (data) =>
+                                    data.status.building.notCompletedCount,
+                                orElse: () => 0,
+                              ),
+                              colors: const [
+                                Color(0xFFFF2525),
+                                Color(0xFFFF8989),
+                                Color(0xFFFF2525),
+                              ],
                             ),
-                            notCompleted: board.maybeWhen(
-                              loaded: (data) =>
-                                  data.status.building.notCompletedCount,
-                              orElse: () => 0,
-                            ),
-                            colors: const [
-                              Color(0xFFFF2525),
-                              Color(0xFFFF8989),
-                              Color(0xFFFF2525),
-                            ],
                           ),
                           const Spacer(),
-                          _PieChart(
-                            title: "라인",
-                            completed: board.maybeWhen(
-                              loaded: (data) => data.status.line.completedCount,
-                              orElse: () => 0,
+                          GestureDetector(
+                            onTap: () {
+                              BoardWebViewRoute(path: "SMS6210").show(context);
+                            },
+                            child: _PieChart(
+                              title: "라인",
+                              completed: board.maybeWhen(
+                                loaded: (data) =>
+                                    data.status.line.completedCount,
+                                orElse: () => 0,
+                              ),
+                              notCompleted: board.maybeWhen(
+                                loaded: (data) =>
+                                    data.status.line.notCompletedCount,
+                                orElse: () => 0,
+                              ),
+                              colors: const [
+                                Color(0xFFFFE805),
+                                Color(0xFFFFF489),
+                                Color(0xFFFFE805),
+                              ],
                             ),
-                            notCompleted: board.maybeWhen(
-                              loaded: (data) =>
-                                  data.status.line.notCompletedCount,
-                              orElse: () => 0,
-                            ),
-                            colors: const [
-                              Color(0xFFFFE805),
-                              Color(0xFFFFF489),
-                              Color(0xFFFFE805),
-                            ],
                           ),
                           const Spacer(),
-                          _PieChart(
-                            title: "지게차",
-                            completed: board.maybeWhen(
-                              loaded: (data) =>
-                                  data.status.forklift.completedCount,
-                              orElse: () => 0,
+                          GestureDetector(
+                            onTap: () {
+                              BoardWebViewRoute(path: "SMS6310").show(context);
+                            },
+                            child: _PieChart(
+                              title: "지게차",
+                              completed: board.maybeWhen(
+                                loaded: (data) =>
+                                    data.status.forklift.completedCount,
+                                orElse: () => 0,
+                              ),
+                              notCompleted: board.maybeWhen(
+                                loaded: (data) =>
+                                    data.status.forklift.notCompletedCount,
+                                orElse: () => 0,
+                              ),
+                              colors: const [
+                                Color(0xFF2633C5),
+                                Color(0xFF8A98E8),
+                                Color(0xFF2633C5),
+                              ],
                             ),
-                            notCompleted: board.maybeWhen(
-                              loaded: (data) =>
-                                  data.status.forklift.notCompletedCount,
-                              orElse: () => 0,
-                            ),
-                            colors: const [
-                              Color(0xFF2633C5),
-                              Color(0xFF8A98E8),
-                              Color(0xFF2633C5),
-                            ],
                           ),
                           const Spacer(),
                         ],
@@ -133,7 +149,7 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
                     ),
                     const SizedBox(height: LayoutConstants.spaceXL),
                     _HomeSectionTitle(
-                      title: "공지사항",
+                      title: noticeTitle,
                       onMoreInfoTapped: () {},
                     ),
                     _SectionCard(
@@ -160,7 +176,16 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
                                     board.notice.length,
                                     (index) => Material(
                                       child: ListTile(
-                                        onTap: () {},
+                                        tileColor:
+                                            Theme.of(context).backgroundColor,
+                                        onTap: () {
+                                          BoardItemDetailsRoute(
+                                            title: noticeTitle,
+                                            path: board.notice[index].key,
+                                            provider:
+                                                noticeBoardItemDetailsStateNotifierProvider,
+                                          ).show(context);
+                                        },
                                         leading: Text("${index + 1}"),
                                         title: Text(
                                           board.notice[index].title,
@@ -198,11 +223,11 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
                     ),
                     const SizedBox(height: LayoutConstants.spaceXL),
                     _HomeSectionTitle(
-                      title: "안전제보",
+                      title: safetyTitle,
                       moreInfoName: "추가",
                       icon: Icons.add,
                       onMoreInfoTapped: () {
-                        BoardItemRoute().show(context);
+                        const BoardItemRoute().show(context);
                       },
                     ),
                     _SectionCard(
@@ -229,11 +254,15 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
                                     board.safety.length,
                                     (index) => Material(
                                       child: ListTile(
+                                        tileColor:
+                                            Theme.of(context).backgroundColor,
                                         onTap: () {
-                                          BoardItemRoute(
-                                            enabled: false,
-                                            path: board.safety[index].key,
-                                          ).show(context);
+                                          BoardItemDetailsRoute(
+                                                  title: safetyTitle,
+                                                  path: board.safety[index].key,
+                                                  provider:
+                                                      safetyBoardItemDetailsStateNotifierProvider)
+                                              .show(context);
                                         },
                                         leading: Text("${index + 1}"),
                                         title: Text(
@@ -331,8 +360,9 @@ class _PieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final percent =
-        notCompleted == 0 && completed==0 ? 0.0 : completed / (completed + notCompleted) * 100;
+    final percent = notCompleted == 0 && completed == 0
+        ? 0.0
+        : completed / (completed + notCompleted) * 100;
 
     return SizedBox(
       height: 110,
