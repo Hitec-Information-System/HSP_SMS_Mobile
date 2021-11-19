@@ -365,13 +365,13 @@ class _PieChart extends StatelessWidget {
         : completed / (completed + notCompleted) * 100;
 
     return SizedBox(
-      height: 110,
-      width: 110,
+      height: 100,
+      width: 100,
       child: Stack(
         children: [
           SizedBox(
-            height: 110,
-            width: 110,
+            height: 100,
+            width: 100,
             child: CustomPaint(
               painter: PiePainter(
                 angle: percent * (360 / 100),
