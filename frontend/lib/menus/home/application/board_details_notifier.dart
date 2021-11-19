@@ -8,25 +8,25 @@ import 'package:frontend/menus/monitor/core/domain/check_monitor_failure.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-part 'board_register_notifier.freezed.dart';
+part 'board_details_notifier.freezed.dart';
 
 @freezed
-class BoardRegisterState with _$BoardRegisterState {
-  const BoardRegisterState._();
-  const factory BoardRegisterState.initial(BoardItem item) = _Initial;
-  const factory BoardRegisterState.saving(BoardItem item) = _Saving;
-  const factory BoardRegisterState.saved(BoardItem item) = _Saved;
-  const factory BoardRegisterState.failure(
+class BoardDetailsState with _$BoardDetailsState {
+  const BoardDetailsState._();
+  const factory BoardDetailsState.initial(BoardItem item) = _Initial;
+  const factory BoardDetailsState.saving(BoardItem item) = _Saving;
+  const factory BoardDetailsState.saved(BoardItem item) = _Saved;
+  const factory BoardDetailsState.failure(
       BoardItem item, CheckMonitorFailure failure) = _Failure;
 }
 
-class BoardRegisterStateNotifier extends StateNotifier<BoardRegisterState> {
-  BoardRegisterStateNotifier(
+class BoardDetailsStateNotifier extends StateNotifier<BoardDetailsState> {
+  BoardDetailsStateNotifier(
     this._repository,
     this._picker, {
     required this.user,
     required this.boardFlag,
-  }) : super(BoardRegisterState.initial(BoardItem.init()));
+  }) : super(BoardDetailsState.initial(BoardItem.init()));
 
   final BoardItemRepository _repository;
   final ImagePicker _picker;
@@ -45,13 +45,13 @@ class BoardRegisterStateNotifier extends StateNotifier<BoardRegisterState> {
         await _repository.fetchBoardItemDetails(params, path: key);
 
     state = failureOrSuccess.fold(
-      (l) => BoardRegisterState.failure(state.item, l),
-      (r) => BoardRegisterState.initial(r),
+      (l) => BoardDetailsState.failure(state.item, l),
+      (r) => BoardDetailsState.initial(r),
     );
   }
 
   Future<void> saveBoardItem(String title, String contents) async {
-    state = BoardRegisterState.saving(state.item);
+    state = BoardDetailsState.saving(state.item);
 
     final params = {
       "comp-cd": user.userInfo.compCd,
@@ -70,8 +70,8 @@ class BoardRegisterStateNotifier extends StateNotifier<BoardRegisterState> {
         await _repository.saveBoardItem(params, state.item.images);
 
     state = failureOrSuccess.fold(
-      (l) => BoardRegisterState.failure(state.item, l),
-      (r) => BoardRegisterState.saved(state.item),
+      (l) => BoardDetailsState.failure(state.item, l),
+      (r) => BoardDetailsState.saved(state.item),
     );
   }
 
@@ -137,7 +137,7 @@ class BoardRegisterStateNotifier extends StateNotifier<BoardRegisterState> {
   }
 
   void evokeInternalFailure() {
-    state = BoardRegisterState.failure(
+    state = BoardDetailsState.failure(
       state.item,
       const CheckMonitorFailure.internal(
           message: "한번에 이미지를 ${LogicConstants.maxImageCount} 개 이상 첨부할 수 없습니다."),
@@ -154,13 +154,6 @@ class BoardRegisterStateNotifier extends StateNotifier<BoardRegisterState> {
   void clearImages() {
     state = state.copyWith.item(
       images: [],
-    );
-  }
-
-  void setTextToState(String title, String contents) {
-    state = state.copyWith.item(
-      title: title,
-      contents: contents,
     );
   }
 }

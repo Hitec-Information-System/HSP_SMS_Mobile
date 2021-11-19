@@ -4,62 +4,28 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
-import 'package:frontend/menus/home/application/board_register_notifier.dart';
+import 'package:frontend/menus/home/application/board_details_notifier.dart';
 import 'package:frontend/menus/home/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 
-class BoardItemPage extends ConsumerStatefulWidget {
+class BoardItemPage extends HookConsumerWidget {
   const BoardItemPage({
     Key? key,
-    this.enabled = true,
-    this.path = "",
   }) : super(key: key);
-  // REF: 원래대로라면 state를 따로 만들어서 관리하는게 맞지만 state를 추가하게 되면 가독성이 더욱 떨어지게 되어 값으로 처리
-  final bool enabled;
-  final String path;
 
   @override
-  _BoardItemPageState createState() => _BoardItemPageState();
-}
-
-class _BoardItemPageState extends ConsumerState<BoardItemPage> {
-  late TextEditingController titleController;
-  late TextEditingController contentsController;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() {
-      if (!widget.enabled) {
-        ref
-            .read(safetyBoardItemRegisterStateNotifierProvider.notifier)
-            .fetchBoardItemDetails(widget.path);
-      }
-    });
-    titleController = TextEditingController();
-    contentsController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    titleController.dispose();
-    contentsController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final boardState = ref.watch(safetyBoardItemRegisterStateNotifierProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final boardState = ref.watch(safetyBoardItemDetailsStateNotifierProvider);
 
     final formKey = GlobalKey<FormState>();
 
-    titleController.text = boardState.item.title;
-    contentsController.text = boardState.item.contents;
+    final titleController = useTextEditingController();
+    final contentsController = useTextEditingController();
 
-    ref.listen<BoardRegisterState>(
-      safetyBoardItemRegisterStateNotifierProvider,
+    ref.listen<BoardDetailsState>(
+      safetyBoardItemDetailsStateNotifierProvider,
       (state) {
         state.maybeWhen(
           saving: (_) {
@@ -114,7 +80,7 @@ class _BoardItemPageState extends ConsumerState<BoardItemPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text("안전제보"),
+        title: const Text(safetyTitle),
       ),
       body: Padding(
         padding:
@@ -124,84 +90,69 @@ class _BoardItemPageState extends ConsumerState<BoardItemPage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FocusScope(
-                child: Focus(
-                  onFocusChange: (focus) {
-                    if (!focus) {
-                      ref
-                          .read(safetyBoardItemRegisterStateNotifierProvider
-                              .notifier)
-                          .setTextToState(
-                              titleController.text, contentsController.text);
-                    }
-                  },
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextFormField(
-                          enabled: widget.enabled,
-                          controller: titleController,
-                          decoration: InputDecoration(
-                            labelText: "제목 기재란",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                  LayoutConstants.radiusM),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                  LayoutConstants.radiusM),
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                  LayoutConstants.radiusM),
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: LayoutConstants.paddingL,
-                              vertical: LayoutConstants.paddingM,
-                            ),
-                          ),
-                          autocorrect: false,
-                          validator: formValidator,
+              Form(
+                key: formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      controller: titleController,
+                      decoration: InputDecoration(
+                        labelText: "제목 기재란",
+                        border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(LayoutConstants.radiusM),
                         ),
-                        const SizedBox(height: LayoutConstants.spaceL),
-                        SizedBox(
-                          height: 300,
-                          child: TextFormField(
-                            enabled: widget.enabled,
-                            controller: contentsController,
-                            maxLines: null,
-                            expands: true,
-                            textAlignVertical: TextAlignVertical.top,
-                            decoration: InputDecoration(
-                              labelText: "내용 기재란",
-                              alignLabelWithHint: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                    LayoutConstants.radiusM),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                    LayoutConstants.radiusM),
-                              ),
-                              disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                    LayoutConstants.radiusM),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: LayoutConstants.paddingL,
-                                vertical: LayoutConstants.paddingM,
-                              ),
-                            ),
-                            autocorrect: false,
-                            validator: formValidator,
-                          ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(LayoutConstants.radiusM),
                         ),
-                      ],
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(LayoutConstants.radiusM),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: LayoutConstants.paddingL,
+                          vertical: LayoutConstants.paddingM,
+                        ),
+                      ),
+                      autocorrect: false,
+                      validator: formValidator,
                     ),
-                  ),
+                    const SizedBox(height: LayoutConstants.spaceL),
+                    SizedBox(
+                      height: 300,
+                      child: TextFormField(
+                        controller: contentsController,
+                        maxLines: null,
+                        expands: true,
+                        textAlignVertical: TextAlignVertical.top,
+                        decoration: InputDecoration(
+                          labelText: "내용 기재란",
+                          alignLabelWithHint: true,
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.circular(LayoutConstants.radiusM),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.circular(LayoutConstants.radiusM),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.circular(LayoutConstants.radiusM),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: LayoutConstants.paddingL,
+                            vertical: LayoutConstants.paddingM,
+                          ),
+                        ),
+                        autocorrect: false,
+                        validator: formValidator,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: LayoutConstants.spaceM),
@@ -272,14 +223,14 @@ class _BoardItemPageState extends ConsumerState<BoardItemPage> {
                         yesTitle: "카메라",
                         onYesPressed: () {
                           ref
-                              .read(safetyBoardItemRegisterStateNotifierProvider
+                              .read(safetyBoardItemDetailsStateNotifierProvider
                                   .notifier)
                               .pickImageFromCamera();
                         },
                         noTitle: "앨범",
                         onNoPressed: () {
                           ref
-                              .read(safetyBoardItemRegisterStateNotifierProvider
+                              .read(safetyBoardItemDetailsStateNotifierProvider
                                   .notifier)
                               .pickImagesFromGallery();
                         },
@@ -298,7 +249,7 @@ class _BoardItemPageState extends ConsumerState<BoardItemPage> {
                   GestureDetector(
                     onTap: () async {
                       ref
-                          .read(safetyBoardItemRegisterStateNotifierProvider
+                          .read(safetyBoardItemDetailsStateNotifierProvider
                               .notifier)
                           .clearImages();
                     },
@@ -314,36 +265,33 @@ class _BoardItemPageState extends ConsumerState<BoardItemPage> {
                 ],
               ),
               const SizedBox(height: LayoutConstants.spaceM),
-              if (widget.enabled)
-                ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState?.validate() == true) {
-                      Dialogs.showTwoAnswersDialog(
-                        context,
-                        color: Theme.of(context).colorScheme.secondary,
-                        icon: Icons.help,
-                        title: "점검목록 저장",
-                        message: "점검내용을 저장하시겠습니까?",
-                        yesTitle: "저장",
-                        onYesPressed: () {
-                          ref
-                              .read(safetyBoardItemRegisterStateNotifierProvider
-                                  .notifier)
-                              .saveBoardItem(
-                                titleController.text,
-                                contentsController.text,
-                              );
-                        },
-                        noTitle: "취소",
-                        onNoPressed: () {},
-                        onDismissed: () {},
-                      );
-                    }
-                  },
-                  child: const Text("등록"),
-                )
-              else
-                const SizedBox(),
+              ElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState?.validate() == true) {
+                    Dialogs.showTwoAnswersDialog(
+                      context,
+                      color: Theme.of(context).colorScheme.secondary,
+                      icon: Icons.help,
+                      title: "점검목록 저장",
+                      message: "점검내용을 저장하시겠습니까?",
+                      yesTitle: "저장",
+                      onYesPressed: () {
+                        ref
+                            .read(safetyBoardItemDetailsStateNotifierProvider
+                                .notifier)
+                            .saveBoardItem(
+                              titleController.text,
+                              contentsController.text,
+                            );
+                      },
+                      noTitle: "취소",
+                      onNoPressed: () {},
+                      onDismissed: () {},
+                    );
+                  }
+                },
+                child: const Text("등록"),
+              )
             ],
           ),
         ),

@@ -98,7 +98,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.5"
+    version: "2.0.6"
   build_runner_core:
     dependency: transitive
     description:
@@ -324,9 +324,9 @@ packages:
   flutter_html:
     dependency: "direct main"
     description:
-      name: flutter_html
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../packages/flutter_html"
+      relative: true
+    source: path
     version: "2.1.5"
   flutter_launcher_icons:
     dependency: "direct dev"
@@ -353,7 +353,7 @@ packages:
       name: flutter_math_fork
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.0"
+    version: "0.4.2+2"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -388,7 +388,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.23.0+1"
+    version: "0.22.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -929,6 +929,48 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4"
+  url_launcher:
+    dependency: "direct main"
+    description:
+      name: url_launcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.10"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
+  url_launcher_macos:
+    dependency: transitive
+    description:
+      name: url_launcher_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
+  url_launcher_platform_interface:
+    dependency: transitive
+    description:
+      name: url_launcher_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
+  url_launcher_web:
+    dependency: transitive
+    description:
+      name: url_launcher_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
+  url_launcher_windows:
+    dependency: transitive
+    description:
+      name: url_launcher_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   uuid:
     dependency: transitive
     description:

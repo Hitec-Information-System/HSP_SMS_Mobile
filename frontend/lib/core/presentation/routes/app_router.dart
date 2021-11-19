@@ -5,7 +5,9 @@ import 'package:frontend/check/presentation/widgets/image_check_page.dart';
 import 'package:frontend/core/presentation/widgets/error/error_page.dart';
 import 'package:frontend/menus/core/presentation/menu_frame_page.dart';
 import 'package:frontend/menus/core/presentation/widgets/bottom_sheet/widgets.dart';
+import 'package:frontend/menus/home/presentation/board_item_details_page.dart';
 import 'package:frontend/menus/home/presentation/board_item_page.dart';
+import 'package:frontend/menus/home/presentation/board_web_view_page.dart';
 import 'package:frontend/menus/home/presentation/menu_home_page.dart';
 import 'package:frontend/menus/monitor/building/presentation/menu_building_page.dart';
 import 'package:frontend/menus/monitor/forklift/presentation/menu_forklift_page.dart';
@@ -38,7 +40,9 @@ import 'package:frontend/tag/qr/presentation/qr_scan_page.dart';
           name: "HomeTab",
           children: [
             AutoRoute(page: MenuHomePage, path: ""),
-            AutoRoute(page: BoardItemPage, path: "details"),
+            AutoRoute(page: BoardItemPage, path: "register"),
+            AutoRoute(page: BoardItemDetailsPage, path: "details"),
+            AutoRoute(page: BoardWebViewPage, path: ":path"),
           ],
         ),
         AutoRoute(

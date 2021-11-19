@@ -4,9 +4,9 @@ import 'package:frontend/auth/application/auth_notifier.dart';
 import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/application/localization/app_localizations.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:frontend/core/shared/providers.dart';
 
 import 'package:frontend/theme/shared/providers.dart';
+import 'package:frontend/version_check/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'constants/constants.dart';
@@ -26,7 +26,7 @@ class _AppWidgetState extends ConsumerState<AppWidget> {
     super.initState();
     Future.microtask(
       () async {
-        await ref.read(sembastProvider).init();
+        ref.read(appInfoStateNotifierProvider.notifier).checkAppVersion();
         await ref.read(authNotifierProvider.notifier).checkAuthState();
       },
     );

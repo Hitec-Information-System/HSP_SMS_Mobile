@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'board_register_notifier.dart';
+part of 'board_details_notifier.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,8 +13,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$BoardRegisterStateTearOff {
-  const _$BoardRegisterStateTearOff();
+class _$BoardDetailsStateTearOff {
+  const _$BoardDetailsStateTearOff();
 
   _Initial initial(BoardItem item) {
     return _Initial(
@@ -43,10 +43,10 @@ class _$BoardRegisterStateTearOff {
 }
 
 /// @nodoc
-const $BoardRegisterState = _$BoardRegisterStateTearOff();
+const $BoardDetailsState = _$BoardDetailsStateTearOff();
 
 /// @nodoc
-mixin _$BoardRegisterState {
+mixin _$BoardDetailsState {
   BoardItem get item => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
@@ -86,28 +86,28 @@ mixin _$BoardRegisterState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $BoardRegisterStateCopyWith<BoardRegisterState> get copyWith =>
+  $BoardDetailsStateCopyWith<BoardDetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BoardRegisterStateCopyWith<$Res> {
-  factory $BoardRegisterStateCopyWith(
-          BoardRegisterState value, $Res Function(BoardRegisterState) then) =
-      _$BoardRegisterStateCopyWithImpl<$Res>;
+abstract class $BoardDetailsStateCopyWith<$Res> {
+  factory $BoardDetailsStateCopyWith(
+          BoardDetailsState value, $Res Function(BoardDetailsState) then) =
+      _$BoardDetailsStateCopyWithImpl<$Res>;
   $Res call({BoardItem item});
 
   $BoardItemCopyWith<$Res> get item;
 }
 
 /// @nodoc
-class _$BoardRegisterStateCopyWithImpl<$Res>
-    implements $BoardRegisterStateCopyWith<$Res> {
-  _$BoardRegisterStateCopyWithImpl(this._value, this._then);
+class _$BoardDetailsStateCopyWithImpl<$Res>
+    implements $BoardDetailsStateCopyWith<$Res> {
+  _$BoardDetailsStateCopyWithImpl(this._value, this._then);
 
-  final BoardRegisterState _value;
+  final BoardDetailsState _value;
   // ignore: unused_field
-  final $Res Function(BoardRegisterState) _then;
+  final $Res Function(BoardDetailsState) _then;
 
   @override
   $Res call({
@@ -131,7 +131,7 @@ class _$BoardRegisterStateCopyWithImpl<$Res>
 
 /// @nodoc
 abstract class _$InitialCopyWith<$Res>
-    implements $BoardRegisterStateCopyWith<$Res> {
+    implements $BoardDetailsStateCopyWith<$Res> {
   factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) then) =
       __$InitialCopyWithImpl<$Res>;
   @override
@@ -142,8 +142,7 @@ abstract class _$InitialCopyWith<$Res>
 }
 
 /// @nodoc
-class __$InitialCopyWithImpl<$Res>
-    extends _$BoardRegisterStateCopyWithImpl<$Res>
+class __$InitialCopyWithImpl<$Res> extends _$BoardDetailsStateCopyWithImpl<$Res>
     implements _$InitialCopyWith<$Res> {
   __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
       : super(_value, (v) => _then(v as _Initial));
@@ -174,7 +173,7 @@ class _$_Initial extends _Initial {
 
   @override
   String toString() {
-    return 'BoardRegisterState.initial(item: $item)';
+    return 'BoardDetailsState.initial(item: $item)';
   }
 
   @override
@@ -248,7 +247,7 @@ class _$_Initial extends _Initial {
   }
 }
 
-abstract class _Initial extends BoardRegisterState {
+abstract class _Initial extends BoardDetailsState {
   const factory _Initial(BoardItem item) = _$_Initial;
   const _Initial._() : super._();
 
@@ -262,7 +261,7 @@ abstract class _Initial extends BoardRegisterState {
 
 /// @nodoc
 abstract class _$SavingCopyWith<$Res>
-    implements $BoardRegisterStateCopyWith<$Res> {
+    implements $BoardDetailsStateCopyWith<$Res> {
   factory _$SavingCopyWith(_Saving value, $Res Function(_Saving) then) =
       __$SavingCopyWithImpl<$Res>;
   @override
@@ -273,7 +272,7 @@ abstract class _$SavingCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SavingCopyWithImpl<$Res> extends _$BoardRegisterStateCopyWithImpl<$Res>
+class __$SavingCopyWithImpl<$Res> extends _$BoardDetailsStateCopyWithImpl<$Res>
     implements _$SavingCopyWith<$Res> {
   __$SavingCopyWithImpl(_Saving _value, $Res Function(_Saving) _then)
       : super(_value, (v) => _then(v as _Saving));
@@ -304,7 +303,7 @@ class _$_Saving extends _Saving {
 
   @override
   String toString() {
-    return 'BoardRegisterState.saving(item: $item)';
+    return 'BoardDetailsState.saving(item: $item)';
   }
 
   @override
@@ -378,7 +377,7 @@ class _$_Saving extends _Saving {
   }
 }
 
-abstract class _Saving extends BoardRegisterState {
+abstract class _Saving extends BoardDetailsState {
   const factory _Saving(BoardItem item) = _$_Saving;
   const _Saving._() : super._();
 
@@ -391,7 +390,7 @@ abstract class _Saving extends BoardRegisterState {
 
 /// @nodoc
 abstract class _$SavedCopyWith<$Res>
-    implements $BoardRegisterStateCopyWith<$Res> {
+    implements $BoardDetailsStateCopyWith<$Res> {
   factory _$SavedCopyWith(_Saved value, $Res Function(_Saved) then) =
       __$SavedCopyWithImpl<$Res>;
   @override
@@ -402,7 +401,7 @@ abstract class _$SavedCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SavedCopyWithImpl<$Res> extends _$BoardRegisterStateCopyWithImpl<$Res>
+class __$SavedCopyWithImpl<$Res> extends _$BoardDetailsStateCopyWithImpl<$Res>
     implements _$SavedCopyWith<$Res> {
   __$SavedCopyWithImpl(_Saved _value, $Res Function(_Saved) _then)
       : super(_value, (v) => _then(v as _Saved));
@@ -433,7 +432,7 @@ class _$_Saved extends _Saved {
 
   @override
   String toString() {
-    return 'BoardRegisterState.saved(item: $item)';
+    return 'BoardDetailsState.saved(item: $item)';
   }
 
   @override
@@ -507,7 +506,7 @@ class _$_Saved extends _Saved {
   }
 }
 
-abstract class _Saved extends BoardRegisterState {
+abstract class _Saved extends BoardDetailsState {
   const factory _Saved(BoardItem item) = _$_Saved;
   const _Saved._() : super._();
 
@@ -520,7 +519,7 @@ abstract class _Saved extends BoardRegisterState {
 
 /// @nodoc
 abstract class _$FailureCopyWith<$Res>
-    implements $BoardRegisterStateCopyWith<$Res> {
+    implements $BoardDetailsStateCopyWith<$Res> {
   factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) then) =
       __$FailureCopyWithImpl<$Res>;
   @override
@@ -532,8 +531,7 @@ abstract class _$FailureCopyWith<$Res>
 }
 
 /// @nodoc
-class __$FailureCopyWithImpl<$Res>
-    extends _$BoardRegisterStateCopyWithImpl<$Res>
+class __$FailureCopyWithImpl<$Res> extends _$BoardDetailsStateCopyWithImpl<$Res>
     implements _$FailureCopyWith<$Res> {
   __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
       : super(_value, (v) => _then(v as _Failure));
@@ -578,7 +576,7 @@ class _$_Failure extends _Failure {
 
   @override
   String toString() {
-    return 'BoardRegisterState.failure(item: $item, failure: $failure)';
+    return 'BoardDetailsState.failure(item: $item, failure: $failure)';
   }
 
   @override
@@ -656,7 +654,7 @@ class _$_Failure extends _Failure {
   }
 }
 
-abstract class _Failure extends BoardRegisterState {
+abstract class _Failure extends BoardDetailsState {
   const factory _Failure(BoardItem item, CheckMonitorFailure failure) =
       _$_Failure;
   const _Failure._() : super._();
