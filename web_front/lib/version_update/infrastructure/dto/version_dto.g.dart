@@ -29,3 +29,9 @@ Map<String, dynamic> _$$_VersionNoDTOToJson(_$_VersionNoDTO instance) =>
       'minor': instance.minor,
       'patch': instance.patch,
     };
+
+_$_VersionFileDTO _$$_VersionFileDTOFromJson(Map<String, dynamic> json) =>
+    _$_VersionFileDTO();
+
+Map<String, dynamic> _$$_VersionFileDTOToJson(_$_VersionFileDTO instance) =>
+    <String, dynamic>{};

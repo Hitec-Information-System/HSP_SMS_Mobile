@@ -45,6 +45,7 @@ class _BoardWebViewPageState extends ConsumerState<BoardWebViewPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).textTheme.bodyText1?.color,
       ),
       body: SafeArea(
         child: Stack(

@@ -84,6 +84,7 @@ class _MonitPageState extends ConsumerState<MonitPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).textTheme.bodyText1?.color,
         title: Text(
           "${widget.categoryNm} 점검",
         ),

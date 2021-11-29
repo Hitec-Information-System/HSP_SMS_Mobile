@@ -30,22 +30,23 @@ class PasswordChangePage extends HookConsumerWidget {
           yesTitle: "확인",
           onYesPressed: () {},
           onDismissed: () {
-            Navigator.pop(context);
+            ref.read(authNotifierProvider.notifier).checkAuthState();
           },
         ),
-        failure: (failure) => Dialogs.showOneAnswerDialog(context,
-            color: Theme.of(context).errorColor,
-            title: "오류",
-            message: failure.when(
-              server: (String? message) =>
-                  message ?? "알 수 없는 에러\n\n관리자에게 문의하세요.",
-              storage: () => "기기에서 사용자 정보를 불러오는 중 에러가 발생하였습니다. 관리자에게 문의하세요.",
-            ),
-            yesTitle: "확인",
-            onYesPressed: () {}, onDismissed: () {
-          AutoRouter.of(context)
-              .popUntilRouteWithName(PasswordChangeRoute.name);
-        }),
+        failure: (failure) => Dialogs.showOneAnswerDialog(
+          context,
+          color: Theme.of(context).errorColor,
+          title: "오류",
+          message: failure.when(
+            server: (String? message) => message ?? "알 수 없는 에러\n\n관리자에게 문의하세요.",
+            storage: () => "기기에서 사용자 정보를 불러오는 중 에러가 발생하였습니다. 관리자에게 문의하세요.",
+          ),
+          yesTitle: "확인",
+          onYesPressed: () {},
+          onDismissed: () {
+            ref.read(authNotifierProvider.notifier).checkAuthState();
+          },
+        ),
         orElse: () {},
       );
     });

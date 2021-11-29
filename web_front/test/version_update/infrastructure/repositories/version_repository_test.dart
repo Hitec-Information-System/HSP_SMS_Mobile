@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -130,7 +129,9 @@ void main() {
   group(
     "uploadVersion",
     () {
-      final tBytes = Uint8List(12);
+      final tVersionDTO =
+          VersionDTO.fromJson(jsonDecode(fixture("version.json")));
+      final tVersion = tVersionDTO.toDomain();
       test(
         'should check if the device is online',
         () async {
@@ -139,7 +140,7 @@ void main() {
           when(mockRemoteDataSource.uploadAppVersion(any))
               .thenAnswer((_) async {});
           // act
-          repository.uploadVersion(tBytes);
+          repository.uploadVersion(tVersion);
           // assert
           verify(mockNetworkInfo.isConnected);
         },
@@ -158,9 +159,9 @@ void main() {
               when(mockRemoteDataSource.uploadAppVersion(any))
                   .thenAnswer((_) async {});
               // act
-              final result = await repository.uploadVersion(tBytes);
+              final result = await repository.uploadVersion(tVersion);
               // assert
-              verify(mockRemoteDataSource.uploadAppVersion(tBytes));
+              verify(mockRemoteDataSource.uploadAppVersion(tVersion));
               expect(result, right(unit));
             },
           );
@@ -172,9 +173,9 @@ void main() {
               when(mockRemoteDataSource.uploadAppVersion(any))
                   .thenThrow(ServerException());
               // act
-              final result = await repository.uploadVersion(tBytes);
+              final result = await repository.uploadVersion(tVersion);
               // assert
-              verify(mockRemoteDataSource.uploadAppVersion(tBytes));
+              verify(mockRemoteDataSource.uploadAppVersion(tVersion));
               expect(result, const Left(Failure.api()));
             },
           );
@@ -186,9 +187,9 @@ void main() {
               when(mockRemoteDataSource.uploadAppVersion(any))
                   .thenThrow(TimeoutException("not responding"));
               // act
-              final result = await repository.uploadVersion(tBytes);
+              final result = await repository.uploadVersion(tVersion);
               // assert
-              verify(mockRemoteDataSource.uploadAppVersion(tBytes));
+              verify(mockRemoteDataSource.uploadAppVersion(tVersion));
               expect(result, const Left(Failure.timeout()));
             },
           );
@@ -207,7 +208,7 @@ void main() {
               // arrange
 
               // act
-              final result = await repository.uploadVersion(tBytes);
+              final result = await repository.uploadVersion(tVersion);
               // assert
               expect(result, const Left(Failure.noConnection()));
             },

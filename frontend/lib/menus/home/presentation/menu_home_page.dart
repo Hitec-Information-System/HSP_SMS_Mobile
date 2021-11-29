@@ -41,6 +41,7 @@ class _MenuHomePageState extends ConsumerState<MenuHomePage> {
         backgroundColor: Colors.transparent,
         title: const Text("Home"),
         elevation: 0,
+        foregroundColor: Theme.of(context).textTheme.bodyText1?.color,
         actions: [
           IconButton(
             onPressed: () => AutoRouter.of(context).push(

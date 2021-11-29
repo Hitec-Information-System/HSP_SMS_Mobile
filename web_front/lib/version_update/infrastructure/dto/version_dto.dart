@@ -1,4 +1,5 @@
-import 'package:file_picker/file_picker.dart';
+import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:web_front/version_update/domain/version.dart';
 
@@ -28,7 +29,7 @@ class VersionDTO with _$VersionDTO {
   const factory VersionDTO({
     @JsonKey(name: "APK_V", fromJson: _tearDownStringToSemVer, toJson: _mergeSemVerToString)
         required VersionNoDTO versionNo,
-    @Default(null) @JsonKey(ignore: true) FilePickerResult? versionFile,
+    @Default(null) @JsonKey(ignore: true) VersionFileDTO? versionFile,
   }) = _VersionDTO;
 
   factory VersionDTO.fromJson(Map<String, dynamic> json) =>
@@ -36,12 +37,14 @@ class VersionDTO with _$VersionDTO {
 
   factory VersionDTO.fromDomain(Version _) => VersionDTO(
         versionNo: VersionNoDTO.fromDomain(_.versionNo),
-        versionFile: _.versionFile,
+        versionFile: _.versionFile != null
+            ? VersionFileDTO.fromDomain(_.versionFile!)
+            : null,
       );
 
   Version toDomain() => Version(
         versionNo: versionNo.toDomain(),
-        versionFile: versionFile,
+        versionFile: versionFile?.toDomain(),
       );
 }
 
@@ -49,9 +52,9 @@ class VersionDTO with _$VersionDTO {
 class VersionNoDTO with _$VersionNoDTO {
   const VersionNoDTO._();
   const factory VersionNoDTO({
-    required int? major,
-    required int? minor,
-    required int? patch,
+    int? major,
+    int? minor,
+    int? patch,
   }) = _VersionNoDTO;
 
   factory VersionNoDTO.fromDomain(VersionNo _) => VersionNoDTO(
@@ -61,11 +64,36 @@ class VersionNoDTO with _$VersionNoDTO {
       );
 
   VersionNo toDomain() => VersionNo(
-        major: major,
-        minor: minor,
-        patch: patch,
+        major: major ?? -1,
+        minor: minor ?? -1,
+        patch: patch ?? -1,
       );
 
   factory VersionNoDTO.fromJson(Map<String, dynamic> json) =>
       _$VersionNoDTOFromJson(json);
+}
+
+@freezed
+class VersionFileDTO with _$VersionFileDTO {
+  const VersionFileDTO._();
+  const factory VersionFileDTO({
+    @Default(null) @JsonKey(ignore: true) Uint8List? bytes,
+    @Default(null) @JsonKey(ignore: true) String? path,
+    @Default(false) @JsonKey(ignore: true) bool isPicked,
+  }) = _VersionFileDTO;
+
+  factory VersionFileDTO.fromDomain(VersionFile _) => VersionFileDTO(
+        bytes: _.bytes,
+        path: _.path,
+        isPicked: _.isPicked,
+      );
+
+  VersionFile toDomain() => VersionFile(
+        bytes: bytes,
+        path: path,
+        isPicked: isPicked,
+      );
+
+  factory VersionFileDTO.fromJson(Map<String, dynamic> json) =>
+      _$VersionFileDTOFromJson(json);
 }

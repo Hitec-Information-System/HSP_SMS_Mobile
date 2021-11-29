@@ -1,28 +1,33 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
+import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:web_front/core/constants/constants.dart';
 import 'package:web_front/core/error/exceptions.dart';
+import 'package:web_front/version_update/domain/version.dart';
 import 'package:web_front/version_update/infrastructure/datasources/version_remote_data_source.dart';
 
 import 'package:web_front/version_update/infrastructure/dto/version_dto.dart';
 
 import '../../../fixtures/fixture_reader.dart';
-import 'version_remote_data_source_test.mocks.dart';
 
-@GenerateMocks([http.Client])
 void main() {
-  late MockClient mockClient;
+  late Dio dio;
+  late DioAdapter dioAdapter;
 
   late VersionRemoteDataSource remoteDataSource;
   setUp(() {
-    mockClient = MockClient();
-    remoteDataSource = VersionRemoteDataSource(mockClient);
+    dio = Dio(BaseOptions(
+      baseUrl: Constants.baseApiUrl,
+    ));
+    dioAdapter = DioAdapter(dio: dio);
+    remoteDataSource = VersionRemoteDataSource(dio);
   });
+
+  const _route = "/apk";
 
   group(
     "fetchVersion",
@@ -35,8 +40,8 @@ void main() {
         "should return VersionDTO when the response code is 200 (success)",
         () async {
           // arrange
-          when(mockClient.get(any, headers: anyNamed('headers'))).thenAnswer(
-              (_) async => http.Response(fixture("version.json"), 200));
+          dioAdapter.onGet(
+              _route, (server) => server.reply(200, fixture("version.json")));
 
           // act
           final result = await remoteDataSource.getAppVersion();
@@ -48,9 +53,7 @@ void main() {
         'should return ServerException when the response code is 404 or other (failure)',
         () async {
           // arrange
-          when(
-            mockClient.get(any, headers: anyNamed('headers')),
-          ).thenAnswer((_) async => http.Response("somthing went wrong", 404));
+          dioAdapter.onGet(_route, (server) => server.reply(404, ""));
           // act
           final call = remoteDataSource.getAppVersion;
           // assert
@@ -66,36 +69,39 @@ void main() {
   group(
     "uploadAppVersion",
     () {
-      final bytes = Uint8List(12);
+      const tVersion = Version(
+        versionNo: VersionNo(major: 0, minor: 1, patch: 10),
+        versionFile: VersionFile(
+          bytes: null,
+          path: "./test/fixtures/test_version_file.jpg",
+          isPicked: false,
+        ),
+      );
       test(
         'should return void when the response code is 200 (success)',
         () async {
           // arrange
-          when(
-            mockClient.post(any, headers: anyNamed('headers')),
-          ).thenAnswer((_) async {
-            return http.Response("", 200);
-          });
+          dioAdapter.onPost(_route, (server) => server.reply(200, ""));
           // act
           final call = remoteDataSource.uploadAppVersion;
           // assert
-          expect(() => call(bytes), returnsNormally);
+          expect(() => call(tVersion), returnsNormally);
         },
       );
       test(
-        'should return DioError when the response code is 404 or other (failure)',
+        'should return ServerException when the response code is 404 or other (failure)',
         () async {
           // arrange
-          when(
-            mockClient.post(any, headers: anyNamed('headers')),
-          ).thenAnswer((_) async {
-            return http.Response("", 404);
-          });
+          dioAdapter.onPost(
+              _route,
+              (server) => server.reply(404, "", headers: {
+                    "Content-Type": ["multipart/form-data"]
+                  }));
           // act
           final call = remoteDataSource.uploadAppVersion;
           // assert
-          expect(
-              () => call(bytes), throwsA(const TypeMatcher<ServerException>()));
+          expect(() => call(tVersion),
+              throwsA(const TypeMatcher<ServerException>()));
         },
       );
     },

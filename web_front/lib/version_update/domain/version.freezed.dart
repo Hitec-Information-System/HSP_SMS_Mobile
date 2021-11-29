@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$VersionTearOff {
   const _$VersionTearOff();
 
-  _Version call({required VersionNo versionNo, FilePickerResult? versionFile}) {
+  _Version call({required VersionNo versionNo, VersionFile? versionFile}) {
     return _Version(
       versionNo: versionNo,
       versionFile: versionFile,
@@ -31,7 +31,7 @@ const $Version = _$VersionTearOff();
 /// @nodoc
 mixin _$Version {
   VersionNo get versionNo => throw _privateConstructorUsedError;
-  FilePickerResult? get versionFile => throw _privateConstructorUsedError;
+  VersionFile? get versionFile => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $VersionCopyWith<Version> get copyWith => throw _privateConstructorUsedError;
@@ -41,9 +41,10 @@ mixin _$Version {
 abstract class $VersionCopyWith<$Res> {
   factory $VersionCopyWith(Version value, $Res Function(Version) then) =
       _$VersionCopyWithImpl<$Res>;
-  $Res call({VersionNo versionNo, FilePickerResult? versionFile});
+  $Res call({VersionNo versionNo, VersionFile? versionFile});
 
   $VersionNoCopyWith<$Res> get versionNo;
+  $VersionFileCopyWith<$Res>? get versionFile;
 }
 
 /// @nodoc
@@ -67,7 +68,7 @@ class _$VersionCopyWithImpl<$Res> implements $VersionCopyWith<$Res> {
       versionFile: versionFile == freezed
           ? _value.versionFile
           : versionFile // ignore: cast_nullable_to_non_nullable
-              as FilePickerResult?,
+              as VersionFile?,
     ));
   }
 
@@ -77,6 +78,17 @@ class _$VersionCopyWithImpl<$Res> implements $VersionCopyWith<$Res> {
       return _then(_value.copyWith(versionNo: value));
     });
   }
+
+  @override
+  $VersionFileCopyWith<$Res>? get versionFile {
+    if (_value.versionFile == null) {
+      return null;
+    }
+
+    return $VersionFileCopyWith<$Res>(_value.versionFile!, (value) {
+      return _then(_value.copyWith(versionFile: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -84,10 +96,12 @@ abstract class _$VersionCopyWith<$Res> implements $VersionCopyWith<$Res> {
   factory _$VersionCopyWith(_Version value, $Res Function(_Version) then) =
       __$VersionCopyWithImpl<$Res>;
   @override
-  $Res call({VersionNo versionNo, FilePickerResult? versionFile});
+  $Res call({VersionNo versionNo, VersionFile? versionFile});
 
   @override
   $VersionNoCopyWith<$Res> get versionNo;
+  @override
+  $VersionFileCopyWith<$Res>? get versionFile;
 }
 
 /// @nodoc
@@ -112,7 +126,7 @@ class __$VersionCopyWithImpl<$Res> extends _$VersionCopyWithImpl<$Res>
       versionFile: versionFile == freezed
           ? _value.versionFile
           : versionFile // ignore: cast_nullable_to_non_nullable
-              as FilePickerResult?,
+              as VersionFile?,
     ));
   }
 }
@@ -125,7 +139,7 @@ class _$_Version extends _Version {
   @override
   final VersionNo versionNo;
   @override
-  final FilePickerResult? versionFile;
+  final VersionFile? versionFile;
 
   @override
   String toString() {
@@ -154,14 +168,13 @@ class _$_Version extends _Version {
 
 abstract class _Version extends Version {
   const factory _Version(
-      {required VersionNo versionNo,
-      FilePickerResult? versionFile}) = _$_Version;
+      {required VersionNo versionNo, VersionFile? versionFile}) = _$_Version;
   const _Version._() : super._();
 
   @override
   VersionNo get versionNo;
   @override
-  FilePickerResult? get versionFile;
+  VersionFile? get versionFile;
   @override
   @JsonKey(ignore: true)
   _$VersionCopyWith<_Version> get copyWith =>
@@ -173,7 +186,7 @@ class _$VersionNoTearOff {
   const _$VersionNoTearOff();
 
   _VersionNo call(
-      {required int? major, required int? minor, required int? patch}) {
+      {required int major, required int minor, required int patch}) {
     return _VersionNo(
       major: major,
       minor: minor,
@@ -187,9 +200,9 @@ const $VersionNo = _$VersionNoTearOff();
 
 /// @nodoc
 mixin _$VersionNo {
-  int? get major => throw _privateConstructorUsedError;
-  int? get minor => throw _privateConstructorUsedError;
-  int? get patch => throw _privateConstructorUsedError;
+  int get major => throw _privateConstructorUsedError;
+  int get minor => throw _privateConstructorUsedError;
+  int get patch => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $VersionNoCopyWith<VersionNo> get copyWith =>
@@ -200,7 +213,7 @@ mixin _$VersionNo {
 abstract class $VersionNoCopyWith<$Res> {
   factory $VersionNoCopyWith(VersionNo value, $Res Function(VersionNo) then) =
       _$VersionNoCopyWithImpl<$Res>;
-  $Res call({int? major, int? minor, int? patch});
+  $Res call({int major, int minor, int patch});
 }
 
 /// @nodoc
@@ -221,15 +234,15 @@ class _$VersionNoCopyWithImpl<$Res> implements $VersionNoCopyWith<$Res> {
       major: major == freezed
           ? _value.major
           : major // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       minor: minor == freezed
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       patch: patch == freezed
           ? _value.patch
           : patch // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ));
   }
 }
@@ -240,7 +253,7 @@ abstract class _$VersionNoCopyWith<$Res> implements $VersionNoCopyWith<$Res> {
           _VersionNo value, $Res Function(_VersionNo) then) =
       __$VersionNoCopyWithImpl<$Res>;
   @override
-  $Res call({int? major, int? minor, int? patch});
+  $Res call({int major, int minor, int patch});
 }
 
 /// @nodoc
@@ -262,15 +275,15 @@ class __$VersionNoCopyWithImpl<$Res> extends _$VersionNoCopyWithImpl<$Res>
       major: major == freezed
           ? _value.major
           : major // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       minor: minor == freezed
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       patch: patch == freezed
           ? _value.patch
           : patch // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ));
   }
 }
@@ -283,11 +296,11 @@ class _$_VersionNo extends _VersionNo {
       : super._();
 
   @override
-  final int? major;
+  final int major;
   @override
-  final int? minor;
+  final int minor;
   @override
-  final int? patch;
+  final int patch;
 
   @override
   String toString() {
@@ -315,19 +328,189 @@ class _$_VersionNo extends _VersionNo {
 
 abstract class _VersionNo extends VersionNo {
   const factory _VersionNo(
-      {required int? major,
-      required int? minor,
-      required int? patch}) = _$_VersionNo;
+      {required int major,
+      required int minor,
+      required int patch}) = _$_VersionNo;
   const _VersionNo._() : super._();
 
   @override
-  int? get major;
+  int get major;
   @override
-  int? get minor;
+  int get minor;
   @override
-  int? get patch;
+  int get patch;
   @override
   @JsonKey(ignore: true)
   _$VersionNoCopyWith<_VersionNo> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+class _$VersionFileTearOff {
+  const _$VersionFileTearOff();
+
+  _VersionFile call(
+      {required Uint8List? bytes,
+      required String? path,
+      required bool isPicked}) {
+    return _VersionFile(
+      bytes: bytes,
+      path: path,
+      isPicked: isPicked,
+    );
+  }
+}
+
+/// @nodoc
+const $VersionFile = _$VersionFileTearOff();
+
+/// @nodoc
+mixin _$VersionFile {
+  Uint8List? get bytes => throw _privateConstructorUsedError;
+  String? get path => throw _privateConstructorUsedError;
+  bool get isPicked => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $VersionFileCopyWith<VersionFile> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VersionFileCopyWith<$Res> {
+  factory $VersionFileCopyWith(
+          VersionFile value, $Res Function(VersionFile) then) =
+      _$VersionFileCopyWithImpl<$Res>;
+  $Res call({Uint8List? bytes, String? path, bool isPicked});
+}
+
+/// @nodoc
+class _$VersionFileCopyWithImpl<$Res> implements $VersionFileCopyWith<$Res> {
+  _$VersionFileCopyWithImpl(this._value, this._then);
+
+  final VersionFile _value;
+  // ignore: unused_field
+  final $Res Function(VersionFile) _then;
+
+  @override
+  $Res call({
+    Object? bytes = freezed,
+    Object? path = freezed,
+    Object? isPicked = freezed,
+  }) {
+    return _then(_value.copyWith(
+      bytes: bytes == freezed
+          ? _value.bytes
+          : bytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isPicked: isPicked == freezed
+          ? _value.isPicked
+          : isPicked // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$VersionFileCopyWith<$Res>
+    implements $VersionFileCopyWith<$Res> {
+  factory _$VersionFileCopyWith(
+          _VersionFile value, $Res Function(_VersionFile) then) =
+      __$VersionFileCopyWithImpl<$Res>;
+  @override
+  $Res call({Uint8List? bytes, String? path, bool isPicked});
+}
+
+/// @nodoc
+class __$VersionFileCopyWithImpl<$Res> extends _$VersionFileCopyWithImpl<$Res>
+    implements _$VersionFileCopyWith<$Res> {
+  __$VersionFileCopyWithImpl(
+      _VersionFile _value, $Res Function(_VersionFile) _then)
+      : super(_value, (v) => _then(v as _VersionFile));
+
+  @override
+  _VersionFile get _value => super._value as _VersionFile;
+
+  @override
+  $Res call({
+    Object? bytes = freezed,
+    Object? path = freezed,
+    Object? isPicked = freezed,
+  }) {
+    return _then(_VersionFile(
+      bytes: bytes == freezed
+          ? _value.bytes
+          : bytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isPicked: isPicked == freezed
+          ? _value.isPicked
+          : isPicked // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_VersionFile extends _VersionFile {
+  const _$_VersionFile(
+      {required this.bytes, required this.path, required this.isPicked})
+      : super._();
+
+  @override
+  final Uint8List? bytes;
+  @override
+  final String? path;
+  @override
+  final bool isPicked;
+
+  @override
+  String toString() {
+    return 'VersionFile(bytes: $bytes, path: $path, isPicked: $isPicked)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _VersionFile &&
+            (identical(other.bytes, bytes) || other.bytes == bytes) &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.isPicked, isPicked) ||
+                other.isPicked == isPicked));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, bytes, path, isPicked);
+
+  @JsonKey(ignore: true)
+  @override
+  _$VersionFileCopyWith<_VersionFile> get copyWith =>
+      __$VersionFileCopyWithImpl<_VersionFile>(this, _$identity);
+}
+
+abstract class _VersionFile extends VersionFile {
+  const factory _VersionFile(
+      {required Uint8List? bytes,
+      required String? path,
+      required bool isPicked}) = _$_VersionFile;
+  const _VersionFile._() : super._();
+
+  @override
+  Uint8List? get bytes;
+  @override
+  String? get path;
+  @override
+  bool get isPicked;
+  @override
+  @JsonKey(ignore: true)
+  _$VersionFileCopyWith<_VersionFile> get copyWith =>
       throw _privateConstructorUsedError;
 }

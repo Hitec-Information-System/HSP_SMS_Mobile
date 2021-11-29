@@ -46,6 +46,7 @@ class _BoardItemDetailsPageState extends ConsumerState<BoardItemDetailsPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(widget.title),
+        foregroundColor: Theme.of(context).textTheme.bodyText1?.color,
       ),
       body: Padding(
         padding:

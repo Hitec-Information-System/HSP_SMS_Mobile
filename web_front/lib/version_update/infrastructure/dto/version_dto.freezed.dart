@@ -25,7 +25,7 @@ class _$VersionDTOTearOff {
       {@JsonKey(name: "APK_V", fromJson: _tearDownStringToSemVer, toJson: _mergeSemVerToString)
           required VersionNoDTO versionNo,
       @JsonKey(ignore: true)
-          FilePickerResult? versionFile = null}) {
+          VersionFileDTO? versionFile = null}) {
     return _VersionDTO(
       versionNo: versionNo,
       versionFile: versionFile,
@@ -48,7 +48,7 @@ mixin _$VersionDTO {
       toJson: _mergeSemVerToString)
   VersionNoDTO get versionNo => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  FilePickerResult? get versionFile => throw _privateConstructorUsedError;
+  VersionFileDTO? get versionFile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,9 +65,10 @@ abstract class $VersionDTOCopyWith<$Res> {
       {@JsonKey(name: "APK_V", fromJson: _tearDownStringToSemVer, toJson: _mergeSemVerToString)
           VersionNoDTO versionNo,
       @JsonKey(ignore: true)
-          FilePickerResult? versionFile});
+          VersionFileDTO? versionFile});
 
   $VersionNoDTOCopyWith<$Res> get versionNo;
+  $VersionFileDTOCopyWith<$Res>? get versionFile;
 }
 
 /// @nodoc
@@ -91,7 +92,7 @@ class _$VersionDTOCopyWithImpl<$Res> implements $VersionDTOCopyWith<$Res> {
       versionFile: versionFile == freezed
           ? _value.versionFile
           : versionFile // ignore: cast_nullable_to_non_nullable
-              as FilePickerResult?,
+              as VersionFileDTO?,
     ));
   }
 
@@ -99,6 +100,17 @@ class _$VersionDTOCopyWithImpl<$Res> implements $VersionDTOCopyWith<$Res> {
   $VersionNoDTOCopyWith<$Res> get versionNo {
     return $VersionNoDTOCopyWith<$Res>(_value.versionNo, (value) {
       return _then(_value.copyWith(versionNo: value));
+    });
+  }
+
+  @override
+  $VersionFileDTOCopyWith<$Res>? get versionFile {
+    if (_value.versionFile == null) {
+      return null;
+    }
+
+    return $VersionFileDTOCopyWith<$Res>(_value.versionFile!, (value) {
+      return _then(_value.copyWith(versionFile: value));
     });
   }
 }
@@ -113,10 +125,12 @@ abstract class _$VersionDTOCopyWith<$Res> implements $VersionDTOCopyWith<$Res> {
       {@JsonKey(name: "APK_V", fromJson: _tearDownStringToSemVer, toJson: _mergeSemVerToString)
           VersionNoDTO versionNo,
       @JsonKey(ignore: true)
-          FilePickerResult? versionFile});
+          VersionFileDTO? versionFile});
 
   @override
   $VersionNoDTOCopyWith<$Res> get versionNo;
+  @override
+  $VersionFileDTOCopyWith<$Res>? get versionFile;
 }
 
 /// @nodoc
@@ -142,7 +156,7 @@ class __$VersionDTOCopyWithImpl<$Res> extends _$VersionDTOCopyWithImpl<$Res>
       versionFile: versionFile == freezed
           ? _value.versionFile
           : versionFile // ignore: cast_nullable_to_non_nullable
-              as FilePickerResult?,
+              as VersionFileDTO?,
     ));
   }
 }
@@ -168,7 +182,7 @@ class _$_VersionDTO extends _VersionDTO {
   final VersionNoDTO versionNo;
   @override
   @JsonKey(ignore: true)
-  final FilePickerResult? versionFile;
+  final VersionFileDTO? versionFile;
 
   @override
   String toString() {
@@ -205,7 +219,7 @@ abstract class _VersionDTO extends VersionDTO {
       {@JsonKey(name: "APK_V", fromJson: _tearDownStringToSemVer, toJson: _mergeSemVerToString)
           required VersionNoDTO versionNo,
       @JsonKey(ignore: true)
-          FilePickerResult? versionFile}) = _$_VersionDTO;
+          VersionFileDTO? versionFile}) = _$_VersionDTO;
   const _VersionDTO._() : super._();
 
   factory _VersionDTO.fromJson(Map<String, dynamic> json) =
@@ -219,7 +233,7 @@ abstract class _VersionDTO extends VersionDTO {
   VersionNoDTO get versionNo;
   @override
   @JsonKey(ignore: true)
-  FilePickerResult? get versionFile;
+  VersionFileDTO? get versionFile;
   @override
   @JsonKey(ignore: true)
   _$VersionDTOCopyWith<_VersionDTO> get copyWith =>
@@ -234,8 +248,7 @@ VersionNoDTO _$VersionNoDTOFromJson(Map<String, dynamic> json) {
 class _$VersionNoDTOTearOff {
   const _$VersionNoDTOTearOff();
 
-  _VersionNoDTO call(
-      {required int? major, required int? minor, required int? patch}) {
+  _VersionNoDTO call({int? major, int? minor, int? patch}) {
     return _VersionNoDTO(
       major: major,
       minor: minor,
@@ -348,9 +361,7 @@ class __$VersionNoDTOCopyWithImpl<$Res> extends _$VersionNoDTOCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_VersionNoDTO extends _VersionNoDTO {
-  const _$_VersionNoDTO(
-      {required this.major, required this.minor, required this.patch})
-      : super._();
+  const _$_VersionNoDTO({this.major, this.minor, this.patch}) : super._();
 
   factory _$_VersionNoDTO.fromJson(Map<String, dynamic> json) =>
       _$$_VersionNoDTOFromJson(json);
@@ -392,10 +403,8 @@ class _$_VersionNoDTO extends _VersionNoDTO {
 }
 
 abstract class _VersionNoDTO extends VersionNoDTO {
-  const factory _VersionNoDTO(
-      {required int? major,
-      required int? minor,
-      required int? patch}) = _$_VersionNoDTO;
+  const factory _VersionNoDTO({int? major, int? minor, int? patch}) =
+      _$_VersionNoDTO;
   const _VersionNoDTO._() : super._();
 
   factory _VersionNoDTO.fromJson(Map<String, dynamic> json) =
@@ -410,5 +419,214 @@ abstract class _VersionNoDTO extends VersionNoDTO {
   @override
   @JsonKey(ignore: true)
   _$VersionNoDTOCopyWith<_VersionNoDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+VersionFileDTO _$VersionFileDTOFromJson(Map<String, dynamic> json) {
+  return _VersionFileDTO.fromJson(json);
+}
+
+/// @nodoc
+class _$VersionFileDTOTearOff {
+  const _$VersionFileDTOTearOff();
+
+  _VersionFileDTO call(
+      {@JsonKey(ignore: true) Uint8List? bytes = null,
+      @JsonKey(ignore: true) String? path = null,
+      @JsonKey(ignore: true) bool isPicked = false}) {
+    return _VersionFileDTO(
+      bytes: bytes,
+      path: path,
+      isPicked: isPicked,
+    );
+  }
+
+  VersionFileDTO fromJson(Map<String, Object?> json) {
+    return VersionFileDTO.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $VersionFileDTO = _$VersionFileDTOTearOff();
+
+/// @nodoc
+mixin _$VersionFileDTO {
+  @JsonKey(ignore: true)
+  Uint8List? get bytes => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  String? get path => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  bool get isPicked => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VersionFileDTOCopyWith<VersionFileDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VersionFileDTOCopyWith<$Res> {
+  factory $VersionFileDTOCopyWith(
+          VersionFileDTO value, $Res Function(VersionFileDTO) then) =
+      _$VersionFileDTOCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(ignore: true) Uint8List? bytes,
+      @JsonKey(ignore: true) String? path,
+      @JsonKey(ignore: true) bool isPicked});
+}
+
+/// @nodoc
+class _$VersionFileDTOCopyWithImpl<$Res>
+    implements $VersionFileDTOCopyWith<$Res> {
+  _$VersionFileDTOCopyWithImpl(this._value, this._then);
+
+  final VersionFileDTO _value;
+  // ignore: unused_field
+  final $Res Function(VersionFileDTO) _then;
+
+  @override
+  $Res call({
+    Object? bytes = freezed,
+    Object? path = freezed,
+    Object? isPicked = freezed,
+  }) {
+    return _then(_value.copyWith(
+      bytes: bytes == freezed
+          ? _value.bytes
+          : bytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isPicked: isPicked == freezed
+          ? _value.isPicked
+          : isPicked // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$VersionFileDTOCopyWith<$Res>
+    implements $VersionFileDTOCopyWith<$Res> {
+  factory _$VersionFileDTOCopyWith(
+          _VersionFileDTO value, $Res Function(_VersionFileDTO) then) =
+      __$VersionFileDTOCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(ignore: true) Uint8List? bytes,
+      @JsonKey(ignore: true) String? path,
+      @JsonKey(ignore: true) bool isPicked});
+}
+
+/// @nodoc
+class __$VersionFileDTOCopyWithImpl<$Res>
+    extends _$VersionFileDTOCopyWithImpl<$Res>
+    implements _$VersionFileDTOCopyWith<$Res> {
+  __$VersionFileDTOCopyWithImpl(
+      _VersionFileDTO _value, $Res Function(_VersionFileDTO) _then)
+      : super(_value, (v) => _then(v as _VersionFileDTO));
+
+  @override
+  _VersionFileDTO get _value => super._value as _VersionFileDTO;
+
+  @override
+  $Res call({
+    Object? bytes = freezed,
+    Object? path = freezed,
+    Object? isPicked = freezed,
+  }) {
+    return _then(_VersionFileDTO(
+      bytes: bytes == freezed
+          ? _value.bytes
+          : bytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+      path: path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isPicked: isPicked == freezed
+          ? _value.isPicked
+          : isPicked // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_VersionFileDTO extends _VersionFileDTO {
+  const _$_VersionFileDTO(
+      {@JsonKey(ignore: true) this.bytes = null,
+      @JsonKey(ignore: true) this.path = null,
+      @JsonKey(ignore: true) this.isPicked = false})
+      : super._();
+
+  factory _$_VersionFileDTO.fromJson(Map<String, dynamic> json) =>
+      _$$_VersionFileDTOFromJson(json);
+
+  @override
+  @JsonKey(ignore: true)
+  final Uint8List? bytes;
+  @override
+  @JsonKey(ignore: true)
+  final String? path;
+  @override
+  @JsonKey(ignore: true)
+  final bool isPicked;
+
+  @override
+  String toString() {
+    return 'VersionFileDTO(bytes: $bytes, path: $path, isPicked: $isPicked)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _VersionFileDTO &&
+            (identical(other.bytes, bytes) || other.bytes == bytes) &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.isPicked, isPicked) ||
+                other.isPicked == isPicked));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, bytes, path, isPicked);
+
+  @JsonKey(ignore: true)
+  @override
+  _$VersionFileDTOCopyWith<_VersionFileDTO> get copyWith =>
+      __$VersionFileDTOCopyWithImpl<_VersionFileDTO>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_VersionFileDTOToJson(this);
+  }
+}
+
+abstract class _VersionFileDTO extends VersionFileDTO {
+  const factory _VersionFileDTO(
+      {@JsonKey(ignore: true) Uint8List? bytes,
+      @JsonKey(ignore: true) String? path,
+      @JsonKey(ignore: true) bool isPicked}) = _$_VersionFileDTO;
+  const _VersionFileDTO._() : super._();
+
+  factory _VersionFileDTO.fromJson(Map<String, dynamic> json) =
+      _$_VersionFileDTO.fromJson;
+
+  @override
+  @JsonKey(ignore: true)
+  Uint8List? get bytes;
+  @override
+  @JsonKey(ignore: true)
+  String? get path;
+  @override
+  @JsonKey(ignore: true)
+  bool get isPicked;
+  @override
+  @JsonKey(ignore: true)
+  _$VersionFileDTOCopyWith<_VersionFileDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }

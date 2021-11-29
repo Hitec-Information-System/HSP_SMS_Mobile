@@ -3,10 +3,10 @@
 // Do not manually edit this file.
 
 import 'dart:async' as _i4;
-import 'dart:typed_data' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:web_front/core/network/network_info.dart' as _i6;
+import 'package:web_front/version_update/domain/version.dart' as _i5;
 import 'package:web_front/version_update/infrastructure/datasources/version_remote_data_source.dart'
     as _i3;
 import 'package:web_front/version_update/infrastructure/dto/version_dto.dart'
@@ -38,8 +38,8 @@ class MockVersionRemoteDataSource extends _i1.Mock
               returnValue: Future<_i2.VersionDTO>.value(_FakeVersionDTO_0()))
           as _i4.Future<_i2.VersionDTO>);
   @override
-  _i4.Future<void> uploadAppVersion(_i5.Uint8List? bytes) =>
-      (super.noSuchMethod(Invocation.method(#uploadAppVersion, [bytes]),
+  _i4.Future<void> uploadAppVersion(_i5.Version? version) =>
+      (super.noSuchMethod(Invocation.method(#uploadAppVersion, [version]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override

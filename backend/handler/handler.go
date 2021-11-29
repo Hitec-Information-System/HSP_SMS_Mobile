@@ -49,7 +49,7 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/check", a.fetchCheckList).Methods("GET")
 	r.HandleFunc("/check", a.saveCheckList).Methods("POST")
-	r.HandleFunc("/check/images", uploadHandler).Methods("POST")
+	r.HandleFunc("/check/images", imgUploadHandler).Methods("POST")
 
 	r.HandleFunc("/monitor", a.fetchCheckStatusTodayByGubun).Methods("GET")
 
@@ -67,6 +67,7 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/apk/{version}", a.downloadApk).Methods("GET")
 	r.HandleFunc("/apk", a.fetchApkInfo).Methods("GET")
+	r.HandleFunc("/apk", a.fetchApkInfo).Methods("POST")
 
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
@@ -741,5 +742,9 @@ func (a *AppHandler) fetchCurrentProgress(w http.ResponseWriter, r *http.Request
 	}
 
 	rd.JSON(w, http.StatusOK, results)
+
+}
+
+func (a *AppHandler) saveApk(w http.ResponseWriter, r *http.Request) {
 
 }

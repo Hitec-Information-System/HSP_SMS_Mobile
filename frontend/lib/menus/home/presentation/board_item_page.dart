@@ -81,6 +81,7 @@ class BoardItemPage extends HookConsumerWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(safetyTitle),
+        foregroundColor: Theme.of(context).textTheme.bodyText1?.color,
       ),
       body: Padding(
         padding:

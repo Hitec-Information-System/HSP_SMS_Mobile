@@ -1,5 +1,7 @@
+import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:web_front/version_update/presentation/widgets/draggable_spot.dart';
 
 import 'package:web_front/version_update/shared/providers.dart';
 
@@ -22,14 +24,12 @@ class VersionUpdatePage extends StatelessWidget {
                   onPressed: () {
                     ref
                         .read(versionStateNotifierProvider.notifier)
-                        .addVersionFile();
+                        .pickVersionFile();
                   },
                 );
               },
             ),
-            Row(
-              children: [],
-            )
+            const DraggableSpot(),
           ],
         ),
       ),

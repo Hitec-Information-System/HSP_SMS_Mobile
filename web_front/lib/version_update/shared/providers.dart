@@ -7,7 +7,7 @@ import 'package:web_front/version_update/infrastructure/repositories/version_rep
 
 final versionRemoteDataSourceProvider =
     Provider.autoDispose<VersionRemoteDataSource>(
-  (ref) => VersionRemoteDataSource(ref.watch(httpClientProvider)),
+  (ref) => VersionRemoteDataSource(ref.watch(dioProvider)),
 );
 
 final versionRepositoryProvider = Provider.autoDispose<VersionRepository>(

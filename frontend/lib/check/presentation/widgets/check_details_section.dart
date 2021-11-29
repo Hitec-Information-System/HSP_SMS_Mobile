@@ -84,33 +84,35 @@ class CheckListDetailsDirectory extends ConsumerWidget {
             .where((detail) => detail.intervalChk == id)
             .toList()));
 
-    return Theme(
-      data: Theme.of(context).copyWith(
-        dividerColor: Colors.transparent,
-      ),
-      child: ExpansionTile(
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-          ),
-        ),
-        initiallyExpanded: true,
-        children: directoryItems
-            .mapIndexed(
-              (index, _) => ProviderScope(
-                overrides: [
-                  _currentDetail.overrideWithValue(directoryItems[index])
-                ],
-                child: CheckDetailsCard(
-                  index: index,
+    return directoryItems.isEmpty
+        ? const SizedBox()
+        : Theme(
+            data: Theme.of(context).copyWith(
+              dividerColor: Colors.transparent,
+            ),
+            child: ExpansionTile(
+              title: Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
                 ),
               ),
-            )
-            .toList(),
-      ),
-    );
+              initiallyExpanded: true,
+              children: directoryItems
+                  .mapIndexed(
+                    (index, _) => ProviderScope(
+                      overrides: [
+                        _currentDetail.overrideWithValue(directoryItems[index])
+                      ],
+                      child: CheckDetailsCard(
+                        index: index,
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          );
   }
 }
 

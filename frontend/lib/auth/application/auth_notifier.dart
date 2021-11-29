@@ -38,7 +38,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     state = failureOrSuccess.fold(
       (l) => AuthState.failure(l),
-      (r) => const AuthState.pwdChanged(),
+      (_) => const AuthState.pwdChanged(),
     );
   }
 

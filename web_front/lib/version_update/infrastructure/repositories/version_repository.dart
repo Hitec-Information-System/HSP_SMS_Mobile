@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
 import 'package:web_front/core/error/exceptions.dart';
@@ -26,21 +25,25 @@ class VersionRepository {
         return left(const Failure.api());
       } on TimeoutException {
         return left(const Failure.timeout());
+      } on NoConnectionException {
+        return left(const Failure.noConnection());
       }
     } else {
       return left(const Failure.noConnection());
     }
   }
 
-  Future<Either<Failure, Unit>> uploadVersion(Uint8List bytes) async {
+  Future<Either<Failure, Unit>> uploadVersion(Version version) async {
     if (await networkInfo.isConnected) {
       try {
-        await remoteDataSource.uploadAppVersion(bytes);
+        await remoteDataSource.uploadAppVersion(version);
         return right(unit);
       } on ServerException {
         return left(const Failure.api());
       } on TimeoutException {
         return left(const Failure.timeout());
+      } on NoConnectionException {
+        return left(const Failure.noConnection());
       }
     } else {
       return left(const Failure.noConnection());
