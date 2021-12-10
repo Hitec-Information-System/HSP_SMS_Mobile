@@ -17,37 +17,37 @@ class VersionRepository {
   });
 
   Future<Either<Failure, Version>> fetchVersion() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final data = await remoteDataSource.getAppVersion();
-        return right(data.toDomain());
-      } on ServerException {
-        return left(const Failure.api());
-      } on TimeoutException {
-        return left(const Failure.timeout());
-      } on NoConnectionException {
-        return left(const Failure.noConnection());
-      }
-    } else {
+    // if (await networkInfo.isConnected) {
+    try {
+      final data = await remoteDataSource.getAppVersion();
+      return right(data.toDomain());
+    } on ServerException {
+      return left(const Failure.api());
+    } on TimeoutException {
+      return left(const Failure.timeout());
+    } on NoConnectionException {
       return left(const Failure.noConnection());
     }
+    // } else {
+    //   return left(const Failure.noConnection());
+    // }
   }
 
   Future<Either<Failure, Unit>> uploadVersion(Version version) async {
-    if (await networkInfo.isConnected) {
-      try {
-        await remoteDataSource.uploadAppVersion(version);
-        return right(unit);
-      } on ServerException {
-        return left(const Failure.api());
-      } on TimeoutException {
-        return left(const Failure.timeout());
-      } on NoConnectionException {
-        return left(const Failure.noConnection());
-      }
-    } else {
+    // if (await networkInfo.isConnected) {
+    try {
+      await remoteDataSource.uploadAppVersion(version);
+      return right(unit);
+    } on ServerException {
+      return left(const Failure.api());
+    } on TimeoutException {
+      return left(const Failure.timeout());
+    } on NoConnectionException {
       return left(const Failure.noConnection());
     }
+    // } else {
+    //   return left(const Failure.noConnection());
+    // }
   }
 
   // Future<Either<Failure, Version>> fetchVersion() async {

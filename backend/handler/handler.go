@@ -67,7 +67,7 @@ func MakeHandler() *AppHandler {
 
 	r.HandleFunc("/apk/{version}", a.downloadApk).Methods("GET")
 	r.HandleFunc("/apk", a.fetchApkInfo).Methods("GET")
-	r.HandleFunc("/apk", a.fetchApkInfo).Methods("POST")
+	r.HandleFunc("/apk", a.saveApk).Methods("POST")
 
 	// for test
 	r.HandleFunc("/data", a.getData).Methods("GET")
@@ -747,4 +747,8 @@ func (a *AppHandler) fetchCurrentProgress(w http.ResponseWriter, r *http.Request
 
 func (a *AppHandler) saveApk(w http.ResponseWriter, r *http.Request) {
 
+	err := apkUploadHandler(r)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, "")
+	}
 }

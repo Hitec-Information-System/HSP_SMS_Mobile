@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -189,67 +190,75 @@ func apkUploadHandler(r *http.Request) error {
 
 	var nullErr error
 
+	// 32 MB is the default used by FormFile()
 	if err := r.ParseMultipartForm(32 << 20); err != nil {
 		return err
 	}
 
+	var params map[string]interface{}
+
+	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
+		return fmt.Errorf("Invalid json provided")
+	}
+
+	appVersion := params["app-version"].(string)
+
 	// Get a reference to the fileHeaders.
 	// They are accessible only after ParseMultipartForm is called
-	files := r.MultipartForm.File["file"]
+	fileRaw := r.MultipartForm.File["file"]
 
-	fmt.Println(files)
+	fmt.Println(fileRaw)
 
-	for _, fileHeader := range files {
-		if fileHeader.Size > MAX_UPLOAD_APK_SIZE {
+	// 파일은 오직 하나 존재함
+	fileHeader := fileRaw[0]
 
-			return fmt.Errorf(fmt.Sprintf("The uploaded image is too big: %s. Please use an image less than 1MB in size", fileHeader.Filename))
-		}
+	if fileHeader.Size > MAX_UPLOAD_APK_SIZE {
+		return fmt.Errorf(fmt.Sprintf("The uploaded image is too big: %s. Please use an image less than 1MB in size", fileHeader.Filename))
+	}
 
-		// Open the file
-		file, err := fileHeader.Open()
-		if err != nil {
-			return err
-		}
+	// Open the file
+	file, err := fileHeader.Open()
+	if err != nil {
+		return err
+	}
 
-		defer file.Close()
+	defer file.Close()
 
-		buff := make([]byte, 512)
-		_, err = file.Read(buff)
-		if err != nil {
-			return err
-		}
+	buff := make([]byte, 512)
+	_, err = file.Read(buff)
+	if err != nil {
+		return err
+	}
 
-		filetype := http.DetectContentType(buff)
-		fmt.Println(filetype)
-		if filetype != "application/octet-stream" {
+	filetype := http.DetectContentType(buff)
+	fmt.Println(filetype)
+	if filetype != "application/octet-stream" {
+		return fmt.Errorf("The provided file format is not allowed. Please upload a JPEG or PNG image")
+	}
 
-			return fmt.Errorf("The provided file format is not allowed. Please upload a JPEG or PNG image")
-		}
+	_, err = file.Seek(0, io.SeekStart)
+	if err != nil {
+		return err
+	}
 
-		_, err = file.Seek(0, io.SeekStart)
-		if err != nil {
-			return err
-		}
+	dirName := viper.GetString(`apk-path`)
 
-		// TODO: ./apks/ 아래 경로 지정해주기
-		dirName := viper.GetString(`apk-path`)
+	err = os.MkdirAll(dirName, os.ModePerm)
+	if err != nil {
+		return err
+	}
 
-		err = os.MkdirAll(dirName, os.ModePerm)
-		if err != nil {
-			return err
-		}
+	// TODO: /apk/버전폴더/이름.apk 형태로 저장되게 지정
+	f, err := os.Create(fmt.Sprintf("%s/%s/%s", dirName, appVersion, fileHeader.Filename))
+	if err != nil {
+		return err
+	}
 
-		f, err := os.Create(fmt.Sprintf("%s/%s", dirName, fileHeader.Filename))
-		if err != nil {
-			return err
-		}
+	defer f.Close()
 
-		defer f.Close()
-
-		_, err = io.Copy(f, file)
-		if err != nil {
-			return err
-		}
+	_, err = io.Copy(f, file)
+	if err != nil {
+		return err
 	}
 
 	return nullErr

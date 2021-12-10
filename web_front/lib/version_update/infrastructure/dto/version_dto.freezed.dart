@@ -194,14 +194,16 @@ class _$_VersionDTO extends _VersionDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _VersionDTO &&
-            (identical(other.versionNo, versionNo) ||
-                other.versionNo == versionNo) &&
-            (identical(other.versionFile, versionFile) ||
-                other.versionFile == versionFile));
+            const DeepCollectionEquality().equals(other.versionNo, versionNo) &&
+            const DeepCollectionEquality()
+                .equals(other.versionFile, versionFile));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, versionNo, versionFile);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(versionNo),
+      const DeepCollectionEquality().hash(versionFile));
 
   @JsonKey(ignore: true)
   @override
@@ -383,13 +385,17 @@ class _$_VersionNoDTO extends _VersionNoDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _VersionNoDTO &&
-            (identical(other.major, major) || other.major == major) &&
-            (identical(other.minor, minor) || other.minor == minor) &&
-            (identical(other.patch, patch) || other.patch == patch));
+            const DeepCollectionEquality().equals(other.major, major) &&
+            const DeepCollectionEquality().equals(other.minor, minor) &&
+            const DeepCollectionEquality().equals(other.patch, patch));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, major, minor, patch);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(major),
+      const DeepCollectionEquality().hash(minor),
+      const DeepCollectionEquality().hash(patch));
 
   @JsonKey(ignore: true)
   @override
@@ -586,14 +592,17 @@ class _$_VersionFileDTO extends _VersionFileDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _VersionFileDTO &&
-            (identical(other.bytes, bytes) || other.bytes == bytes) &&
-            (identical(other.path, path) || other.path == path) &&
-            (identical(other.isPicked, isPicked) ||
-                other.isPicked == isPicked));
+            const DeepCollectionEquality().equals(other.bytes, bytes) &&
+            const DeepCollectionEquality().equals(other.path, path) &&
+            const DeepCollectionEquality().equals(other.isPicked, isPicked));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, bytes, path, isPicked);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(bytes),
+      const DeepCollectionEquality().hash(path),
+      const DeepCollectionEquality().hash(isPicked));
 
   @JsonKey(ignore: true)
   @override

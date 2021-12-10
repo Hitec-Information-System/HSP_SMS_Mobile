@@ -157,11 +157,12 @@ class _$_Api extends _Api {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Api &&
-            (identical(other.message, message) || other.message == message));
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
 
   @JsonKey(ignore: true)
   @override
@@ -299,11 +300,12 @@ class _$_Internal extends _Internal {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Internal &&
-            (identical(other.message, message) || other.message == message));
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
 
   @JsonKey(ignore: true)
   @override

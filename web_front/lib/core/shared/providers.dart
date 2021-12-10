@@ -13,6 +13,9 @@ final httpClientProvider = Provider<http.Client>(
 final dioProvider = Provider<Dio>(
   (ref) => Dio(BaseOptions(
     baseUrl: Constants.baseApiUrl,
+    connectTimeout: 5000,
+    receiveTimeout: 5000,
+    responseType: ResponseType.plain,
   )),
 );
 

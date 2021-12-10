@@ -219,11 +219,12 @@ class _$_Initial extends _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Initial &&
-            (identical(other.version, version) || other.version == version));
+            const DeepCollectionEquality().equals(other.version, version));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, version);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(version));
 
   @JsonKey(ignore: true)
   @override
@@ -380,11 +381,12 @@ class _$_Loading extends _Loading {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Loading &&
-            (identical(other.version, version) || other.version == version));
+            const DeepCollectionEquality().equals(other.version, version));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, version);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(version));
 
   @JsonKey(ignore: true)
   @override
@@ -541,11 +543,12 @@ class _$_Checked extends _Checked {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Checked &&
-            (identical(other.version, version) || other.version == version));
+            const DeepCollectionEquality().equals(other.version, version));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, version);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(version));
 
   @JsonKey(ignore: true)
   @override
@@ -704,11 +707,12 @@ class _$_FileAdded extends _FileAdded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FileAdded &&
-            (identical(other.version, version) || other.version == version));
+            const DeepCollectionEquality().equals(other.version, version));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, version);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(version));
 
   @JsonKey(ignore: true)
   @override
@@ -865,11 +869,12 @@ class _$_Uploaded extends _Uploaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Uploaded &&
-            (identical(other.version, version) || other.version == version));
+            const DeepCollectionEquality().equals(other.version, version));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, version);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(version));
 
   @JsonKey(ignore: true)
   @override
@@ -1041,12 +1046,15 @@ class _$_Failure extends _Failure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Failure &&
-            (identical(other.version, version) || other.version == version) &&
-            (identical(other.failure, failure) || other.failure == failure));
+            const DeepCollectionEquality().equals(other.version, version) &&
+            const DeepCollectionEquality().equals(other.failure, failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, version, failure);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(version),
+      const DeepCollectionEquality().hash(failure));
 
   @JsonKey(ignore: true)
   @override

@@ -116,8 +116,6 @@ func (o *OracleRepository) GetQueryData(query string) ([]interface{}, error) {
 
 	rows, err := o.db.Query(query)
 
-	fmt.Println(rows)
-
 	if err != nil {
 		return results, err
 	}
