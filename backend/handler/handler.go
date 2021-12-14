@@ -42,6 +42,7 @@ func MakeHandler() *AppHandler {
 	}
 
 	r.HandleFunc("/", indexHandler)
+	r.HandleFunc("/auth", a.getWebUser).Methods("POST")
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
 	r.HandleFunc("/pwd", a.updatePassword).Methods("POST")
 
@@ -745,10 +746,13 @@ func (a *AppHandler) fetchCurrentProgress(w http.ResponseWriter, r *http.Request
 
 }
 
+// TODO: 마무리 안됨
 func (a *AppHandler) saveApk(w http.ResponseWriter, r *http.Request) {
 
+	// apk 저장
 	err := apkUploadHandler(r)
 	if err != nil {
+		// TODO: message 지정해서 넣기
 		rd.JSON(w, http.StatusBadRequest, "")
 	}
 }

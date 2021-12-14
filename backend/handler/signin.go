@@ -63,6 +63,53 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// 웹에서는 company code 같은 것을 사용하여 로그인할 필요가 없기 때문에 따로 정의함
+func (a *AppHandler) getWebUser(w http.ResponseWriter, r *http.Request) {
+	var user model.User
+
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		rd.JSON(w, http.StatusBadRequest, "Invalid json provided")
+	}
+
+	if user.Id == "" || user.Password == "" {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": "invalid json provided",
+		})
+		return
+	}
+
+	query := fmt.Sprintf(`
+	SELECT USER_ID
+		FROM SMS_B_USER
+	WHERE 
+		USER_ID = '%s'
+		AND PWD = '%s'
+		AND USE_YN = 'Y'
+	`, user.Id, user.Password)
+
+	fmt.Println(query)
+
+	results, err := a.db.GetQueryData(query)
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	if len(results) == 0 {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": "아이디, 비밀번호의 조합에 해당하는 계정이 없습니다.",
+		})
+		return
+	} else {
+		rd.JSON(w, http.StatusOK, map[string]interface{}{
+			"msg": "OK",
+		})
+	}
+
+}
+
 func (a *AppHandler) updatePassword(w http.ResponseWriter, r *http.Request) {
 	var user model.User
 
