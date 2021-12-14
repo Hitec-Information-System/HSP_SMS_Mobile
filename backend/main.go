@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"runtime"
 
+	"github.com/gorilla/handlers"
 	"github.com/spf13/viper"
 	"hitecis.co.kr/hwashin_nfc/core"
 	"hitecis.co.kr/hwashin_nfc/handler"
@@ -27,8 +28,13 @@ func main() {
 	m := handler.MakeHandler()
 	defer m.Close()
 
-	log.Println("Started App")
-	err := http.ListenAndServe(fmt.Sprintf(":%v", port), m)
+	// Settings for Cross Origin Resource Sharing
+	header := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"})
+	origins := handlers.AllowedOrigins([]string{"*"})
+
+	log.Println(".Started App")
+	err := http.ListenAndServe(fmt.Sprintf(":%v", port), handlers.CORS(header, methods, origins)(m))
 	if err != nil {
 		panic(err)
 	}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web/features/auth/application/auth_notifier.dart';
 import 'package:web/features/auth/shared/provider.dart';
 
 class LoginScreen extends HookConsumerWidget {
@@ -14,6 +15,20 @@ class LoginScreen extends HookConsumerWidget {
 
     final idController = useTextEditingController();
     final pwController = useTextEditingController();
+
+    ref.listen<AuthState>(
+      authStateNotifierProvider,
+      (prev, state) {
+        state.maybeWhen(
+          failure: (failure) {
+            final snackBar = SnackBar(content: Text(failure.toString()));
+
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+          orElse: () {},
+        );
+      },
+    );
 
     return Scaffold(
       body: Padding(
@@ -60,6 +75,7 @@ class LoginScreen extends HookConsumerWidget {
                       ref
                           .read(authStateNotifierProvider.notifier)
                           .signIn(idController.text, pwController.text);
+                      // ref.read(authStateNotifierProvider.notifier).testLogin();
                     }
                   },
                   child: const Text("Login"),

@@ -15,11 +15,15 @@ import (
 
 func (a *AppHandler) fetchApkInfo(w http.ResponseWriter, r *http.Request) {
 
+	fmt.Println("started")
+
 	query := `
 	SELECT APK_V FROM 
 		(SELECT * FROM APK_VERSION ORDER BY CRT_DT DESC)
 	WHERE ROWNUM = 1
 	`
+
+	fmt.Println(query)
 
 	results, err := a.db.GetQueryData(query)
 	if err != nil {

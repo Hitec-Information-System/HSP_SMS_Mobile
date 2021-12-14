@@ -10,12 +10,12 @@
 
 import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i6;
-import 'package:web/core/routes/auth_route_guard.dart' as _i7;
-import 'package:web/features/auth/presentation/screen/login_screen.dart' as _i1;
-import 'package:web/features/upload/presentation/pages/upload_screen.dart'
-    as _i5;
-import 'package:web/home/feature/about/about_screen.dart' as _i3;
-import 'package:web/home/feature/dashboard/dash_board_screen.dart' as _i4;
+
+import '../../features/auth/presentation/screen/login_screen.dart' as _i1;
+import '../../features/upload/presentation/pages/upload_screen.dart' as _i5;
+import '../../home/feature/about/about_screen.dart' as _i3;
+import '../../home/feature/dashboard/dash_board_screen.dart' as _i4;
+import 'auth_route_guard.dart' as _i7;
 
 class AppRouter extends _i2.RootStackRouter {
   AppRouter(
@@ -28,23 +28,23 @@ class AppRouter extends _i2.RootStackRouter {
   @override
   final Map<String, _i2.PageFactory> pagesMap = {
     LoginRoute.name: (routeData) {
-      return _i2.AdaptivePage<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i1.LoginScreen());
     },
     BoardRoute.name: (routeData) {
-      return _i2.AdaptivePage<_i2.EmptyRouterPage>(
+      return _i2.MaterialPageX<_i2.EmptyRouterPage>(
           routeData: routeData, child: const _i2.EmptyRouterPage());
     },
     AboutRoute.name: (routeData) {
-      return _i2.AdaptivePage<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i3.AboutScreen());
     },
     DashboardRoute.name: (routeData) {
-      return _i2.AdaptivePage<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i4.DashboardScreen());
     },
     UploadRoute.name: (routeData) {
-      return _i2.AdaptivePage<dynamic>(
+      return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i5.UploadScreen());
     }
   };
@@ -69,38 +69,43 @@ class AppRouter extends _i2.RootStackRouter {
       ];
 }
 
-/// generated route for [_i1.LoginScreen]
+/// generated route for
+/// [_i1.LoginScreen]
 class LoginRoute extends _i2.PageRouteInfo<void> {
-  const LoginRoute() : super(name, path: '/signin');
+  const LoginRoute() : super(LoginRoute.name, path: '/signin');
 
   static const String name = 'LoginRoute';
 }
 
-/// generated route for [_i2.EmptyRouterPage]
+/// generated route for
+/// [_i2.EmptyRouterPage]
 class BoardRoute extends _i2.PageRouteInfo<void> {
   const BoardRoute({List<_i2.PageRouteInfo>? children})
-      : super(name, path: '/', initialChildren: children);
+      : super(BoardRoute.name, path: '/', initialChildren: children);
 
   static const String name = 'BoardRoute';
 }
 
-/// generated route for [_i3.AboutScreen]
+/// generated route for
+/// [_i3.AboutScreen]
 class AboutRoute extends _i2.PageRouteInfo<void> {
-  const AboutRoute() : super(name, path: '/about');
+  const AboutRoute() : super(AboutRoute.name, path: '/about');
 
   static const String name = 'AboutRoute';
 }
 
-/// generated route for [_i4.DashboardScreen]
+/// generated route for
+/// [_i4.DashboardScreen]
 class DashboardRoute extends _i2.PageRouteInfo<void> {
-  const DashboardRoute() : super(name, path: '');
+  const DashboardRoute() : super(DashboardRoute.name, path: '');
 
   static const String name = 'DashboardRoute';
 }
 
-/// generated route for [_i5.UploadScreen]
+/// generated route for
+/// [_i5.UploadScreen]
 class UploadRoute extends _i2.PageRouteInfo<void> {
-  const UploadRoute() : super(name, path: 'upload');
+  const UploadRoute() : super(UploadRoute.name, path: 'upload');
 
   static const String name = 'UploadRoute';
 }

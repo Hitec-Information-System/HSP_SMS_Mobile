@@ -26,7 +26,6 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: SingleChildScrollView(
             child: Column(

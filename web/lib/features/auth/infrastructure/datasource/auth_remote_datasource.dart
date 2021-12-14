@@ -25,13 +25,14 @@ class AuthRemoteDatasource implements IAuthRemoteDatasource {
         throw ConnectionException();
       }
 
+      if (e.type == DioErrorType.connectTimeout) {
+        throw ServerException();
+      }
+
       if (e.response?.statusCode != 200) {
         throw ApiException();
       }
 
-      if (e.type == DioErrorType.connectTimeout) {
-        throw ServerException();
-      }
       rethrow;
     }
   }

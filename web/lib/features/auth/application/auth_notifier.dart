@@ -41,6 +41,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   }
 
   void testLogin() {
-    state = const AuthState.unauthenticated();
+    state = const AuthState.authenticated();
   }
 }

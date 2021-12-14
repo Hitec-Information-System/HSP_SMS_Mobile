@@ -198,7 +198,7 @@ func apkUploadHandler(r *http.Request) error {
 	var params map[string]interface{}
 
 	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
-		return fmt.Errorf("Invalid json provided")
+		return fmt.Errorf("invalid json provided")
 	}
 
 	appVersion := params["app-version"].(string)
@@ -233,7 +233,7 @@ func apkUploadHandler(r *http.Request) error {
 	filetype := http.DetectContentType(buff)
 	fmt.Println(filetype)
 	if filetype != "application/octet-stream" {
-		return fmt.Errorf("The provided file format is not allowed. Please upload a JPEG or PNG image")
+		return fmt.Errorf("the provided file format is not allowed. Please upload a JPEG or PNG image")
 	}
 
 	_, err = file.Seek(0, io.SeekStart)
