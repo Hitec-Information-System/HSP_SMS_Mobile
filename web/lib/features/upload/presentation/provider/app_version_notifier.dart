@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:web/core/constant/strings.dart';
 import 'package:web/core/error/failures.dart';
 import 'package:web/core/usecases/usecase.dart';
 import 'package:web/features/upload/domain/entity/app_version.dart';
@@ -51,10 +52,11 @@ class AppVersionNotifier extends StateNotifier<AppVersionState> {
 
   String _mapFailureToMessage(Failure failure) {
     return failure.map(
-      serverFailure: (_) => "서버에서 제대로 처리하지 못했습니다.",
-      cacheFailure: (_) => "파일을 처리하는 과정에서 오류가 발생하였습니다.",
-      invalidInputFailure: (_) => "지원하지 않는 파일을 추가하였습니다.",
-      connectionFailure: (_) => "인터넷 연결이 약합니다.",
+      serverFailure: (_) => serverNoResponseFailureMessage,
+      cacheFailure: (_) => cacheFailureMessage,
+      invalidInputFailure: (_) => invalidInputFailureMessage,
+      connectionFailure: (_) => connectionFailureMessage,
+      apiFailure: (_) => apiFailureMessage,
     );
   }
 }

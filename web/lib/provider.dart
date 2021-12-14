@@ -19,7 +19,7 @@ final dioProvider = Provider<Dio>(
       baseUrl: "http://192.168.0.117:9110",
       connectTimeout: 5000,
       receiveTimeout: 5000,
-      responseType: ResponseType.plain,
+      responseType: ResponseType.json,
     ),
   ),
 );
@@ -32,27 +32,28 @@ final networkInfoProvider = Provider<NetworkInfo>(
 
 //! Feature
 final appVersionRemoteDataSourceProvider =
-    Provider<IAppVersionRemoteDatasource>(
+    Provider.autoDispose<IAppVersionRemoteDatasource>(
   (ref) => AppVersionRemoteDatasource(ref.watch(dioProvider)),
 );
 
-final appVersionRepositoryProvider = Provider<IAppVersionRepository>(
+final appVersionRepositoryProvider =
+    Provider.autoDispose<IAppVersionRepository>(
   (ref) => AppVersionRepository(
     ref.watch(appVersionRemoteDataSourceProvider),
     ref.watch(networkInfoProvider),
   ),
 );
 
-final fetchLatestInfoProvider = Provider<FetchLatestFileInfo>(
+final fetchLatestInfoProvider = Provider.autoDispose<FetchLatestFileInfo>(
   (ref) => FetchLatestFileInfo(ref.watch(appVersionRepositoryProvider)),
 );
 
-final saveAppVersionProvider = Provider<SaveAppVersion>(
+final saveAppVersionProvider = Provider.autoDispose<SaveAppVersion>(
   (ref) => SaveAppVersion(ref.watch(appVersionRepositoryProvider)),
 );
 
 final appVersionStateNotifierProvider =
-    StateNotifierProvider<AppVersionNotifier, AppVersionState>(
+    StateNotifierProvider.autoDispose<AppVersionNotifier, AppVersionState>(
   (ref) => AppVersionNotifier(
     fetchLatestFileInfo: ref.watch(fetchLatestInfoProvider),
     saveAppVersion: ref.watch(saveAppVersionProvider),

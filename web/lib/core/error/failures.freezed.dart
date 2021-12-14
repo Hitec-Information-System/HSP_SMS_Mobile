@@ -32,6 +32,10 @@ class _$FailureTearOff {
   ConnectionFailure connectionFailure() {
     return const ConnectionFailure();
   }
+
+  ApiFailure apiFailure() {
+    return const ApiFailure();
+  }
 }
 
 /// @nodoc
@@ -45,6 +49,7 @@ mixin _$Failure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
+    required TResult Function() apiFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,6 +58,7 @@ mixin _$Failure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +67,7 @@ mixin _$Failure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -70,6 +77,7 @@ mixin _$Failure {
     required TResult Function(CacheFailure value) cacheFailure,
     required TResult Function(InvalidInputFailure value) invalidInputFailure,
     required TResult Function(ConnectionFailure value) connectionFailure,
+    required TResult Function(ApiFailure value) apiFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -78,6 +86,7 @@ mixin _$Failure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -86,6 +95,7 @@ mixin _$Failure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -150,6 +160,7 @@ class _$ServerFailure extends ServerFailure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
+    required TResult Function() apiFailure,
   }) {
     return serverFailure();
   }
@@ -161,6 +172,7 @@ class _$ServerFailure extends ServerFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
   }) {
     return serverFailure?.call();
   }
@@ -172,6 +184,7 @@ class _$ServerFailure extends ServerFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
     required TResult orElse(),
   }) {
     if (serverFailure != null) {
@@ -187,6 +200,7 @@ class _$ServerFailure extends ServerFailure {
     required TResult Function(CacheFailure value) cacheFailure,
     required TResult Function(InvalidInputFailure value) invalidInputFailure,
     required TResult Function(ConnectionFailure value) connectionFailure,
+    required TResult Function(ApiFailure value) apiFailure,
   }) {
     return serverFailure(this);
   }
@@ -198,6 +212,7 @@ class _$ServerFailure extends ServerFailure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
   }) {
     return serverFailure?.call(this);
   }
@@ -209,6 +224,7 @@ class _$ServerFailure extends ServerFailure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
     required TResult orElse(),
   }) {
     if (serverFailure != null) {
@@ -267,6 +283,7 @@ class _$CacheFailure extends CacheFailure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
+    required TResult Function() apiFailure,
   }) {
     return cacheFailure();
   }
@@ -278,6 +295,7 @@ class _$CacheFailure extends CacheFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
   }) {
     return cacheFailure?.call();
   }
@@ -289,6 +307,7 @@ class _$CacheFailure extends CacheFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
     required TResult orElse(),
   }) {
     if (cacheFailure != null) {
@@ -304,6 +323,7 @@ class _$CacheFailure extends CacheFailure {
     required TResult Function(CacheFailure value) cacheFailure,
     required TResult Function(InvalidInputFailure value) invalidInputFailure,
     required TResult Function(ConnectionFailure value) connectionFailure,
+    required TResult Function(ApiFailure value) apiFailure,
   }) {
     return cacheFailure(this);
   }
@@ -315,6 +335,7 @@ class _$CacheFailure extends CacheFailure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
   }) {
     return cacheFailure?.call(this);
   }
@@ -326,6 +347,7 @@ class _$CacheFailure extends CacheFailure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
     required TResult orElse(),
   }) {
     if (cacheFailure != null) {
@@ -385,6 +407,7 @@ class _$InvalidInputFailure extends InvalidInputFailure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
+    required TResult Function() apiFailure,
   }) {
     return invalidInputFailure();
   }
@@ -396,6 +419,7 @@ class _$InvalidInputFailure extends InvalidInputFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
   }) {
     return invalidInputFailure?.call();
   }
@@ -407,6 +431,7 @@ class _$InvalidInputFailure extends InvalidInputFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
     required TResult orElse(),
   }) {
     if (invalidInputFailure != null) {
@@ -422,6 +447,7 @@ class _$InvalidInputFailure extends InvalidInputFailure {
     required TResult Function(CacheFailure value) cacheFailure,
     required TResult Function(InvalidInputFailure value) invalidInputFailure,
     required TResult Function(ConnectionFailure value) connectionFailure,
+    required TResult Function(ApiFailure value) apiFailure,
   }) {
     return invalidInputFailure(this);
   }
@@ -433,6 +459,7 @@ class _$InvalidInputFailure extends InvalidInputFailure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
   }) {
     return invalidInputFailure?.call(this);
   }
@@ -444,6 +471,7 @@ class _$InvalidInputFailure extends InvalidInputFailure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
     required TResult orElse(),
   }) {
     if (invalidInputFailure != null) {
@@ -502,6 +530,7 @@ class _$ConnectionFailure extends ConnectionFailure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
+    required TResult Function() apiFailure,
   }) {
     return connectionFailure();
   }
@@ -513,6 +542,7 @@ class _$ConnectionFailure extends ConnectionFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
   }) {
     return connectionFailure?.call();
   }
@@ -524,6 +554,7 @@ class _$ConnectionFailure extends ConnectionFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
     required TResult orElse(),
   }) {
     if (connectionFailure != null) {
@@ -539,6 +570,7 @@ class _$ConnectionFailure extends ConnectionFailure {
     required TResult Function(CacheFailure value) cacheFailure,
     required TResult Function(InvalidInputFailure value) invalidInputFailure,
     required TResult Function(ConnectionFailure value) connectionFailure,
+    required TResult Function(ApiFailure value) apiFailure,
   }) {
     return connectionFailure(this);
   }
@@ -550,6 +582,7 @@ class _$ConnectionFailure extends ConnectionFailure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
   }) {
     return connectionFailure?.call(this);
   }
@@ -561,6 +594,7 @@ class _$ConnectionFailure extends ConnectionFailure {
     TResult Function(CacheFailure value)? cacheFailure,
     TResult Function(InvalidInputFailure value)? invalidInputFailure,
     TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
     required TResult orElse(),
   }) {
     if (connectionFailure != null) {
@@ -573,4 +607,126 @@ class _$ConnectionFailure extends ConnectionFailure {
 abstract class ConnectionFailure extends Failure {
   const factory ConnectionFailure() = _$ConnectionFailure;
   const ConnectionFailure._() : super._();
+}
+
+/// @nodoc
+abstract class $ApiFailureCopyWith<$Res> {
+  factory $ApiFailureCopyWith(
+          ApiFailure value, $Res Function(ApiFailure) then) =
+      _$ApiFailureCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$ApiFailureCopyWithImpl<$Res> extends _$FailureCopyWithImpl<$Res>
+    implements $ApiFailureCopyWith<$Res> {
+  _$ApiFailureCopyWithImpl(ApiFailure _value, $Res Function(ApiFailure) _then)
+      : super(_value, (v) => _then(v as ApiFailure));
+
+  @override
+  ApiFailure get _value => super._value as ApiFailure;
+}
+
+/// @nodoc
+
+class _$ApiFailure extends ApiFailure {
+  const _$ApiFailure() : super._();
+
+  @override
+  String toString() {
+    return 'Failure.apiFailure()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is ApiFailure);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() serverFailure,
+    required TResult Function() cacheFailure,
+    required TResult Function() invalidInputFailure,
+    required TResult Function() connectionFailure,
+    required TResult Function() apiFailure,
+  }) {
+    return apiFailure();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? serverFailure,
+    TResult Function()? cacheFailure,
+    TResult Function()? invalidInputFailure,
+    TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
+  }) {
+    return apiFailure?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? serverFailure,
+    TResult Function()? cacheFailure,
+    TResult Function()? invalidInputFailure,
+    TResult Function()? connectionFailure,
+    TResult Function()? apiFailure,
+    required TResult orElse(),
+  }) {
+    if (apiFailure != null) {
+      return apiFailure();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ServerFailure value) serverFailure,
+    required TResult Function(CacheFailure value) cacheFailure,
+    required TResult Function(InvalidInputFailure value) invalidInputFailure,
+    required TResult Function(ConnectionFailure value) connectionFailure,
+    required TResult Function(ApiFailure value) apiFailure,
+  }) {
+    return apiFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ServerFailure value)? serverFailure,
+    TResult Function(CacheFailure value)? cacheFailure,
+    TResult Function(InvalidInputFailure value)? invalidInputFailure,
+    TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
+  }) {
+    return apiFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ServerFailure value)? serverFailure,
+    TResult Function(CacheFailure value)? cacheFailure,
+    TResult Function(InvalidInputFailure value)? invalidInputFailure,
+    TResult Function(ConnectionFailure value)? connectionFailure,
+    TResult Function(ApiFailure value)? apiFailure,
+    required TResult orElse(),
+  }) {
+    if (apiFailure != null) {
+      return apiFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ApiFailure extends Failure {
+  const factory ApiFailure() = _$ApiFailure;
+  const ApiFailure._() : super._();
 }

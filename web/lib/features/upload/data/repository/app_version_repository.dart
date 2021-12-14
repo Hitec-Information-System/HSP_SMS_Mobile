@@ -26,6 +26,8 @@ class AppVersionRepository implements IAppVersionRepository {
       return const Left(Failure.serverFailure());
     } on ConnectionException {
       return const Left(Failure.connectionFailure());
+    } on ApiException {
+      return const Left(Failure.apiFailure());
     }
     // } else {
     //   return const Left(Failure.connectionFailure());
@@ -36,16 +38,14 @@ class AppVersionRepository implements IAppVersionRepository {
   Future<Either<Failure, Unit>> saveAppVersion(AppVersion newVersion) async {
     // if (await _networkInfo.isConnected) {
     try {
-      final isSaved = await _remoteDatasource.saveAppVersion(newVersion);
-      if (isSaved) {
-        return const Right(unit);
-      } else {
-        return const Left(Failure.serverFailure());
-      }
+      final _ = await _remoteDatasource.saveAppVersion(newVersion);
+      return const Right(unit);
     } on ServerException {
       return const Left(Failure.serverFailure());
     } on ConnectionException {
       return const Left(Failure.connectionFailure());
+    } on ApiException {
+      return const Left(Failure.apiFailure());
     }
     // } else {
     //   return const Left(Failure.connectionFailure());

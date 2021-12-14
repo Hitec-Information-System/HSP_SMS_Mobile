@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:web/core/error/failures.dart';
 import 'package:web/features/upload/domain/entity/app_version.dart';
 
 part 'app_version_state.freezed.dart';

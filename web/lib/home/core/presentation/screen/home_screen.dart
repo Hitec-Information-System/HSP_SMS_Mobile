@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Text("Home"),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => AutoRouter.of(context).push(const DashboardRoute()),
+        onPressed: () => AutoRouter.of(context).push(const BoardRoute()),
       ),
     );
   }

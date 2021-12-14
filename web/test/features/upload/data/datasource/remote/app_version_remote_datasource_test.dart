@@ -94,7 +94,7 @@ void main() {
       dio = Dio(
         BaseOptions(
           baseUrl: "",
-          contentType: "PLAIN",
+          responseType: ResponseType.json,
           connectTimeout: 5000,
           receiveTimeout: 5000,
         ),

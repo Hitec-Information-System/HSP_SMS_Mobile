@@ -8,157 +8,99 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/material.dart' as _i9;
-import 'package:web/core/routes/auth_route_guard.dart' as _i10;
+import 'package:auto_route/auto_route.dart' as _i2;
+import 'package:flutter/material.dart' as _i6;
+import 'package:web/core/routes/auth_route_guard.dart' as _i7;
 import 'package:web/features/auth/presentation/screen/login_screen.dart' as _i1;
-import 'package:web/home/core/presentation/screen/home_screen.dart' as _i2;
-import 'package:web/home/feature/about/about_screen.dart' as _i4;
-import 'package:web/home/feature/dashboard/dash_board_screen.dart' as _i3;
-import 'package:web/home/feature/dashboard/products/add_product_screen.dart'
-    as _i8;
-import 'package:web/home/feature/dashboard/products/products_screen.dart'
-    as _i7;
-import 'package:web/home/feature/dashboard/profile/profile_screen.dart' as _i6;
+import 'package:web/features/upload/presentation/pages/upload_screen.dart'
+    as _i5;
+import 'package:web/home/feature/about/about_screen.dart' as _i3;
+import 'package:web/home/feature/dashboard/dash_board_screen.dart' as _i4;
 
-class AppRouter extends _i5.RootStackRouter {
+class AppRouter extends _i2.RootStackRouter {
   AppRouter(
-      {_i9.GlobalKey<_i9.NavigatorState>? navigatorKey,
+      {_i6.GlobalKey<_i6.NavigatorState>? navigatorKey,
       required this.authRouteGuard})
       : super(navigatorKey);
 
-  final _i10.AuthRouteGuard authRouteGuard;
+  final _i7.AuthRouteGuard authRouteGuard;
 
   @override
-  final Map<String, _i5.PageFactory> pagesMap = {
+  final Map<String, _i2.PageFactory> pagesMap = {
     LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>();
-      return _i5.AdaptivePage<dynamic>(
-          routeData: routeData,
-          child: _i1.LoginScreen(key: args.key, onLogin: args.onLogin));
+      return _i2.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i1.LoginScreen());
     },
-    HomeRoute.name: (routeData) {
-      return _i5.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i2.HomeScreen());
-    },
-    DashboardRoute.name: (routeData) {
-      return _i5.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i3.DashboardScreen());
+    BoardRoute.name: (routeData) {
+      return _i2.AdaptivePage<_i2.EmptyRouterPage>(
+          routeData: routeData, child: const _i2.EmptyRouterPage());
     },
     AboutRoute.name: (routeData) {
-      return _i5.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i4.AboutScreen());
+      return _i2.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i3.AboutScreen());
     },
-    EmptyRouterPage.name: (routeData) {
-      return _i5.AdaptivePage<_i5.EmptyRouterPage>(
-          routeData: routeData, child: const _i5.EmptyRouterPage());
+    DashboardRoute.name: (routeData) {
+      return _i2.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i4.DashboardScreen());
     },
-    ProfileRoute.name: (routeData) {
-      return _i5.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i6.ProfileScreen());
-    },
-    ProductsRoute.name: (routeData) {
-      return _i5.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i7.ProductsScreen());
-    },
-    AddProductRoute.name: (routeData) {
-      return _i5.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i8.AddProductScreen());
+    UploadRoute.name: (routeData) {
+      return _i2.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i5.UploadScreen());
     }
   };
 
   @override
-  List<_i5.RouteConfig> get routes => [
-        _i5.RouteConfig(LoginRoute.name, path: '/signin'),
-        _i5.RouteConfig(HomeRoute.name, path: '/'),
-        _i5.RouteConfig(DashboardRoute.name, path: '/dashboard', guards: [
+  List<_i2.RouteConfig> get routes => [
+        _i2.RouteConfig(LoginRoute.name, path: '/signin'),
+        _i2.RouteConfig(BoardRoute.name, path: '/', guards: [
           authRouteGuard
         ], children: [
-          _i5.RouteConfig(EmptyRouterPage.name,
-              path: 'products',
-              parent: DashboardRoute.name,
-              children: [
-                _i5.RouteConfig(ProductsRoute.name,
-                    path: '', parent: EmptyRouterPage.name),
-                _i5.RouteConfig(AddProductRoute.name,
-                    path: 'add-products', parent: EmptyRouterPage.name)
-              ]),
-          _i5.RouteConfig(ProfileRoute.name,
-              path: 'profile', parent: DashboardRoute.name)
+          _i2.RouteConfig(DashboardRoute.name,
+              path: '', parent: BoardRoute.name),
+          _i2.RouteConfig(UploadRoute.name,
+              path: 'upload', parent: BoardRoute.name),
+          _i2.RouteConfig('*#redirect',
+              path: '*',
+              parent: BoardRoute.name,
+              redirectTo: '',
+              fullMatch: true)
         ]),
-        _i5.RouteConfig(AboutRoute.name, path: '/about')
+        _i2.RouteConfig(AboutRoute.name, path: '/about')
       ];
 }
 
 /// generated route for [_i1.LoginScreen]
-class LoginRoute extends _i5.PageRouteInfo<LoginRouteArgs> {
-  LoginRoute({_i9.Key? key, required void Function(bool) onLogin})
-      : super(name,
-            path: '/signin', args: LoginRouteArgs(key: key, onLogin: onLogin));
+class LoginRoute extends _i2.PageRouteInfo<void> {
+  const LoginRoute() : super(name, path: '/signin');
 
   static const String name = 'LoginRoute';
 }
 
-class LoginRouteArgs {
-  const LoginRouteArgs({this.key, required this.onLogin});
+/// generated route for [_i2.EmptyRouterPage]
+class BoardRoute extends _i2.PageRouteInfo<void> {
+  const BoardRoute({List<_i2.PageRouteInfo>? children})
+      : super(name, path: '/', initialChildren: children);
 
-  final _i9.Key? key;
-
-  final void Function(bool) onLogin;
-
-  @override
-  String toString() {
-    return 'LoginRouteArgs{key: $key, onLogin: $onLogin}';
-  }
+  static const String name = 'BoardRoute';
 }
 
-/// generated route for [_i2.HomeScreen]
-class HomeRoute extends _i5.PageRouteInfo<void> {
-  const HomeRoute() : super(name, path: '/');
-
-  static const String name = 'HomeRoute';
-}
-
-/// generated route for [_i3.DashboardScreen]
-class DashboardRoute extends _i5.PageRouteInfo<void> {
-  const DashboardRoute({List<_i5.PageRouteInfo>? children})
-      : super(name, path: '/dashboard', initialChildren: children);
-
-  static const String name = 'DashboardRoute';
-}
-
-/// generated route for [_i4.AboutScreen]
-class AboutRoute extends _i5.PageRouteInfo<void> {
+/// generated route for [_i3.AboutScreen]
+class AboutRoute extends _i2.PageRouteInfo<void> {
   const AboutRoute() : super(name, path: '/about');
 
   static const String name = 'AboutRoute';
 }
 
-/// generated route for [_i5.EmptyRouterPage]
-class EmptyRouterPage extends _i5.PageRouteInfo<void> {
-  const EmptyRouterPage({List<_i5.PageRouteInfo>? children})
-      : super(name, path: 'products', initialChildren: children);
+/// generated route for [_i4.DashboardScreen]
+class DashboardRoute extends _i2.PageRouteInfo<void> {
+  const DashboardRoute() : super(name, path: '');
 
-  static const String name = 'EmptyRouterPage';
+  static const String name = 'DashboardRoute';
 }
 
-/// generated route for [_i6.ProfileScreen]
-class ProfileRoute extends _i5.PageRouteInfo<void> {
-  const ProfileRoute() : super(name, path: 'profile');
+/// generated route for [_i5.UploadScreen]
+class UploadRoute extends _i2.PageRouteInfo<void> {
+  const UploadRoute() : super(name, path: 'upload');
 
-  static const String name = 'ProfileRoute';
-}
-
-/// generated route for [_i7.ProductsScreen]
-class ProductsRoute extends _i5.PageRouteInfo<void> {
-  const ProductsRoute() : super(name, path: '');
-
-  static const String name = 'ProductsRoute';
-}
-
-/// generated route for [_i8.AddProductScreen]
-class AddProductRoute extends _i5.PageRouteInfo<void> {
-  const AddProductRoute() : super(name, path: 'add-products');
-
-  static const String name = 'AddProductRoute';
+  static const String name = 'UploadRoute';
 }
