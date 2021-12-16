@@ -18,11 +18,11 @@ class AuthRepository implements IAuthRepsitory {
       if (isAuthenticated) {
         return right(unit);
       }
-      return left(const Failure.apiFailure());
+      return left(const Failure.apiFailure("not authenticated"));
     } on ConnectionException {
       return left(const Failure.connectionFailure());
-    } on ApiException {
-      return left(const Failure.apiFailure());
+    } on ApiException catch (e) {
+      return left(Failure.apiFailure(e.message));
     } on ServerException {
       return left(const Failure.serverFailure());
     }

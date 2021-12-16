@@ -66,17 +66,11 @@ func (a *AppHandler) getUser(w http.ResponseWriter, r *http.Request) {
 // 웹에서는 company code 같은 것을 사용하여 로그인할 필요가 없기 때문에 따로 정의함
 func (a *AppHandler) getWebUser(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Println("test")
-
 	var user model.User
-
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Credentials", "true")
-	w.Header().Set("Access-Control-Allow-Methods", "OPTIONS, GET, POST")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control")
 
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		rd.JSON(w, http.StatusBadRequest, "Invalid json provided")
+		return
 	}
 
 	if user.Id == "" || user.Password == "" {

@@ -21,16 +21,14 @@ class _$AppVersionEventTearOff {
     return const GetLatestInfo();
   }
 
-  AddFileToDomain addFileToDomain(XFile file) {
+  AddFileToDomain addFileToDomain(String path) {
     return AddFileToDomain(
-      file,
+      path,
     );
   }
 
-  SaveNewVersion saveNewVersion(AppVersion newVersion) {
-    return SaveNewVersion(
-      newVersion,
-    );
+  SaveNewVersion saveNewVersion() {
+    return const SaveNewVersion();
   }
 }
 
@@ -42,22 +40,22 @@ mixin _$AppVersionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(XFile file) addFileToDomain,
-    required TResult Function(AppVersion newVersion) saveNewVersion,
+    required TResult Function(String path) addFileToDomain,
+    required TResult Function() saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(XFile file)? addFileToDomain,
-    TResult Function(AppVersion newVersion)? saveNewVersion,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function()? saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(XFile file)? addFileToDomain,
-    TResult Function(AppVersion newVersion)? saveNewVersion,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -144,8 +142,8 @@ class _$GetLatestInfo extends GetLatestInfo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(XFile file) addFileToDomain,
-    required TResult Function(AppVersion newVersion) saveNewVersion,
+    required TResult Function(String path) addFileToDomain,
+    required TResult Function() saveNewVersion,
   }) {
     return getLatestInfo();
   }
@@ -154,8 +152,8 @@ class _$GetLatestInfo extends GetLatestInfo {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(XFile file)? addFileToDomain,
-    TResult Function(AppVersion newVersion)? saveNewVersion,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function()? saveNewVersion,
   }) {
     return getLatestInfo?.call();
   }
@@ -164,8 +162,8 @@ class _$GetLatestInfo extends GetLatestInfo {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(XFile file)? addFileToDomain,
-    TResult Function(AppVersion newVersion)? saveNewVersion,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
     if (getLatestInfo != null) {
@@ -219,7 +217,7 @@ abstract class $AddFileToDomainCopyWith<$Res> {
   factory $AddFileToDomainCopyWith(
           AddFileToDomain value, $Res Function(AddFileToDomain) then) =
       _$AddFileToDomainCopyWithImpl<$Res>;
-  $Res call({XFile file});
+  $Res call({String path});
 }
 
 /// @nodoc
@@ -235,13 +233,13 @@ class _$AddFileToDomainCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? file = freezed,
+    Object? path = freezed,
   }) {
     return _then(AddFileToDomain(
-      file == freezed
-          ? _value.file
-          : file // ignore: cast_nullable_to_non_nullable
-              as XFile,
+      path == freezed
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -249,14 +247,14 @@ class _$AddFileToDomainCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddFileToDomain extends AddFileToDomain {
-  const _$AddFileToDomain(this.file) : super._();
+  const _$AddFileToDomain(this.path) : super._();
 
   @override
-  final XFile file;
+  final String path;
 
   @override
   String toString() {
-    return 'AppVersionEvent.addFileToDomain(file: $file)';
+    return 'AppVersionEvent.addFileToDomain(path: $path)';
   }
 
   @override
@@ -264,12 +262,12 @@ class _$AddFileToDomain extends AddFileToDomain {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is AddFileToDomain &&
-            const DeepCollectionEquality().equals(other.file, file));
+            const DeepCollectionEquality().equals(other.path, path));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(file));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
 
   @JsonKey(ignore: true)
   @override
@@ -280,32 +278,32 @@ class _$AddFileToDomain extends AddFileToDomain {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(XFile file) addFileToDomain,
-    required TResult Function(AppVersion newVersion) saveNewVersion,
+    required TResult Function(String path) addFileToDomain,
+    required TResult Function() saveNewVersion,
   }) {
-    return addFileToDomain(file);
+    return addFileToDomain(path);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(XFile file)? addFileToDomain,
-    TResult Function(AppVersion newVersion)? saveNewVersion,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function()? saveNewVersion,
   }) {
-    return addFileToDomain?.call(file);
+    return addFileToDomain?.call(path);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(XFile file)? addFileToDomain,
-    TResult Function(AppVersion newVersion)? saveNewVersion,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
     if (addFileToDomain != null) {
-      return addFileToDomain(file);
+      return addFileToDomain(path);
     }
     return orElse();
   }
@@ -346,10 +344,10 @@ class _$AddFileToDomain extends AddFileToDomain {
 }
 
 abstract class AddFileToDomain extends AppVersionEvent {
-  const factory AddFileToDomain(XFile file) = _$AddFileToDomain;
+  const factory AddFileToDomain(String path) = _$AddFileToDomain;
   const AddFileToDomain._() : super._();
 
-  XFile get file;
+  String get path;
   @JsonKey(ignore: true)
   $AddFileToDomainCopyWith<AddFileToDomain> get copyWith =>
       throw _privateConstructorUsedError;
@@ -360,9 +358,6 @@ abstract class $SaveNewVersionCopyWith<$Res> {
   factory $SaveNewVersionCopyWith(
           SaveNewVersion value, $Res Function(SaveNewVersion) then) =
       _$SaveNewVersionCopyWithImpl<$Res>;
-  $Res call({AppVersion newVersion});
-
-  $AppVersionCopyWith<$Res> get newVersion;
 }
 
 /// @nodoc
@@ -375,88 +370,57 @@ class _$SaveNewVersionCopyWithImpl<$Res>
 
   @override
   SaveNewVersion get _value => super._value as SaveNewVersion;
-
-  @override
-  $Res call({
-    Object? newVersion = freezed,
-  }) {
-    return _then(SaveNewVersion(
-      newVersion == freezed
-          ? _value.newVersion
-          : newVersion // ignore: cast_nullable_to_non_nullable
-              as AppVersion,
-    ));
-  }
-
-  @override
-  $AppVersionCopyWith<$Res> get newVersion {
-    return $AppVersionCopyWith<$Res>(_value.newVersion, (value) {
-      return _then(_value.copyWith(newVersion: value));
-    });
-  }
 }
 
 /// @nodoc
 
 class _$SaveNewVersion extends SaveNewVersion {
-  const _$SaveNewVersion(this.newVersion) : super._();
-
-  @override
-  final AppVersion newVersion;
+  const _$SaveNewVersion() : super._();
 
   @override
   String toString() {
-    return 'AppVersionEvent.saveNewVersion(newVersion: $newVersion)';
+    return 'AppVersionEvent.saveNewVersion()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is SaveNewVersion &&
-            const DeepCollectionEquality()
-                .equals(other.newVersion, newVersion));
+        (other.runtimeType == runtimeType && other is SaveNewVersion);
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(newVersion));
-
-  @JsonKey(ignore: true)
-  @override
-  $SaveNewVersionCopyWith<SaveNewVersion> get copyWith =>
-      _$SaveNewVersionCopyWithImpl<SaveNewVersion>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(XFile file) addFileToDomain,
-    required TResult Function(AppVersion newVersion) saveNewVersion,
+    required TResult Function(String path) addFileToDomain,
+    required TResult Function() saveNewVersion,
   }) {
-    return saveNewVersion(newVersion);
+    return saveNewVersion();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(XFile file)? addFileToDomain,
-    TResult Function(AppVersion newVersion)? saveNewVersion,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function()? saveNewVersion,
   }) {
-    return saveNewVersion?.call(newVersion);
+    return saveNewVersion?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(XFile file)? addFileToDomain,
-    TResult Function(AppVersion newVersion)? saveNewVersion,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
     if (saveNewVersion != null) {
-      return saveNewVersion(newVersion);
+      return saveNewVersion();
     }
     return orElse();
   }
@@ -497,11 +461,6 @@ class _$SaveNewVersion extends SaveNewVersion {
 }
 
 abstract class SaveNewVersion extends AppVersionEvent {
-  const factory SaveNewVersion(AppVersion newVersion) = _$SaveNewVersion;
+  const factory SaveNewVersion() = _$SaveNewVersion;
   const SaveNewVersion._() : super._();
-
-  AppVersion get newVersion;
-  @JsonKey(ignore: true)
-  $SaveNewVersionCopyWith<SaveNewVersion> get copyWith =>
-      throw _privateConstructorUsedError;
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web/provider.dart';
 
 // AppVersion 등록 Widget
@@ -92,13 +92,13 @@ class _AppVersionSetWidgetState extends State<AppVersionSetWidget> {
           symenticName: "Major",
           versionNo: _major,
           onChanged: (int newValue) {
-            if (newValue > _major) {
-              setState(() {
+            setState(() {
+              if (newValue > _major) {
                 _patch = 0;
                 _minor = 0;
-                _major = newValue;
-              });
-            }
+              }
+              _major = newValue;
+            });
           },
         ),
         const SizedBox(width: 24),

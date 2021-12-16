@@ -23,7 +23,7 @@ class AppVersionRemoteDatasource implements IAppVersionRemoteDatasource {
         throw ServerException();
       }
       if (e.response?.statusCode != 200) {
-        throw ApiException();
+        throw ApiException(e.message);
       }
       rethrow;
     }
@@ -32,12 +32,23 @@ class AppVersionRemoteDatasource implements IAppVersionRemoteDatasource {
   @override
   Future<bool> saveAppVersion(AppVersion newVersion) async {
     try {
-      final formData = FormData();
-      final versionFile = MultipartFile.fromFileSync(
-        newVersion.file!.path,
-        filename: newVersion.file!.name,
+      final formData = FormData.fromMap(
+        {
+          "app-version": newVersion.infoNo,
+          "file-name": "app.apk",
+        },
       );
-      formData.files.add(MapEntry("file", versionFile));
+
+      final versionParams = <MapEntry<String, MultipartFile>>[];
+
+      final versionFile = MultipartFile.fromBytes(
+        await newVersion.file!.readAsBytes(),
+        filename: "app.apk",
+      );
+
+      versionParams.add(MapEntry("file", versionFile));
+
+      formData.files.addAll(versionParams);
 
       final _ = await _dio.post("/apk", data: formData);
       return true;
@@ -49,7 +60,7 @@ class AppVersionRemoteDatasource implements IAppVersionRemoteDatasource {
         throw ServerException();
       }
       if (e.response?.statusCode != 200) {
-        throw ApiException();
+        throw ApiException(e.message);
       }
       rethrow;
     }

@@ -33,7 +33,7 @@ func main() {
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"})
 	origins := handlers.AllowedOrigins([]string{"*"})
 
-	log.Println(".Started App")
+	log.Println("Started App")
 	err := http.ListenAndServe(fmt.Sprintf(":%v", port), handlers.CORS(header, methods, origins)(m))
 	if err != nil {
 		panic(err)

@@ -9,5 +9,5 @@ class Failure with _$Failure {
   const factory Failure.cacheFailure() = CacheFailure;
   const factory Failure.invalidInputFailure() = InvalidInputFailure;
   const factory Failure.connectionFailure() = ConnectionFailure;
-  const factory Failure.apiFailure() = ApiFailure;
+  const factory Failure.apiFailure(String message) = ApiFailure;
 }

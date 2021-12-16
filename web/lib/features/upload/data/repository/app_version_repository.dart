@@ -26,8 +26,8 @@ class AppVersionRepository implements IAppVersionRepository {
       return const Left(Failure.serverFailure());
     } on ConnectionException {
       return const Left(Failure.connectionFailure());
-    } on ApiException {
-      return const Left(Failure.apiFailure());
+    } on ApiException catch (e) {
+      return Left(Failure.apiFailure(e.message));
     }
     // } else {
     //   return const Left(Failure.connectionFailure());
@@ -44,8 +44,8 @@ class AppVersionRepository implements IAppVersionRepository {
       return const Left(Failure.serverFailure());
     } on ConnectionException {
       return const Left(Failure.connectionFailure());
-    } on ApiException {
-      return const Left(Failure.apiFailure());
+    } on ApiException catch (e) {
+      return Left(Failure.apiFailure(e.message));
     }
     // } else {
     //   return const Left(Failure.connectionFailure());

@@ -94,3 +94,9 @@ content-type: application/json
   "xml-att":"<NewDataSet><Table1><B_PK></B_PK><ATT_NO></ATT_NO><ATT_URL>image_picker1423838974532411166.jpg</ATT_URL><RMK>RMK</RMK></Table1></NewDataSet>"
 }
 ###
+POST http://localhost:9110/apk HTTP/2.0
+content-type: application/json
+
+{
+}
+###

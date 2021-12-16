@@ -6,9 +6,12 @@ import (
 	"encoding/xml"
 	"fmt"
 	"net/http"
+	"os"
+	"path"
 	"strings"
 
 	"github.com/gorilla/mux"
+	"github.com/spf13/viper"
 	"github.com/unrolled/render"
 	"github.com/urfave/negroni"
 	"hitecis.co.kr/hwashin_nfc/model"
@@ -29,6 +32,8 @@ type AppHandler struct {
 	db repository.DBRepository
 }
 
+const FSPATH = "./web"
+
 func MakeHandler() *AppHandler {
 	r := mux.NewRouter()
 
@@ -41,7 +46,8 @@ func MakeHandler() *AppHandler {
 		db:      repository.NewDBRepository(),
 	}
 
-	r.HandleFunc("/", indexHandler)
+	r.Handle("/", http.FileServer(http.Dir(FSPATH)))
+
 	r.HandleFunc("/auth", a.getWebUser).Methods("POST")
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
 	r.HandleFunc("/pwd", a.updatePassword).Methods("POST")
@@ -81,8 +87,31 @@ func (a *AppHandler) Close() {
 	a.db.Close()
 }
 
-func indexHandler(w http.ResponseWriter, _ *http.Request) {
-	fmt.Fprint(w, "Hello world")
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("passed")
+
+	_ = http.FileServer(http.Dir(FSPATH))
+	fmt.Println("passed1")
+
+	fmt.Println(r.URL.Path)
+
+	if r.URL.Path != "/" {
+		fmt.Println("passed2")
+
+		fullPath := FSPATH + strings.TrimPrefix(path.Clean(r.URL.Path), "/")
+		fmt.Println(fullPath)
+		_, err := os.Stat(fullPath)
+		if err != nil {
+			fmt.Println("passed3")
+
+			if !os.IsNotExist(err) {
+				panic(err)
+			}
+			r.URL.Path = "web/index.html"
+		}
+	}
+
 }
 
 // 점검 기준(회차,일상/주간 여부)
@@ -344,6 +373,7 @@ func (a *AppHandler) saveCheckList(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
 		rd.JSON(w, http.StatusBadRequest, "Invalid json provided")
+		return
 	}
 
 	compCd := params["comp-cd"].(string)
@@ -541,6 +571,7 @@ func (a *AppHandler) fetchBoard(w http.ResponseWriter, r *http.Request) {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
+		return
 	}
 
 	rd.JSON(w, http.StatusOK, results)
@@ -584,6 +615,7 @@ func (a *AppHandler) fetchBoardAll(w http.ResponseWriter, r *http.Request) {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
+		return
 	}
 
 	safety, err := a.fetchBoardList(r, "SAFETY_OFFER")
@@ -591,6 +623,7 @@ func (a *AppHandler) fetchBoardAll(w http.ResponseWriter, r *http.Request) {
 		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
 			"msg": err.Error(),
 		})
+		return
 	}
 
 	results := map[string]interface{}{
@@ -746,13 +779,54 @@ func (a *AppHandler) fetchCurrentProgress(w http.ResponseWriter, r *http.Request
 
 }
 
-// TODO: 마무리 안됨
 func (a *AppHandler) saveApk(w http.ResponseWriter, r *http.Request) {
 
-	// apk 저장
+	appVersion := r.FormValue("app-version")
+	fileName := r.FormValue("file-name")
+
+	dirName := viper.GetString(`apk-path`)
+
+	filePath := fmt.Sprintf("%s/%s/%s", dirName, appVersion, fileName)
+
+	// apk 파일 저장
 	err := apkUploadHandler(r)
 	if err != nil {
-		// TODO: message 지정해서 넣기
-		rd.JSON(w, http.StatusBadRequest, "")
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
 	}
+
+	// 정보 저장
+	query := fmt.Sprintf(`
+	MERGE INTO 
+		APK_VERSION
+	USING DUAL 
+		ON (APK_V = '%s')
+		WHEN MATCHED THEN     
+			UPDATE SET                  
+				UDT_DT = SYSDATE                
+		WHEN NOT MATCHED THEN
+			INSERT (COMP_CD, APK_NM, APK_V, FILE_PATH, CRT_DT, UDT_DT)
+  	      	VALUES('3000', '%s', '%s', '%s', SYSDATE, SYSDATE)
+	
+	`,
+		appVersion,
+		fileName,
+		appVersion,
+		filePath,
+	)
+
+	fmt.Println(query)
+
+	_, err = a.db.GetQueryData(query)
+
+	if err != nil {
+		rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
+			"msg": err.Error(),
+		})
+		return
+	}
+
+	rd.JSON(w, http.StatusOK, "")
 }

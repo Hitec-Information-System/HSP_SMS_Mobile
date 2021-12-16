@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -191,23 +190,16 @@ func apkUploadHandler(r *http.Request) error {
 	var nullErr error
 
 	// 32 MB is the default used by FormFile()
+
 	if err := r.ParseMultipartForm(32 << 20); err != nil {
 		return err
 	}
 
-	var params map[string]interface{}
-
-	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
-		return fmt.Errorf("invalid json provided")
-	}
-
-	appVersion := params["app-version"].(string)
+	appVersion := r.FormValue("app-version")
 
 	// Get a reference to the fileHeaders.
 	// They are accessible only after ParseMultipartForm is called
 	fileRaw := r.MultipartForm.File["file"]
-
-	fmt.Println(fileRaw)
 
 	// 파일은 오직 하나 존재함
 	fileHeader := fileRaw[0]
@@ -232,7 +224,7 @@ func apkUploadHandler(r *http.Request) error {
 
 	filetype := http.DetectContentType(buff)
 	fmt.Println(filetype)
-	if filetype != "application/octet-stream" {
+	if filetype != "text/html; charset=utf-8" {
 		return fmt.Errorf("the provided file format is not allowed. Please upload a JPEG or PNG image")
 	}
 
@@ -241,16 +233,17 @@ func apkUploadHandler(r *http.Request) error {
 		return err
 	}
 
-	dirName := viper.GetString(`apk-path`)
+	rootName := viper.GetString(`apk-path`)
+	dirName := fmt.Sprintf("%s/%s", rootName,appVersion)
 
 	err = os.MkdirAll(dirName, os.ModePerm)
 	if err != nil {
 		return err
 	}
 
-	// TODO: /apk/버전폴더/이름.apk 형태로 저장되게 지정
-	f, err := os.Create(fmt.Sprintf("%s/%s/%s", dirName, appVersion, fileHeader.Filename))
+	f, err := os.Create(fmt.Sprintf("%s/%s", dirName, fileHeader.Filename))
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 

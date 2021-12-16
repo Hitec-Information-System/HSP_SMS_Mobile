@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web/features/auth/application/auth_notifier.dart';
 import 'package:web/features/auth/domain/repository/i_auth_repository.dart';
 import 'package:web/features/auth/infrastructure/datasource/auth_remote_datasource.dart';

@@ -1,13 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web/core/network/network_info.dart';
 import 'package:web/features/upload/data/datasource/remote/app_version_remote_datasource.dart';
 import 'package:web/features/upload/data/datasource/remote/i_app_version_remote_datasource.dart';
 import 'package:web/features/upload/data/repository/app_version_repository.dart';
 import 'package:web/features/upload/domain/repository/i_app_version_repository.dart';
-import 'package:web/features/upload/domain/use_case/fetch_latest_info.dart';
-import 'package:web/features/upload/domain/use_case/save_app_version.dart';
 import 'package:web/features/upload/presentation/provider/app_version_notifier.dart';
 import 'package:web/features/upload/presentation/provider/app_version_state.dart';
 
@@ -44,18 +42,7 @@ final appVersionRepositoryProvider =
   ),
 );
 
-final fetchLatestInfoProvider = Provider.autoDispose<FetchLatestFileInfo>(
-  (ref) => FetchLatestFileInfo(ref.watch(appVersionRepositoryProvider)),
-);
-
-final saveAppVersionProvider = Provider.autoDispose<SaveAppVersion>(
-  (ref) => SaveAppVersion(ref.watch(appVersionRepositoryProvider)),
-);
-
 final appVersionStateNotifierProvider =
     StateNotifierProvider.autoDispose<AppVersionNotifier, AppVersionState>(
-  (ref) => AppVersionNotifier(
-    fetchLatestFileInfo: ref.watch(fetchLatestInfoProvider),
-    saveAppVersion: ref.watch(saveAppVersionProvider),
-  ),
+  (ref) => AppVersionNotifier(ref.watch(appVersionRepositoryProvider)),
 );

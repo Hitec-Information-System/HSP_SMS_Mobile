@@ -33,8 +33,10 @@ class _$FailureTearOff {
     return const ConnectionFailure();
   }
 
-  ApiFailure apiFailure() {
-    return const ApiFailure();
+  ApiFailure apiFailure(String message) {
+    return ApiFailure(
+      message,
+    );
   }
 }
 
@@ -49,7 +51,7 @@ mixin _$Failure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
-    required TResult Function() apiFailure,
+    required TResult Function(String message) apiFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,7 +60,7 @@ mixin _$Failure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,7 +69,7 @@ mixin _$Failure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -160,7 +162,7 @@ class _$ServerFailure extends ServerFailure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
-    required TResult Function() apiFailure,
+    required TResult Function(String message) apiFailure,
   }) {
     return serverFailure();
   }
@@ -172,7 +174,7 @@ class _$ServerFailure extends ServerFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
   }) {
     return serverFailure?.call();
   }
@@ -184,7 +186,7 @@ class _$ServerFailure extends ServerFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
     required TResult orElse(),
   }) {
     if (serverFailure != null) {
@@ -283,7 +285,7 @@ class _$CacheFailure extends CacheFailure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
-    required TResult Function() apiFailure,
+    required TResult Function(String message) apiFailure,
   }) {
     return cacheFailure();
   }
@@ -295,7 +297,7 @@ class _$CacheFailure extends CacheFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
   }) {
     return cacheFailure?.call();
   }
@@ -307,7 +309,7 @@ class _$CacheFailure extends CacheFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
     required TResult orElse(),
   }) {
     if (cacheFailure != null) {
@@ -407,7 +409,7 @@ class _$InvalidInputFailure extends InvalidInputFailure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
-    required TResult Function() apiFailure,
+    required TResult Function(String message) apiFailure,
   }) {
     return invalidInputFailure();
   }
@@ -419,7 +421,7 @@ class _$InvalidInputFailure extends InvalidInputFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
   }) {
     return invalidInputFailure?.call();
   }
@@ -431,7 +433,7 @@ class _$InvalidInputFailure extends InvalidInputFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
     required TResult orElse(),
   }) {
     if (invalidInputFailure != null) {
@@ -530,7 +532,7 @@ class _$ConnectionFailure extends ConnectionFailure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
-    required TResult Function() apiFailure,
+    required TResult Function(String message) apiFailure,
   }) {
     return connectionFailure();
   }
@@ -542,7 +544,7 @@ class _$ConnectionFailure extends ConnectionFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
   }) {
     return connectionFailure?.call();
   }
@@ -554,7 +556,7 @@ class _$ConnectionFailure extends ConnectionFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
     required TResult orElse(),
   }) {
     if (connectionFailure != null) {
@@ -614,6 +616,7 @@ abstract class $ApiFailureCopyWith<$Res> {
   factory $ApiFailureCopyWith(
           ApiFailure value, $Res Function(ApiFailure) then) =
       _$ApiFailureCopyWithImpl<$Res>;
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -624,26 +627,49 @@ class _$ApiFailureCopyWithImpl<$Res> extends _$FailureCopyWithImpl<$Res>
 
   @override
   ApiFailure get _value => super._value as ApiFailure;
+
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(ApiFailure(
+      message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ApiFailure extends ApiFailure {
-  const _$ApiFailure() : super._();
+  const _$ApiFailure(this.message) : super._();
+
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'Failure.apiFailure()';
+    return 'Failure.apiFailure(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is ApiFailure);
+        (other.runtimeType == runtimeType &&
+            other is ApiFailure &&
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
+
+  @JsonKey(ignore: true)
+  @override
+  $ApiFailureCopyWith<ApiFailure> get copyWith =>
+      _$ApiFailureCopyWithImpl<ApiFailure>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -652,9 +678,9 @@ class _$ApiFailure extends ApiFailure {
     required TResult Function() cacheFailure,
     required TResult Function() invalidInputFailure,
     required TResult Function() connectionFailure,
-    required TResult Function() apiFailure,
+    required TResult Function(String message) apiFailure,
   }) {
-    return apiFailure();
+    return apiFailure(message);
   }
 
   @override
@@ -664,9 +690,9 @@ class _$ApiFailure extends ApiFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
   }) {
-    return apiFailure?.call();
+    return apiFailure?.call(message);
   }
 
   @override
@@ -676,11 +702,11 @@ class _$ApiFailure extends ApiFailure {
     TResult Function()? cacheFailure,
     TResult Function()? invalidInputFailure,
     TResult Function()? connectionFailure,
-    TResult Function()? apiFailure,
+    TResult Function(String message)? apiFailure,
     required TResult orElse(),
   }) {
     if (apiFailure != null) {
-      return apiFailure();
+      return apiFailure(message);
     }
     return orElse();
   }
@@ -727,6 +753,11 @@ class _$ApiFailure extends ApiFailure {
 }
 
 abstract class ApiFailure extends Failure {
-  const factory ApiFailure() = _$ApiFailure;
+  const factory ApiFailure(String message) = _$ApiFailure;
   const ApiFailure._() : super._();
+
+  String get message;
+  @JsonKey(ignore: true)
+  $ApiFailureCopyWith<ApiFailure> get copyWith =>
+      throw _privateConstructorUsedError;
 }

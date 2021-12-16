@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web/core/constant/themes.dart';
 import 'package:web/core/routes/app_router.gr.dart';
 import 'package:web/core/routes/auth_route_guard.dart';
 import 'package:web/features/auth/application/auth_notifier.dart';
@@ -37,9 +38,11 @@ class _AppWidgetState extends ConsumerState<AppWidget> {
     );
 
     return MaterialApp.router(
-      title: 'Hwashin',
+      title: 'Hwashin Safety Management',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
+      theme: ThemeConstants.lightTheme,
+      darkTheme: ThemeConstants.darkTheme,
+      themeMode: ThemeMode.system,
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
     );

@@ -30,7 +30,7 @@ class AuthRemoteDatasource implements IAuthRemoteDatasource {
       }
 
       if (e.response?.statusCode != 200) {
-        throw ApiException();
+        throw ApiException(e.message);
       }
 
       rethrow;

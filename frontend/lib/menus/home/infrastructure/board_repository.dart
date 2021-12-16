@@ -111,8 +111,11 @@ class BoardItemRepository {
     List<AddedImage> images,
   ) async {
     try {
-      await _saveBoardInfo(params);
+      // 2021-12-15
+      //  파일 정보는 저장 되었지만 이미지가 저장되지 않는 경우가 생겨
+      //  저장 순서를 (이전)db정보->이미지 (현재)이미지->정보로 변경함
       await _saveBoardInfoImages(images);
+      await _saveBoardInfo(params);
 
       return right(unit);
     } on DioError catch (e) {

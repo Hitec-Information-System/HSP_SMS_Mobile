@@ -1,6 +1,7 @@
 ## Ignore File ##
 
 config.json
+config-server.json
 
 uploads
 
