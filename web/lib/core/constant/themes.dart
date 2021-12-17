@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web/core/gen/fonts.gen.dart';
 
 const kPrimaryThemeColor = Color(0xFF252DEB);
 const kSecondaryThemeColor = Color(0xFF252DEB);
@@ -32,6 +33,12 @@ class ThemeConstants {
       buttonTheme: ThemeData.light().buttonTheme.copyWith(
             buttonColor: kPrimaryThemeColor,
           ),
+      textTheme: ThemeData.light().textTheme.apply(
+            fontFamily: FontFamily.gmarketSans,
+          ),
+      primaryTextTheme: ThemeData.light().textTheme.apply(
+            fontFamily: FontFamily.gmarketSans,
+          ),
     );
 
   static final darkTheme = ThemeData.dark()
@@ -57,6 +64,12 @@ class ThemeConstants {
       ),
       buttonTheme: ThemeData.dark().buttonTheme.copyWith(
             buttonColor: kPrimaryThemeColor,
+          ),
+      textTheme: ThemeData.dark().textTheme.apply(
+            fontFamily: FontFamily.gmarketSans,
+          ),
+      primaryTextTheme: ThemeData.dark().textTheme.apply(
+            fontFamily: FontFamily.gmarketSans,
           ),
     );
 }

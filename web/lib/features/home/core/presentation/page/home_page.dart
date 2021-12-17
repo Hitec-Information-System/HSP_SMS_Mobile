@@ -16,7 +16,8 @@ class HomePage extends StatelessWidget {
               const UploadRoute().show(context);
             },
             child: const Text("File Upload"),
-          )
+          ),
+          const SizedBox(height: 12),
         ],
       ),
     );

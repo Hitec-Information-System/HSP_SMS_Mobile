@@ -1,49 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:web/features/upload/presentation/provider/app_version_event.dart';
-import 'package:web/features/upload/presentation/widgets/app_version_info_widget.dart';
-import 'package:web/features/upload/presentation/widgets/app_version_submit_button_widget.dart';
-import 'package:web/features/upload/presentation/widgets/drag_drop_zone_widget.dart';
-import 'package:web/features/upload/presentation/widgets/latest_info_widget.dart';
+import 'package:web/core/gen/fonts.gen.dart';
+import 'package:web/features/upload/presentation/page/upload_page.dart';
+import 'package:web/features/upload/presentation/provider/app_version_state.dart';
 import 'package:web/provider.dart';
 
-class UploadScreen extends ConsumerStatefulWidget {
+class UploadScreen extends ConsumerWidget {
   const UploadScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<UploadScreen> createState() => _UploadScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<AppVersionState>(
+      appVersionStateNotifierProvider,
+      (prev, state) {
+        state.maybeWhen(
+          failure: (version, message) {
+            final snackBar = SnackBar(
+                content: Text(
+              message,
+              style: const TextStyle(
+                fontFamily: FontFamily.gmarketSans,
+              ),
+            ));
 
-class _UploadScreenState extends ConsumerState<UploadScreen> {
-  @override
-  void initState() {
-    super.initState();
-    ref
-        .read(appVersionStateNotifierProvider.notifier)
-        .mapEventToState(const AppVersionEvent.getLatestInfo());
-  }
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+          orElse: () {},
+        );
+      },
+    );
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).iconTheme.color,
       ),
-      body: Center(
-        child: SingleChildScrollView(
-            child: Column(
-          children: const [
-            AppVersionInfoWidget(),
-            LatestInfoWidget(),
-            SizedBox(height: 8),
-            AppVersionSubmitButton(),
-            SizedBox(height: 8),
-            DragDropZoneWidget(),
-          ],
-        )),
-      ),
+      body: const UploadPage(),
     );
   }
 }
