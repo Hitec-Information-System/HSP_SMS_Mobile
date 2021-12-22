@@ -29,6 +29,11 @@ void main() {
       minor: 1,
       patch: 10,
     ),
+    lastInfo: AppVersionInfo(
+      major: 0,
+      minor: 1,
+      patch: 10,
+    ),
     file: null,
   );
 

@@ -12,8 +12,18 @@ class LatestInfoWidget extends ConsumerWidget {
       appVersionStateNotifierProvider.select((state) => state.version),
     );
 
-    return Text(
-      "Latest Updated Version: ${_version.infoNo}",
+    return Text.rich(
+      TextSpan(
+        text: "Latest Updated Version: ",
+        children: [
+          TextSpan(
+            text: _version.lastInfoNo,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
       style: const TextStyle(
         fontSize: 16,
       ),

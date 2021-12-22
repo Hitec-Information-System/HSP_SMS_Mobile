@@ -46,7 +46,8 @@ func MakeHandler() *AppHandler {
 		db:      repository.NewDBRepository(),
 	}
 
-	r.Handle("/", http.FileServer(http.Dir(FSPATH)))
+	// r.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(FSPATH))))
+	r.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(FSPATH))))
 
 	r.HandleFunc("/auth", a.getWebUser).Methods("POST")
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")

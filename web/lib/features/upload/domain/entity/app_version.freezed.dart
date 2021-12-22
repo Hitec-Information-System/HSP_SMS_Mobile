@@ -17,9 +17,13 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AppVersionTearOff {
   const _$AppVersionTearOff();
 
-  _AppVersion call({required AppVersionInfo info, XFile? file}) {
+  _AppVersion call(
+      {required AppVersionInfo info,
+      required AppVersionInfo lastInfo,
+      XFile? file}) {
     return _AppVersion(
       info: info,
+      lastInfo: lastInfo,
       file: file,
     );
   }
@@ -31,6 +35,7 @@ const $AppVersion = _$AppVersionTearOff();
 /// @nodoc
 mixin _$AppVersion {
   AppVersionInfo get info => throw _privateConstructorUsedError;
+  AppVersionInfo get lastInfo => throw _privateConstructorUsedError;
   XFile? get file => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -43,9 +48,10 @@ abstract class $AppVersionCopyWith<$Res> {
   factory $AppVersionCopyWith(
           AppVersion value, $Res Function(AppVersion) then) =
       _$AppVersionCopyWithImpl<$Res>;
-  $Res call({AppVersionInfo info, XFile? file});
+  $Res call({AppVersionInfo info, AppVersionInfo lastInfo, XFile? file});
 
   $AppVersionInfoCopyWith<$Res> get info;
+  $AppVersionInfoCopyWith<$Res> get lastInfo;
 }
 
 /// @nodoc
@@ -59,12 +65,17 @@ class _$AppVersionCopyWithImpl<$Res> implements $AppVersionCopyWith<$Res> {
   @override
   $Res call({
     Object? info = freezed,
+    Object? lastInfo = freezed,
     Object? file = freezed,
   }) {
     return _then(_value.copyWith(
       info: info == freezed
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
+              as AppVersionInfo,
+      lastInfo: lastInfo == freezed
+          ? _value.lastInfo
+          : lastInfo // ignore: cast_nullable_to_non_nullable
               as AppVersionInfo,
       file: file == freezed
           ? _value.file
@@ -79,6 +90,13 @@ class _$AppVersionCopyWithImpl<$Res> implements $AppVersionCopyWith<$Res> {
       return _then(_value.copyWith(info: value));
     });
   }
+
+  @override
+  $AppVersionInfoCopyWith<$Res> get lastInfo {
+    return $AppVersionInfoCopyWith<$Res>(_value.lastInfo, (value) {
+      return _then(_value.copyWith(lastInfo: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -87,10 +105,12 @@ abstract class _$AppVersionCopyWith<$Res> implements $AppVersionCopyWith<$Res> {
           _AppVersion value, $Res Function(_AppVersion) then) =
       __$AppVersionCopyWithImpl<$Res>;
   @override
-  $Res call({AppVersionInfo info, XFile? file});
+  $Res call({AppVersionInfo info, AppVersionInfo lastInfo, XFile? file});
 
   @override
   $AppVersionInfoCopyWith<$Res> get info;
+  @override
+  $AppVersionInfoCopyWith<$Res> get lastInfo;
 }
 
 /// @nodoc
@@ -106,12 +126,17 @@ class __$AppVersionCopyWithImpl<$Res> extends _$AppVersionCopyWithImpl<$Res>
   @override
   $Res call({
     Object? info = freezed,
+    Object? lastInfo = freezed,
     Object? file = freezed,
   }) {
     return _then(_AppVersion(
       info: info == freezed
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
+              as AppVersionInfo,
+      lastInfo: lastInfo == freezed
+          ? _value.lastInfo
+          : lastInfo // ignore: cast_nullable_to_non_nullable
               as AppVersionInfo,
       file: file == freezed
           ? _value.file
@@ -124,16 +149,19 @@ class __$AppVersionCopyWithImpl<$Res> extends _$AppVersionCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AppVersion extends _AppVersion {
-  const _$_AppVersion({required this.info, this.file}) : super._();
+  const _$_AppVersion({required this.info, required this.lastInfo, this.file})
+      : super._();
 
   @override
   final AppVersionInfo info;
+  @override
+  final AppVersionInfo lastInfo;
   @override
   final XFile? file;
 
   @override
   String toString() {
-    return 'AppVersion(info: $info, file: $file)';
+    return 'AppVersion(info: $info, lastInfo: $lastInfo, file: $file)';
   }
 
   @override
@@ -142,6 +170,7 @@ class _$_AppVersion extends _AppVersion {
         (other.runtimeType == runtimeType &&
             other is _AppVersion &&
             const DeepCollectionEquality().equals(other.info, info) &&
+            const DeepCollectionEquality().equals(other.lastInfo, lastInfo) &&
             const DeepCollectionEquality().equals(other.file, file));
   }
 
@@ -149,6 +178,7 @@ class _$_AppVersion extends _AppVersion {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(info),
+      const DeepCollectionEquality().hash(lastInfo),
       const DeepCollectionEquality().hash(file));
 
   @JsonKey(ignore: true)
@@ -158,12 +188,16 @@ class _$_AppVersion extends _AppVersion {
 }
 
 abstract class _AppVersion extends AppVersion {
-  const factory _AppVersion({required AppVersionInfo info, XFile? file}) =
-      _$_AppVersion;
+  const factory _AppVersion(
+      {required AppVersionInfo info,
+      required AppVersionInfo lastInfo,
+      XFile? file}) = _$_AppVersion;
   const _AppVersion._() : super._();
 
   @override
   AppVersionInfo get info;
+  @override
+  AppVersionInfo get lastInfo;
   @override
   XFile? get file;
   @override

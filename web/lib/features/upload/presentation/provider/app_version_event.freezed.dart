@@ -27,6 +27,12 @@ class _$AppVersionEventTearOff {
     );
   }
 
+  ChangeVersionNo changeVersionNo(AppVersionInfo info) {
+    return ChangeVersionNo(
+      info,
+    );
+  }
+
   SaveNewVersion saveNewVersion() {
     return const SaveNewVersion();
   }
@@ -41,6 +47,7 @@ mixin _$AppVersionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
     required TResult Function(String path) addFileToDomain,
+    required TResult Function(AppVersionInfo info) changeVersionNo,
     required TResult Function() saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +55,7 @@ mixin _$AppVersionEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
     TResult Function()? saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +63,7 @@ mixin _$AppVersionEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) =>
@@ -63,6 +72,7 @@ mixin _$AppVersionEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
     required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
@@ -70,6 +80,7 @@ mixin _$AppVersionEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
@@ -77,6 +88,7 @@ mixin _$AppVersionEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) =>
@@ -143,6 +155,7 @@ class _$GetLatestInfo extends GetLatestInfo {
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
     required TResult Function(String path) addFileToDomain,
+    required TResult Function(AppVersionInfo info) changeVersionNo,
     required TResult Function() saveNewVersion,
   }) {
     return getLatestInfo();
@@ -153,6 +166,7 @@ class _$GetLatestInfo extends GetLatestInfo {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
     TResult Function()? saveNewVersion,
   }) {
     return getLatestInfo?.call();
@@ -163,6 +177,7 @@ class _$GetLatestInfo extends GetLatestInfo {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -177,6 +192,7 @@ class _$GetLatestInfo extends GetLatestInfo {
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
     required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) {
     return getLatestInfo(this);
@@ -187,6 +203,7 @@ class _$GetLatestInfo extends GetLatestInfo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) {
     return getLatestInfo?.call(this);
@@ -197,6 +214,7 @@ class _$GetLatestInfo extends GetLatestInfo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -279,6 +297,7 @@ class _$AddFileToDomain extends AddFileToDomain {
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
     required TResult Function(String path) addFileToDomain,
+    required TResult Function(AppVersionInfo info) changeVersionNo,
     required TResult Function() saveNewVersion,
   }) {
     return addFileToDomain(path);
@@ -289,6 +308,7 @@ class _$AddFileToDomain extends AddFileToDomain {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
     TResult Function()? saveNewVersion,
   }) {
     return addFileToDomain?.call(path);
@@ -299,6 +319,7 @@ class _$AddFileToDomain extends AddFileToDomain {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -313,6 +334,7 @@ class _$AddFileToDomain extends AddFileToDomain {
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
     required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) {
     return addFileToDomain(this);
@@ -323,6 +345,7 @@ class _$AddFileToDomain extends AddFileToDomain {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) {
     return addFileToDomain?.call(this);
@@ -333,6 +356,7 @@ class _$AddFileToDomain extends AddFileToDomain {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -350,6 +374,162 @@ abstract class AddFileToDomain extends AppVersionEvent {
   String get path;
   @JsonKey(ignore: true)
   $AddFileToDomainCopyWith<AddFileToDomain> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ChangeVersionNoCopyWith<$Res> {
+  factory $ChangeVersionNoCopyWith(
+          ChangeVersionNo value, $Res Function(ChangeVersionNo) then) =
+      _$ChangeVersionNoCopyWithImpl<$Res>;
+  $Res call({AppVersionInfo info});
+
+  $AppVersionInfoCopyWith<$Res> get info;
+}
+
+/// @nodoc
+class _$ChangeVersionNoCopyWithImpl<$Res>
+    extends _$AppVersionEventCopyWithImpl<$Res>
+    implements $ChangeVersionNoCopyWith<$Res> {
+  _$ChangeVersionNoCopyWithImpl(
+      ChangeVersionNo _value, $Res Function(ChangeVersionNo) _then)
+      : super(_value, (v) => _then(v as ChangeVersionNo));
+
+  @override
+  ChangeVersionNo get _value => super._value as ChangeVersionNo;
+
+  @override
+  $Res call({
+    Object? info = freezed,
+  }) {
+    return _then(ChangeVersionNo(
+      info == freezed
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as AppVersionInfo,
+    ));
+  }
+
+  @override
+  $AppVersionInfoCopyWith<$Res> get info {
+    return $AppVersionInfoCopyWith<$Res>(_value.info, (value) {
+      return _then(_value.copyWith(info: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ChangeVersionNo extends ChangeVersionNo {
+  const _$ChangeVersionNo(this.info) : super._();
+
+  @override
+  final AppVersionInfo info;
+
+  @override
+  String toString() {
+    return 'AppVersionEvent.changeVersionNo(info: $info)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ChangeVersionNo &&
+            const DeepCollectionEquality().equals(other.info, info));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(info));
+
+  @JsonKey(ignore: true)
+  @override
+  $ChangeVersionNoCopyWith<ChangeVersionNo> get copyWith =>
+      _$ChangeVersionNoCopyWithImpl<ChangeVersionNo>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getLatestInfo,
+    required TResult Function(String path) addFileToDomain,
+    required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function() saveNewVersion,
+  }) {
+    return changeVersionNo(info);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? getLatestInfo,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? saveNewVersion,
+  }) {
+    return changeVersionNo?.call(info);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getLatestInfo,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? saveNewVersion,
+    required TResult orElse(),
+  }) {
+    if (changeVersionNo != null) {
+      return changeVersionNo(info);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetLatestInfo value) getLatestInfo,
+    required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(ChangeVersionNo value) changeVersionNo,
+    required TResult Function(SaveNewVersion value) saveNewVersion,
+  }) {
+    return changeVersionNo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(GetLatestInfo value)? getLatestInfo,
+    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(SaveNewVersion value)? saveNewVersion,
+  }) {
+    return changeVersionNo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetLatestInfo value)? getLatestInfo,
+    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(SaveNewVersion value)? saveNewVersion,
+    required TResult orElse(),
+  }) {
+    if (changeVersionNo != null) {
+      return changeVersionNo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChangeVersionNo extends AppVersionEvent {
+  const factory ChangeVersionNo(AppVersionInfo info) = _$ChangeVersionNo;
+  const ChangeVersionNo._() : super._();
+
+  AppVersionInfo get info;
+  @JsonKey(ignore: true)
+  $ChangeVersionNoCopyWith<ChangeVersionNo> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -396,6 +576,7 @@ class _$SaveNewVersion extends SaveNewVersion {
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
     required TResult Function(String path) addFileToDomain,
+    required TResult Function(AppVersionInfo info) changeVersionNo,
     required TResult Function() saveNewVersion,
   }) {
     return saveNewVersion();
@@ -406,6 +587,7 @@ class _$SaveNewVersion extends SaveNewVersion {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
     TResult Function()? saveNewVersion,
   }) {
     return saveNewVersion?.call();
@@ -416,6 +598,7 @@ class _$SaveNewVersion extends SaveNewVersion {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -430,6 +613,7 @@ class _$SaveNewVersion extends SaveNewVersion {
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
     required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) {
     return saveNewVersion(this);
@@ -440,6 +624,7 @@ class _$SaveNewVersion extends SaveNewVersion {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) {
     return saveNewVersion?.call(this);
@@ -450,6 +635,7 @@ class _$SaveNewVersion extends SaveNewVersion {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) {

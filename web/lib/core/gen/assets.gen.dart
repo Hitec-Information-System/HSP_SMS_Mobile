@@ -7,8 +7,18 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsImageGen {
+  const $AssetsImageGen();
+
+  /// File path: assets/image/splash_light.png
+  AssetGenImage get splashLight =>
+      const AssetGenImage('assets/image/splash_light.png');
+}
+
 class Assets {
   Assets._();
+
+  static const $AssetsImageGen image = $AssetsImageGen();
 }
 
 class AssetGenImage extends AssetImage {

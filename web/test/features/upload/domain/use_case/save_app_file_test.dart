@@ -22,6 +22,7 @@ void main() {
 
   final tAppVersion = AppVersion(
     info: const AppVersionInfo(major: 0, minor: 1, patch: 10),
+    lastInfo: const AppVersionInfo(major: 0, minor: 1, patch: 10),
     file: XFile("arbitural path"),
   );
 

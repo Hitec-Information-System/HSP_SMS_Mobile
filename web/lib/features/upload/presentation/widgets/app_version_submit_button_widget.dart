@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:web/features/auth/shared/provider.dart';
 import 'package:web/features/upload/presentation/provider/app_version_event.dart';
 import 'package:web/provider.dart';
 
@@ -15,7 +14,7 @@ class AppVersionSubmitButton extends ConsumerWidget {
             .read(appVersionStateNotifierProvider.notifier)
             .mapEventToState(const AppVersionEvent.saveNewVersion());
       },
-      child: Text("Submit"),
+      child: const Text("Upload"),
     );
   }
 }

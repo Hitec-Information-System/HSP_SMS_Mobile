@@ -16,6 +16,7 @@ class AppVersionNotifier extends StateNotifier<AppVersionState> {
           const AppVersionState.empty(
             AppVersion(
               info: AppVersionInfo(major: -1, minor: -1, patch: -1),
+              lastInfo: AppVersionInfo(major: -1, minor: -1, patch: -1),
             ),
           ),
         );
@@ -39,9 +40,14 @@ class AppVersionNotifier extends StateNotifier<AppVersionState> {
         );
       },
       saveNewVersion: (_) async {
-        if (state.version.file == null) {
-          state =
-              AppVersionState.failure(state.version, missingFileFailrueMessage);
+        if (!_hasHigherVersionNo) {
+          state = AppVersionState.failure(
+              state.version, invalidVersionFailrueMessage);
+          return;
+        }
+
+        if (!_hasUploadFile) {
+          state = AppVersionState.failure(state.version, noFileFailrueMessage);
           return;
         }
 
@@ -49,9 +55,20 @@ class AppVersionNotifier extends StateNotifier<AppVersionState> {
         state = failureOrUnit.fold(
           (failure) => AppVersionState.failure(
               state.version, _mapFailureToMessage(failure)),
-          (newUnit) => AppVersionState.saved(state.version),
+          (_) => AppVersionState.saved(state.version),
         );
       },
+      changeVersionNo: (value) {
+        changeVersionNo(newInfo: value.info);
+      },
+    );
+  }
+
+  void changeVersionNo({required AppVersionInfo newInfo}) {
+    state = AppVersionState.loaded(
+      state.version.copyWith(
+        info: newInfo,
+      ),
     );
   }
 
@@ -63,5 +80,14 @@ class AppVersionNotifier extends StateNotifier<AppVersionState> {
       connectionFailure: (_) => connectionFailureMessage,
       apiFailure: (_) => apiFailureMessage,
     );
+  }
+
+  bool get _hasUploadFile => state.version.file != null;
+
+  // major, minor, patch 셋 중 이전보다 하나라도 크면 큰 버전이다
+  bool get _hasHigherVersionNo {
+    return state.version.info.major > state.version.lastInfo.major ||
+        state.version.info.minor > state.version.lastInfo.minor ||
+        state.version.info.patch > state.version.lastInfo.patch;
   }
 }

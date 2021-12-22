@@ -29,6 +29,7 @@ dependencies:
   dotted_border: ^2.0.0+2
   hooks_riverpod: ^1.0.2
   flutter_hooks: ^0.18.1
+  font_awesome_flutter: ^9.2.0
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +51,7 @@ flutter:
   
   assets:
     - assets/
+    - assets/image/
 
   fonts:
     - family: GmarketSans

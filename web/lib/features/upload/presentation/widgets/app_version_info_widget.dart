@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web/features/upload/domain/entity/app_version.dart';
+import 'package:web/features/upload/presentation/provider/app_version_event.dart';
 import 'package:web/provider.dart';
 
 // AppVersion 등록 Widget
@@ -10,118 +12,70 @@ class AppVersionInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Text(
+      children: const [
+        Text(
           "Upload New Version",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
           ),
         ),
-        const SizedBox(height: 12),
-        Consumer(
-          builder: (context, ref, child) {
-            final _versionInfo = ref.watch(
-              appVersionStateNotifierProvider
-                  .select((state) => state.version.info),
-            );
-
-            return AppVersionSetWidget(
-              major: _versionInfo.major,
-              minor: _versionInfo.minor,
-              patch: _versionInfo.patch,
-            );
-          },
-        ),
+        SizedBox(height: 12),
+        AppVersionSetWidget(),
       ],
     );
   }
 }
 
 // Sementic Version 정보 위젯
-// - 상위 version을 바꿨을 때 하위 version을 0으로 만들기 위해 StatefulWidget 사용함
-class AppVersionSetWidget extends StatefulWidget {
+class AppVersionSetWidget extends ConsumerWidget {
   const AppVersionSetWidget({
     Key? key,
-    required this.major,
-    required this.minor,
-    required this.patch,
   }) : super(key: key);
 
-  final int major;
-  final int minor;
-  final int patch;
-
   @override
-  _AppVersionSetWidgetState createState() => _AppVersionSetWidgetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final info = ref.watch(
+        appVersionStateNotifierProvider.select((state) => state.version.info));
 
-class _AppVersionSetWidgetState extends State<AppVersionSetWidget> {
-  late int _major;
-  late int _minor;
-  late int _patch;
-
-  @override
-  void initState() {
-    super.initState();
-    _major = widget.major;
-    _minor = widget.minor;
-    _patch = widget.patch;
-  }
-
-  @override
-  void didUpdateWidget(covariant AppVersionSetWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.major != widget.major ||
-        oldWidget.minor != widget.minor ||
-        oldWidget.patch != widget.patch) {
-      setState(() {
-        _major = widget.major;
-        _minor = widget.minor;
-        _patch = widget.patch;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         VersionNoWidget(
           symenticName: "Major",
-          versionNo: _major,
+          versionNo: info.major,
           onChanged: (int newValue) {
-            setState(() {
-              if (newValue > _major) {
-                _patch = 0;
-                _minor = 0;
-              }
-              _major = newValue;
-            });
+            ref.read(appVersionStateNotifierProvider.notifier).mapEventToState(
+                AppVersionEvent.changeVersionNo(
+                    AppVersionInfo(major: newValue, minor: 0, patch: 0)));
           },
         ),
         const SizedBox(width: 24),
         VersionNoWidget(
           symenticName: "Minor",
-          versionNo: _minor,
+          versionNo: info.minor,
           onChanged: (int newValue) {
-            if (newValue > _minor) {
-              setState(() {
-                _patch = 0;
-                _minor = newValue;
-              });
+            if (newValue > info.minor) {
+              ref
+                  .read(appVersionStateNotifierProvider.notifier)
+                  .mapEventToState(AppVersionEvent.changeVersionNo(
+                    AppVersionInfo(
+                        major: info.major, minor: newValue, patch: 0),
+                  ));
             }
           },
         ),
         const SizedBox(width: 24),
         VersionNoWidget(
           symenticName: "Patch",
-          versionNo: _patch,
+          versionNo: info.patch,
           onChanged: (int newValue) {
-            setState(() {
-              _patch = newValue;
-            });
+            ref.read(appVersionStateNotifierProvider.notifier).mapEventToState(
+                  AppVersionEvent.changeVersionNo(
+                    AppVersionInfo(
+                        major: info.major, minor: info.minor, patch: newValue),
+                  ),
+                );
           },
         ),
       ],
@@ -147,15 +101,7 @@ class VersionNoWidget extends StatefulWidget {
 }
 
 class _VersionNoWidgetState extends State<VersionNoWidget> {
-  final _items = List.generate(21, (int i) => i);
-
-  @override
-  void didUpdateWidget(covariant VersionNoWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.versionNo != widget.versionNo) {
-      setState(() {});
-    }
-  }
+  final _items = List.generate(21, (int no) => no);
 
   @override
   Widget build(BuildContext context) {
@@ -165,11 +111,9 @@ class _VersionNoWidgetState extends State<VersionNoWidget> {
         Text(widget.symenticName),
         DropdownButton<int>(
           onChanged: (int? newValue) {
-            if (newValue != null) {
-              setState(() {
-                widget.onChanged.call(newValue);
-              });
-            }
+            if (newValue == null) return;
+            // if (newValue <= widget.versionNo) return;
+            widget.onChanged.call(newValue);
           },
           value: widget.versionNo != -1 ? widget.versionNo : 0,
           items: _items

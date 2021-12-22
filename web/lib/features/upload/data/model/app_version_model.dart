@@ -47,6 +47,7 @@ class AppVersionModel with _$AppVersionModel {
 
   AppVersion toDomain() => AppVersion(
         info: info.toDomain(),
+        lastInfo: info.toDomain(),
         file: file,
       );
 }

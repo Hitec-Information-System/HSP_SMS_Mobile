@@ -12,6 +12,7 @@ class UserConfigPopupWidget extends AppPopupMenu {
             borderRadius: BorderRadius.circular(16),
           ),
           icon: const CircleAvatar(
+            radius: 60,
             child: Icon(
               Icons.person,
             ),

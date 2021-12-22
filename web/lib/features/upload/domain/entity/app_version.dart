@@ -8,10 +8,13 @@ class AppVersion with _$AppVersion {
   const AppVersion._();
   const factory AppVersion({
     required AppVersionInfo info,
+    required AppVersionInfo lastInfo,
     XFile? file,
   }) = _AppVersion;
 
   String get infoNo => "${info.major}.${info.minor}.${info.patch}";
+  String get lastInfoNo =>
+      "${lastInfo.major}.${lastInfo.minor}.${lastInfo.patch}";
 }
 
 @freezed

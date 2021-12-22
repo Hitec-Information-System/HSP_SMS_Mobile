@@ -159,6 +159,7 @@ void main() {
       // TODO: 패키지 버그로 인한 수정이 필요함
       final tAppVersion = AppVersion(
           info: const AppVersionInfo(major: 0, minor: 1, patch: 11),
+          lastInfo: const AppVersionInfo(major: 0, minor: 1, patch: 11),
           // 임의 파일
           file: XFile("test/fixtures/app_version.json"));
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:web/core/presentation/widgets/constants.dart';
+import 'package:web/core/constant/constant.dart';
 
 class ChartIndicatorWidget extends StatelessWidget {
   const ChartIndicatorWidget({
@@ -28,7 +27,7 @@ class ChartIndicatorWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Card(
         elevation: 1.5,
-        color: kBgDarkColor,
+        color: kPrimaryThemeColor,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(

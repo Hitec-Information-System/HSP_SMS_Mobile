@@ -42,4 +42,38 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: const HomePage(),
     );
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: Column(
+  //       children: [
+  //         GestureDetector(
+  //           onTap: () {
+  //             Navigator.of(context).push(
+  //               PageRouteBuilder(
+  //                 pageBuilder: (context, animation, secondaryAnimation) =>
+  //                     const DropdownList(),
+  //                 transitionsBuilder:
+  //                     (context, animation, secondaryAnimation, child) =>
+  //                         FadeTransition(opacity: animation, child: child),
+  //                 transitionDuration: const Duration(milliseconds: 300),
+  //                 opaque: false,
+  //               ),
+  //             );
+  //           },
+  //           child: Container(
+  //             alignment: Alignment.topRight,
+  //             child: const CircleAvatar(
+  //               radius: 18,
+  //               child: Icon(
+  //                 Icons.person,
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         const HomePage(),
+  //       ],
+  //     ),
+  //   );
 }
