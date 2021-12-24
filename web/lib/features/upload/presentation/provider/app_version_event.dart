@@ -10,5 +10,6 @@ class AppVersionEvent with _$AppVersionEvent {
   const factory AppVersionEvent.addFileToDomain(String path) = AddFileToDomain;
   const factory AppVersionEvent.changeVersionNo(AppVersionInfo info) =
       ChangeVersionNo;
+  const factory AppVersionEvent.cancelAddFile() = CancelAddFile;
   const factory AppVersionEvent.saveNewVersion() = SaveNewVersion;
 }

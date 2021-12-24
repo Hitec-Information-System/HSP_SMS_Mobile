@@ -2,19 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web/features/upload/domain/entity/app_version.dart';
 import 'package:web/features/upload/presentation/provider/app_version_event.dart';
+import 'package:web/features/upload/presentation/widgets/buttons.dart';
+import 'package:web/features/upload/presentation/widgets/widgets.dart';
 import 'package:web/provider.dart';
 
 // AppVersion 등록 Widget
-class AppVersionInfoWidget extends StatelessWidget {
-  const AppVersionInfoWidget({Key? key}) : super(key: key);
+class AppInfoWidget extends StatelessWidget {
+  const AppInfoWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: const [
+        Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: FileAddCancelButton(),
+          ),
+        ),
+        Spacer(),
         Text(
-          "Upload New Version",
+          "New Version",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
@@ -22,6 +33,11 @@ class AppVersionInfoWidget extends StatelessWidget {
         ),
         SizedBox(height: 12),
         AppVersionSetWidget(),
+        SizedBox(height: 6),
+        LatestInfoWidget(),
+        SizedBox(height: 20),
+        AppInfoSubmitButton(),
+        Spacer(),
       ],
     );
   }
@@ -55,14 +71,11 @@ class AppVersionSetWidget extends ConsumerWidget {
           symenticName: "Minor",
           versionNo: info.minor,
           onChanged: (int newValue) {
-            if (newValue > info.minor) {
-              ref
-                  .read(appVersionStateNotifierProvider.notifier)
-                  .mapEventToState(AppVersionEvent.changeVersionNo(
-                    AppVersionInfo(
-                        major: info.major, minor: newValue, patch: 0),
-                  ));
-            }
+            ref
+                .read(appVersionStateNotifierProvider.notifier)
+                .mapEventToState(AppVersionEvent.changeVersionNo(
+                  AppVersionInfo(major: info.major, minor: newValue, patch: 0),
+                ));
           },
         ),
         const SizedBox(width: 24),
@@ -101,7 +114,13 @@ class VersionNoWidget extends StatefulWidget {
 }
 
 class _VersionNoWidgetState extends State<VersionNoWidget> {
-  final _items = List.generate(21, (int no) => no);
+  late final List<int> _items;
+
+  @override
+  void initState() {
+    super.initState();
+    _items = List.generate(21, (int no) => no);
+  }
 
   @override
   Widget build(BuildContext context) {

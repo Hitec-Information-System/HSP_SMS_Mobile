@@ -33,6 +33,10 @@ class _$AppVersionEventTearOff {
     );
   }
 
+  CancelAddFile cancelAddFile() {
+    return const CancelAddFile();
+  }
+
   SaveNewVersion saveNewVersion() {
     return const SaveNewVersion();
   }
@@ -48,6 +52,7 @@ mixin _$AppVersionEvent {
     required TResult Function() getLatestInfo,
     required TResult Function(String path) addFileToDomain,
     required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +61,7 @@ mixin _$AppVersionEvent {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
@@ -64,6 +70,7 @@ mixin _$AppVersionEvent {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) =>
@@ -73,6 +80,7 @@ mixin _$AppVersionEvent {
     required TResult Function(GetLatestInfo value) getLatestInfo,
     required TResult Function(AddFileToDomain value) addFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
+    required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
@@ -81,6 +89,7 @@ mixin _$AppVersionEvent {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) =>
       throw _privateConstructorUsedError;
@@ -89,6 +98,7 @@ mixin _$AppVersionEvent {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) =>
@@ -156,6 +166,7 @@ class _$GetLatestInfo extends GetLatestInfo {
     required TResult Function() getLatestInfo,
     required TResult Function(String path) addFileToDomain,
     required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) {
     return getLatestInfo();
@@ -167,6 +178,7 @@ class _$GetLatestInfo extends GetLatestInfo {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) {
     return getLatestInfo?.call();
@@ -178,6 +190,7 @@ class _$GetLatestInfo extends GetLatestInfo {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -193,6 +206,7 @@ class _$GetLatestInfo extends GetLatestInfo {
     required TResult Function(GetLatestInfo value) getLatestInfo,
     required TResult Function(AddFileToDomain value) addFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
+    required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) {
     return getLatestInfo(this);
@@ -204,6 +218,7 @@ class _$GetLatestInfo extends GetLatestInfo {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) {
     return getLatestInfo?.call(this);
@@ -215,6 +230,7 @@ class _$GetLatestInfo extends GetLatestInfo {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -298,6 +314,7 @@ class _$AddFileToDomain extends AddFileToDomain {
     required TResult Function() getLatestInfo,
     required TResult Function(String path) addFileToDomain,
     required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) {
     return addFileToDomain(path);
@@ -309,6 +326,7 @@ class _$AddFileToDomain extends AddFileToDomain {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) {
     return addFileToDomain?.call(path);
@@ -320,6 +338,7 @@ class _$AddFileToDomain extends AddFileToDomain {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -335,6 +354,7 @@ class _$AddFileToDomain extends AddFileToDomain {
     required TResult Function(GetLatestInfo value) getLatestInfo,
     required TResult Function(AddFileToDomain value) addFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
+    required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) {
     return addFileToDomain(this);
@@ -346,6 +366,7 @@ class _$AddFileToDomain extends AddFileToDomain {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) {
     return addFileToDomain?.call(this);
@@ -357,6 +378,7 @@ class _$AddFileToDomain extends AddFileToDomain {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -454,6 +476,7 @@ class _$ChangeVersionNo extends ChangeVersionNo {
     required TResult Function() getLatestInfo,
     required TResult Function(String path) addFileToDomain,
     required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) {
     return changeVersionNo(info);
@@ -465,6 +488,7 @@ class _$ChangeVersionNo extends ChangeVersionNo {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) {
     return changeVersionNo?.call(info);
@@ -476,6 +500,7 @@ class _$ChangeVersionNo extends ChangeVersionNo {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -491,6 +516,7 @@ class _$ChangeVersionNo extends ChangeVersionNo {
     required TResult Function(GetLatestInfo value) getLatestInfo,
     required TResult Function(AddFileToDomain value) addFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
+    required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) {
     return changeVersionNo(this);
@@ -502,6 +528,7 @@ class _$ChangeVersionNo extends ChangeVersionNo {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) {
     return changeVersionNo?.call(this);
@@ -513,6 +540,7 @@ class _$ChangeVersionNo extends ChangeVersionNo {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -531,6 +559,130 @@ abstract class ChangeVersionNo extends AppVersionEvent {
   @JsonKey(ignore: true)
   $ChangeVersionNoCopyWith<ChangeVersionNo> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CancelAddFileCopyWith<$Res> {
+  factory $CancelAddFileCopyWith(
+          CancelAddFile value, $Res Function(CancelAddFile) then) =
+      _$CancelAddFileCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$CancelAddFileCopyWithImpl<$Res>
+    extends _$AppVersionEventCopyWithImpl<$Res>
+    implements $CancelAddFileCopyWith<$Res> {
+  _$CancelAddFileCopyWithImpl(
+      CancelAddFile _value, $Res Function(CancelAddFile) _then)
+      : super(_value, (v) => _then(v as CancelAddFile));
+
+  @override
+  CancelAddFile get _value => super._value as CancelAddFile;
+}
+
+/// @nodoc
+
+class _$CancelAddFile extends CancelAddFile {
+  const _$CancelAddFile() : super._();
+
+  @override
+  String toString() {
+    return 'AppVersionEvent.cancelAddFile()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is CancelAddFile);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getLatestInfo,
+    required TResult Function(String path) addFileToDomain,
+    required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function() cancelAddFile,
+    required TResult Function() saveNewVersion,
+  }) {
+    return cancelAddFile();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? getLatestInfo,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
+    TResult Function()? saveNewVersion,
+  }) {
+    return cancelAddFile?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getLatestInfo,
+    TResult Function(String path)? addFileToDomain,
+    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
+    TResult Function()? saveNewVersion,
+    required TResult orElse(),
+  }) {
+    if (cancelAddFile != null) {
+      return cancelAddFile();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetLatestInfo value) getLatestInfo,
+    required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(ChangeVersionNo value) changeVersionNo,
+    required TResult Function(CancelAddFile value) cancelAddFile,
+    required TResult Function(SaveNewVersion value) saveNewVersion,
+  }) {
+    return cancelAddFile(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(GetLatestInfo value)? getLatestInfo,
+    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
+    TResult Function(SaveNewVersion value)? saveNewVersion,
+  }) {
+    return cancelAddFile?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetLatestInfo value)? getLatestInfo,
+    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
+    TResult Function(SaveNewVersion value)? saveNewVersion,
+    required TResult orElse(),
+  }) {
+    if (cancelAddFile != null) {
+      return cancelAddFile(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CancelAddFile extends AppVersionEvent {
+  const factory CancelAddFile() = _$CancelAddFile;
+  const CancelAddFile._() : super._();
 }
 
 /// @nodoc
@@ -577,6 +729,7 @@ class _$SaveNewVersion extends SaveNewVersion {
     required TResult Function() getLatestInfo,
     required TResult Function(String path) addFileToDomain,
     required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) {
     return saveNewVersion();
@@ -588,6 +741,7 @@ class _$SaveNewVersion extends SaveNewVersion {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) {
     return saveNewVersion?.call();
@@ -599,6 +753,7 @@ class _$SaveNewVersion extends SaveNewVersion {
     TResult Function()? getLatestInfo,
     TResult Function(String path)? addFileToDomain,
     TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
@@ -614,6 +769,7 @@ class _$SaveNewVersion extends SaveNewVersion {
     required TResult Function(GetLatestInfo value) getLatestInfo,
     required TResult Function(AddFileToDomain value) addFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
+    required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) {
     return saveNewVersion(this);
@@ -625,6 +781,7 @@ class _$SaveNewVersion extends SaveNewVersion {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) {
     return saveNewVersion?.call(this);
@@ -636,6 +793,7 @@ class _$SaveNewVersion extends SaveNewVersion {
     TResult Function(GetLatestInfo value)? getLatestInfo,
     TResult Function(AddFileToDomain value)? addFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) {

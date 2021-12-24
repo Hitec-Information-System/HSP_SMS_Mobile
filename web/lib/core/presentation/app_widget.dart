@@ -42,7 +42,7 @@ class _AppWidgetState extends ConsumerState<AppWidget> {
       debugShowCheckedModeBanner: false,
       theme: ThemeConstants.lightTheme,
       darkTheme: ThemeConstants.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
     );

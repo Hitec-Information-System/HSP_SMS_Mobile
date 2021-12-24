@@ -23,8 +23,11 @@ class BackgroundWidget extends StatelessWidget {
           ),
           Text.rich(
             const TextSpan(
-                text: "Drop & Upload\n",
-                children: [TextSpan(text: "mobile build file")]),
+              text: "Drop & Upload\n",
+              children: [
+                TextSpan(text: "a mobile app file"),
+              ],
+            ),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline3?.copyWith(
                   color: kPrimaryThemeColor,
@@ -33,7 +36,7 @@ class BackgroundWidget extends StatelessWidget {
                 ),
           ),
           const Expanded(
-            flex: 4,
+            flex: 6,
             child: SizedBox(),
           ),
         ],

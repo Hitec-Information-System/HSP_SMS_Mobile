@@ -35,7 +35,7 @@ class _UploadScreenState extends ConsumerState<UploadPage> {
           child: const BackgroundWidget(),
         ),
         const Center(
-          child: DragDropZoneWidget(),
+          child: AppRegisterWidget(),
         ),
       ],
     );

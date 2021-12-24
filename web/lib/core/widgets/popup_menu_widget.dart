@@ -163,8 +163,9 @@ class AppPopupMenu<T> extends StatefulWidget with _StateSetWidget {
   List<PopupMenuItem<T>>? onMenuItems() => null;
 
   /// Can override in subclass
-  void onSelection(T value) =>
-      null; // onSelected == null ? null : onSelected!(value);
+  void onSelection(T value) {
+    return;
+  } // onSelected == null ? null : onSelected!(value);
 
   /// Can override in subclass
   void onCancellation() => onCanceled == null ? null : onCanceled!();

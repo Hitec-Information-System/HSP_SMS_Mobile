@@ -24,12 +24,11 @@ class AppVersionNotifier extends StateNotifier<AppVersionState> {
   Future<void> mapEventToState(AppVersionEvent event) async {
     event.map(
       getLatestInfo: (_) async {
-        state = AppVersionState.loading(state.version);
         final failureOrVersion = await _repository.fetchLatestInfo();
         state = failureOrVersion.fold(
           (failure) => AppVersionState.failure(
               state.version, _mapFailureToMessage(failure)),
-          (newVersion) => AppVersionState.loaded(newVersion),
+          (newVersion) => AppVersionState.infoLoaded(newVersion),
         );
       },
       addFileToDomain: (value) {
@@ -38,6 +37,9 @@ class AppVersionNotifier extends StateNotifier<AppVersionState> {
             file: XFile(value.path),
           ),
         );
+      },
+      cancelAddFile: (_) {
+        _cancelAddFile();
       },
       saveNewVersion: (_) async {
         if (!_hasHigherVersionNo) {
@@ -59,15 +61,23 @@ class AppVersionNotifier extends StateNotifier<AppVersionState> {
         );
       },
       changeVersionNo: (value) {
-        changeVersionNo(newInfo: value.info);
+        _changeVersionNo(newInfo: value.info);
       },
     );
   }
 
-  void changeVersionNo({required AppVersionInfo newInfo}) {
-    state = AppVersionState.loaded(
-      state.version.copyWith(
+  void _changeVersionNo({required AppVersionInfo newInfo}) {
+    state = state.copyWith(
+      version: state.version.copyWith(
         info: newInfo,
+      ),
+    );
+  }
+
+  void _cancelAddFile() {
+    state = AppVersionState.infoLoaded(
+      state.version.copyWith(
+        file: null,
       ),
     );
   }

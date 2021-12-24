@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web/core/constant/constant.dart';
 
 class CustomButton extends StatefulWidget {
   const CustomButton({
@@ -16,7 +17,7 @@ class CustomButton extends StatefulWidget {
     this.width,
     this.height,
     this.curve = Curves.elasticOut,
-    this.duration = const Duration(milliseconds: 500),
+    this.duration = const Duration(milliseconds: 100),
   }) : super(key: key);
 
   final void Function() onTap;
@@ -35,42 +36,43 @@ class CustomButton extends StatefulWidget {
   _CustomButtonState createState() => _CustomButtonState();
 }
 
-class _CustomButtonState extends State<CustomButton> {
-  late EdgeInsetsGeometry _padding;
-  late EdgeInsetsGeometry _margin;
-  late BoxDecoration _decoration;
-  late double _fontSize;
+class _CustomButtonState extends State<CustomButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<EdgeInsetsGeometry> _margin;
+  late Animation _color;
+  late Animation<double> _fontSize;
 
   @override
   void initState() {
     super.initState();
 
-    _padding = widget.padding;
+    _controller = AnimationController(
+      vsync: this,
+      duration: widget.duration,
+    );
 
-    _margin = widget.margin;
-    _decoration = widget.decoration;
-    _fontSize = widget.textStyle.fontSize ?? 14;
+    final _curveAnimation =
+        CurvedAnimation(parent: _controller, curve: Curves.ease);
+
+    _margin = Tween<EdgeInsetsGeometry>(
+            begin: widget.margin, end: widget.margin * 1.5)
+        .animate(_curveAnimation);
+    _color = ColorTween(
+      begin: widget.decoration.color ?? Colors.transparent,
+      end: widget.decoration.color?.withOpacity(.5) ??
+          kSecondaryThemeColor.withOpacity(.1),
+    ).animate(_curveAnimation);
+    _fontSize = Tween<double>(
+      begin: widget.textStyle.fontSize ?? 14,
+      end: widget.textStyle.fontSize ?? 14 * 0.9,
+    ).animate(_curveAnimation);
   }
 
-  void _onTapDown() {
-    setState(() {
-      _margin = EdgeInsets.symmetric(
-        horizontal: widget.margin.horizontal * 1.5,
-        vertical: widget.margin.vertical * 1.5,
-      );
-      _decoration = widget.decoration.copyWith(
-        color: widget.decoration.color?.withOpacity(.5),
-      );
-      _fontSize = widget.textStyle.fontSize ?? 14 * 0.9;
-    });
-  }
-
-  void _onTapUp() {
-    setState(() {
-      _margin = widget.margin;
-      _decoration = widget.decoration;
-      _fontSize = widget.textStyle.fontSize ?? 14;
-    });
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -80,31 +82,32 @@ class _CustomButtonState extends State<CustomButton> {
       height: widget.height,
       child: GestureDetector(
         onTapDown: (details) {
-          _onTapDown();
+          _controller.forward();
         },
         onTapUp: (details) {
           widget.onTap.call();
-          _onTapUp();
+          _controller.reverse();
         },
-        child: AnimatedContainer(
-          margin: _margin,
-          padding: _padding,
-          decoration: _decoration,
-          duration: widget.duration,
-          curve: widget.curve,
-          alignment: widget.alignment,
-          child: AnimatedDefaultTextStyle(
-            duration: widget.duration,
-            curve: widget.curve,
-            style: widget.textStyle.copyWith(
-              fontSize: _fontSize,
-            ),
-            child: Text(
-              widget.text,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            ),
-          ),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return Container(
+              margin: _margin.value,
+              padding: widget.padding,
+              decoration: widget.decoration.copyWith(
+                color: _color.value,
+              ),
+              alignment: widget.alignment,
+              child: Text(
+                widget.text,
+                style: widget.textStyle.copyWith(
+                  fontSize: _fontSize.value,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            );
+          },
         ),
       ),
     );

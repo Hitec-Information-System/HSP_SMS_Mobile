@@ -23,14 +23,8 @@ class _$AppVersionStateTearOff {
     );
   }
 
-  _Loading loading(AppVersion version) {
-    return _Loading(
-      version,
-    );
-  }
-
-  _Loaded loaded(AppVersion version) {
-    return _Loaded(
+  _InfoLoaded infoLoaded(AppVersion version) {
+    return _InfoLoaded(
       version,
     );
   }
@@ -65,8 +59,7 @@ mixin _$AppVersionState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppVersion version) empty,
-    required TResult Function(AppVersion version) loading,
-    required TResult Function(AppVersion version) loaded,
+    required TResult Function(AppVersion version) infoLoaded,
     required TResult Function(AppVersion version) fileAdded,
     required TResult Function(AppVersion version) saved,
     required TResult Function(AppVersion version, String message) failure,
@@ -75,8 +68,7 @@ mixin _$AppVersionState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -85,8 +77,7 @@ mixin _$AppVersionState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -96,8 +87,7 @@ mixin _$AppVersionState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) empty,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_InfoLoaded value) infoLoaded,
     required TResult Function(_FileAdded value) fileAdded,
     required TResult Function(_Saved value) saved,
     required TResult Function(_Failure value) failure,
@@ -106,8 +96,7 @@ mixin _$AppVersionState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
@@ -116,8 +105,7 @@ mixin _$AppVersionState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
@@ -237,8 +225,7 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppVersion version) empty,
-    required TResult Function(AppVersion version) loading,
-    required TResult Function(AppVersion version) loaded,
+    required TResult Function(AppVersion version) infoLoaded,
     required TResult Function(AppVersion version) fileAdded,
     required TResult Function(AppVersion version) saved,
     required TResult Function(AppVersion version, String message) failure,
@@ -250,8 +237,7 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -263,8 +249,7 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -280,8 +265,7 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) empty,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_InfoLoaded value) infoLoaded,
     required TResult Function(_FileAdded value) fileAdded,
     required TResult Function(_Saved value) saved,
     required TResult Function(_Failure value) failure,
@@ -293,8 +277,7 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
@@ -306,8 +289,7 @@ class _$_Initial extends _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
@@ -333,10 +315,11 @@ abstract class _Initial extends AppVersionState {
 }
 
 /// @nodoc
-abstract class _$LoadingCopyWith<$Res>
+abstract class _$InfoLoadedCopyWith<$Res>
     implements $AppVersionStateCopyWith<$Res> {
-  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) then) =
-      __$LoadingCopyWithImpl<$Res>;
+  factory _$InfoLoadedCopyWith(
+          _InfoLoaded value, $Res Function(_InfoLoaded) then) =
+      __$InfoLoadedCopyWithImpl<$Res>;
   @override
   $Res call({AppVersion version});
 
@@ -345,19 +328,21 @@ abstract class _$LoadingCopyWith<$Res>
 }
 
 /// @nodoc
-class __$LoadingCopyWithImpl<$Res> extends _$AppVersionStateCopyWithImpl<$Res>
-    implements _$LoadingCopyWith<$Res> {
-  __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
-      : super(_value, (v) => _then(v as _Loading));
+class __$InfoLoadedCopyWithImpl<$Res>
+    extends _$AppVersionStateCopyWithImpl<$Res>
+    implements _$InfoLoadedCopyWith<$Res> {
+  __$InfoLoadedCopyWithImpl(
+      _InfoLoaded _value, $Res Function(_InfoLoaded) _then)
+      : super(_value, (v) => _then(v as _InfoLoaded));
 
   @override
-  _Loading get _value => super._value as _Loading;
+  _InfoLoaded get _value => super._value as _InfoLoaded;
 
   @override
   $Res call({
     Object? version = freezed,
   }) {
-    return _then(_Loading(
+    return _then(_InfoLoaded(
       version == freezed
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
@@ -368,22 +353,22 @@ class __$LoadingCopyWithImpl<$Res> extends _$AppVersionStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loading extends _Loading {
-  const _$_Loading(this.version) : super._();
+class _$_InfoLoaded extends _InfoLoaded {
+  const _$_InfoLoaded(this.version) : super._();
 
   @override
   final AppVersion version;
 
   @override
   String toString() {
-    return 'AppVersionState.loading(version: $version)';
+    return 'AppVersionState.infoLoaded(version: $version)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Loading &&
+            other is _InfoLoaded &&
             const DeepCollectionEquality().equals(other.version, version));
   }
 
@@ -393,48 +378,45 @@ class _$_Loading extends _Loading {
 
   @JsonKey(ignore: true)
   @override
-  _$LoadingCopyWith<_Loading> get copyWith =>
-      __$LoadingCopyWithImpl<_Loading>(this, _$identity);
+  _$InfoLoadedCopyWith<_InfoLoaded> get copyWith =>
+      __$InfoLoadedCopyWithImpl<_InfoLoaded>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppVersion version) empty,
-    required TResult Function(AppVersion version) loading,
-    required TResult Function(AppVersion version) loaded,
+    required TResult Function(AppVersion version) infoLoaded,
     required TResult Function(AppVersion version) fileAdded,
     required TResult Function(AppVersion version) saved,
     required TResult Function(AppVersion version, String message) failure,
   }) {
-    return loading(version);
+    return infoLoaded(version);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
   }) {
-    return loading?.call(version);
+    return infoLoaded?.call(version);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(version);
+    if (infoLoaded != null) {
+      return infoLoaded(version);
     }
     return orElse();
   }
@@ -443,218 +425,53 @@ class _$_Loading extends _Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) empty,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_InfoLoaded value) infoLoaded,
     required TResult Function(_FileAdded value) fileAdded,
     required TResult Function(_Saved value) saved,
     required TResult Function(_Failure value) failure,
   }) {
-    return loading(this);
+    return infoLoaded(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
   }) {
-    return loading?.call(this);
+    return infoLoaded?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(this);
+    if (infoLoaded != null) {
+      return infoLoaded(this);
     }
     return orElse();
   }
 }
 
-abstract class _Loading extends AppVersionState {
-  const factory _Loading(AppVersion version) = _$_Loading;
-  const _Loading._() : super._();
+abstract class _InfoLoaded extends AppVersionState {
+  const factory _InfoLoaded(AppVersion version) = _$_InfoLoaded;
+  const _InfoLoaded._() : super._();
 
   @override
   AppVersion get version;
   @override
   @JsonKey(ignore: true)
-  _$LoadingCopyWith<_Loading> get copyWith =>
+  _$InfoLoadedCopyWith<_InfoLoaded> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$LoadedCopyWith<$Res>
-    implements $AppVersionStateCopyWith<$Res> {
-  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
-      __$LoadedCopyWithImpl<$Res>;
-  @override
-  $Res call({AppVersion version});
-
-  @override
-  $AppVersionCopyWith<$Res> get version;
-}
-
-/// @nodoc
-class __$LoadedCopyWithImpl<$Res> extends _$AppVersionStateCopyWithImpl<$Res>
-    implements _$LoadedCopyWith<$Res> {
-  __$LoadedCopyWithImpl(_Loaded _value, $Res Function(_Loaded) _then)
-      : super(_value, (v) => _then(v as _Loaded));
-
-  @override
-  _Loaded get _value => super._value as _Loaded;
-
-  @override
-  $Res call({
-    Object? version = freezed,
-  }) {
-    return _then(_Loaded(
-      version == freezed
-          ? _value.version
-          : version // ignore: cast_nullable_to_non_nullable
-              as AppVersion,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_Loaded extends _Loaded {
-  const _$_Loaded(this.version) : super._();
-
-  @override
-  final AppVersion version;
-
-  @override
-  String toString() {
-    return 'AppVersionState.loaded(version: $version)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Loaded &&
-            const DeepCollectionEquality().equals(other.version, version));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(version));
-
-  @JsonKey(ignore: true)
-  @override
-  _$LoadedCopyWith<_Loaded> get copyWith =>
-      __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(AppVersion version) empty,
-    required TResult Function(AppVersion version) loading,
-    required TResult Function(AppVersion version) loaded,
-    required TResult Function(AppVersion version) fileAdded,
-    required TResult Function(AppVersion version) saved,
-    required TResult Function(AppVersion version, String message) failure,
-  }) {
-    return loaded(version);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
-    TResult Function(AppVersion version)? fileAdded,
-    TResult Function(AppVersion version)? saved,
-    TResult Function(AppVersion version, String message)? failure,
-  }) {
-    return loaded?.call(version);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
-    TResult Function(AppVersion version)? fileAdded,
-    TResult Function(AppVersion version)? saved,
-    TResult Function(AppVersion version, String message)? failure,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(version);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) empty,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_FileAdded value) fileAdded,
-    required TResult Function(_Saved value) saved,
-    required TResult Function(_Failure value) failure,
-  }) {
-    return loaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_FileAdded value)? fileAdded,
-    TResult Function(_Saved value)? saved,
-    TResult Function(_Failure value)? failure,
-  }) {
-    return loaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_FileAdded value)? fileAdded,
-    TResult Function(_Saved value)? saved,
-    TResult Function(_Failure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Loaded extends AppVersionState {
-  const factory _Loaded(AppVersion version) = _$_Loaded;
-  const _Loaded._() : super._();
-
-  @override
-  AppVersion get version;
-  @override
-  @JsonKey(ignore: true)
-  _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -726,8 +543,7 @@ class _$_FileAdded extends _FileAdded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppVersion version) empty,
-    required TResult Function(AppVersion version) loading,
-    required TResult Function(AppVersion version) loaded,
+    required TResult Function(AppVersion version) infoLoaded,
     required TResult Function(AppVersion version) fileAdded,
     required TResult Function(AppVersion version) saved,
     required TResult Function(AppVersion version, String message) failure,
@@ -739,8 +555,7 @@ class _$_FileAdded extends _FileAdded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -752,8 +567,7 @@ class _$_FileAdded extends _FileAdded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -769,8 +583,7 @@ class _$_FileAdded extends _FileAdded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) empty,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_InfoLoaded value) infoLoaded,
     required TResult Function(_FileAdded value) fileAdded,
     required TResult Function(_Saved value) saved,
     required TResult Function(_Failure value) failure,
@@ -782,8 +595,7 @@ class _$_FileAdded extends _FileAdded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
@@ -795,8 +607,7 @@ class _$_FileAdded extends _FileAdded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
@@ -888,8 +699,7 @@ class _$_Saved extends _Saved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppVersion version) empty,
-    required TResult Function(AppVersion version) loading,
-    required TResult Function(AppVersion version) loaded,
+    required TResult Function(AppVersion version) infoLoaded,
     required TResult Function(AppVersion version) fileAdded,
     required TResult Function(AppVersion version) saved,
     required TResult Function(AppVersion version, String message) failure,
@@ -901,8 +711,7 @@ class _$_Saved extends _Saved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -914,8 +723,7 @@ class _$_Saved extends _Saved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -931,8 +739,7 @@ class _$_Saved extends _Saved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) empty,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_InfoLoaded value) infoLoaded,
     required TResult Function(_FileAdded value) fileAdded,
     required TResult Function(_Saved value) saved,
     required TResult Function(_Failure value) failure,
@@ -944,8 +751,7 @@ class _$_Saved extends _Saved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
@@ -957,8 +763,7 @@ class _$_Saved extends _Saved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
@@ -1060,8 +865,7 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppVersion version) empty,
-    required TResult Function(AppVersion version) loading,
-    required TResult Function(AppVersion version) loaded,
+    required TResult Function(AppVersion version) infoLoaded,
     required TResult Function(AppVersion version) fileAdded,
     required TResult Function(AppVersion version) saved,
     required TResult Function(AppVersion version, String message) failure,
@@ -1073,8 +877,7 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -1086,8 +889,7 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppVersion version)? empty,
-    TResult Function(AppVersion version)? loading,
-    TResult Function(AppVersion version)? loaded,
+    TResult Function(AppVersion version)? infoLoaded,
     TResult Function(AppVersion version)? fileAdded,
     TResult Function(AppVersion version)? saved,
     TResult Function(AppVersion version, String message)? failure,
@@ -1103,8 +905,7 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) empty,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_InfoLoaded value) infoLoaded,
     required TResult Function(_FileAdded value) fileAdded,
     required TResult Function(_Saved value) saved,
     required TResult Function(_Failure value) failure,
@@ -1116,8 +917,7 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
@@ -1129,8 +929,7 @@ class _$_Failure extends _Failure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? empty,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
+    TResult Function(_InfoLoaded value)? infoLoaded,
     TResult Function(_FileAdded value)? fileAdded,
     TResult Function(_Saved value)? saved,
     TResult Function(_Failure value)? failure,
