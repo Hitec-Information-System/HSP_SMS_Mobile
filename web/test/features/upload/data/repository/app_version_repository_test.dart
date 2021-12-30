@@ -5,7 +5,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:web/core/error/exceptions.dart';
 import 'package:web/core/error/failures.dart';
-import 'package:web/core/network/network_info.dart';
 import 'package:web/features/upload/data/datasource/remote/i_app_version_remote_datasource.dart';
 import 'package:web/features/upload/data/repository/app_version_repository.dart';
 import 'package:web/features/upload/data/model/app_version_model.dart';
@@ -15,20 +14,16 @@ import 'app_version_repository_test.mocks.dart';
 
 @GenerateMocks([
   IAppVersionRemoteDatasource,
-  NetworkInfo,
 ])
 void main() {
   late AppVersionRepository repository;
   late MockIAppVersionRemoteDatasource mockRemoteDatasource;
-  late MockNetworkInfo mockNetworkInfo;
 
   setUp(
     () {
       mockRemoteDatasource = MockIAppVersionRemoteDatasource();
-      mockNetworkInfo = MockNetworkInfo();
       repository = AppVersionRepository(
         mockRemoteDatasource,
-        mockNetworkInfo,
       );
     },
   );
@@ -37,38 +32,19 @@ void main() {
     "fetchLatestInfo",
     () {
       const tAppVersionModel = AppVersionModel(
-        info: AppVersionInfoModel(
-          major: 0,
-          minor: 1,
-          patch: 10,
+        versionNo: AppVersionSemanticNoModel(
+          majorNum: 0,
+          minorNum: 1,
+          patchNum: 10,
         ),
       );
 
       final tAppVersion = tAppVersionModel.toDomain();
-
-      test(
-        "should check if the device is online",
-        () async {
-          //arrange
-          when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-          when(mockRemoteDatasource.getAppVersion())
-              .thenAnswer((_) async => tAppVersionModel);
-          // act
-          repository.fetchLatestInfo();
-          // assert
-          verify(mockNetworkInfo.isConnected);
-        },
-      );
+      const tErrorMessage = "mock error message";
 
       group(
-        "device is online",
+        "remote call is successful",
         () {
-          setUp(
-            () {
-              when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-            },
-          );
-
           test(
             "should return remote data when the call to remote data source is successful",
             () async {
@@ -82,9 +58,14 @@ void main() {
               expect(result, equals(Right(tAppVersion)));
             },
           );
+        },
+      );
 
+      group(
+        "remote call is unsuccessful",
+        () {
           test(
-            "should return server failure when the call to remote data source is unsuccessful",
+            "should return ServerFailure when remoteDatasource throws ServerException",
             () async {
               // arrange
               when(mockRemoteDatasource.getAppVersion())
@@ -96,24 +77,33 @@ void main() {
               expect(result, equals(const Left(Failure.serverFailure())));
             },
           );
-        },
-      );
 
-      group(
-        "device is offline",
-        () {
-          setUp(
-            () {
-              when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+          test(
+            "should return ConnectionFailure when remoteDatasource throws ConnectionException",
+            () async {
+              // arrange
+              when(mockRemoteDatasource.getAppVersion())
+                  .thenThrow(ConnectionException());
+              // act
+              final result = await repository.fetchLatestInfo();
+              // assert
+              verify(mockRemoteDatasource.getAppVersion());
+              expect(result, equals(const Left(Failure.connectionFailure())));
             },
           );
 
           test(
-            "should return ConnectionFailure when there is no internet connection",
+            "should return ApiFailure when remoteDatasource throws ApiException",
             () async {
+              // arrange
+              when(mockRemoteDatasource.getAppVersion())
+                  .thenThrow(const ApiException(tErrorMessage));
+              // act
               final result = await repository.fetchLatestInfo();
-              verifyNoMoreInteractions(mockRemoteDatasource);
-              expect(result, equals(const Left(Failure.connectionFailure())));
+              // assert
+              verify(mockRemoteDatasource.getAppVersion());
+              expect(result,
+                  equals(const Left(Failure.apiFailure(tErrorMessage))));
             },
           );
         },
@@ -125,34 +115,19 @@ void main() {
     "saveAppVersion",
     () {
       final tAppVersion = AppVersion(
-        info: const AppVersionInfo(major: 0, minor: 1, patch: 11),
-        lastInfo: const AppVersionInfo(major: 0, minor: 1, patch: 11),
+        name: "",
+        versionNo:
+            const AppVersionSementicNo(majorNum: 0, minorNum: 1, patchNum: 11),
+        lastVersionNo:
+            const AppVersionSementicNo(majorNum: 0, minorNum: 1, patchNum: 11),
         file: XFile("test.path"),
       );
 
-      test(
-        "should check if the device is online",
-        () async {
-          //arrange
-          when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-          when(mockRemoteDatasource.saveAppVersion(any))
-              .thenAnswer((_) async => true);
-          // act
-          repository.saveAppVersion(tAppVersion);
-          // assert
-          verify(mockNetworkInfo.isConnected);
-        },
-      );
+      const tErrorMessage = "mock error message";
 
       group(
-        "device is online",
+        "remote call is successful",
         () {
-          setUp(
-            () {
-              when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-            },
-          );
-
           test(
             "should return remote data when the result from remote data is true",
             () async {
@@ -166,23 +141,14 @@ void main() {
               expect(result, equals(const Right(unit)));
             },
           );
+        },
+      );
 
+      group(
+        "remote call is unsuccessful",
+        () {
           test(
-            "should throw ServerFailure when the result from remote data is false",
-            () async {
-              // arrange
-              when(mockRemoteDatasource.saveAppVersion(any))
-                  .thenAnswer((_) async => false);
-              // act
-              final result = await repository.saveAppVersion(tAppVersion);
-              // assert
-              verify(mockRemoteDatasource.saveAppVersion(tAppVersion));
-              expect(result, equals(const Left(Failure.serverFailure())));
-            },
-          );
-
-          test(
-            "should throw ServerFailure when the call to remote data is unsuccessful",
+            "should throw ServerFailure when remoteDatasource throws ServerException",
             () async {
               // arrange
               when(mockRemoteDatasource.saveAppVersion(any))
@@ -191,30 +157,35 @@ void main() {
               final result = await repository.saveAppVersion(tAppVersion);
               // assert
               verify(mockRemoteDatasource.saveAppVersion(tAppVersion));
-              expect(result, equals(const Left(Failure.serverFailure())));
-            },
-          );
-        },
-      );
-
-      group(
-        "device is offline",
-        () {
-          setUp(
-            () {
-              when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+              expect(result, const Left(Failure.serverFailure()));
             },
           );
 
           test(
-            "should throw ConnectionFailure when there is no internet connection",
+            "should throw ConnectionFailure when remoteDatasource throws ConnectionFailure",
             () async {
               // arrange
+              when(mockRemoteDatasource.saveAppVersion(any))
+                  .thenThrow(ConnectionException());
               // act
               final result = await repository.saveAppVersion(tAppVersion);
               // assert
-              verifyNoMoreInteractions(mockRemoteDatasource);
-              expect(result, equals(const Left(Failure.connectionFailure())));
+              verify(mockRemoteDatasource.saveAppVersion(tAppVersion));
+              expect(result, const Left(Failure.connectionFailure()));
+            },
+          );
+
+          test(
+            "should throw ApiFailure when remoteDatasource throws ApiException",
+            () async {
+              // arrange
+              when(mockRemoteDatasource.saveAppVersion(any))
+                  .thenThrow(const ApiException(tErrorMessage));
+              // act
+              final result = await repository.saveAppVersion(tAppVersion);
+              // assert
+              verify(mockRemoteDatasource.saveAppVersion(tAppVersion));
+              expect(result, const Left(Failure.apiFailure(tErrorMessage)));
             },
           );
         },

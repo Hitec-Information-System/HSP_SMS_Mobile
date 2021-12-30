@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web/core/constant/constant.dart';
 import 'package:web/core/gen/fonts.gen.dart';
+import 'package:web/core/widgets/widgets.dart';
 import 'package:web/features/upload/presentation/page/upload_page.dart';
 import 'package:web/features/upload/presentation/provider/app_version_state.dart';
 import 'package:web/provider.dart';
@@ -24,6 +27,23 @@ class UploadScreen extends ConsumerWidget {
             ));
 
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+          saved: (_) {
+            showDialog(
+              context: context,
+              barrierColor: Colors.black26,
+              barrierDismissible: false,
+              builder: (context) {
+                return NormalDialog(
+                  title: kDoneText,
+                  message: saveDoneDialogText,
+                  color: kPrimaryThemeColor,
+                  leadingIcon: Icons.done,
+                  yesTitle: kConfirmText,
+                  onYesPressed: () => context.router.popTop(),
+                );
+              },
+            );
           },
           orElse: () {},
         );

@@ -76,9 +76,14 @@ class _DragDropWidgetState extends ConsumerState<FileDropWidget>
       },
       child: DropTarget(
         onDragDone: (DropDoneDetails details) {
-          _controller.reverse();
-          ref.read(appVersionStateNotifierProvider.notifier).mapEventToState(
-              AppVersionEvent.addFileToDomain(details.urls[0].path));
+          final canAddFile =
+              ref.read(appVersionStateNotifierProvider.notifier).canAddFile;
+
+          if (canAddFile(details.files)) {
+            _controller.reverse();
+            ref.read(appVersionStateNotifierProvider.notifier).mapEventToState(
+                AppVersionEvent.dropFileToDomain(details.files[0]));
+          }
         },
         onDragEntered: (DropEventDetails _) {
           _controller.forward();

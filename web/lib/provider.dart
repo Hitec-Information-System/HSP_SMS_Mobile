@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web/core/network/network_info.dart';
 import 'package:web/features/upload/data/datasource/remote/app_version_remote_datasource.dart';
@@ -24,9 +25,9 @@ final dioProvider = Provider<Dio>(
 final connectivityProvider = Provider<Connectivity>((ref) => Connectivity());
 
 //! Core
-final networkInfoProvider = Provider<NetworkInfo>(
-  (ref) => NetworkInfoConnectivityAdapter(ref.watch(connectivityProvider)),
-);
+// final networkInfoProvider = Provider<NetworkInfo>(
+//   (ref) => NetworkInfoConnectivityAdapter(ref.watch(connectivityProvider)),
+// );
 
 //! Feature
 final appVersionRemoteDataSourceProvider =
@@ -38,11 +39,17 @@ final appVersionRepositoryProvider =
     Provider.autoDispose<IAppVersionRepository>(
   (ref) => AppVersionRepository(
     ref.watch(appVersionRemoteDataSourceProvider),
-    ref.watch(networkInfoProvider),
   ),
+);
+
+final filePickerProvider = Provider.autoDispose(
+  (ref) => FilePicker.platform,
 );
 
 final appVersionStateNotifierProvider =
     StateNotifierProvider.autoDispose<AppVersionNotifier, AppVersionState>(
-  (ref) => AppVersionNotifier(ref.watch(appVersionRepositoryProvider)),
+  (ref) => AppVersionNotifier(
+    ref.watch(appVersionRepositoryProvider),
+    ref.watch(filePickerProvider),
+  ),
 );

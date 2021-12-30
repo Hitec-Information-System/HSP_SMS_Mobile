@@ -24,15 +24,16 @@ void main() {
   );
 
   const tAppVersion = AppVersion(
-    info: AppVersionInfo(
-      major: 0,
-      minor: 1,
-      patch: 10,
+    name: "",
+    versionNo: AppVersionSementicNo(
+      majorNum: 0,
+      minorNum: 1,
+      patchNum: 10,
     ),
-    lastInfo: AppVersionInfo(
-      major: 0,
-      minor: 1,
-      patch: 10,
+    lastVersionNo: AppVersionSementicNo(
+      majorNum: 0,
+      minorNum: 1,
+      patchNum: 10,
     ),
     file: null,
   );

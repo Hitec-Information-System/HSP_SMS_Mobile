@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web/core/constant/constant.dart';
 import 'package:web/features/upload/domain/entity/app_version.dart';
 import 'package:web/features/upload/presentation/provider/app_version_event.dart';
-import 'package:web/features/upload/presentation/widgets/buttons.dart';
 import 'package:web/features/upload/presentation/widgets/widgets.dart';
 import 'package:web/provider.dart';
 
@@ -36,6 +36,11 @@ class AppInfoWidget extends StatelessWidget {
         SizedBox(height: 6),
         LatestInfoWidget(),
         SizedBox(height: 20),
+        SizedBox(
+          width: 250,
+          child: AppNameInputWidget(),
+        ),
+        SizedBox(height: 20),
         AppInfoSubmitButton(),
         Spacer(),
       ],
@@ -51,42 +56,45 @@ class AppVersionSetWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final info = ref.watch(
-        appVersionStateNotifierProvider.select((state) => state.version.info));
+    final info = ref.watch(appVersionStateNotifierProvider
+        .select((state) => state.version.versionNo));
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         VersionNoWidget(
           symenticName: "Major",
-          versionNo: info.major,
+          versionNum: info.majorNum,
           onChanged: (int newValue) {
             ref.read(appVersionStateNotifierProvider.notifier).mapEventToState(
-                AppVersionEvent.changeVersionNo(
-                    AppVersionInfo(major: newValue, minor: 0, patch: 0)));
+                AppVersionEvent.changeVersionNo(AppVersionSementicNo(
+                    majorNum: newValue, minorNum: 0, patchNum: 0)));
           },
         ),
         const SizedBox(width: 24),
         VersionNoWidget(
           symenticName: "Minor",
-          versionNo: info.minor,
+          versionNum: info.minorNum,
           onChanged: (int newValue) {
             ref
                 .read(appVersionStateNotifierProvider.notifier)
                 .mapEventToState(AppVersionEvent.changeVersionNo(
-                  AppVersionInfo(major: info.major, minor: newValue, patch: 0),
+                  AppVersionSementicNo(
+                      majorNum: info.majorNum, minorNum: newValue, patchNum: 0),
                 ));
           },
         ),
         const SizedBox(width: 24),
         VersionNoWidget(
           symenticName: "Patch",
-          versionNo: info.patch,
+          versionNum: info.patchNum,
           onChanged: (int newValue) {
             ref.read(appVersionStateNotifierProvider.notifier).mapEventToState(
                   AppVersionEvent.changeVersionNo(
-                    AppVersionInfo(
-                        major: info.major, minor: info.minor, patch: newValue),
+                    AppVersionSementicNo(
+                        majorNum: info.majorNum,
+                        minorNum: info.minorNum,
+                        patchNum: newValue),
                   ),
                 );
           },
@@ -101,12 +109,12 @@ class VersionNoWidget extends StatefulWidget {
   const VersionNoWidget({
     Key? key,
     required this.symenticName,
-    required this.versionNo,
+    required this.versionNum,
     required this.onChanged,
   }) : super(key: key);
 
   final String symenticName;
-  final int versionNo;
+  final int versionNum;
   final void Function(int) onChanged;
 
   @override
@@ -119,7 +127,7 @@ class _VersionNoWidgetState extends State<VersionNoWidget> {
   @override
   void initState() {
     super.initState();
-    _items = List.generate(21, (int no) => no);
+    _items = List.generate(maxDropdownCount + 1, (int no) => no);
   }
 
   @override
@@ -134,17 +142,34 @@ class _VersionNoWidgetState extends State<VersionNoWidget> {
             // if (newValue <= widget.versionNo) return;
             widget.onChanged.call(newValue);
           },
-          value: widget.versionNo != -1 ? widget.versionNo : 0,
+          value: widget.versionNum != -1 ? widget.versionNum : 0,
           items: _items
               .map(
-                (int versionNo) => DropdownMenuItem<int>(
-                  value: versionNo,
-                  child: Text("$versionNo"),
+                (int versionNum) => DropdownMenuItem<int>(
+                  value: versionNum,
+                  child: Text("$versionNum"),
                 ),
               )
               .toList(),
         ),
       ],
+    );
+  }
+}
+
+class AppNameInputWidget extends ConsumerWidget {
+  const AppNameInputWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return TextFormField(
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+        hintText: "App name",
+      ),
+      onChanged: (value) {
+        ref.read(appVersionStateNotifierProvider.notifier).setAppName(value);
+      },
     );
   }
 }

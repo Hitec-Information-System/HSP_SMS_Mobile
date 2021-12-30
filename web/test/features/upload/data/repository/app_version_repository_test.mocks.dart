@@ -5,7 +5,6 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:web/core/network/network_info.dart' as _i6;
 import 'package:web/features/upload/data/datasource/remote/i_app_version_remote_datasource.dart'
     as _i3;
 import 'package:web/features/upload/data/model/app_version_model.dart' as _i2;
@@ -40,22 +39,6 @@ class MockIAppVersionRemoteDatasource extends _i1.Mock
   @override
   _i4.Future<bool> saveAppVersion(_i5.AppVersion? newVersion) =>
       (super.noSuchMethod(Invocation.method(#saveAppVersion, [newVersion]),
-          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
-  @override
-  String toString() => super.toString();
-}
-
-/// A class which mocks [NetworkInfo].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i6.NetworkInfo {
-  MockNetworkInfo() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i4.Future<bool> get isConnected =>
-      (super.noSuchMethod(Invocation.getter(#isConnected),
           returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
   String toString() => super.toString();

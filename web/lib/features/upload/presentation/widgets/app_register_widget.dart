@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:web/features/upload/domain/entity/app_version.dart';
 import 'package:web/features/upload/presentation/provider/app_version_state.dart';
 import 'package:web/features/upload/presentation/widgets/widgets.dart';
 import 'package:web/provider.dart';
 
 /// 새 버전 등록을 관장하는 위젯
+/// - 파일 등록 최상위 위젯
 class AppRegisterWidget extends ConsumerStatefulWidget {
   const AppRegisterWidget({Key? key}) : super(key: key);
 
@@ -47,12 +47,11 @@ class _AppRegisterWidgetState extends ConsumerState<AppRegisterWidget>
     ref.listen<AppVersionState>(
       appVersionStateNotifierProvider,
       (prev, state) {
-        state.maybeWhen(
-          fileAdded: (AppVersion _) => _controller.forward(),
-          infoLoaded: (AppVersion _) => _controller.reverse(),
-          failure: (AppVersion _, String msg) {},
-          orElse: () {},
-        );
+        if (state.version.file == null) {
+          _controller.reverse();
+        } else {
+          _controller.forward();
+        }
       },
     );
 
@@ -101,27 +100,14 @@ class _AppRegisterCarouselWidgetState
       },
     );
 
-    final state =
-        ref.watch(appVersionStateNotifierProvider.select((state) => state));
+    final file = ref.watch(
+        appVersionStateNotifierProvider.select((state) => state.version.file));
 
     return AnimatedSwitcher(
       duration: const Duration(
         milliseconds: 400,
       ),
       transitionBuilder: (child, animation) {
-        // final rotate = Tween(begin: math.pi, end: 0.0).animate(animation);
-
-        // return AnimatedBuilder(
-        //   animation: rotate,
-        //   child: widget,
-        //   builder: (_, widget) {
-        //     return Transform(
-        //       transform: Matrix4.rotationY(rotate.value),
-        //       child: widget,
-        //       alignment: Alignment.center,
-        //     );
-        //   },
-        // );
         return SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(0, 0.1),
@@ -136,21 +122,8 @@ class _AppRegisterCarouselWidgetState
           ),
         );
       },
-      child: state.maybeWhen(
-        fileAdded: (AppVersion _) {
-          return const AppInfoWidget();
-        },
-        saved: (AppVersion _) {
-          return const FileDropWidget();
-        },
-        failure: (AppVersion _, String msg) {
-          return const AppInfoWidget();
-        },
-        orElse: () {
-          return const FileDropWidget();
-          // return const AppInfoWidget();
-        },
-      ),
+      child: file == null ? const FileDropWidget() : const AppInfoWidget(),
+      // child: const AppInfoWidget(),
     );
   }
 }

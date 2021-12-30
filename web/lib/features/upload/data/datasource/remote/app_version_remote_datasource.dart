@@ -32,10 +32,14 @@ class AppVersionRemoteDatasource implements IAppVersionRemoteDatasource {
   @override
   Future<bool> saveAppVersion(AppVersion newVersion) async {
     try {
+      final fileName =
+          newVersion.file!.name == "" ? "app.apk" : newVersion.file!.name;
+
       final formData = FormData.fromMap(
         {
-          "app-version": newVersion.infoNo,
-          "file-name": "app.apk",
+          "app-version": newVersion.versionNo.toString(),
+          "file-name": fileName,
+          "app-name": newVersion.name,
         },
       );
 
@@ -43,7 +47,7 @@ class AppVersionRemoteDatasource implements IAppVersionRemoteDatasource {
 
       final versionFile = MultipartFile.fromBytes(
         await newVersion.file!.readAsBytes(),
-        filename: "app.apk",
+        filename: fileName,
       );
 
       versionParams.add(MapEntry("file", versionFile));

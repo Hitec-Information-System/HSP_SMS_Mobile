@@ -6,28 +6,28 @@ part of 'app_version_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AppVersion _$$_AppVersionFromJson(Map<String, dynamic> json) =>
-    _$_AppVersion(
-      info: _convertStringToAppVersionModel(json['APK_V'] as String),
+_$_AppVersionModel _$$_AppVersionModelFromJson(Map<String, dynamic> json) =>
+    _$_AppVersionModel(
+      versionNo: _convertStringToAppVersionModel(json['APK_V'] as String),
     );
 
-Map<String, dynamic> _$$_AppVersionToJson(_$_AppVersion instance) =>
+Map<String, dynamic> _$$_AppVersionModelToJson(_$_AppVersionModel instance) =>
     <String, dynamic>{
-      'APK_V': _convertAppVersionModelToString(instance.info),
+      'APK_V': _convertAppVersionModelToString(instance.versionNo),
     };
 
-_$_AppVersionInfoModel _$$_AppVersionInfoModelFromJson(
+_$_AppVersionSemanticNoModel _$$_AppVersionSemanticNoModelFromJson(
         Map<String, dynamic> json) =>
-    _$_AppVersionInfoModel(
-      major: json['major'] as int,
-      minor: json['minor'] as int,
-      patch: json['patch'] as int,
+    _$_AppVersionSemanticNoModel(
+      majorNum: json['majorNum'] as int,
+      minorNum: json['minorNum'] as int,
+      patchNum: json['patchNum'] as int,
     );
 
-Map<String, dynamic> _$$_AppVersionInfoModelToJson(
-        _$_AppVersionInfoModel instance) =>
+Map<String, dynamic> _$$_AppVersionSemanticNoModelToJson(
+        _$_AppVersionSemanticNoModel instance) =>
     <String, dynamic>{
-      'major': instance.major,
-      'minor': instance.minor,
-      'patch': instance.patch,
+      'majorNum': instance.majorNum,
+      'minorNum': instance.minorNum,
+      'patchNum': instance.patchNum,
     };

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:web/core/widgets/popup_menu_widget.dart';
+import 'package:web/core/constant/constant.dart';
+import 'package:web/core/widgets/widgets.dart';
 import 'package:web/features/auth/shared/provider.dart';
 import 'package:web/features/home/core/presentation/page/home_page.dart';
 import 'package:web/features/home/core/presentation/widget/user_popup_widget.dart';
@@ -22,7 +23,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       onStateSelected: (state) {
         state.maybeWhen(
           orElse: () {
-            ref.read(authStateNotifierProvider.notifier).signOut();
+            showDialog(
+              context: context,
+              barrierColor: Colors.black26,
+              builder: (context) {
+                return NormalDialog(
+                  title: kSignoutText,
+                  message: signoutDialogText,
+                  color: kPrimaryThemeColor,
+                  leadingIcon: Icons.save,
+                  yesTitle: kYesText,
+                  noTitle: kNoText,
+                  onYesPressed: () =>
+                      ref.read(authStateNotifierProvider.notifier).signOut(),
+                  onNoPressed: () {},
+                );
+              },
+            );
           },
         );
       },

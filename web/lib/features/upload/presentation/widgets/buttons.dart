@@ -13,9 +13,28 @@ class AppInfoSubmitButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
       onPressed: () {
-        ref
-            .read(appVersionStateNotifierProvider.notifier)
-            .mapEventToState(const AppVersionEvent.saveNewVersion());
+        if (ref.read(appVersionStateNotifierProvider.notifier).canSave) {
+          showDialog(
+            context: context,
+            barrierColor: Colors.black26,
+            builder: (context) {
+              return NormalDialog(
+                title: kSaveText,
+                message: saveDialogText,
+                color: kPrimaryThemeColor,
+                leadingIcon: Icons.save,
+                yesTitle: kYesText,
+                noTitle: kNoText,
+                onYesPressed: () => ref
+                    .read(appVersionStateNotifierProvider.notifier)
+                    .mapEventToState(
+                      const AppVersionEvent.saveNewVersion(),
+                    ),
+                onNoPressed: () {},
+              );
+            },
+          );
+        }
       },
       child: const Text("Upload"),
     );
@@ -23,15 +42,19 @@ class AppInfoSubmitButton extends ConsumerWidget {
 }
 
 /// 등록할 파일 찾아보기 버튼
-class FileBrowseButton extends StatelessWidget {
+class FileBrowseButton extends ConsumerWidget {
   const FileBrowseButton({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return CustomButton(
-      onTap: () {},
+      onTap: () {
+        ref.read(appVersionStateNotifierProvider.notifier).mapEventToState(
+              const AppVersionEvent.pickFileToDomain(),
+            );
+      },
       width: 200,
       height: 50,
       padding: const EdgeInsets.symmetric(
@@ -45,8 +68,7 @@ class FileBrowseButton extends StatelessWidget {
           width: 2.5,
         ),
       ),
-      // TODO: 선택하는것도 가능하게 만들기 (originally Browse File)
-      text: "Not yet implemented",
+      text: "Browse File",
       textStyle: const TextStyle(
         color: kPrimaryThemeColor,
         fontWeight: FontWeight.w400,
@@ -95,8 +117,8 @@ class _FileAddCancelButtonState extends ConsumerState<FileAddCancelButton>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
-      width: 40,
+      height: 35,
+      width: 35,
       child: GestureDetector(
         onTapDown: (TapDownDetails _) {
           _controller.forward();
@@ -108,13 +130,14 @@ class _FileAddCancelButtonState extends ConsumerState<FileAddCancelButton>
               .mapEventToState(const AppVersionEvent.cancelAddFile());
         },
         child: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Icon(
-                Icons.cancel,
-                size: _buttonSize.value,
-              );
-            }),
+          animation: _controller,
+          builder: (context, child) {
+            return Icon(
+              Icons.clear,
+              size: _buttonSize.value,
+            );
+          },
+        ),
       ),
     );
   }

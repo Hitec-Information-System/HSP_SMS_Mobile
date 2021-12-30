@@ -8,7 +8,8 @@ import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   const tAppVersionModel = AppVersionModel(
-    info: AppVersionInfoModel(major: 0, minor: 1, patch: 10),
+    versionNo:
+        AppVersionSemanticNoModel(majorNum: 0, minorNum: 1, patchNum: 10),
     file: null,
   );
 

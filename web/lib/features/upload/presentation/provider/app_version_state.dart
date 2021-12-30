@@ -7,8 +7,7 @@ part 'app_version_state.freezed.dart';
 class AppVersionState with _$AppVersionState {
   const AppVersionState._();
   const factory AppVersionState.empty(AppVersion version) = _Initial;
-  const factory AppVersionState.infoLoaded(AppVersion version) = _InfoLoaded;
-  const factory AppVersionState.fileAdded(AppVersion version) = _FileAdded;
+  const factory AppVersionState.edit(AppVersion version) = _Edit;
   const factory AppVersionState.saved(AppVersion version) = _Saved;
   const factory AppVersionState.failure(AppVersion version, String message) =
       _Failure;

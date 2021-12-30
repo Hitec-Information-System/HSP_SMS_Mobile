@@ -5,27 +5,27 @@ import 'package:web/features/upload/domain/entity/app_version.dart';
 part 'app_version_model.freezed.dart';
 part 'app_version_model.g.dart';
 
-AppVersionInfoModel _convertStringToAppVersionModel(String versionStr) {
-  int major = -1;
-  int minor = -1;
-  int patch = -1;
+AppVersionSemanticNoModel _convertStringToAppVersionModel(String versionStr) {
+  int majorNum = -1;
+  int minorNum = -1;
+  int patchNum = -1;
 
   final versionList = versionStr.split(".");
   if (versionList.length == 3) {
-    major = int.tryParse(versionList[0]) ?? -1;
-    minor = int.tryParse(versionList[1]) ?? -1;
-    patch = int.tryParse(versionList[2]) ?? -1;
+    majorNum = int.tryParse(versionList[0]) ?? -1;
+    minorNum = int.tryParse(versionList[1]) ?? -1;
+    patchNum = int.tryParse(versionList[2]) ?? -1;
   }
 
-  return AppVersionInfoModel(
-    major: major,
-    minor: minor,
-    patch: patch,
+  return AppVersionSemanticNoModel(
+    majorNum: majorNum,
+    minorNum: minorNum,
+    patchNum: patchNum,
   );
 }
 
-String _convertAppVersionModelToString(AppVersionInfoModel model) {
-  return "${model.major}.${model.minor}.${model.patch}";
+String _convertAppVersionModelToString(AppVersionSemanticNoModel model) {
+  return "${model.majorNum}.${model.minorNum}.${model.patchNum}";
 }
 
 @freezed
@@ -33,47 +33,48 @@ class AppVersionModel with _$AppVersionModel {
   const AppVersionModel._();
   const factory AppVersionModel({
     @JsonKey(name: "APK_V", fromJson: _convertStringToAppVersionModel, toJson: _convertAppVersionModelToString)
-        required AppVersionInfoModel info,
+        required AppVersionSemanticNoModel versionNo,
     @Default(null) @JsonKey(ignore: true) XFile? file,
-  }) = _AppVersion;
+  }) = _AppVersionModel;
 
   factory AppVersionModel.fromJson(Map<String, dynamic> json) =>
       _$AppVersionModelFromJson(json);
 
   factory AppVersionModel.fromDomain(AppVersion _) => AppVersionModel(
-        info: AppVersionInfoModel.fromDomain(_.info),
+        versionNo: AppVersionSemanticNoModel.fromDomain(_.versionNo),
         file: _.file,
       );
 
   AppVersion toDomain() => AppVersion(
-        info: info.toDomain(),
-        lastInfo: info.toDomain(),
+        name: "",
+        versionNo: versionNo.toDomain(),
+        lastVersionNo: versionNo.toDomain(),
         file: file,
       );
 }
 
 @freezed
-class AppVersionInfoModel with _$AppVersionInfoModel {
-  const AppVersionInfoModel._();
-  const factory AppVersionInfoModel({
-    required int major,
-    required int minor,
-    required int patch,
-  }) = _AppVersionInfoModel;
+class AppVersionSemanticNoModel with _$AppVersionSemanticNoModel {
+  const AppVersionSemanticNoModel._();
+  const factory AppVersionSemanticNoModel({
+    required int majorNum,
+    required int minorNum,
+    required int patchNum,
+  }) = _AppVersionSemanticNoModel;
 
-  factory AppVersionInfoModel.fromJson(Map<String, dynamic> json) =>
-      _$AppVersionInfoModelFromJson(json);
+  factory AppVersionSemanticNoModel.fromJson(Map<String, dynamic> json) =>
+      _$AppVersionSemanticNoModelFromJson(json);
 
-  factory AppVersionInfoModel.fromDomain(AppVersionInfo _) =>
-      AppVersionInfoModel(
-        major: _.major,
-        minor: _.minor,
-        patch: _.patch,
+  factory AppVersionSemanticNoModel.fromDomain(AppVersionSementicNo _) =>
+      AppVersionSemanticNoModel(
+        majorNum: _.majorNum,
+        minorNum: _.minorNum,
+        patchNum: _.patchNum,
       );
 
-  AppVersionInfo toDomain() => AppVersionInfo(
-        major: major,
-        minor: minor,
-        patch: patch,
+  AppVersionSementicNo toDomain() => AppVersionSementicNo(
+        majorNum: majorNum,
+        minorNum: minorNum,
+        patchNum: patchNum,
       );
 }

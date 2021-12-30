@@ -17,7 +17,7 @@ class LatestInfoWidget extends ConsumerWidget {
         text: "Latest Version: ",
         children: [
           TextSpan(
-            text: _version.lastInfoNo,
+            text: _version.lastVersionNo.toString(),
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),

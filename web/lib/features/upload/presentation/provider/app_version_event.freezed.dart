@@ -21,13 +21,17 @@ class _$AppVersionEventTearOff {
     return const GetLatestInfo();
   }
 
-  AddFileToDomain addFileToDomain(String path) {
-    return AddFileToDomain(
-      path,
+  DropFileToDomain dropFileToDomain(XFile file) {
+    return DropFileToDomain(
+      file,
     );
   }
 
-  ChangeVersionNo changeVersionNo(AppVersionInfo info) {
+  PickFileToDomain pickFileToDomain() {
+    return const PickFileToDomain();
+  }
+
+  ChangeVersionNo changeVersionNo(AppVersionSementicNo info) {
     return ChangeVersionNo(
       info,
     );
@@ -50,8 +54,9 @@ mixin _$AppVersionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(String path) addFileToDomain,
-    required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function(XFile file) dropFileToDomain,
+    required TResult Function() pickFileToDomain,
+    required TResult Function(AppVersionSementicNo info) changeVersionNo,
     required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) =>
@@ -59,8 +64,9 @@ mixin _$AppVersionEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) =>
@@ -68,8 +74,9 @@ mixin _$AppVersionEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
@@ -78,7 +85,8 @@ mixin _$AppVersionEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
-    required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(DropFileToDomain value) dropFileToDomain,
+    required TResult Function(PickFileToDomain value) pickFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
@@ -87,7 +95,8 @@ mixin _$AppVersionEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
@@ -96,7 +105,8 @@ mixin _$AppVersionEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
@@ -164,8 +174,9 @@ class _$GetLatestInfo extends GetLatestInfo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(String path) addFileToDomain,
-    required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function(XFile file) dropFileToDomain,
+    required TResult Function() pickFileToDomain,
+    required TResult Function(AppVersionSementicNo info) changeVersionNo,
     required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) {
@@ -176,8 +187,9 @@ class _$GetLatestInfo extends GetLatestInfo {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) {
@@ -188,8 +200,9 @@ class _$GetLatestInfo extends GetLatestInfo {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
@@ -204,7 +217,8 @@ class _$GetLatestInfo extends GetLatestInfo {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
-    required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(DropFileToDomain value) dropFileToDomain,
+    required TResult Function(PickFileToDomain value) pickFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
@@ -216,7 +230,8 @@ class _$GetLatestInfo extends GetLatestInfo {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
@@ -228,7 +243,8 @@ class _$GetLatestInfo extends GetLatestInfo {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
@@ -247,103 +263,106 @@ abstract class GetLatestInfo extends AppVersionEvent {
 }
 
 /// @nodoc
-abstract class $AddFileToDomainCopyWith<$Res> {
-  factory $AddFileToDomainCopyWith(
-          AddFileToDomain value, $Res Function(AddFileToDomain) then) =
-      _$AddFileToDomainCopyWithImpl<$Res>;
-  $Res call({String path});
+abstract class $DropFileToDomainCopyWith<$Res> {
+  factory $DropFileToDomainCopyWith(
+          DropFileToDomain value, $Res Function(DropFileToDomain) then) =
+      _$DropFileToDomainCopyWithImpl<$Res>;
+  $Res call({XFile file});
 }
 
 /// @nodoc
-class _$AddFileToDomainCopyWithImpl<$Res>
+class _$DropFileToDomainCopyWithImpl<$Res>
     extends _$AppVersionEventCopyWithImpl<$Res>
-    implements $AddFileToDomainCopyWith<$Res> {
-  _$AddFileToDomainCopyWithImpl(
-      AddFileToDomain _value, $Res Function(AddFileToDomain) _then)
-      : super(_value, (v) => _then(v as AddFileToDomain));
+    implements $DropFileToDomainCopyWith<$Res> {
+  _$DropFileToDomainCopyWithImpl(
+      DropFileToDomain _value, $Res Function(DropFileToDomain) _then)
+      : super(_value, (v) => _then(v as DropFileToDomain));
 
   @override
-  AddFileToDomain get _value => super._value as AddFileToDomain;
+  DropFileToDomain get _value => super._value as DropFileToDomain;
 
   @override
   $Res call({
-    Object? path = freezed,
+    Object? file = freezed,
   }) {
-    return _then(AddFileToDomain(
-      path == freezed
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(DropFileToDomain(
+      file == freezed
+          ? _value.file
+          : file // ignore: cast_nullable_to_non_nullable
+              as XFile,
     ));
   }
 }
 
 /// @nodoc
 
-class _$AddFileToDomain extends AddFileToDomain {
-  const _$AddFileToDomain(this.path) : super._();
+class _$DropFileToDomain extends DropFileToDomain {
+  const _$DropFileToDomain(this.file) : super._();
 
   @override
-  final String path;
+  final XFile file;
 
   @override
   String toString() {
-    return 'AppVersionEvent.addFileToDomain(path: $path)';
+    return 'AppVersionEvent.dropFileToDomain(file: $file)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is AddFileToDomain &&
-            const DeepCollectionEquality().equals(other.path, path));
+            other is DropFileToDomain &&
+            const DeepCollectionEquality().equals(other.file, file));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(file));
 
   @JsonKey(ignore: true)
   @override
-  $AddFileToDomainCopyWith<AddFileToDomain> get copyWith =>
-      _$AddFileToDomainCopyWithImpl<AddFileToDomain>(this, _$identity);
+  $DropFileToDomainCopyWith<DropFileToDomain> get copyWith =>
+      _$DropFileToDomainCopyWithImpl<DropFileToDomain>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(String path) addFileToDomain,
-    required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function(XFile file) dropFileToDomain,
+    required TResult Function() pickFileToDomain,
+    required TResult Function(AppVersionSementicNo info) changeVersionNo,
     required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) {
-    return addFileToDomain(path);
+    return dropFileToDomain(file);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) {
-    return addFileToDomain?.call(path);
+    return dropFileToDomain?.call(file);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
   }) {
-    if (addFileToDomain != null) {
-      return addFileToDomain(path);
+    if (dropFileToDomain != null) {
+      return dropFileToDomain(file);
     }
     return orElse();
   }
@@ -352,51 +371,184 @@ class _$AddFileToDomain extends AddFileToDomain {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
-    required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(DropFileToDomain value) dropFileToDomain,
+    required TResult Function(PickFileToDomain value) pickFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
   }) {
-    return addFileToDomain(this);
+    return dropFileToDomain(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
   }) {
-    return addFileToDomain?.call(this);
+    return dropFileToDomain?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
     required TResult orElse(),
   }) {
-    if (addFileToDomain != null) {
-      return addFileToDomain(this);
+    if (dropFileToDomain != null) {
+      return dropFileToDomain(this);
     }
     return orElse();
   }
 }
 
-abstract class AddFileToDomain extends AppVersionEvent {
-  const factory AddFileToDomain(String path) = _$AddFileToDomain;
-  const AddFileToDomain._() : super._();
+abstract class DropFileToDomain extends AppVersionEvent {
+  const factory DropFileToDomain(XFile file) = _$DropFileToDomain;
+  const DropFileToDomain._() : super._();
 
-  String get path;
+  XFile get file;
   @JsonKey(ignore: true)
-  $AddFileToDomainCopyWith<AddFileToDomain> get copyWith =>
+  $DropFileToDomainCopyWith<DropFileToDomain> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PickFileToDomainCopyWith<$Res> {
+  factory $PickFileToDomainCopyWith(
+          PickFileToDomain value, $Res Function(PickFileToDomain) then) =
+      _$PickFileToDomainCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PickFileToDomainCopyWithImpl<$Res>
+    extends _$AppVersionEventCopyWithImpl<$Res>
+    implements $PickFileToDomainCopyWith<$Res> {
+  _$PickFileToDomainCopyWithImpl(
+      PickFileToDomain _value, $Res Function(PickFileToDomain) _then)
+      : super(_value, (v) => _then(v as PickFileToDomain));
+
+  @override
+  PickFileToDomain get _value => super._value as PickFileToDomain;
+}
+
+/// @nodoc
+
+class _$PickFileToDomain extends PickFileToDomain {
+  const _$PickFileToDomain() : super._();
+
+  @override
+  String toString() {
+    return 'AppVersionEvent.pickFileToDomain()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is PickFileToDomain);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getLatestInfo,
+    required TResult Function(XFile file) dropFileToDomain,
+    required TResult Function() pickFileToDomain,
+    required TResult Function(AppVersionSementicNo info) changeVersionNo,
+    required TResult Function() cancelAddFile,
+    required TResult Function() saveNewVersion,
+  }) {
+    return pickFileToDomain();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? getLatestInfo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
+    TResult Function()? saveNewVersion,
+  }) {
+    return pickFileToDomain?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getLatestInfo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
+    TResult Function()? cancelAddFile,
+    TResult Function()? saveNewVersion,
+    required TResult orElse(),
+  }) {
+    if (pickFileToDomain != null) {
+      return pickFileToDomain();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetLatestInfo value) getLatestInfo,
+    required TResult Function(DropFileToDomain value) dropFileToDomain,
+    required TResult Function(PickFileToDomain value) pickFileToDomain,
+    required TResult Function(ChangeVersionNo value) changeVersionNo,
+    required TResult Function(CancelAddFile value) cancelAddFile,
+    required TResult Function(SaveNewVersion value) saveNewVersion,
+  }) {
+    return pickFileToDomain(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(GetLatestInfo value)? getLatestInfo,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
+    TResult Function(SaveNewVersion value)? saveNewVersion,
+  }) {
+    return pickFileToDomain?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetLatestInfo value)? getLatestInfo,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
+    TResult Function(ChangeVersionNo value)? changeVersionNo,
+    TResult Function(CancelAddFile value)? cancelAddFile,
+    TResult Function(SaveNewVersion value)? saveNewVersion,
+    required TResult orElse(),
+  }) {
+    if (pickFileToDomain != null) {
+      return pickFileToDomain(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PickFileToDomain extends AppVersionEvent {
+  const factory PickFileToDomain() = _$PickFileToDomain;
+  const PickFileToDomain._() : super._();
 }
 
 /// @nodoc
@@ -404,9 +556,9 @@ abstract class $ChangeVersionNoCopyWith<$Res> {
   factory $ChangeVersionNoCopyWith(
           ChangeVersionNo value, $Res Function(ChangeVersionNo) then) =
       _$ChangeVersionNoCopyWithImpl<$Res>;
-  $Res call({AppVersionInfo info});
+  $Res call({AppVersionSementicNo info});
 
-  $AppVersionInfoCopyWith<$Res> get info;
+  $AppVersionSementicNoCopyWith<$Res> get info;
 }
 
 /// @nodoc
@@ -428,13 +580,13 @@ class _$ChangeVersionNoCopyWithImpl<$Res>
       info == freezed
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
-              as AppVersionInfo,
+              as AppVersionSementicNo,
     ));
   }
 
   @override
-  $AppVersionInfoCopyWith<$Res> get info {
-    return $AppVersionInfoCopyWith<$Res>(_value.info, (value) {
+  $AppVersionSementicNoCopyWith<$Res> get info {
+    return $AppVersionSementicNoCopyWith<$Res>(_value.info, (value) {
       return _then(_value.copyWith(info: value));
     });
   }
@@ -446,7 +598,7 @@ class _$ChangeVersionNo extends ChangeVersionNo {
   const _$ChangeVersionNo(this.info) : super._();
 
   @override
-  final AppVersionInfo info;
+  final AppVersionSementicNo info;
 
   @override
   String toString() {
@@ -474,8 +626,9 @@ class _$ChangeVersionNo extends ChangeVersionNo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(String path) addFileToDomain,
-    required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function(XFile file) dropFileToDomain,
+    required TResult Function() pickFileToDomain,
+    required TResult Function(AppVersionSementicNo info) changeVersionNo,
     required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) {
@@ -486,8 +639,9 @@ class _$ChangeVersionNo extends ChangeVersionNo {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) {
@@ -498,8 +652,9 @@ class _$ChangeVersionNo extends ChangeVersionNo {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
@@ -514,7 +669,8 @@ class _$ChangeVersionNo extends ChangeVersionNo {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
-    required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(DropFileToDomain value) dropFileToDomain,
+    required TResult Function(PickFileToDomain value) pickFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
@@ -526,7 +682,8 @@ class _$ChangeVersionNo extends ChangeVersionNo {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
@@ -538,7 +695,8 @@ class _$ChangeVersionNo extends ChangeVersionNo {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
@@ -552,10 +710,10 @@ class _$ChangeVersionNo extends ChangeVersionNo {
 }
 
 abstract class ChangeVersionNo extends AppVersionEvent {
-  const factory ChangeVersionNo(AppVersionInfo info) = _$ChangeVersionNo;
+  const factory ChangeVersionNo(AppVersionSementicNo info) = _$ChangeVersionNo;
   const ChangeVersionNo._() : super._();
 
-  AppVersionInfo get info;
+  AppVersionSementicNo get info;
   @JsonKey(ignore: true)
   $ChangeVersionNoCopyWith<ChangeVersionNo> get copyWith =>
       throw _privateConstructorUsedError;
@@ -603,8 +761,9 @@ class _$CancelAddFile extends CancelAddFile {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(String path) addFileToDomain,
-    required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function(XFile file) dropFileToDomain,
+    required TResult Function() pickFileToDomain,
+    required TResult Function(AppVersionSementicNo info) changeVersionNo,
     required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) {
@@ -615,8 +774,9 @@ class _$CancelAddFile extends CancelAddFile {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) {
@@ -627,8 +787,9 @@ class _$CancelAddFile extends CancelAddFile {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
@@ -643,7 +804,8 @@ class _$CancelAddFile extends CancelAddFile {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
-    required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(DropFileToDomain value) dropFileToDomain,
+    required TResult Function(PickFileToDomain value) pickFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
@@ -655,7 +817,8 @@ class _$CancelAddFile extends CancelAddFile {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
@@ -667,7 +830,8 @@ class _$CancelAddFile extends CancelAddFile {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
@@ -727,8 +891,9 @@ class _$SaveNewVersion extends SaveNewVersion {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getLatestInfo,
-    required TResult Function(String path) addFileToDomain,
-    required TResult Function(AppVersionInfo info) changeVersionNo,
+    required TResult Function(XFile file) dropFileToDomain,
+    required TResult Function() pickFileToDomain,
+    required TResult Function(AppVersionSementicNo info) changeVersionNo,
     required TResult Function() cancelAddFile,
     required TResult Function() saveNewVersion,
   }) {
@@ -739,8 +904,9 @@ class _$SaveNewVersion extends SaveNewVersion {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
   }) {
@@ -751,8 +917,9 @@ class _$SaveNewVersion extends SaveNewVersion {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLatestInfo,
-    TResult Function(String path)? addFileToDomain,
-    TResult Function(AppVersionInfo info)? changeVersionNo,
+    TResult Function(XFile file)? dropFileToDomain,
+    TResult Function()? pickFileToDomain,
+    TResult Function(AppVersionSementicNo info)? changeVersionNo,
     TResult Function()? cancelAddFile,
     TResult Function()? saveNewVersion,
     required TResult orElse(),
@@ -767,7 +934,8 @@ class _$SaveNewVersion extends SaveNewVersion {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetLatestInfo value) getLatestInfo,
-    required TResult Function(AddFileToDomain value) addFileToDomain,
+    required TResult Function(DropFileToDomain value) dropFileToDomain,
+    required TResult Function(PickFileToDomain value) pickFileToDomain,
     required TResult Function(ChangeVersionNo value) changeVersionNo,
     required TResult Function(CancelAddFile value) cancelAddFile,
     required TResult Function(SaveNewVersion value) saveNewVersion,
@@ -779,7 +947,8 @@ class _$SaveNewVersion extends SaveNewVersion {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,
@@ -791,7 +960,8 @@ class _$SaveNewVersion extends SaveNewVersion {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetLatestInfo value)? getLatestInfo,
-    TResult Function(AddFileToDomain value)? addFileToDomain,
+    TResult Function(DropFileToDomain value)? dropFileToDomain,
+    TResult Function(PickFileToDomain value)? pickFileToDomain,
     TResult Function(ChangeVersionNo value)? changeVersionNo,
     TResult Function(CancelAddFile value)? cancelAddFile,
     TResult Function(SaveNewVersion value)? saveNewVersion,

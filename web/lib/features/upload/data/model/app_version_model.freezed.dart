@@ -14,20 +14,20 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 AppVersionModel _$AppVersionModelFromJson(Map<String, dynamic> json) {
-  return _AppVersion.fromJson(json);
+  return _AppVersionModel.fromJson(json);
 }
 
 /// @nodoc
 class _$AppVersionModelTearOff {
   const _$AppVersionModelTearOff();
 
-  _AppVersion call(
+  _AppVersionModel call(
       {@JsonKey(name: "APK_V", fromJson: _convertStringToAppVersionModel, toJson: _convertAppVersionModelToString)
-          required AppVersionInfoModel info,
+          required AppVersionSemanticNoModel versionNo,
       @JsonKey(ignore: true)
           XFile? file = null}) {
-    return _AppVersion(
-      info: info,
+    return _AppVersionModel(
+      versionNo: versionNo,
       file: file,
     );
   }
@@ -46,7 +46,7 @@ mixin _$AppVersionModel {
       name: "APK_V",
       fromJson: _convertStringToAppVersionModel,
       toJson: _convertAppVersionModelToString)
-  AppVersionInfoModel get info => throw _privateConstructorUsedError;
+  AppVersionSemanticNoModel get versionNo => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   XFile? get file => throw _privateConstructorUsedError;
 
@@ -63,11 +63,11 @@ abstract class $AppVersionModelCopyWith<$Res> {
       _$AppVersionModelCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: "APK_V", fromJson: _convertStringToAppVersionModel, toJson: _convertAppVersionModelToString)
-          AppVersionInfoModel info,
+          AppVersionSemanticNoModel versionNo,
       @JsonKey(ignore: true)
           XFile? file});
 
-  $AppVersionInfoModelCopyWith<$Res> get info;
+  $AppVersionSemanticNoModelCopyWith<$Res> get versionNo;
 }
 
 /// @nodoc
@@ -81,14 +81,14 @@ class _$AppVersionModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? info = freezed,
+    Object? versionNo = freezed,
     Object? file = freezed,
   }) {
     return _then(_value.copyWith(
-      info: info == freezed
-          ? _value.info
-          : info // ignore: cast_nullable_to_non_nullable
-              as AppVersionInfoModel,
+      versionNo: versionNo == freezed
+          ? _value.versionNo
+          : versionNo // ignore: cast_nullable_to_non_nullable
+              as AppVersionSemanticNoModel,
       file: file == freezed
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -97,51 +97,51 @@ class _$AppVersionModelCopyWithImpl<$Res>
   }
 
   @override
-  $AppVersionInfoModelCopyWith<$Res> get info {
-    return $AppVersionInfoModelCopyWith<$Res>(_value.info, (value) {
-      return _then(_value.copyWith(info: value));
+  $AppVersionSemanticNoModelCopyWith<$Res> get versionNo {
+    return $AppVersionSemanticNoModelCopyWith<$Res>(_value.versionNo, (value) {
+      return _then(_value.copyWith(versionNo: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$AppVersionCopyWith<$Res>
+abstract class _$AppVersionModelCopyWith<$Res>
     implements $AppVersionModelCopyWith<$Res> {
-  factory _$AppVersionCopyWith(
-          _AppVersion value, $Res Function(_AppVersion) then) =
-      __$AppVersionCopyWithImpl<$Res>;
+  factory _$AppVersionModelCopyWith(
+          _AppVersionModel value, $Res Function(_AppVersionModel) then) =
+      __$AppVersionModelCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: "APK_V", fromJson: _convertStringToAppVersionModel, toJson: _convertAppVersionModelToString)
-          AppVersionInfoModel info,
+          AppVersionSemanticNoModel versionNo,
       @JsonKey(ignore: true)
           XFile? file});
 
   @override
-  $AppVersionInfoModelCopyWith<$Res> get info;
+  $AppVersionSemanticNoModelCopyWith<$Res> get versionNo;
 }
 
 /// @nodoc
-class __$AppVersionCopyWithImpl<$Res>
+class __$AppVersionModelCopyWithImpl<$Res>
     extends _$AppVersionModelCopyWithImpl<$Res>
-    implements _$AppVersionCopyWith<$Res> {
-  __$AppVersionCopyWithImpl(
-      _AppVersion _value, $Res Function(_AppVersion) _then)
-      : super(_value, (v) => _then(v as _AppVersion));
+    implements _$AppVersionModelCopyWith<$Res> {
+  __$AppVersionModelCopyWithImpl(
+      _AppVersionModel _value, $Res Function(_AppVersionModel) _then)
+      : super(_value, (v) => _then(v as _AppVersionModel));
 
   @override
-  _AppVersion get _value => super._value as _AppVersion;
+  _AppVersionModel get _value => super._value as _AppVersionModel;
 
   @override
   $Res call({
-    Object? info = freezed,
+    Object? versionNo = freezed,
     Object? file = freezed,
   }) {
-    return _then(_AppVersion(
-      info: info == freezed
-          ? _value.info
-          : info // ignore: cast_nullable_to_non_nullable
-              as AppVersionInfoModel,
+    return _then(_AppVersionModel(
+      versionNo: versionNo == freezed
+          ? _value.versionNo
+          : versionNo // ignore: cast_nullable_to_non_nullable
+              as AppVersionSemanticNoModel,
       file: file == freezed
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -152,200 +152,202 @@ class __$AppVersionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppVersion extends _AppVersion {
-  const _$_AppVersion(
+class _$_AppVersionModel extends _AppVersionModel {
+  const _$_AppVersionModel(
       {@JsonKey(name: "APK_V", fromJson: _convertStringToAppVersionModel, toJson: _convertAppVersionModelToString)
-          required this.info,
+          required this.versionNo,
       @JsonKey(ignore: true)
           this.file = null})
       : super._();
 
-  factory _$_AppVersion.fromJson(Map<String, dynamic> json) =>
-      _$$_AppVersionFromJson(json);
+  factory _$_AppVersionModel.fromJson(Map<String, dynamic> json) =>
+      _$$_AppVersionModelFromJson(json);
 
   @override
   @JsonKey(
       name: "APK_V",
       fromJson: _convertStringToAppVersionModel,
       toJson: _convertAppVersionModelToString)
-  final AppVersionInfoModel info;
+  final AppVersionSemanticNoModel versionNo;
   @override
   @JsonKey(ignore: true)
   final XFile? file;
 
   @override
   String toString() {
-    return 'AppVersionModel(info: $info, file: $file)';
+    return 'AppVersionModel(versionNo: $versionNo, file: $file)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _AppVersion &&
-            const DeepCollectionEquality().equals(other.info, info) &&
+            other is _AppVersionModel &&
+            const DeepCollectionEquality().equals(other.versionNo, versionNo) &&
             const DeepCollectionEquality().equals(other.file, file));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(info),
+      const DeepCollectionEquality().hash(versionNo),
       const DeepCollectionEquality().hash(file));
 
   @JsonKey(ignore: true)
   @override
-  _$AppVersionCopyWith<_AppVersion> get copyWith =>
-      __$AppVersionCopyWithImpl<_AppVersion>(this, _$identity);
+  _$AppVersionModelCopyWith<_AppVersionModel> get copyWith =>
+      __$AppVersionModelCopyWithImpl<_AppVersionModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppVersionToJson(this);
+    return _$$_AppVersionModelToJson(this);
   }
 }
 
-abstract class _AppVersion extends AppVersionModel {
-  const factory _AppVersion(
+abstract class _AppVersionModel extends AppVersionModel {
+  const factory _AppVersionModel(
       {@JsonKey(name: "APK_V", fromJson: _convertStringToAppVersionModel, toJson: _convertAppVersionModelToString)
-          required AppVersionInfoModel info,
+          required AppVersionSemanticNoModel versionNo,
       @JsonKey(ignore: true)
-          XFile? file}) = _$_AppVersion;
-  const _AppVersion._() : super._();
+          XFile? file}) = _$_AppVersionModel;
+  const _AppVersionModel._() : super._();
 
-  factory _AppVersion.fromJson(Map<String, dynamic> json) =
-      _$_AppVersion.fromJson;
+  factory _AppVersionModel.fromJson(Map<String, dynamic> json) =
+      _$_AppVersionModel.fromJson;
 
   @override
   @JsonKey(
       name: "APK_V",
       fromJson: _convertStringToAppVersionModel,
       toJson: _convertAppVersionModelToString)
-  AppVersionInfoModel get info;
+  AppVersionSemanticNoModel get versionNo;
   @override
   @JsonKey(ignore: true)
   XFile? get file;
   @override
   @JsonKey(ignore: true)
-  _$AppVersionCopyWith<_AppVersion> get copyWith =>
+  _$AppVersionModelCopyWith<_AppVersionModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-AppVersionInfoModel _$AppVersionInfoModelFromJson(Map<String, dynamic> json) {
-  return _AppVersionInfoModel.fromJson(json);
+AppVersionSemanticNoModel _$AppVersionSemanticNoModelFromJson(
+    Map<String, dynamic> json) {
+  return _AppVersionSemanticNoModel.fromJson(json);
 }
 
 /// @nodoc
-class _$AppVersionInfoModelTearOff {
-  const _$AppVersionInfoModelTearOff();
+class _$AppVersionSemanticNoModelTearOff {
+  const _$AppVersionSemanticNoModelTearOff();
 
-  _AppVersionInfoModel call(
-      {required int major, required int minor, required int patch}) {
-    return _AppVersionInfoModel(
-      major: major,
-      minor: minor,
-      patch: patch,
+  _AppVersionSemanticNoModel call(
+      {required int majorNum, required int minorNum, required int patchNum}) {
+    return _AppVersionSemanticNoModel(
+      majorNum: majorNum,
+      minorNum: minorNum,
+      patchNum: patchNum,
     );
   }
 
-  AppVersionInfoModel fromJson(Map<String, Object?> json) {
-    return AppVersionInfoModel.fromJson(json);
+  AppVersionSemanticNoModel fromJson(Map<String, Object?> json) {
+    return AppVersionSemanticNoModel.fromJson(json);
   }
 }
 
 /// @nodoc
-const $AppVersionInfoModel = _$AppVersionInfoModelTearOff();
+const $AppVersionSemanticNoModel = _$AppVersionSemanticNoModelTearOff();
 
 /// @nodoc
-mixin _$AppVersionInfoModel {
-  int get major => throw _privateConstructorUsedError;
-  int get minor => throw _privateConstructorUsedError;
-  int get patch => throw _privateConstructorUsedError;
+mixin _$AppVersionSemanticNoModel {
+  int get majorNum => throw _privateConstructorUsedError;
+  int get minorNum => throw _privateConstructorUsedError;
+  int get patchNum => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppVersionInfoModelCopyWith<AppVersionInfoModel> get copyWith =>
+  $AppVersionSemanticNoModelCopyWith<AppVersionSemanticNoModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AppVersionInfoModelCopyWith<$Res> {
-  factory $AppVersionInfoModelCopyWith(
-          AppVersionInfoModel value, $Res Function(AppVersionInfoModel) then) =
-      _$AppVersionInfoModelCopyWithImpl<$Res>;
-  $Res call({int major, int minor, int patch});
+abstract class $AppVersionSemanticNoModelCopyWith<$Res> {
+  factory $AppVersionSemanticNoModelCopyWith(AppVersionSemanticNoModel value,
+          $Res Function(AppVersionSemanticNoModel) then) =
+      _$AppVersionSemanticNoModelCopyWithImpl<$Res>;
+  $Res call({int majorNum, int minorNum, int patchNum});
 }
 
 /// @nodoc
-class _$AppVersionInfoModelCopyWithImpl<$Res>
-    implements $AppVersionInfoModelCopyWith<$Res> {
-  _$AppVersionInfoModelCopyWithImpl(this._value, this._then);
+class _$AppVersionSemanticNoModelCopyWithImpl<$Res>
+    implements $AppVersionSemanticNoModelCopyWith<$Res> {
+  _$AppVersionSemanticNoModelCopyWithImpl(this._value, this._then);
 
-  final AppVersionInfoModel _value;
+  final AppVersionSemanticNoModel _value;
   // ignore: unused_field
-  final $Res Function(AppVersionInfoModel) _then;
+  final $Res Function(AppVersionSemanticNoModel) _then;
 
   @override
   $Res call({
-    Object? major = freezed,
-    Object? minor = freezed,
-    Object? patch = freezed,
+    Object? majorNum = freezed,
+    Object? minorNum = freezed,
+    Object? patchNum = freezed,
   }) {
     return _then(_value.copyWith(
-      major: major == freezed
-          ? _value.major
-          : major // ignore: cast_nullable_to_non_nullable
+      majorNum: majorNum == freezed
+          ? _value.majorNum
+          : majorNum // ignore: cast_nullable_to_non_nullable
               as int,
-      minor: minor == freezed
-          ? _value.minor
-          : minor // ignore: cast_nullable_to_non_nullable
+      minorNum: minorNum == freezed
+          ? _value.minorNum
+          : minorNum // ignore: cast_nullable_to_non_nullable
               as int,
-      patch: patch == freezed
-          ? _value.patch
-          : patch // ignore: cast_nullable_to_non_nullable
+      patchNum: patchNum == freezed
+          ? _value.patchNum
+          : patchNum // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$AppVersionInfoModelCopyWith<$Res>
-    implements $AppVersionInfoModelCopyWith<$Res> {
-  factory _$AppVersionInfoModelCopyWith(_AppVersionInfoModel value,
-          $Res Function(_AppVersionInfoModel) then) =
-      __$AppVersionInfoModelCopyWithImpl<$Res>;
+abstract class _$AppVersionSemanticNoModelCopyWith<$Res>
+    implements $AppVersionSemanticNoModelCopyWith<$Res> {
+  factory _$AppVersionSemanticNoModelCopyWith(_AppVersionSemanticNoModel value,
+          $Res Function(_AppVersionSemanticNoModel) then) =
+      __$AppVersionSemanticNoModelCopyWithImpl<$Res>;
   @override
-  $Res call({int major, int minor, int patch});
+  $Res call({int majorNum, int minorNum, int patchNum});
 }
 
 /// @nodoc
-class __$AppVersionInfoModelCopyWithImpl<$Res>
-    extends _$AppVersionInfoModelCopyWithImpl<$Res>
-    implements _$AppVersionInfoModelCopyWith<$Res> {
-  __$AppVersionInfoModelCopyWithImpl(
-      _AppVersionInfoModel _value, $Res Function(_AppVersionInfoModel) _then)
-      : super(_value, (v) => _then(v as _AppVersionInfoModel));
+class __$AppVersionSemanticNoModelCopyWithImpl<$Res>
+    extends _$AppVersionSemanticNoModelCopyWithImpl<$Res>
+    implements _$AppVersionSemanticNoModelCopyWith<$Res> {
+  __$AppVersionSemanticNoModelCopyWithImpl(_AppVersionSemanticNoModel _value,
+      $Res Function(_AppVersionSemanticNoModel) _then)
+      : super(_value, (v) => _then(v as _AppVersionSemanticNoModel));
 
   @override
-  _AppVersionInfoModel get _value => super._value as _AppVersionInfoModel;
+  _AppVersionSemanticNoModel get _value =>
+      super._value as _AppVersionSemanticNoModel;
 
   @override
   $Res call({
-    Object? major = freezed,
-    Object? minor = freezed,
-    Object? patch = freezed,
+    Object? majorNum = freezed,
+    Object? minorNum = freezed,
+    Object? patchNum = freezed,
   }) {
-    return _then(_AppVersionInfoModel(
-      major: major == freezed
-          ? _value.major
-          : major // ignore: cast_nullable_to_non_nullable
+    return _then(_AppVersionSemanticNoModel(
+      majorNum: majorNum == freezed
+          ? _value.majorNum
+          : majorNum // ignore: cast_nullable_to_non_nullable
               as int,
-      minor: minor == freezed
-          ? _value.minor
-          : minor // ignore: cast_nullable_to_non_nullable
+      minorNum: minorNum == freezed
+          ? _value.minorNum
+          : minorNum // ignore: cast_nullable_to_non_nullable
               as int,
-      patch: patch == freezed
-          ? _value.patch
-          : patch // ignore: cast_nullable_to_non_nullable
+      patchNum: patchNum == freezed
+          ? _value.patchNum
+          : patchNum // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -353,73 +355,74 @@ class __$AppVersionInfoModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppVersionInfoModel extends _AppVersionInfoModel {
-  const _$_AppVersionInfoModel(
-      {required this.major, required this.minor, required this.patch})
+class _$_AppVersionSemanticNoModel extends _AppVersionSemanticNoModel {
+  const _$_AppVersionSemanticNoModel(
+      {required this.majorNum, required this.minorNum, required this.patchNum})
       : super._();
 
-  factory _$_AppVersionInfoModel.fromJson(Map<String, dynamic> json) =>
-      _$$_AppVersionInfoModelFromJson(json);
+  factory _$_AppVersionSemanticNoModel.fromJson(Map<String, dynamic> json) =>
+      _$$_AppVersionSemanticNoModelFromJson(json);
 
   @override
-  final int major;
+  final int majorNum;
   @override
-  final int minor;
+  final int minorNum;
   @override
-  final int patch;
+  final int patchNum;
 
   @override
   String toString() {
-    return 'AppVersionInfoModel(major: $major, minor: $minor, patch: $patch)';
+    return 'AppVersionSemanticNoModel(majorNum: $majorNum, minorNum: $minorNum, patchNum: $patchNum)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _AppVersionInfoModel &&
-            const DeepCollectionEquality().equals(other.major, major) &&
-            const DeepCollectionEquality().equals(other.minor, minor) &&
-            const DeepCollectionEquality().equals(other.patch, patch));
+            other is _AppVersionSemanticNoModel &&
+            const DeepCollectionEquality().equals(other.majorNum, majorNum) &&
+            const DeepCollectionEquality().equals(other.minorNum, minorNum) &&
+            const DeepCollectionEquality().equals(other.patchNum, patchNum));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(major),
-      const DeepCollectionEquality().hash(minor),
-      const DeepCollectionEquality().hash(patch));
+      const DeepCollectionEquality().hash(majorNum),
+      const DeepCollectionEquality().hash(minorNum),
+      const DeepCollectionEquality().hash(patchNum));
 
   @JsonKey(ignore: true)
   @override
-  _$AppVersionInfoModelCopyWith<_AppVersionInfoModel> get copyWith =>
-      __$AppVersionInfoModelCopyWithImpl<_AppVersionInfoModel>(
-          this, _$identity);
+  _$AppVersionSemanticNoModelCopyWith<_AppVersionSemanticNoModel>
+      get copyWith =>
+          __$AppVersionSemanticNoModelCopyWithImpl<_AppVersionSemanticNoModel>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppVersionInfoModelToJson(this);
+    return _$$_AppVersionSemanticNoModelToJson(this);
   }
 }
 
-abstract class _AppVersionInfoModel extends AppVersionInfoModel {
-  const factory _AppVersionInfoModel(
-      {required int major,
-      required int minor,
-      required int patch}) = _$_AppVersionInfoModel;
-  const _AppVersionInfoModel._() : super._();
+abstract class _AppVersionSemanticNoModel extends AppVersionSemanticNoModel {
+  const factory _AppVersionSemanticNoModel(
+      {required int majorNum,
+      required int minorNum,
+      required int patchNum}) = _$_AppVersionSemanticNoModel;
+  const _AppVersionSemanticNoModel._() : super._();
 
-  factory _AppVersionInfoModel.fromJson(Map<String, dynamic> json) =
-      _$_AppVersionInfoModel.fromJson;
+  factory _AppVersionSemanticNoModel.fromJson(Map<String, dynamic> json) =
+      _$_AppVersionSemanticNoModel.fromJson;
 
   @override
-  int get major;
+  int get majorNum;
   @override
-  int get minor;
+  int get minorNum;
   @override
-  int get patch;
+  int get patchNum;
   @override
   @JsonKey(ignore: true)
-  _$AppVersionInfoModelCopyWith<_AppVersionInfoModel> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$AppVersionSemanticNoModelCopyWith<_AppVersionSemanticNoModel>
+      get copyWith => throw _privateConstructorUsedError;
 }
