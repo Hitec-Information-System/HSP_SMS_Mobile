@@ -4,7 +4,7 @@ class LogicConstants {
 
   static const String systemFlag = "MOBILE";
   static const String versionNo =
-      "0.1.10"; // 0.1.10 last updated: 2021-11-19 13:29
+      "0.1.11"; // 0.1.11 last updated: 2021-12-30 14:50
   // static const String baseApiUrl = "http://192.168.0.117:9110";
   static const baseApiUrl = "http://ss.hitecis.co.kr:9110";
   static const baseWebUrl = "http://ss.hitecis.co.kr:9100";
