@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
@@ -15,12 +16,20 @@ import (
 
 func (a *AppHandler) fetchApkInfo(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Println("started")
-
 	query := `
-	SELECT APK_V FROM 
-		(SELECT * FROM APK_VERSION ORDER BY CRT_DT DESC)
-	WHERE ROWNUM = 1
+	SELECT A.COMP_CD,
+		   A.APK_NM,
+		   A.APK_V,
+		   A.FILE_PATH,
+		   A.RMK
+	FROM (
+		SELECT A.*, 
+				ROW_NUMBER() OVER(PARTITION BY A.COMP_CD
+				-- , A.APK_NM 
+				ORDER BY A.CRT_DT DESC, A.UDT_DT DESC) AS ROW_NO 
+			FROM SMS_APK A
+		) A
+	WHERE A.ROW_NO = 1
 	`
 
 	fmt.Println(query)
@@ -60,6 +69,8 @@ func (a *AppHandler) downloadApk(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
+	version = strings.Replace(version, "-", ".", -1)
 
 	rootPath := viper.Get("apk-path")
 	filePath := fmt.Sprintf("%s/%s/", rootPath, version)
