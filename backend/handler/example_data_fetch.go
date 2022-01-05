@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// for test
+// deprecated
 
 func (a *AppHandler) getData(w http.ResponseWriter, r *http.Request) {
 

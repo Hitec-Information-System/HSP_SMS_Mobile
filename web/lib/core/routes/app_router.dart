@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:web/core/routes/auth_route_guard.dart';
 import 'package:web/features/auth/presentation/screen/login_screen.dart';
-import 'package:web/features/home/core/presentation/screen/home_screen.dart';
+import 'package:web/features/home/presentation/screen/home_screen.dart';
 import 'package:web/features/upload/presentation/screen/upload_screen.dart';
 
 @MaterialAutoRouter(

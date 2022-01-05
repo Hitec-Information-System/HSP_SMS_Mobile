@@ -32,7 +32,7 @@ type AppHandler struct {
 	db repository.DBRepository
 }
 
-const FSPATH = "./web"
+const FSPATH = "/build/web"
 
 func MakeHandler() *AppHandler {
 	r := mux.NewRouter()
@@ -46,7 +46,8 @@ func MakeHandler() *AppHandler {
 		db:      repository.NewDBRepository(),
 	}
 
-	r.Handle("/", http.FileServer(http.Dir(FSPATH)))
+	// r.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(FSPATH))))
+	r.Handle("/web/", http.StripPrefix("/web/", http.FileServer(http.Dir("web"))))
 
 	r.HandleFunc("/auth", a.getWebUser).Methods("POST")
 	r.HandleFunc("/sign-in", a.getUser).Methods("POST")
@@ -75,10 +76,6 @@ func MakeHandler() *AppHandler {
 	r.HandleFunc("/apk/{version}", a.downloadApk).Methods("GET")
 	r.HandleFunc("/apk", a.fetchApkInfo).Methods("GET")
 	r.HandleFunc("/apk", a.saveApk).Methods("POST")
-
-	// for test
-	r.HandleFunc("/data", a.getData).Methods("GET")
-	r.HandleFunc("/proto", a.getTestData).Methods("POST")
 
 	return a
 }
@@ -781,9 +778,9 @@ func (a *AppHandler) fetchCurrentProgress(w http.ResponseWriter, r *http.Request
 
 func (a *AppHandler) saveApk(w http.ResponseWriter, r *http.Request) {
 
+	appName := r.FormValue("app-name")
 	appVersion := r.FormValue("app-version")
 	fileName := r.FormValue("file-name")
-
 	dirName := viper.GetString(`apk-path`)
 
 	filePath := fmt.Sprintf("%s/%s/%s", dirName, appVersion, fileName)
@@ -800,19 +797,18 @@ func (a *AppHandler) saveApk(w http.ResponseWriter, r *http.Request) {
 	// 정보 저장
 	query := fmt.Sprintf(`
 	MERGE INTO 
-		APK_VERSION
-	USING DUAL 
+		SMS_APK
+	USING DUAL
 		ON (APK_V = '%s')
-		WHEN MATCHED THEN     
-			UPDATE SET                  
-				UDT_DT = SYSDATE                
+		WHEN MATCHED THEN
+			UPDATE SET
+				UDT_DT = SYSDATE
 		WHEN NOT MATCHED THEN
 			INSERT (COMP_CD, APK_NM, APK_V, FILE_PATH, CRT_DT, UDT_DT)
   	      	VALUES('3000', '%s', '%s', '%s', SYSDATE, SYSDATE)
-	
 	`,
 		appVersion,
-		fileName,
+		appName,
 		appVersion,
 		filePath,
 	)

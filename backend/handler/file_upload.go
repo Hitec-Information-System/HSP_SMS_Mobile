@@ -10,7 +10,7 @@ import (
 )
 
 const MAX_UPLOAD_IMG_SIZE = 1024 * 1024 * 5  // 5MB
-const MAX_UPLOAD_APK_SIZE = 1024 * 1024 * 25 // 25MB
+const MAX_UPLOAD_APK_SIZE = 1024 * 1024 * 30 // 30MB
 
 func imgUploadHandler(w http.ResponseWriter, r *http.Request) {
 	// 32 MB is the default used by FormFile()
@@ -223,8 +223,8 @@ func apkUploadHandler(r *http.Request) error {
 	}
 
 	filetype := http.DetectContentType(buff)
-	fmt.Println(filetype)
-	if filetype != "text/html; charset=utf-8" {
+
+	if filetype != "application/zip" {
 		return fmt.Errorf("the provided file format is not allowed. Please upload a JPEG or PNG image")
 	}
 
@@ -234,7 +234,7 @@ func apkUploadHandler(r *http.Request) error {
 	}
 
 	rootName := viper.GetString(`apk-path`)
-	dirName := fmt.Sprintf("%s/%s", rootName,appVersion)
+	dirName := fmt.Sprintf("%s/%s", rootName, appVersion)
 
 	err = os.MkdirAll(dirName, os.ModePerm)
 	if err != nil {

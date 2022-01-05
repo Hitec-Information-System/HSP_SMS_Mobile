@@ -12,7 +12,7 @@ import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i5;
 
 import '../../features/auth/presentation/screen/login_screen.dart' as _i1;
-import '../../features/home/core/presentation/screen/home_screen.dart' as _i3;
+import '../../features/home/presentation/screen/home_screen.dart' as _i3;
 import '../../features/upload/presentation/screen/upload_screen.dart' as _i4;
 import 'auth_route_guard.dart' as _i6;
 

@@ -7,19 +7,22 @@ part 'app_version.freezed.dart';
 class AppVersion with _$AppVersion {
   const AppVersion._();
   const factory AppVersion({
-    required AppVersionInfo info,
+    required String name,
+    required AppVersionSementicNo versionNo,
+    required AppVersionSementicNo lastVersionNo,
     XFile? file,
   }) = _AppVersion;
-
-  String get infoNo => "${info.major}.${info.minor}.${info.patch}";
 }
 
 @freezed
-class AppVersionInfo with _$AppVersionInfo {
-  const AppVersionInfo._();
-  const factory AppVersionInfo({
-    required int major,
-    required int minor,
-    required int patch,
-  }) = _AppVersionInfo;
+class AppVersionSementicNo with _$AppVersionSementicNo {
+  const AppVersionSementicNo._();
+  const factory AppVersionSementicNo({
+    required int majorNum,
+    required int minorNum,
+    required int patchNum,
+  }) = _AppVersionSementicNo;
+
+  @override
+  String toString() => "$majorNum.$minorNum.$patchNum";
 }

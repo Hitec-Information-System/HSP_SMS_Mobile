@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:web/provider.dart';
+import 'package:web/features/upload/shared/provider.dart';
 
-// 마지막 버전 정보를 보여주는 Widget
+/// 마지막 버전 정보를 보여주는 Widget
 class LatestInfoWidget extends ConsumerWidget {
   const LatestInfoWidget({Key? key}) : super(key: key);
 
@@ -12,10 +12,21 @@ class LatestInfoWidget extends ConsumerWidget {
       appVersionStateNotifierProvider.select((state) => state.version),
     );
 
-    return Text(
-      "Latest Updated Version: ${_version.infoNo}",
+    return Text.rich(
+      TextSpan(
+        text: "Latest Version: ",
+        children: [
+          TextSpan(
+            text: _version.lastVersionNo.toString(),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
       style: const TextStyle(
         fontSize: 16,
+        fontWeight: FontWeight.w200,
       ),
     );
   }

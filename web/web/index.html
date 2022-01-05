@@ -18,15 +18,18 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="PWA for Hwasin Safety Management">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="web">
+  <meta name="apple-mobile-web-app-title" content="test_web">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <title>web</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Hwasin Safety Management</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
@@ -67,7 +70,12 @@
             if (!reg.active && (reg.installing || reg.waiting)) {
               // No active web worker and we have installed or are installing
               // one for the first time. Simply wait for it to activate.
-              waitForActivation(reg.installing || reg.waiting);
+              if(reg.installing != null) {
+                waitForActivation(reg.installing);
+              }
+              if(reg.waiting != null) {
+                waitForActivation(reg.waiting);
+              }
             } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
               // When the app updates the serviceWorkerVersion changes, so we
               // need to ask the service worker to update.
