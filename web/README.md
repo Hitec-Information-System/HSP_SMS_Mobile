@@ -1,4 +1,4 @@
-<img src="./images/hwasin.png" alt="Hawsin" title="Hwasin" align="right" height="100" />
+<img src="./images/hwasin.png" alt="Hwasin" title="Hwasin" align="right" height="100" />
 
 # Hwasin APK Upload Page
 
@@ -112,7 +112,7 @@ fvm 사용하는 경우
 fvm flutter run -d web-server --web-renderer canvaskit
 ```
 
-### Run
+### Test
 
 fvm 사용하지 않는 경우
 ```powershell
@@ -154,7 +154,6 @@ Uncle Bob's Clean Architecture 참고
 
 2. Applcation layer
  - Presentation layer로 부터 받은 Input을 Infrastructure layer로 전달하고 받은 값을 다시 State로 변환하여 사용자에게 전달함
- - 
 
 3. Domain layer
  - Domain의 정보를 담고 있는 entity 및 failure 객체를 보관하는 계층
@@ -341,7 +340,3 @@ code generation을 하기 위해 사용되는 패키지
 code generation을 이용하여 Unit Test Mock을 자동으로 생성해주는 패키지  
 [pub.dev](https://pub.dev/packages/mockito)
 
-
-## Architecture
-
-- 

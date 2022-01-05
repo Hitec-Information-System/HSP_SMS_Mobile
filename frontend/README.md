@@ -1,12 +1,11 @@
-<img src="./images/hwasin.png" alt="Hawsin" title="Hwasin" align="right" height="100" />
+<img src="./images/hwasin.png" alt="Hwasin" title="Hwasin" align="right" height="100" />
 
-# Hwasin APK Upload Page
+# 화신 안전관리 앱
 
 [화신 APK 업로드 페이지](http://ss.hitecis.co.kr:9120) 는 [화신 안전 관리 앱](http://ss.hitecis.co.kr:9110) 의 새 배포 버전(.apk) 을 업로드 하는데 사용하는 페이지임.
 
-[![Initial](./images/upload_page_initial.png)]()
-
-[![File added](./images/upload_page_added.png)]()
+<!-- [![Initial](./images/upload_page_initial.png)]()-->
+<!-- [![File added](./images/upload_page_added.png)]() -->
 
 ## Table of content
 
@@ -41,14 +40,14 @@
 
 - 아래 스크린샷의 프로세스를 참고
 
-[![Initial](./images/upload_page_1.png)]()
-[![Initial](./images/upload_page_2.png)]()
+<!-- [![Initial](./images/upload_page_1.png)]()
+[![Initial](./images/upload_page_2.png)]() -->
 
 ## Dev Setup
 
 ### Flutter 
 
-**Note:** 개발된 환경은 flutter 2.8.1-stable
+**Note:** 개발된 환경은 flutter 2.2.0-stable
 
 #### Windows
 
@@ -63,7 +62,7 @@ choco install -y fvm
 
 2. Set up certain flutter version
 ```powershell
-fvm install 2.8.1
+fvm install 2.2.0
 ```
 
 3. Check installation is done
@@ -79,11 +78,11 @@ fvm list
 ```powershell
 # global
 #  - set global flutter version
-fvm global 2.8.1
+fvm global 2.2.0
 
 # local
 #  - only under the targeting project directory
-fvm use 2.8.1
+fvm use 2.2.0
 ```
 
 
@@ -112,7 +111,7 @@ fvm 사용하는 경우
 fvm flutter run -d web-server --web-renderer canvaskit
 ```
 
-### Run
+### Test
 
 fvm 사용하지 않는 경우
 ```powershell
@@ -186,40 +185,41 @@ Base Architecture에 따라 domain(or feature) 단위로 나누고,
  ┃ ┣ 📂routes            : 이동할 수 있는 라우팅 정의 및 가드 설정
  ┃ ┗ 📂widgets           : 공통 사용되는 위젯
  ┃   ┗ 📜app_widget.dart : 프로그램 config 정의
- ┣ 📂auth                : 사용자 인증 관련 feature
- ┃ ┣ 📂application       : application layer. User의 Input을 받아 다른 layer로 전달
- ┃ ┣ 📂domain            : domain layer
- ┃ ┃ ┣ 📂entity          : feature 핵심 객체 선언
- ┃ ┃ ┗ 📂repository      : infrastructure layer에서 사용할 repository interface 제공
- ┃ ┣ 📂infrastructure    : infrastructure layer
- ┃ ┃ ┣ 📂datasource      : 원천 데이터 소스로부터 데이터 받아오는 로직 제공
- ┃ ┃ ┣ 📂model           : datasource로 부터 받은 데이터를 변환하여 가지고 있는 객체 선언
- ┃ ┃ ┗ 📂repository      : datasource로 받아온 데이터를 다른 layer로 전달
- ┃ ┣ 📂presentation      : presentation layer. 사용자가 보는 화면 정의
- ┃ ┃ ┣ 📂screen          : presentation layer 에서 가장 큰 단위의 화면
- ┃ ┃ ┣ 📂page            : screen 아래 단위의 화면
- ┃ ┃ ┗ 📂widget          : auth feature에서 사용되는 단위 widget 모음
- ┃ ┗ 📂shared            : BLoC, Dependency Injection 을 위한 provider 정의
- ┃ 📂home                : 메인 선택화면 관련 feature. 특별한 로직이 필요 없어 화면만 존재
- ┃ ┗ 📂presentation      : presentation layer. 사용자가 보는 화면 정의
- ┃   ┣ 📂page            : presentation layer 에서 가장 큰 단위의 화면
- ┃   ┣ 📂screen          : screen 아래 단위의 화면
- ┃   ┗ 📂widget          : home feature에서 사용되는 단위 widget 모음
- ┃ 📂upload              : 업로드 관련 feature
- ┃ ┣ 📂application       : application layer. 다른 계층으로 명령 전달
- ┃ ┣ 📂domain            : domain layer
- ┃ ┃ ┣ 📂entity          : feature 핵심 객체 선언
- ┃ ┃ ┗ 📂repository      : infrastructure layer에서 사용할 repository interface 제공
- ┃ ┣ 📂infrastructure    : infrastructure layer
- ┃ ┃ ┣ 📂datasource      : datasource로부터 데이터 받아오는 로직 제공
- ┃ ┃ ┃ ┗ 📂remote        : datasource가 remote 일때 사용하는 로직
- ┃ ┃ ┣ 📂model           : DTO 정의
- ┃ ┃ ┗ 📂repository      : datasource로 받아온 데이터를 다른 layer로 전달
- ┃ ┣ 📂presentation      : presentation layer. 사용자가 보는 화면 정의
- ┃ ┃ ┣ 📂page            : presentation layer 에서 가장 큰 단위의 화면
- ┃ ┃ ┣ 📂screen          : screen 아래 단위의 화면
- ┃ ┃ ┗ 📂widget          : upload feature에서 사용되는 단위 widget 모음
- ┃ ┗ 📂shared            : BLoC, Dependency Injection 을 위한 provider 정의
+ ┣ 📂features            : feature 별로 domain을 묶어 관리
+ ┃ ┣ 📂auth              : 사용자 인증 관련 feature
+ ┃ ┃ ┣ 📂application     : application layer. User의 Input을 받아 다른 layer로 전달
+ ┃ ┃ ┣ 📂domain          : domain layer
+ ┃ ┃ ┃ ┣ 📂entity        : feature 핵심 객체 선언
+ ┃ ┃ ┃ ┗ 📂repository    : infrastructure layer에서 사용할 repository interface 제공
+ ┃ ┃ ┣ 📂infrastructure  : infrastructure layer
+ ┃ ┃ ┃ ┣ 📂datasource    : 원천 데이터 소스로부터 데이터 받아오는 로직 제공
+ ┃ ┃ ┃ ┣ 📂model         : datasource로 부터 받은 데이터를 변환하여 가지고 있는 객체 선언
+ ┃ ┃ ┃ ┗ 📂repository    : datasource로 받아온 데이터를 다른 layer로 전달
+ ┃ ┃ ┣ 📂presentation    : presentation layer. 사용자가 보는 화면 정의
+ ┃ ┃ ┃ ┣ 📂screen        : presentation layer 에서 가장 큰 단위의 화면
+ ┃ ┃ ┃ ┣ 📂page          : screen 아래 단위의 화면
+ ┃ ┃ ┃ ┗ 📂widget        : auth feature에서 사용되는 단위 widget 모음
+ ┃ ┃ ┗ 📂shared          : BLoC, Dependency Injection 을 위한 provider 정의
+ ┃ ┣ 📂home              : 메인 선택화면 관련 feature. 특별한 로직이 필요 없어 화면만 존재
+ ┃ ┃ ┗ 📂presentation    : presentation layer. 사용자가 보는 화면 정의
+ ┃ ┃   ┣ 📂page          : presentation layer 에서 가장 큰 단위의 화면
+ ┃ ┃   ┣ 📂screen        : screen 아래 단위의 화면
+ ┃ ┃   ┗ 📂widget        : home feature에서 사용되는 단위 widget 모음
+ ┃ ┗ 📂upload            : 업로드 관련 feature
+ ┃   ┣ 📂application     : application layer. 다른 계층으로 명령 전달
+ ┃   ┣ 📂domain          : domain layer
+ ┃   ┃ ┣ 📂entity        : feature 핵심 객체 선언
+ ┃   ┃ ┗ 📂repository    : infrastructure layer에서 사용할 repository interface 제공
+ ┃   ┣ 📂infrastructure  : infrastructure layer
+ ┃   ┃ ┣ 📂datasource    : datasource로부터 데이터 받아오는 로직 제공
+ ┃   ┃ ┃ ┗ 📂remote      : datasource가 remote 일때 사용하는 로직
+ ┃   ┃ ┣ 📂model         : DTO 정의
+ ┃   ┃ ┗ 📂repository    : datasource로 받아온 데이터를 다른 layer로 전달
+ ┃   ┣ 📂presentation    : presentation layer. 사용자가 보는 화면 정의
+ ┃   ┃ ┣ 📂page          : presentation layer 에서 가장 큰 단위의 화면
+ ┃   ┃ ┣ 📂screen        : screen 아래 단위의 화면
+ ┃   ┃ ┗ 📂widget        : upload feature에서 사용되는 단위 widget 모음
+ ┃   ┗ 📂shared          : BLoC, Dependency Injection 을 위한 provider 정의
  ┣ 📜main.dart           : entry point
  ┗ 📜provider.dart       : 공통 provider 정의
 ```
@@ -339,7 +339,3 @@ code generation을 하기 위해 사용되는 패키지
 code generation을 이용하여 Unit Test Mock을 자동으로 생성해주는 패키지  
 [pub.dev](https://pub.dev/packages/mockito)
 
-
-## Architecture
-
-- 

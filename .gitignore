@@ -1,2 +1,4 @@
 backend/tmp/main.exe
 backend/main.exe
+**/.tool-versions
+.envrc
