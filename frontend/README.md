@@ -1,8 +1,9 @@
 <img src="./images/hwasin.png" alt="Hwasin" title="Hwasin" align="right" height="100" />
 
-# 화신 안전관리 앱
+# 화신정공 안전관리 모바일 앱
 
-[화신 APK 업로드 페이지](http://ss.hitecis.co.kr:9120) 는 [화신 안전 관리 앱](http://ss.hitecis.co.kr:9110) 의 새 배포 버전(.apk) 을 업로드 하는데 사용하는 페이지임.
+[화신정공 안전관리 모바일앱](http://ss.hitecis.co.kr:9110)은 화신정공 근로자들의 안전을 위하여 
+사전 정의된 점검 장소(사무실, 공장 등)에서 필수 안전 점검을 모바일 장치를 통해 점검 사항을 확인, 저장 할 수 있도록 만들어진 애플리케이션
 
 <!-- [![Initial](./images/upload_page_initial.png)]()-->
 <!-- [![File added](./images/upload_page_added.png)]() -->
