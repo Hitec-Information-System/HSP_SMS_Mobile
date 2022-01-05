@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web/features/upload/application/app_version_state.dart';
 
-import 'package:web/features/upload/presentation/provider/app_version_state.dart';
 import 'package:web/features/upload/presentation/widgets/widgets.dart';
-import 'package:web/provider.dart';
+import 'package:web/features/upload/shared/provider.dart';
 
 /// 새 버전 등록을 관장하는 위젯
 /// - 파일 등록 최상위 위젯

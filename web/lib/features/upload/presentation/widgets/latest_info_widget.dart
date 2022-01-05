@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:web/provider.dart';
+import 'package:web/features/upload/shared/provider.dart';
 
 /// 마지막 버전 정보를 보여주는 Widget
 class LatestInfoWidget extends ConsumerWidget {

@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web/core/constant/constant.dart';
 import 'package:web/core/gen/fonts.gen.dart';
 import 'package:web/core/widgets/widgets.dart';
+import 'package:web/features/upload/application/app_version_state.dart';
 import 'package:web/features/upload/presentation/page/upload_page.dart';
-import 'package:web/features/upload/presentation/provider/app_version_state.dart';
-import 'package:web/provider.dart';
+import 'package:web/features/upload/shared/provider.dart';
 
 class UploadScreen extends ConsumerWidget {
   const UploadScreen({Key? key}) : super(key: key);

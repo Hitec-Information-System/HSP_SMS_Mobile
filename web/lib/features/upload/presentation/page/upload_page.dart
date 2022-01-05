@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:web/features/upload/presentation/provider/app_version_event.dart';
+import 'package:web/features/upload/application/app_version_event.dart';
 import 'package:web/features/upload/presentation/widgets/widgets.dart';
-import 'package:web/provider.dart';
+import 'package:web/features/upload/shared/provider.dart';
 
 class UploadPage extends ConsumerStatefulWidget {
   const UploadPage({Key? key}) : super(key: key);

@@ -1,3 +1,4 @@
+export 'app_widget.dart';
 export 'custom_button.dart';
 export 'custom_dropdown_button.dart';
 export 'dialog.dart';

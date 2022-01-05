@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web/core/constant/constant.dart';
 import 'package:web/core/widgets/widgets.dart';
-import 'package:web/features/upload/presentation/provider/app_version_event.dart';
-import 'package:web/provider.dart';
+import 'package:web/features/upload/application/app_version_event.dart';
+import 'package:web/features/upload/shared/provider.dart';
 
 /// 새로운 버전 등록 버튼
 class AppInfoSubmitButton extends ConsumerWidget {
