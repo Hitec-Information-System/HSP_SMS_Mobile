@@ -6,3 +6,9 @@
 2. [backend]((./backend/README.md)) : 모바일 앱과 통신하는 앱 서버(golang)
 3. [web](./web/README.md) : 모바일 앱의 버전 파일을 올리는 웹 앱(flutter)
 4. packages : flutter package 원작자의 dependency error를 해결하기 위해 추가한 모듈
+
+## 주의
+- 다음 커맨드로 추적하지 말아야할 파일 잘 관리해주기
+```bash
+git update-index --assume-unchanged <file>
+```

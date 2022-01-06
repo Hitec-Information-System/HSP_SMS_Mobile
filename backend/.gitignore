@@ -7,3 +7,5 @@ uploads
 apks
 
 **/main.exe
+
+tmp/
