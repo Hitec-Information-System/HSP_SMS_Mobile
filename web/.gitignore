@@ -235,20 +235,6 @@ Temporary Items
 # Support for Project snippet scope
 !.vscode/*.code-snippets
 
-### Web ###
-*.asp
-*.cer
-*.csr
-*.css
-*.htm
-*.html
-*.js
-*.jsp
-*.php
-*.rss
-*.wasm
-*.wat
-*.xhtml
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -292,7 +278,6 @@ $RECYCLE.BIN/
 
 # Generated files
 bin/
-gen/
 
 # Gradle files
 .gradle
