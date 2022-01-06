@@ -2,7 +2,7 @@
 
 # Hwasin APK Upload Page
 
-[화신 APK 업로드 페이지](http://ss.hitecis.co.kr:9120) 는 [화신 안전 관리 앱](http://ss.hitecis.co.kr:9110) 의 새 배포 버전(.apk) 을 업로드 하는데 사용하는 페이지임.
+화신 APK 업로드 페이지 는 화신 안전 관리 앱 의 새 배포 버전(.apk) 을 업로드 하는데 사용하는 페이지임.
 
 [![Initial](./images/upload_page_initial.png)]()
 
