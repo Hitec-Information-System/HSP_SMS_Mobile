@@ -14,8 +14,6 @@ class LoginScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("login screen built");
-
     ref.listen<AuthState>(
       authStateNotifierProvider,
       (prev, state) {

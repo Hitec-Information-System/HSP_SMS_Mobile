@@ -51,8 +51,6 @@ class _DragDropWidgetState extends ConsumerState<FileDropWidget>
 
   @override
   Widget build(BuildContext contsext) {
-    print("drop drag built");
-
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {

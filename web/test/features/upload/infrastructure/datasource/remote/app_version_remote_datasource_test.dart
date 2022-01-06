@@ -20,9 +20,6 @@ void main() {
 
   const String _endpoint = "/apk";
 
-  final tMultipartFile = MultipartFile.fromBytes([123, 456], filename: "file");
-  final formData = FormData.fromMap({"file": tMultipartFile});
-
   void setUpGetResponseSuccess200(String endpoint) {
     dioAdapter.onGet(
       endpoint,
