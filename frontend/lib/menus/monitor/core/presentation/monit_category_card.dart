@@ -1,8 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shimmer/shimmer.dart';
-
 import 'package:frontend/check/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
@@ -11,6 +8,8 @@ import 'package:frontend/core/presentation/widgets/widgets.dart';
 import 'package:frontend/menus/monitor/core/domain/check_spot.dart';
 import 'package:frontend/menus/monitor/core/shared/providers.dart';
 import 'package:frontend/tag/core/shared/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MonitCategoryCard extends StatelessWidget {
   const MonitCategoryCard({
@@ -243,8 +242,6 @@ class SubCategoryCard extends StatelessWidget {
                         switchingChild:
                             Consumer(builder: (context, ref, child) {
                           final tagState = ref.watch(tagNotifierProvider);
-
-                          print("bottom sheet built");
 
                           return tagState.maybeWhen(
                             nfcReading: () => Text(

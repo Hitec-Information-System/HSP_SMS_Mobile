@@ -5,13 +5,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:frontend/auth/application/auth_notifier.dart';
 import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/version_check/application/app_info_notifier.dart';
 import 'package:frontend/version_check/domain/app_info.dart';
 import 'package:frontend/version_check/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SignInPage extends HookConsumerWidget {

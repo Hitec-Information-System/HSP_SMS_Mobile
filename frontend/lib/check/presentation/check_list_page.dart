@@ -1,15 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/check/application/check_info_notifier.dart';
-
 import 'package:frontend/check/presentation/mobile/check_list_mobile_page.dart';
 import 'package:frontend/check/presentation/tablet/check_list_tablet_page.dart';
 import 'package:frontend/check/shared/providers.dart';
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/presentation/widgets/responsive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 
 class CheckListPage extends ConsumerStatefulWidget {
   const CheckListPage({

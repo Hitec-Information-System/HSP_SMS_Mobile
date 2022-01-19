@@ -1,7 +1,7 @@
 import 'package:frontend/auth/domain/user.dart';
 import 'package:frontend/core/shared/providers.dart';
-import 'package:frontend/menus/home/application/board_notifier.dart';
 import 'package:frontend/menus/home/application/board_details_notifier.dart';
+import 'package:frontend/menus/home/application/board_notifier.dart';
 import 'package:frontend/menus/home/infrastructure/board_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

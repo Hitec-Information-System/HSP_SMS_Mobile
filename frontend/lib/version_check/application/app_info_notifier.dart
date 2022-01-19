@@ -1,9 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:frontend/menus/monitor/core/domain/check_monitor_failure.dart';
 import 'package:frontend/version_check/domain/app_info.dart';
 import 'package:frontend/version_check/infrastructure/app_info_repository.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'app_info_notifier.freezed.dart';
 

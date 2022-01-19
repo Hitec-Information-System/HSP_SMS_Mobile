@@ -9,14 +9,10 @@ class CheckSaveButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("button rebuilt");
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: LayoutConstants.paddingM),
       child: ElevatedButton(
         onPressed: () {
-          print("pressed");
-
           if (ref
               .watch(
                   checkInfoStateNotifierProvider.select((state) => state.info))

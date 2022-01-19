@@ -1,12 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:nfc_manager/nfc_manager.dart';
-
 import 'package:frontend/tag/core/domain/tag.dart';
 import 'package:frontend/tag/core/domain/tag_failure.dart';
 import 'package:frontend/tag/nfc/infrastructure/nfc_converter.dart';
 import 'package:frontend/tag/qr/infrastructure/qr_converter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 
 part 'tag_notifier.freezed.dart';
 

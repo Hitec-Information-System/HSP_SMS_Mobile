@@ -1,12 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:frontend/core/domain/added_image.dart';
+import 'package:frontend/core/infrastructure/dio_extensions.dart';
 import 'package:frontend/core/infrastructure/network_exceptions.dart';
 import 'package:frontend/menus/home/domain/board.dart';
 import 'package:frontend/menus/home/infrastructure/board_dto.dart';
 import 'package:frontend/menus/monitor/core/domain/check_monitor_failure.dart';
-
-import 'package:frontend/core/infrastructure/dio_extensions.dart';
 
 class BoardItemRepository {
   final Dio _dio;

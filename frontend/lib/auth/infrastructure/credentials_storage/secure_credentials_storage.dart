@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend/auth/infrastructure/user_dto.dart';
 import 'package:frontend/auth/infrastructure/credentials_storage/credentials_storage.dart';
+import 'package:frontend/auth/infrastructure/user_dto.dart';
 
 class SecureCredentialStorage implements CredentialsStorage {
   final FlutterSecureStorage _storage;

@@ -7,7 +7,6 @@ class MenuBuildingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("building built");
     return MonitPage(
       categoryNm: "시설물",
       monitNotifierProvider: buildingMonitStateNotifierProvider,

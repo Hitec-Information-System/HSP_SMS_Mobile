@@ -6,7 +6,6 @@ class MenuLinePage extends StatelessWidget {
   const MenuLinePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print("line built");
     return MonitPage(
       categoryNm: "라인",
       monitNotifierProvider: lineMonitStateNotifierProvider,

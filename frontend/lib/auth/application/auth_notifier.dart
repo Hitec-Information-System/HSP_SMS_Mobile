@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:frontend/auth/domain/user.dart';
 import 'package:frontend/auth/domain/auth_failure.dart';
+import 'package:frontend/auth/domain/user.dart';
 import 'package:frontend/auth/infrastructure/authenticator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

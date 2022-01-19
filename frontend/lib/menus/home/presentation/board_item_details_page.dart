@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:frontend/menus/home/shared/providers.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/menus/home/application/board_details_notifier.dart';
+import 'package:frontend/menus/home/shared/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // TextField 때문에 화면을 둘로 분리함
 class BoardItemDetailsPage extends ConsumerStatefulWidget {

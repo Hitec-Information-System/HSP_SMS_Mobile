@@ -12,8 +12,6 @@ class ChecklistMobilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("mobile page built");
-
     return Scaffold(
       body: SafeArea(
         child: Padding(

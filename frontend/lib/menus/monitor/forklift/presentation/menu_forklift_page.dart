@@ -7,7 +7,6 @@ class MenuForkLiftPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("forklift built");
     return MonitPage(
       categoryNm: "지게차",
       monitNotifierProvider: forkliftMonitStateNotifierProvider,

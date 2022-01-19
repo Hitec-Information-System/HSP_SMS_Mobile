@@ -387,6 +387,9 @@ hs_err_pid*
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+# Remove the following pattern if you wish to check in your lock file
+pubspec.lock
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,web,visualstudiocode,intellij,androidstudio,flutter
 
 # Project

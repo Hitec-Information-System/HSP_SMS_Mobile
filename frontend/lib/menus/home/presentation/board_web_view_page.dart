@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import 'package:frontend/core/presentation/constants/constants.dart';
 
 class BoardWebViewPage extends ConsumerStatefulWidget {
   const BoardWebViewPage({
