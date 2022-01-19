@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:frontend/core/infrastructure/dio_extensions.dart';
 import 'package:frontend/menus/monitor/core/domain/check_monitor_failure.dart';
 import 'package:frontend/version_check/domain/app_info.dart';
 import 'package:frontend/version_check/infrastructure/app_info_dto.dart';
-import 'package:frontend/core/infrastructure/dio_extensions.dart';
 
 class AppInfoRepository {
   final Dio _dio;

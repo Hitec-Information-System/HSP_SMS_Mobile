@@ -233,7 +233,9 @@ class _ExpandableFABState extends State<ExpandableFAB>
       if (widget.openCloseDial != null) widget.openCloseDial!.value = newValue;
       if (newValue && widget.onOpen != null) widget.onOpen?.call();
       if (!newValue && widget.onClose != null) widget.onClose?.call();
-    } else if (widget.onOpen != null) widget.onOpen?.call();
+    } else if (widget.onOpen != null) {
+      widget.onOpen?.call();
+    }
   }
 
   List<Widget> _getChildrenList() {

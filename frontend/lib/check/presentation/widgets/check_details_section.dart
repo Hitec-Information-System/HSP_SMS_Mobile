@@ -3,8 +3,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/check/presentation/remark_popup.dart';
 import 'package:frontend/check/presentation/widgets.dart';
@@ -14,6 +12,7 @@ import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/presentation/routes/hero_dialog_router.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final _currentDetail =
     Provider<CheckDetails>((ref) => throw UnimplementedError());
@@ -25,8 +24,6 @@ class CheckListDetailsSection extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("list rebuilt");
-
     final scrollController = useScrollController();
 
     final intervals = ref.watch(
@@ -77,8 +74,6 @@ class CheckListDetailsDirectory extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("directory items built");
-
     final directoryItems = ref.watch(checkInfoStateNotifierProvider.select(
         (state) => state.info.details
             .where((detail) => detail.intervalChk == id)

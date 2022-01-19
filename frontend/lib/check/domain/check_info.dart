@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frontend/core/domain/added_image.dart';
 import 'package:intl/intl.dart';

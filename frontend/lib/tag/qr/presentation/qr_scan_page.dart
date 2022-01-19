@@ -1,18 +1,15 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/check/application/check_info_notifier.dart';
 import 'package:frontend/check/shared/providers.dart';
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/tag/core/application/tag_notifier.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
-
 import 'package:frontend/tag/core/domain/tag.dart';
 import 'package:frontend/tag/core/shared/providers.dart';
-
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScanPage extends ConsumerStatefulWidget {
   const QRScanPage({
@@ -69,17 +66,13 @@ class _QRScanPageState extends ConsumerState<QRScanPage> {
         failure: (failure) {
           // TODO: 에러 발생시 작성하기
         },
-        orElse: () {
-          print("tagState orElse invoked!!!");
-        },
+        orElse: () {},
       );
     });
 
     ref.listen<CheckInfoState>(checkInfoStateNotifierProvider, (state) {
       state.maybeWhen(
-        orElse: () {
-          print("checkState orElse invoked!!!");
-        },
+        orElse: () {},
       );
     });
 

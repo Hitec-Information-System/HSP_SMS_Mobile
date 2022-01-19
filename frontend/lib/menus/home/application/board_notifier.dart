@@ -1,11 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:frontend/auth/domain/user.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/menus/home/domain/board.dart';
 import 'package:frontend/menus/home/infrastructure/board_repository.dart';
 import 'package:frontend/menus/monitor/core/domain/check_monitor_failure.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'board_notifier.freezed.dart';
 

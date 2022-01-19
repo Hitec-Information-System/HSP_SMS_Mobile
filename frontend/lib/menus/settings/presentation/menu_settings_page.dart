@@ -2,11 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:frontend/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 
 class MenuSettingsPage extends ConsumerWidget {
   const MenuSettingsPage({Key? key}) : super(key: key);

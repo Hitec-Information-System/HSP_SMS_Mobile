@@ -11,8 +11,6 @@ class ChecklistTabletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("tablet built");
-
     return Scaffold(
       body: SafeArea(
         child: Row(

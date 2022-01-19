@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
 import 'package:frontend/check/domain/check_info.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
+import 'package:intl/intl.dart';
 
 class CheckHeaderInfo extends StatelessWidget {
   const CheckHeaderInfo({
@@ -14,7 +13,6 @@ class CheckHeaderInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("header rebuilt");
     return Padding(
       padding:
           const EdgeInsets.symmetric(horizontal: LayoutConstants.paddingXS),

@@ -75,8 +75,6 @@ class TagBottomSheet extends StatelessWidget {
                         final checkInfoState =
                             ref.watch(checkInfoStateNotifierProvider);
 
-                        print("bottom sheet built");
-
                         return checkInfoState.maybeWhen(
                           initial: (_, info) => Text(
                             "태그를 스캔하여 주세요",

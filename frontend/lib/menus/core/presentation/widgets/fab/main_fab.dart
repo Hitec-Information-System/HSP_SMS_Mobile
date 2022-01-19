@@ -3,19 +3,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:frontend/check/shared/providers.dart';
+import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:frontend/core/presentation/widgets/widgets.dart';
 import 'package:frontend/tag/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 
 class MainFAB extends HookConsumerWidget {
   const MainFAB({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("fab built");
-
     final isDialOpen = useState<bool>(false);
 
     return ExpandableFAB(
@@ -60,8 +57,6 @@ class MainFAB extends HookConsumerWidget {
               switchingChild: Consumer(builder: (context, ref, child) {
                 final checkInfoState =
                     ref.watch(checkInfoStateNotifierProvider);
-
-                print("bottom sheet built");
 
                 return checkInfoState.maybeWhen(
                   initial: (_, info) => Text(

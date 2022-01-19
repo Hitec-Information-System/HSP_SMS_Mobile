@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:frontend/auth/application/auth_notifier.dart';
@@ -6,8 +5,6 @@ import 'package:frontend/auth/shared/providers.dart';
 import 'package:frontend/core/presentation/constants/constants.dart';
 import 'package:frontend/core/presentation/widgets/dialogs.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:frontend/core/presentation/routes/app_router.gr.dart';
 
 class PasswordChangePage extends HookConsumerWidget {
   const PasswordChangePage({Key? key}) : super(key: key);
