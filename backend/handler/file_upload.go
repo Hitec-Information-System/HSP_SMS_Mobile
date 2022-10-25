@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const MAX_UPLOAD_IMG_SIZE = 1024 * 1024 * 5  // 5MB
+const MAX_UPLOAD_IMG_SIZE = 1024 * 1024 * 10 // 10MB
 const MAX_UPLOAD_APK_SIZE = 1024 * 1024 * 30 // 30MB
 
 func imgUploadHandler(w http.ResponseWriter, r *http.Request) {
@@ -33,7 +33,7 @@ func imgUploadHandler(w http.ResponseWriter, r *http.Request) {
 
 		if fileHeader.Size > MAX_UPLOAD_IMG_SIZE {
 			rd.JSON(w, http.StatusBadRequest, map[string]interface{}{
-				"msg": fmt.Sprintf("The uploaded image is too big: %s. Please use an image less than 1MB in size", fileHeader.Filename),
+				"msg": fmt.Sprintf("The uploaded image is too big: %s. Please use an image less than 10MB in size", fileHeader.Filename),
 			})
 			return
 		}
