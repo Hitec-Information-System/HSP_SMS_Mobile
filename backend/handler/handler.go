@@ -84,17 +84,13 @@ func (a *AppHandler) Close() {
 	a.db.Close()
 }
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-
-	fmt.Println("passed")
+func indexHandler(_ http.ResponseWriter, r *http.Request) {
 
 	_ = http.FileServer(http.Dir(FSPATH))
-	fmt.Println("passed1")
 
 	fmt.Println(r.URL.Path)
 
 	if r.URL.Path != "/" {
-		fmt.Println("passed2")
 
 		fullPath := FSPATH + strings.TrimPrefix(path.Clean(r.URL.Path), "/")
 		fmt.Println(fullPath)
@@ -474,8 +470,7 @@ func (a *AppHandler) fetchCheckStatusTodayByGubun(w http.ResponseWriter, r *http
 			var resultsRe []map[string]interface{}
 			var errRe error
 
-			// 요구사항: 실패시 최대 5번 더 시도 하여 보기
-			// TODO: 확인하고 로직 삭제
+			// 이만구 이사님 요구사항: 실패시 최대 5번 더 시도 하여 보기
 			for i := 0; i < 5; i++ {
 				fmt.Println(i)
 				resultsRe, errRe = a.db.GetSPDataWithLOB(query)

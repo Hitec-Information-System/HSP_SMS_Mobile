@@ -57,8 +57,11 @@ class CheckInfoRemoteService {
   Future<RemoteResponse<Unit>> saveCheckResults(
       Map<String, dynamic> params, List<AddedImage> images) async {
     try {
-      await _saveCheckInfoResult(params);
+      // 2022-01-19
+      //  파일 정보는 저장 되었지만 이미지가 저장되지 않는 경우가 생겨
+      //  저장 순서를 (이전)db정보->이미지 (현재)이미지->정보로 변경함
       await _saveCheckImages(images);
+      await _saveCheckInfoResult(params);
 
       return const RemoteResponse.withNewData(unit);
     } on DioError catch (e) {
