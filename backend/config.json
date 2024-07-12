@@ -1,0 +1,20 @@
+{
+  "debug": true,
+  "server": {
+    "port": "9110"
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "port": "1521",
+    "user": "hs_sms",
+    "pass": "password",
+    "name": "orcl"
+  },
+  "img-path": "D:/WebSite/HSP_SMS/publish/wwwroot/uploads",
+  "board-img-path":"D:/WebSite/HSP_SMS/publish/wwwroot/board_uploads",
+  "apk-path": "./apks",
+  "token": {
+    "ACCESS_SECRET": "testAccessToken",
+    "REFRESH_SECRET": "testRefreshToken"
+  }
+}
